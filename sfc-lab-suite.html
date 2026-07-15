@@ -254,12 +254,6 @@
             <button id="extractorCopyBtn" class="px-5 py-2.5 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 font-bold text-sm transition-colors">
               📋 Salin Tabel (TSV)
             </button>
-            <button id="extractorSendTrendBtn" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm transition-colors">
-              🔥 Kirim ke Trend & MP
-            </button>
-            <button id="extractorSaveDataBtn" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm transition-colors">
-              💾 Simpan ke Data Master
-            </button>
             <button id="extractorBackBtn" class="px-5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold text-sm transition-colors">
               🔄 Ekstrak Baru / Kembali
             </button>
@@ -1992,8 +1986,6 @@ const Extractor = {
     this.tubeBadge = document.getElementById('extractorTubeBadge');
     
     this.copyBtn = document.getElementById('extractorCopyBtn');
-    this.sendTrendBtn = document.getElementById('extractorSendTrendBtn');
-    this.saveDataBtn = document.getElementById('extractorSaveDataBtn');
     this.backBtn = document.getElementById('extractorBackBtn');
     
     this.saveModal = document.getElementById('extractorSaveModal');
@@ -2026,8 +2018,6 @@ const Extractor = {
     });
 
     this.copyBtn.addEventListener('click', () => this.copyTable());
-    this.sendTrendBtn.addEventListener('click', () => this.sendToTrend());
-    this.saveDataBtn.addEventListener('click', () => this.openSaveModal());
     this.backBtn.addEventListener('click', () => this.backToInput());
     this.closeSaveModal.addEventListener('click', () => this.saveModal.classList.add('hidden'));
     
@@ -2140,8 +2130,6 @@ const Extractor = {
           sfc: sfcValues
         });
       });
-
-      this.sendTrendBtn.classList.remove('hidden');
     }
 
     if (totalItems > 0) {
