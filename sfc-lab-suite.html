@@ -346,6 +346,15 @@
                   </div>
                 </label>
               </div>
+              
+              <!-- Pilihan Suhu Mulai Dinamis -->
+              <div id="trendStartTempContainer" class="space-y-1.5 mt-3 pt-2.5 border-t border-zinc-200 dark:border-zinc-800 transition-colors">
+                <span class="block text-[9px] font-bold text-zinc-450 dark:text-zinc-500 tracking-wider">SUHU MULAI (START TEMP)</span>
+                <div class="grid grid-cols-2 gap-2" id="trendStartTempGrid">
+                  <!-- Diisi via JS -->
+                </div>
+              </div>
+
               <span id="trendTempPreview" class="block text-[10px] text-zinc-400 dark:text-zinc-500 font-mono leading-tight mt-1.5"></span>
             </div>
 
@@ -2266,12 +2275,7 @@ const Trend = {
   sfcChart: null,
   currentLabels: [],
   currentTempValues: [],
-
-  tempMode1: ['2.5°C', '5°C', '7.5°C', '10°C', '12.5°C', '15°C', '17.5°C', '20°C'],
-  tempValues1: [2.5, 5.0, 7.5, 10.0, 12.5, 15.0, 17.5, 20.0],
-  
-  tempMode2: ['10°C', '15°C', '20°C', '25°C', '30°C', '35°C', '40°C', '45°C', '50°C', '55°C', '60°C'],
-  tempValues2: [10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0],
+  startTempOption: null,
 
   chartColors: [
     '#3498db', '#e74c3c', '#2ecc71', '#f1c40f', '#9b59b6', 
@@ -2290,8 +2294,14 @@ const Trend = {
     this.predictionBox = document.getElementById('trendPredictionBox');
     this.predictionList = document.getElementById('trendPredictionList');
     
-    this.tempRadio1.addEventListener('change', () => this.updateTempPreview());
-    this.tempRadio2.addEventListener('change', () => this.updateTempPreview());
+    this.tempRadio1.addEventListener('change', () => {
+      this.startTempOption = null;
+      this.updateTempPreview();
+    });
+    this.tempRadio2.addEventListener('change', () => {
+      this.startTempOption = null;
+      this.updateTempPreview();
+    });
     
     this.processBtn.addEventListener('click', () => this.processPastedData());
     this.clearBtn.addEventListener('click', () => this.clearData());
@@ -2302,15 +2312,80 @@ const Trend = {
     this.updateTempPreview();
   },
 
+  renderStartTempSelector() {
+    const isMode1 = this.tempRadio1.checked;
+    const grid = document.getElementById('trendStartTempGrid');
+    if (!grid) return;
+    
+    if (!this.startTempOption) {
+      this.startTempOption = isMode1 ? '2.5' : '10.0';
+    }
+    
+    if (isMode1 && this.startTempOption === '10.0') {
+      this.startTempOption = '2.5';
+    } else if (!isMode1 && this.startTempOption === '2.5') {
+      this.startTempOption = '10.0';
+    }
+    
+    if (isMode1) {
+      grid.innerHTML = `
+        <label class="cursor-pointer select-none flex-1">
+          <input type="radio" name="trendStartTemp" value="2.5" ${this.startTempOption === '2.5' ? 'checked' : ''} class="sr-only peer">
+          <div class="py-2 px-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-55/30 dark:bg-zinc-900/30 text-center text-xs font-bold text-zinc-500 dark:text-zinc-400 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 peer-checked:text-emerald-600 dark:peer-checked:text-emerald-400 transition-all">
+            Mulai 2.5°C
+          </div>
+        </label>
+        <label class="cursor-pointer select-none flex-1">
+          <input type="radio" name="trendStartTemp" value="5.0" ${this.startTempOption === '5.0' ? 'checked' : ''} class="sr-only peer">
+          <div class="py-2 px-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-55/30 dark:bg-zinc-900/30 text-center text-xs font-bold text-zinc-500 dark:text-zinc-400 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 peer-checked:text-emerald-600 dark:peer-checked:text-emerald-400 transition-all">
+            Mulai 5.0°C
+          </div>
+        </label>
+      `;
+    } else {
+      grid.innerHTML = `
+        <label class="cursor-pointer select-none flex-1">
+          <input type="radio" name="trendStartTemp" value="5.0" ${this.startTempOption === '5.0' ? 'checked' : ''} class="sr-only peer">
+          <div class="py-2 px-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-55/30 dark:bg-zinc-900/30 text-center text-xs font-bold text-zinc-500 dark:text-zinc-400 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 peer-checked:text-emerald-600 dark:peer-checked:text-emerald-400 transition-all">
+            Mulai 5.0°C
+          </div>
+        </label>
+        <label class="cursor-pointer select-none flex-1">
+          <input type="radio" name="trendStartTemp" value="10.0" ${this.startTempOption === '10.0' ? 'checked' : ''} class="sr-only peer">
+          <div class="py-2 px-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-55/30 dark:bg-zinc-900/30 text-center text-xs font-bold text-zinc-500 dark:text-zinc-400 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 peer-checked:text-emerald-600 dark:peer-checked:text-emerald-400 transition-all">
+            Mulai 10.0°C
+          </div>
+        </label>
+      `;
+    }
+    
+    grid.querySelectorAll('input[name="trendStartTemp"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        this.startTempOption = e.target.value;
+        this.updateTempPreview();
+      });
+    });
+  },
+
   updateTempPreview() {
     const isMode1 = this.tempRadio1.checked;
+    this.renderStartTempSelector();
+    
     if (isMode1) {
-      this.currentLabels = this.tempMode1;
-      this.currentTempValues = this.tempValues1;
+      if (this.startTempOption === '5.0') {
+        this.currentTempValues = [5.0, 7.5, 10.0, 12.5, 15.0, 17.5, 20.0];
+      } else {
+        this.currentTempValues = [2.5, 5.0, 7.5, 10.0, 12.5, 15.0, 17.5, 20.0];
+      }
     } else {
-      this.currentLabels = this.tempMode2;
-      this.currentTempValues = this.tempValues2;
+      if (this.startTempOption === '5.0') {
+        this.currentTempValues = [5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0];
+      } else {
+        this.currentTempValues = [10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0, 55.0, 60.0];
+      }
     }
+    
+    this.currentLabels = this.currentTempValues.map(v => v + '°C');
     this.tempPreview.innerText = 'Sumbu X: ' + this.currentLabels.join(', ');
     
     if (this.pasteArea.value.trim() !== '') {
@@ -2322,16 +2397,26 @@ const Trend = {
   },
 
   importExtractedData(extractedRows) {
-    let text = "";
     let hasMode1Temp = false;
+    let minTemp = 999;
+    
     extractedRows.forEach(row => {
-      if (row.temps && row.temps.includes(2.5)) hasMode1Temp = true;
+      if (row.temps) {
+        row.temps.forEach(t => {
+          if (t < minTemp) minTemp = t;
+        });
+        if (row.temps.includes(2.5) || row.temps.includes(7.5) || row.temps.includes(12.5)) {
+          hasMode1Temp = true;
+        }
+      }
     });
 
     if (hasMode1Temp) {
       this.tempRadio1.checked = true;
+      this.startTempOption = minTemp === 2.5 ? '2.5' : '5.0';
     } else {
       this.tempRadio2.checked = true;
+      this.startTempOption = minTemp === 5.0 ? '5.0' : '10.0';
     }
     
     this.updateTempPreview();
