@@ -1,6 +1,6 @@
-# 🧪 SFC Lab Suite
+# 🧪 QC Instrument - Tools
 
-Welcome to the **SFC Lab Suite** — the ultimate, premium single-file analytics tool specifically engineered for **Solid Fat Content (SFC)** laboratory analyses and blending predictions.
+Welcome to the **QC Instrument - Tools** — the ultimate, premium single-file analytics tool specifically engineered for **Solid Fat Content (SFC)** laboratory analyses and blending predictions.
 
 This application unites instrument data extraction, melting point prediction, blend calculations, historical database management, and differential analysis into a single, high-performance web interface.
 
