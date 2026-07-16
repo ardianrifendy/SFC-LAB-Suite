@@ -135,11 +135,11 @@
 
       <!-- Desktop Navigation Tabs (md:flex, hidden on mobile) -->
       <nav class="hidden md:flex items-center gap-1 font-medium text-sm">
-        <a href="#extractor" data-tab="extractor" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">Extractor</a>
-        <a href="#trend" data-tab="trend" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">Trend & MP</a>
-        <a href="#blend" data-tab="blend" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">Blend Calculator</a>
-        <a href="#data" data-tab="data" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">Data Master</a>
-        <a href="#diff" data-tab="diff" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">Diff Viewer</a>
+        <a href="#extractor" data-tab="extractor" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Extractor</a>
+        <a href="#trend" data-tab="trend" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Predict MP</a>
+        <a href="#blend" data-tab="blend" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Blend Calculator</a>
+        <a href="#data" data-tab="data" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Data Master</a>
+        <a href="#diff" data-tab="diff" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Compare</a>
       </nav>
 
       <!-- Theme Toggle Button -->
@@ -158,36 +158,36 @@
   </header>
 
   <!-- Mobile Navigation (Sticky Bottom Nav Bar, md:hidden) -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur border-t border-zinc-200 dark:border-zinc-800 flex justify-around items-center h-16 pb-safe text-[10px] font-medium transition-colors duration-200">
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur border-t border-zinc-200 dark:border-zinc-800 flex justify-around items-center h-16 pb-safe text-[9px] font-semibold transition-colors duration-200">
     <a href="#extractor" data-tab="extractor" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
-      <span>Extractor</span>
+      <span class="truncate max-w-[64px]">SFC Extractor</span>
     </a>
     <a href="#trend" data-tab="trend" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
       </svg>
-      <span>Trend & MP</span>
+      <span class="truncate max-w-[64px]">SFC Predict</span>
     </a>
     <a href="#blend" data-tab="blend" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 00-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
       </svg>
-      <span>Blend Calc</span>
+      <span class="truncate max-w-[64px]">SFC Blend</span>
     </a>
     <a href="#data" data-tab="data" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
       </svg>
-      <span>Data Master</span>
+      <span class="truncate max-w-[64px]">SFC Data</span>
     </a>
     <a href="#diff" data-tab="diff" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
       </svg>
-      <span>Diff Viewer</span>
+      <span class="truncate max-w-[64px]">SFC Compare</span>
     </a>
   </nav>
 
