@@ -1245,98 +1245,97 @@
 
     <!-- ===== REGION: MODULE-OSI ===== -->
     <div id="tabContent-osi" class="tab-panel hidden">
-      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors">
+      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors">
         
         <!-- Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-zinc-100 dark:border-zinc-800 pb-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
           <div>
-            <h2 class="text-2xl font-extrabold text-zinc-900 dark:text-white">OSI Shelf Life Calculator</h2>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400">Prediksi masa simpan produk berdasarkan ekstrapolasi linear semilog data Induction Time vs Suhu Uji.</p>
+            <h2 class="text-xl font-extrabold text-zinc-900 dark:text-white">OSI Shelf Life Calculator</h2>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400">Prediksi masa simpan produk berdasarkan ekstrapolasi linear semilog data Induction Time vs Suhu Uji.</p>
           </div>
           <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
-            <span class="text-xs font-bold text-zinc-500 dark:text-zinc-400">OSI Engine Active</span>
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+            <span class="text-[10px] font-bold text-zinc-500 dark:text-zinc-400">OSI Engine Active</span>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_450px] gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6">
           
           <!-- Kolom Kiri: Form & Inputs -->
-          <div class="space-y-6">
+          <div class="space-y-4">
             
             <!-- Panduan Uji -->
-            <div class="p-4 rounded-xl bg-amber-50/60 dark:bg-amber-950/10 border border-amber-200/50 dark:border-amber-900/30 text-xs text-amber-800 dark:text-amber-300">
-              <p class="font-bold mb-1">💡 Petunjuk Input Data:</p>
+            <div class="p-3 rounded-xl bg-amber-50/60 dark:bg-amber-950/10 border border-amber-200/50 dark:border-amber-900/30 text-[10px] text-amber-800 dark:text-amber-300">
+              <p class="font-bold mb-0.5">💡 Petunjuk Input Data:</p>
               <ul class="list-disc list-inside space-y-0.5 opacity-90">
-                <li>Centang minimal <strong>3 temperatur uji</strong> di bawah ini.</li>
-                <li>Masukkan nilai <strong>Induction Time (jam)</strong> untuk masing-masing temperatur yang dipilih.</li>
-                <li>Tentukan target suhu penyimpanan (default 25 °C) untuk mengekstrapolasi umur simpan produk.</li>
+                <li>Centang minimal <strong>3 temperatur uji</strong>, masukkan <strong>Induction Time (jam)</strong>.</li>
+                <li>Tentukan target suhu penyimpanan (default 25 °C) untuk proyeksi.</li>
               </ul>
             </div>
 
             <!-- Titik Temperatur & Jam Induksi -->
-            <div class="space-y-4">
-              <h3 class="text-sm font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase">1. Titik Data Uji (Suhu vs Waktu Induksi)</h3>
+            <div class="space-y-2">
+              <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase">1. Titik Data Uji (Suhu vs Waktu Induksi)</h3>
               
-              <div class="space-y-3" id="osiTempInputGrid">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="osiTempInputGrid">
                 <!-- Baris Input Suhu Bawaan (110, 120, 130, 140, 150) -->
                 <!-- Baris 110 -->
-                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
-                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
-                    <input type="checkbox" data-temp="110" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
-                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">110 °C</span>
+                <div class="flex items-center gap-2.5 p-2 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
+                  <label class="flex items-center gap-2 cursor-pointer select-none min-w-[80px]">
+                    <input type="checkbox" data-temp="110" checked class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">110 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-2">
-                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="110" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="26.35">
-                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  <div class="flex-1 flex items-center gap-1">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="110" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-2 py-1 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="26.35">
+                    <span class="text-[10px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
 
                 <!-- Baris 120 -->
-                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
-                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
-                    <input type="checkbox" data-temp="120" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
-                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">120 °C</span>
+                <div class="flex items-center gap-2.5 p-2 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
+                  <label class="flex items-center gap-2 cursor-pointer select-none min-w-[80px]">
+                    <input type="checkbox" data-temp="120" checked class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">120 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-2">
-                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="120" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="12.25">
-                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  <div class="flex-1 flex items-center gap-1">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="120" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-2 py-1 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="12.25">
+                    <span class="text-[10px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
 
                 <!-- Baris 130 -->
-                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
-                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
-                    <input type="checkbox" data-temp="130" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
-                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">130 °C</span>
+                <div class="flex items-center gap-2.5 p-2 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
+                  <label class="flex items-center gap-2 cursor-pointer select-none min-w-[80px]">
+                    <input type="checkbox" data-temp="130" checked class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">130 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-2">
-                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="130" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="5.80">
-                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  <div class="flex-1 flex items-center gap-1">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="130" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-2 py-1 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="5.80">
+                    <span class="text-[10px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
 
                 <!-- Baris 140 -->
-                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors opacity-60">
-                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
-                    <input type="checkbox" data-temp="140" class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
-                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">140 °C</span>
+                <div class="flex items-center gap-2.5 p-2 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors opacity-60">
+                  <label class="flex items-center gap-2 cursor-pointer select-none min-w-[80px]">
+                    <input type="checkbox" data-temp="140" class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">140 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-2">
-                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="140" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-950 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
-                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  <div class="flex-1 flex items-center gap-1">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="140" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-950 px-2 py-1 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+                    <span class="text-[10px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
 
                 <!-- Baris 150 -->
-                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors opacity-60">
-                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
-                    <input type="checkbox" data-temp="150" class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
-                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">150 °C</span>
+                <div class="flex items-center gap-2.5 p-2 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors opacity-60">
+                  <label class="flex items-center gap-2 cursor-pointer select-none min-w-[80px]">
+                    <input type="checkbox" data-temp="150" class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">150 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-2">
-                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="150" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-950 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
-                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  <div class="flex-1 flex items-center gap-1">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="150" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-950 px-2 py-1 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+                    <span class="text-[10px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
 
@@ -1344,105 +1343,105 @@
               
               <!-- Tombol tambah suhu kustom -->
               <div class="flex justify-start">
-                <button id="osiAddCustomTempBtn" class="text-xs font-bold text-emerald-500 hover:text-emerald-600 flex items-center gap-1.5">
+                <button id="osiAddCustomTempBtn" class="text-[10px] font-bold text-emerald-500 hover:text-emerald-600 flex items-center gap-1">
                   ➕ Tambah Suhu Kustom
                 </button>
               </div>
             </div>
 
             <!-- Target Suhu Penyimpanan -->
-            <div class="space-y-3">
-              <h3 class="text-sm font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase">2. Target Suhu Penyimpanan</h3>
-              <div class="flex items-center gap-4 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/10">
+            <div class="space-y-1.5">
+              <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase">2. Target Suhu Penyimpanan</h3>
+              <div class="flex items-center gap-3 p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/10">
                 <div class="flex-1">
-                  <label for="osiTargetTemp" class="block text-xs font-bold text-zinc-500 dark:text-zinc-400 mb-1.5">Target Suhu Proyeksi (°C)</label>
-                  <input type="number" id="osiTargetTemp" value="25" min="0" max="100" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-bold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
+                  <label for="osiTargetTemp" class="block text-[10px] font-bold text-zinc-500 dark:text-zinc-400 mb-0.5">Target Suhu Proyeksi (°C)</label>
+                  <input type="number" id="osiTargetTemp" value="25" min="0" max="100" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-2.5 py-1 text-xs font-bold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
                 </div>
-                <div class="flex-shrink-0 flex flex-col items-center justify-center p-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold text-xs min-w-[70px] mt-5">
+                <div class="flex-shrink-0 flex flex-col items-center justify-center p-1 rounded-lg bg-zinc-200/50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold text-[10px] min-w-[50px] mt-4">
                   <span>°C</span>
                 </div>
               </div>
             </div>
 
-            <button id="osiCalculateBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/35 transition-all transform active:scale-[0.98]">
+            <button id="osiCalculateBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-xs shadow-md shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all transform active:scale-[0.98]">
               ⏳ Hitung Proyeksi Shelf Life
             </button>
 
           </div>
           
           <!-- Kolom Kanan: Hasil & Visualisasi -->
-          <div class="space-y-6">
+          <div class="space-y-3">
             
             <!-- Card Proyeksi Terbesar -->
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-6 shadow-xl space-y-4">
-              <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+            <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-4 shadow-md space-y-2.5">
+              <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
               
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-extrabold tracking-widest text-emerald-100 uppercase">PROYEKSI SHELF LIFE</span>
-                <span id="osiActiveTargetTempBadge" class="px-2 py-0.5 rounded-full bg-white/20 text-[10px] font-bold text-white">Suhu Target: 25 °C</span>
+                <span class="text-[9px] font-extrabold tracking-widest text-emerald-100 uppercase">PROYEKSI SHELF LIFE</span>
+                <span id="osiActiveTargetTempBadge" class="px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-bold text-white">Suhu Target: 25 °C</span>
               </div>
               
-              <div class="space-y-1">
-                <div class="text-4xl font-black font-mono tracking-tight" id="osiResultYearsText">- <span class="text-sm font-bold text-emerald-100">Tahun</span></div>
-                <div class="text-sm font-semibold text-emerald-100/90" id="osiResultDetailText">Induction time setara dengan: - hari (- jam)</div>
+              <div class="space-y-0.5">
+                <div class="text-2xl font-black font-mono tracking-tight" id="osiResultYearsText">- <span class="text-xs font-bold text-emerald-100">Tahun</span></div>
+                <div class="text-[11px] font-semibold text-emerald-100/95" id="osiResultDetailText">Induction time setara dengan: - hari (- jam)</div>
               </div>
 
               <!-- Pecahan Waktu Detail -->
-              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-white/10 text-center">
-                <div class="p-2 rounded-lg bg-white/10">
-                  <span class="block text-[8px] font-bold text-emerald-200">TAHUN</span>
-                  <span id="osiBreakdownYears" class="text-sm font-bold font-mono">-</span>
+              <div class="grid grid-cols-3 gap-2 pt-1.5 border-t border-white/10 text-center">
+                <div class="p-1 rounded bg-white/10">
+                  <span class="block text-[8px] font-bold text-emerald-250">TAHUN</span>
+                  <span id="osiBreakdownYears" class="text-xs font-bold font-mono">-</span>
                 </div>
-                <div class="p-2 rounded-lg bg-white/10">
-                  <span class="block text-[8px] font-bold text-emerald-200">BULAN</span>
-                  <span id="osiBreakdownMonths" class="text-sm font-bold font-mono">-</span>
+                <div class="p-1 rounded bg-white/10">
+                  <span class="block text-[8px] font-bold text-emerald-250">BULAN</span>
+                  <span id="osiBreakdownMonths" class="text-xs font-bold font-mono">-</span>
                 </div>
-                <div class="p-2 rounded-lg bg-white/10">
-                  <span class="block text-[8px] font-bold text-emerald-200">HARI</span>
-                  <span id="osiBreakdownDays" class="text-sm font-bold font-mono">-</span>
+                <div class="p-1 rounded bg-white/10">
+                  <span class="block text-[8px] font-bold text-emerald-250">HARI</span>
+                  <span id="osiBreakdownDays" class="text-xs font-bold font-mono">-</span>
                 </div>
               </div>
             </div>
 
             <!-- Parameter Statistik Linearitas -->
-            <div class="bg-zinc-50 dark:bg-zinc-900/40 rounded-2xl p-5 border border-zinc-200/80 dark:border-zinc-800/80 transition-colors space-y-4">
-              <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase border-b border-zinc-200/50 dark:border-zinc-800 pb-2">Hasil & Parameter Regresi</h3>
+            <div class="bg-zinc-50 dark:bg-zinc-900/40 rounded-xl p-3.5 border border-zinc-200/80 dark:border-zinc-800/80 transition-colors space-y-2">
+              <h3 class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase border-b border-zinc-200/50 dark:border-zinc-800 pb-1.5">Hasil & Parameter Regresi</h3>
               
-              <div class="grid grid-cols-2 gap-4">
-                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
                   <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">R-SQUARE (R²)</span>
-                  <div class="flex items-center gap-1.5 mt-0.5">
-                    <span id="osiRSquareVal" class="text-sm font-extrabold text-zinc-800 dark:text-zinc-100 font-mono">-</span>
-                    <span id="osiRSquareBadge" class="hidden px-1.5 py-0.5 rounded text-[8px] font-bold"></span>
+                  <div class="flex items-center gap-1 mt-0.5">
+                    <span id="osiRSquareVal" class="text-xs font-extrabold text-zinc-800 dark:text-zinc-100 font-mono">-</span>
+                    <span id="osiRSquareBadge" class="hidden px-1 py-0.5 rounded text-[8px] font-bold"></span>
                   </div>
                 </div>
-                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
+                <div class="p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
                   <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">SLOPE (m)</span>
-                  <span id="osiSlopeVal" class="block text-sm font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                  <span id="osiSlopeVal" class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
                 </div>
-                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
+                <div class="p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
                   <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">Q10 FACTOR</span>
-                  <span id="osiQ10Val" class="block text-sm font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                  <span id="osiQ10Val" class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
                 </div>
-                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
+                <div class="p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
                   <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">INTERCEPT (c)</span>
-                  <span id="osiInterceptVal" class="block text-sm font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                  <span id="osiInterceptVal" class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
                 </div>
               </div>
             </div>
 
             <!-- Canvas Grafik Regresi Semilog -->
-            <div class="bg-zinc-50 dark:bg-zinc-900/40 rounded-2xl p-5 border border-zinc-200/80 dark:border-zinc-800/80 transition-colors space-y-3">
+            <div class="bg-zinc-50 dark:bg-zinc-900/40 rounded-xl p-3.5 border border-zinc-200/80 dark:border-zinc-800/80 transition-colors space-y-2">
               <div class="flex items-center justify-between">
-                <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase">Grafik Proyeksi Semilog</h3>
-                <span class="text-[9px] font-bold text-zinc-400 font-mono">y = ln(t) vs x = Temp</span>
+                <h3 class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase">Grafik Proyeksi Semilog</h3>
+                <span class="text-[8px] font-bold text-zinc-400 font-mono">y = ln(t) vs x = Temp</span>
               </div>
-              <div class="relative h-56 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200/60 dark:border-zinc-800 flex items-center justify-center overflow-hidden">
+              <div class="relative h-40 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200/60 dark:border-zinc-800 flex items-center justify-center overflow-hidden">
                 <canvas id="osiRegressCanvas" class="w-full h-full"></canvas>
                 <!-- Overlay placeholder jika data belum komplit -->
-                <div id="osiCanvasPlaceholder" class="absolute inset-0 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xs flex flex-col items-center justify-center text-center p-4">
-                  <span class="text-3xl mb-2">📊</span>
-                  <span class="text-xs font-bold text-zinc-500 dark:text-zinc-450">Grafik proyeksi otomatis digambar setelah menekan tombol hitung.</span>
+                <div id="osiCanvasPlaceholder" class="absolute inset-0 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xs flex flex-col items-center justify-center text-center p-3">
+                  <span class="text-2xl mb-1.5">📊</span>
+                  <span class="text-[10px] font-bold text-zinc-500 dark:text-zinc-450 leading-tight">Grafik proyeksi otomatis digambar setelah hitung.</span>
                 </div>
               </div>
             </div>
