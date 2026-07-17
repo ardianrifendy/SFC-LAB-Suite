@@ -43,3 +43,16 @@ If you want to update the default reference database loaded at startup:
 *   **Interactive Components**: Zero native HTML controls — custom premium dropdown selectors, mid-screen confirmation modals, and responsive layout tables.
 *   **Freeze Panes**: Fixed cross-headers on Data Master and Reference grids for smooth Excel-like scrolling.
 *   **Strict Precision**: 2-decimal formatting throughout all grids for rigorous laboratory accuracy.
+
+---
+
+## 📸 Previews
+
+### 🧪 SFC Tools Module
+![SFC Tools Preview](images/sfc_tools_preview.png)
+
+### 🧪 FAC Tools Module
+![FAC Tools Preview](images/fac_tools_preview.png)
+
+### 🧪 OSI Shelf Life Calculator Module
+![OSI Tools Preview](images/osi_tools_preview.png)
