@@ -8,6 +8,16 @@
   
   <!-- Libraries -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- PDF.js for FAME Extractor client-side PDF parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script>
+    if (typeof window !== 'undefined') {
+      window.pdfjsLib = window.pdfjsLib || {};
+      if (window.pdfjsLib.GlobalWorkerOptions) {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+      }
+    }
+  </script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -131,15 +141,14 @@
         <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
           QC Instrument - Tools
         </h1>
-      </div>
-
-      <!-- Desktop Navigation Tabs (md:flex, hidden on mobile) -->
+           <!-- Desktop Navigation Tabs (md:flex, hidden on mobile) -->
       <nav class="hidden md:flex items-center gap-1 font-medium text-sm">
         <a href="#extractor" data-tab="extractor" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Extractor</a>
         <a href="#trend" data-tab="trend" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Predict MP</a>
         <a href="#blend" data-tab="blend" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Blend Calculator</a>
         <a href="#data" data-tab="data" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Data Master</a>
         <a href="#diff" data-tab="diff" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Compare</a>
+        <a href="#fame" data-tab="fame" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">FAME Extractor</a>
       </nav>
 
       <!-- Theme Toggle Button -->
@@ -158,36 +167,42 @@
   </header>
 
   <!-- Mobile Navigation (Sticky Bottom Nav Bar, md:hidden) -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur border-t border-zinc-200 dark:border-zinc-800 flex justify-around items-center h-16 pb-safe text-[9px] font-semibold transition-colors duration-200">
-    <a href="#extractor" data-tab="extractor" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur border-t border-zinc-200 dark:border-zinc-800 flex justify-around items-center h-16 pb-safe text-[8px] font-semibold transition-colors duration-200">
+    <a href="#extractor" data-tab="extractor" class="flex flex-col items-center justify-center w-14 h-full gap-1 text-zinc-500">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
-      <span class="truncate max-w-[64px]">SFC Extractor</span>
+      <span class="truncate max-w-[56px]">SFC Extract</span>
     </a>
-    <a href="#trend" data-tab="trend" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <a href="#trend" data-tab="trend" class="flex flex-col items-center justify-center w-14 h-full gap-1 text-zinc-500">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
       </svg>
-      <span class="truncate max-w-[64px]">SFC Predict</span>
+      <span class="truncate max-w-[56px]">SFC Predict</span>
     </a>
-    <a href="#blend" data-tab="blend" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 00-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+    <a href="#blend" data-tab="blend" class="flex flex-col items-center justify-center w-14 h-full gap-1 text-zinc-500">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
       </svg>
-      <span class="truncate max-w-[64px]">SFC Blend</span>
+      <span class="truncate max-w-[56px]">SFC Blend</span>
     </a>
-    <a href="#data" data-tab="data" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <a href="#data" data-tab="data" class="flex flex-col items-center justify-center w-14 h-full gap-1 text-zinc-500">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
       </svg>
-      <span class="truncate max-w-[64px]">SFC Data</span>
+      <span class="truncate max-w-[56px]">SFC Data</span>
     </a>
-    <a href="#diff" data-tab="diff" class="flex flex-col items-center justify-center w-16 h-full gap-1 text-zinc-500">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <a href="#diff" data-tab="diff" class="flex flex-col items-center justify-center w-14 h-full gap-1 text-zinc-500">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
       </svg>
-      <span class="truncate max-w-[64px]">SFC Compare</span>
+      <span class="truncate max-w-[56px]">SFC Compare</span>
+    </a>
+    <a href="#fame" data-tab="fame" class="flex flex-col items-center justify-center w-14 h-full gap-1 text-zinc-500">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+      </svg>
+      <span class="truncate max-w-[56px]">FAME Ext</span>
     </a>
   </nav>
 
@@ -902,6 +917,125 @@
                 <!-- Diisi via JS -->
               </tbody>
             </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== REGION: MODULE-FAME ===== -->
+    <div id="tabContent-fame" class="tab-panel hidden animate-fade-in">
+      <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6">
+        
+        <!-- Kolom Kiri: Controls & File List -->
+        <div class="space-y-6">
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+            <h2 class="text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+              <span>🧬</span> FAME Extractor
+            </h2>
+            <p class="text-xs text-zinc-500">Ekstrak metadata dan tabel Area% dari PDF laporan GC-FID (Agilent ChemStation).</p>
+            
+            <!-- File Uploader -->
+            <div class="space-y-2">
+              <label class="block text-[10px] font-bold text-zinc-550 dark:text-zinc-450 tracking-wider">UNGGAH LAPORAN PDF</label>
+              <label class="flex flex-col items-center justify-center w-full h-32 px-4 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <span class="text-3xl mb-2">📁</span>
+                  <p class="text-xs font-bold text-zinc-600 dark:text-zinc-400">Pilih satu atau beberapa PDF</p>
+                  <p class="text-[10px] text-zinc-400 dark:text-zinc-500 mt-1">Format laporan PDF Agilent</p>
+                </div>
+                <input type="file" id="fameFileInput" multiple accept=".pdf" class="hidden">
+              </label>
+            </div>
+
+            <!-- List File Terunggah -->
+            <div id="fameFileListContainer" class="hidden space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold text-zinc-500 tracking-wider">DAFTAR DOKUMEN FAME</span>
+                <button id="fameClearAllBtn" class="text-[10px] font-bold text-rose-500 hover:underline">Hapus Semua</button>
+              </div>
+              <div class="relative w-full">
+                <select id="fameFileSelect" class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2.5 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
+                  <!-- Diisi secara dinamis -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary Stats Card (Hanya muncul jika file terunggah) -->
+          <div id="fameStatsCard" class="hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+            <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK ANALISA</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
+                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider">IODINE VALUE (IV)</span>
+                <span id="fameIvValue" class="text-base font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
+                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider">TOTAL AREA %</span>
+                <span id="fameTotalArea" class="text-base font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+              </div>
+            </div>
+            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-3 space-y-2 text-xs">
+              <div class="flex justify-between">
+                <span class="text-zinc-500">Jumlah Peak:</span>
+                <span id="famePeakCount" class="font-bold text-zinc-800 dark:text-zinc-200 font-mono">-</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-zinc-500">Komponen Utama:</span>
+                <span id="fameHighestComponent" class="font-bold text-emerald-600 dark:text-emerald-400 truncate max-w-[140px]" title="-">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Metadata & Table View -->
+        <div id="fameMainContent" class="hidden space-y-6">
+          <!-- Metadata Info Card -->
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-bold text-zinc-900 dark:text-white tracking-wider">METADATA SAMPEL</h3>
+              <button id="fameCopyInfoBtn" class="px-3 py-1.5 rounded-lg border border-zinc-350 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-xs font-bold text-zinc-600 dark:text-zinc-450 transition-colors">
+                📋 Salin Metadata
+              </button>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs" id="fameMetadataGrid">
+              <!-- Diisi via JS -->
+            </div>
+          </div>
+
+          <!-- Peak Data Table -->
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-bold text-zinc-900 dark:text-white tracking-wider">AREA PERCENT REPORT</h3>
+              <div class="flex gap-2">
+                <button id="fameCopyTableBtn" class="px-4 py-2 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 font-bold text-xs transition-colors">
+                  📋 Salin Tabel (TSV)
+                </button>
+                <button id="fameExportCsvBtn" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition-colors">
+                  📥 Export CSV
+                </button>
+              </div>
+            </div>
+
+            <div class="overflow-auto border border-zinc-200 dark:border-zinc-800 rounded-xl max-h-[480px]">
+              <table class="w-full border-collapse text-left text-xs">
+                <thead>
+                  <tr class="text-zinc-650 dark:text-zinc-400 font-bold bg-zinc-100 dark:bg-zinc-800/80">
+                    <th class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tl-xl w-14">Peak</th>
+                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28">RetTime (min)</th>
+                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-20">Type</th>
+                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28">Width (min)</th>
+                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-32">Area (pA*s)</th>
+                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-24">Area (%)</th>
+                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tr-xl">Name</th>
+                  </tr>
+                </thead>
+                <tbody id="fameTableBody" class="font-mono divide-y divide-zinc-100 dark:divide-zinc-800/50">
+                  <!-- Diisi via JS -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -3835,6 +3969,418 @@ const Diff = {
   }
 };
 
+// ===== REGION: MODULE-FAME =====
+const Fame = {
+  files: [], // Array of { name, info, rows, rawText }
+  currentIdx: null,
+  fileSelectCustom: null,
+
+  init() {
+    this.fileInput = document.getElementById('fameFileInput');
+    this.fileSelect = document.getElementById('fameFileSelect');
+    this.clearAllBtn = document.getElementById('fameClearAllBtn');
+    
+    this.fileListContainer = document.getElementById('fameFileListContainer');
+    this.statsCard = document.getElementById('fameStatsCard');
+    this.mainContent = document.getElementById('fameMainContent');
+    
+    this.ivValue = document.getElementById('fameIvValue');
+    this.totalArea = document.getElementById('fameTotalArea');
+    this.peakCount = document.getElementById('famePeakCount');
+    this.highestComp = document.getElementById('fameHighestComponent');
+    
+    this.metadataGrid = document.getElementById('fameMetadataGrid');
+    this.tableBody = document.getElementById('fameTableBody');
+    
+    this.copyInfoBtn = document.getElementById('fameCopyInfoBtn');
+    this.copyTableBtn = document.getElementById('fameCopyTableBtn');
+    this.exportCsvBtn = document.getElementById('fameExportCsvBtn');
+
+    if (!this.fileInput) return; // Safeguard if DOM not ready (e.g. testing env)
+
+    this.fileInput.addEventListener('change', (e) => this.handleFiles(e.target.files));
+    this.fileSelect.addEventListener('change', () => this.handleSelectFile());
+    this.clearAllBtn.addEventListener('click', () => this.clearAll());
+    
+    this.copyInfoBtn.addEventListener('click', () => this.copyMetadata());
+    this.copyTableBtn.addEventListener('click', () => this.copyTableTsv());
+    this.exportCsvBtn.addEventListener('click', () => this.exportCsv());
+
+    // Drag and drop events for file uploader label
+    const dropzone = this.fileInput.closest('label');
+    if (dropzone) {
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          dropzone.classList.add('border-emerald-500', 'bg-zinc-100', 'dark:bg-zinc-800/40');
+        }, false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          dropzone.classList.remove('border-emerald-500', 'bg-zinc-100', 'dark:bg-zinc-800/40');
+        }, false);
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        this.handleFiles(files);
+      }, false);
+    }
+  },
+
+  async handleFiles(fileList) {
+    if (!fileList || fileList.length === 0) return;
+    
+    showToast("⏳ Mengekstrak file PDF...");
+    let successCount = 0;
+    
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i];
+      if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith('.pdf')) {
+        showAlert("Format File Salah", `File "${file.name}" bukan berformat PDF!`);
+        continue;
+      }
+      
+      try {
+        const text = await this.readPdfText(file);
+        const info = this.parseInfo(text);
+        const rows = this.parseTable(text);
+        
+        // Buat nama default jika kosong
+        if (!info["Sample Name"]) {
+          info["Sample Name"] = file.name.replace(/\.[^/.]+$/, "");
+        }
+        
+        this.files.push({
+          name: file.name,
+          info: info,
+          rows: rows,
+          rawText: text
+        });
+        successCount++;
+      } catch (err) {
+        console.error("Gagal membaca PDF:", err);
+        showAlert("Gagal Membaca PDF", `Terjadi kesalahan saat mengekstrak "${file.name}": ${err.message}`);
+      }
+    }
+    
+    if (successCount > 0) {
+      showToast(`✔ Berhasil memproses ${successCount} file`);
+      this.refreshFileList();
+      this.currentIdx = this.files.length - successCount; // Pilih file pertama yang baru di-upload
+      this.fileSelect.value = String(this.currentIdx);
+      this.handleSelectFile();
+    }
+  },
+
+  async readPdfText(file) {
+    if (typeof pdfjsLib === 'undefined') {
+      throw new Error("Library PDF.js belum siap atau sedang dimuat.");
+    }
+    const arrayBuffer = await file.arrayBuffer();
+    const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+    const pdf = await loadingTask.promise;
+    let fullText = "";
+    
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      const pageText = textContent.items.map(item => item.str).join(" ");
+      fullText += pageText + "\n";
+    }
+    return fullText;
+  },
+
+  parseInfo(text) {
+    const info = {};
+    const infoPatterns = {
+      "Data File": /Data File\s+(.+)/,
+      "Sample Name": /Sample Name:\s*(.+)/,
+      "Acq. Operator": /Acq\. Operator\s*:\s*(.+)/,
+      "Acq. Instrument": /Acq\. Instrument\s*:\s*(.+?)(?:\s{2,}|$)/,
+      "Location": /Location\s*:\s*(.+)/,
+      "Injection Date": /Injection Date\s*:\s*(.+)/,
+      "Acq. Method": /Acq\. Method\s*:\s*(.+)/,
+      "Analysis Method": /Analysis Method\s*:\s*(.+)/
+    };
+    
+    for (const [key, pat] of Object.entries(infoPatterns)) {
+      const match = pat.exec(text);
+      if (match) {
+        info[key] = match[1].trim();
+      }
+    }
+    
+    // Sample Info multi-baris
+    const lines = text.split(/\r?\n/);
+    const sampleInfoLines = [];
+    let capturing = false;
+    for (let line of lines) {
+      const s = line.trim();
+      if (!capturing) {
+        const m = /Sample Info\s*:\s*(.*)/i.exec(s);
+        if (m) {
+          capturing = true;
+          if (m[1].trim()) {
+            sampleInfoLines.push(m[1].trim());
+          }
+        }
+        continue;
+      }
+      if (s === "" || s.startsWith("Req.by") || s.startsWith("Req. by") || s.startsWith("===") || (s.includes("Signal") && s.includes("FID"))) {
+        break;
+      }
+      sampleInfoLines.push(s);
+    }
+    if (sampleInfoLines.length) {
+      info["Sample Info"] = sampleInfoLines.join("  |  ");
+    }
+    
+    const reqMatch = /Req\.?\s*by\s+(.+)/i.exec(text);
+    if (reqMatch) {
+      info["Req. by"] = reqMatch[1].trim();
+    }
+    
+    return info;
+  },
+
+  parseTable(text) {
+    const rows = [];
+    // Regular Expression matching peak table row
+    const rowRe = /^\s*(\d+)\s+(\d+\.\d+)\s+(.*?)\s*(\d+\.\d+)\s+(\d+\.?\d*(?:e[+-]?\d+)?)\s+(\d+\.\d+)\s+(.+?)\s*$/i;
+    
+    const lines = text.split(/\r?\n/);
+    lines.forEach(line => {
+      const match = rowRe.exec(line);
+      if (match) {
+        const peak = match[1];
+        const rt = match[2];
+        const type = match[3].replace(/\s+/g, ' ').trim();
+        const width = match[4];
+        const area = match[5];
+        const areaPct = match[6];
+        const name = match[7].trim();
+        rows.push([peak, rt, type, width, area, areaPct, name]);
+      }
+    });
+    return rows;
+  },
+
+  getIvFactor(name) {
+    const nameClean = String(name).replace(/\s+/g, '').toUpperCase();
+    
+    if (nameClean.includes("C16:1")) return 0.9739;
+    
+    if (nameClean.includes("C18:1")) {
+      return 0.8792;
+    }
+    
+    if (nameClean.includes("C18:2")) {
+      return 1.7707;
+    }
+    
+    if (nameClean.includes("C18:3")) {
+      return 2.6747;
+    }
+    
+    if (nameClean.includes("C20:1")) return 0.8003;
+    if (nameClean.includes("C22:1")) return 0.7325;
+    
+    return 0.0;
+  },
+
+  refreshFileList() {
+    this.fileSelect.innerHTML = "";
+    this.files.forEach((file, idx) => {
+      const opt = document.createElement('option');
+      opt.value = String(idx);
+      opt.textContent = file.name;
+      this.fileSelect.appendChild(opt);
+    });
+    
+    if (this.files.length > 0) {
+      this.fileListContainer.classList.remove('hidden');
+      this.statsCard.classList.remove('hidden');
+      this.mainContent.classList.remove('hidden');
+      
+      if (window.CustomSelect) {
+        const parent = this.fileSelect.parentNode;
+        const customWrapper = parent.querySelector('.custom-select-wrapper');
+        if (customWrapper) customWrapper.remove();
+        this.fileSelect.classList.remove('hidden');
+        this.fileSelectCustom = new CustomSelect(this.fileSelect);
+      }
+    } else {
+      this.fileListContainer.classList.add('hidden');
+      this.statsCard.classList.add('hidden');
+      this.mainContent.classList.add('hidden');
+    }
+  },
+
+  handleSelectFile() {
+    const selectedVal = this.fileSelect.value;
+    if (selectedVal === "") {
+      this.currentIdx = null;
+      this.renderCurrentFile();
+      return;
+    }
+    
+    this.currentIdx = parseInt(selectedVal);
+    this.renderCurrentFile();
+  },
+
+  renderCurrentFile() {
+    this.metadataGrid.innerHTML = "";
+    this.tableBody.innerHTML = "";
+    
+    if (this.currentIdx === null || !this.files[this.currentIdx]) {
+      this.ivValue.textContent = "-";
+      this.totalArea.textContent = "-";
+      this.peakCount.textContent = "-";
+      this.highestComp.textContent = "-";
+      this.highestComp.title = "-";
+      return;
+    }
+    
+    const file = this.files[this.currentIdx];
+    
+    let iv = 0.0;
+    let totalAreaPct = 0.0;
+    let maxAreaPct = -1.0;
+    let maxCompName = "-";
+    
+    file.rows.forEach(r => {
+      const name = r[6];
+      const pct = parseFloat(r[5]) || 0.0;
+      iv += pct * this.getIvFactor(name);
+      totalAreaPct += pct;
+      
+      if (pct > maxAreaPct) {
+        maxAreaPct = pct;
+        maxCompName = name;
+      }
+    });
+    
+    this.ivValue.textContent = iv.toFixed(4);
+    this.totalArea.textContent = totalAreaPct.toFixed(2) + "%";
+    this.peakCount.textContent = file.rows.length + " peak";
+    this.highestComp.textContent = maxCompName;
+    this.highestComp.title = maxCompName;
+    
+    const infoOrder = ["Sample Name", "Sample Info", "Req. by", "Acq. Operator", "Acq. Instrument", "Location", "Injection Date", "Acq. Method", "Analysis Method", "Data File"];
+    
+    infoOrder.forEach(key => {
+      const val = file.info[key] || "-";
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'bg-zinc-50 dark:bg-zinc-900/50 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800/80 transition-colors';
+      itemDiv.innerHTML = `
+        <span class="block text-[9px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider mb-0.5">${key.toUpperCase()}</span>
+        <span class="font-semibold text-zinc-800 dark:text-zinc-200 break-words">${val}</span>
+      `;
+      this.metadataGrid.appendChild(itemDiv);
+    });
+    
+    if (file.rows.length === 0) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="7" class="px-4 py-8 text-center text-zinc-500">Tidak ada data peak yang terdeteksi</td>`;
+      this.tableBody.appendChild(tr);
+    } else {
+      file.rows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-zinc-50/50 dark:hover:bg-zinc-800/20 transition-colors';
+        
+        let rowHtml = `
+          <td class="px-4 py-2.5 text-center font-bold text-zinc-650 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/40">${r[0]}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[1]).toFixed(3)}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${r[2]}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[3]).toFixed(3)}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[4]).toFixed(1)}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40 font-bold text-emerald-600 dark:text-emerald-400">${parseFloat(r[5]).toFixed(3)}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40 font-sans font-bold text-zinc-800 dark:text-zinc-200">${r[6]}</td>
+        `;
+        tr.innerHTML = rowHtml;
+        this.tableBody.appendChild(tr);
+      });
+    }
+  },
+
+  copyMetadata() {
+    if (this.currentIdx === null || !this.files[this.currentIdx]) return;
+    const file = this.files[this.currentIdx];
+    
+    let text = "";
+    Object.entries(file.info).forEach(([key, val]) => {
+      text += `${key}: ${val}\n`;
+    });
+    
+    navigator.clipboard.writeText(text).then(() => {
+      showToast("✔ Metadata disalin ke clipboard!");
+    }).catch(err => {
+      console.error("Gagal menyalin info:", err);
+      showToast("❌ Gagal menyalin metadata");
+    });
+  },
+
+  copyTableTsv() {
+    if (this.currentIdx === null || !this.files[this.currentIdx]) return;
+    const file = this.files[this.currentIdx];
+    
+    let tsv = "Peak\tRetTime\tType\tWidth\tArea\tArea%\tName\n";
+    file.rows.forEach(r => {
+      tsv += r.join("\t") + "\n";
+    });
+    
+    navigator.clipboard.writeText(tsv).then(() => {
+      showToast("✔ Tabel (TSV) disalin ke clipboard!");
+    }).catch(err => {
+      console.error("Gagal menyalin tabel:", err);
+      showToast("❌ Gagal menyalin tabel");
+    });
+  },
+
+  exportCsv() {
+    if (this.currentIdx === null || !this.files[this.currentIdx]) return;
+    const file = this.files[this.currentIdx];
+    
+    let csv = "Peak,RetTime,Type,Width,Area,Area%,Name\n";
+    file.rows.forEach(r => {
+      const escapedRow = r.map((val, idx) => {
+        if (idx === 6 && val.includes(',')) {
+          return `"${val}"`;
+        }
+        return val;
+      });
+      csv += escapedRow.join(",") + "\n";
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    
+    const baseName = file.name.replace(/\.[^/.]+$/, "");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `${baseName}_report.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showToast("✔ CSV berhasil di-export!");
+  },
+
+  clearAll() {
+    this.files = [];
+    this.currentIdx = null;
+    this.refreshFileList();
+    this.renderCurrentFile();
+    this.fileInput.value = "";
+    showToast("✔ Semua data dibersihkan");
+  }
+};
+
 // ===== REGION: UI-SHELL =====
 const themeToggleBtn = document.getElementById('themeToggle');
 
@@ -3859,7 +4405,7 @@ themeToggleBtn.addEventListener('click', () => {
   window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: isDark ? 'light' : 'dark' } }));
 });
 
-const validTabs = ['extractor', 'trend', 'blend', 'data', 'diff'];
+const validTabs = ['extractor', 'trend', 'blend', 'data', 'diff', 'fame'];
 
 function handleRouting() {
   let hash = window.location.hash.substring(1);
@@ -3902,6 +4448,7 @@ window.Trend = Trend;
 window.Blend = Blend;
 window.DataMaster = DataMaster;
 window.Diff = Diff;
+window.Fame = Fame;
 
 // Initializations
 initTheme();
@@ -3923,6 +4470,7 @@ Trend.init();
 Blend.init();
 DataMaster.init();
 Diff.init();
+Fame.init();
 // Helper class to convert native HTML select elements into premium web-styled dropdowns
 class CustomSelect {
   constructor(selectElement) {
