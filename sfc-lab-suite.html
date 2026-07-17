@@ -925,19 +925,41 @@
 
     <!-- ===== REGION: MODULE-FAME ===== -->
     <div id="tabContent-fame" class="tab-panel hidden animate-fade-in">
-      <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6">
+      
+      <!-- Layout saat KOSONG (Centered Uploader) -->
+      <div id="fameEmptyState" class="flex flex-col items-center justify-center min-h-[480px] max-w-lg mx-auto bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-8 border border-zinc-200 dark:border-zinc-800 transition-colors text-center space-y-6 my-8">
+        <div class="space-y-2">
+          <div class="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/20 text-emerald-500 flex items-center justify-center text-3xl mx-auto mb-2 animate-bounce">
+            🧬
+          </div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 dark:text-white">FAME Extractor</h2>
+          <p class="text-xs text-zinc-550 dark:text-zinc-400">Ekstrak metadata sampel dan tabel Area% dari file PDF laporan GC-FID secara instan.</p>
+        </div>
+        
+        <!-- Large Centered Uploader -->
+        <label class="flex flex-col items-center justify-center w-full h-44 px-6 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
+          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+            <span class="text-4xl mb-2">📁</span>
+            <p class="text-sm font-bold text-zinc-650 dark:text-zinc-300">Pilih atau Seret PDF Laporan FAME</p>
+            <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-1">Hanya mendukung file .pdf Agilent ChemStation</p>
+          </div>
+          <input type="file" id="fameFileInputCentered" multiple accept=".pdf" class="hidden">
+        </label>
+      </div>
+
+      <!-- Layout saat ADA DATA (Grid 2 Kolom) -->
+      <div id="fameDataLayout" class="hidden grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6">
         
         <!-- Kolom Kiri: Controls, Stats, & Metadata -->
         <div class="space-y-6">
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
-            <h2 class="text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-              <span>🧬</span> FAME Extractor
+            <h2 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
+              🧬 FAME Extractor
             </h2>
-            <p class="text-xs text-zinc-500">Ekstrak metadata dan tabel Area% dari PDF laporan GC-FID (Agilent ChemStation).</p>
             
-            <!-- File Uploader (Compact Version) -->
+            <!-- File Uploader Mini (Sidebar) -->
             <div class="space-y-2">
-              <label class="block text-[10px] font-bold text-zinc-550 dark:text-zinc-450 tracking-wider">UNGGAH LAPORAN PDF</label>
+              <label class="block text-[10px] font-bold text-zinc-550 dark:text-zinc-450 tracking-wider">UNGGAH LAPORAN PDF BARU</label>
               <label class="flex items-center gap-3 w-full py-3 px-4 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
                 <span class="text-2xl">📁</span>
                 <div class="text-left leading-tight">
@@ -949,7 +971,7 @@
             </div>
 
             <!-- List File Terunggah -->
-            <div id="fameFileListContainer" class="hidden space-y-2">
+            <div id="fameFileListContainer" class="space-y-2">
               <div class="flex items-center justify-between">
                 <span class="text-[10px] font-bold text-zinc-500 tracking-wider">DAFTAR DOKUMEN FAME</span>
                 <button id="fameClearAllBtn" class="text-[10px] font-bold text-rose-500 hover:underline">Hapus Semua</button>
@@ -963,15 +985,15 @@
           </div>
 
           <!-- Summary Stats Card -->
-          <div id="fameStatsCard" class="hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+          <div id="fameStatsCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
             <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK ANALISA</h3>
             <div class="grid grid-cols-2 gap-3">
               <div class="bg-zinc-50 dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
-                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider">IODINE VALUE (IV)</span>
+                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">IODINE VALUE (IV)</span>
                 <span id="fameIvValue" class="text-base font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
               </div>
               <div class="bg-zinc-50 dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
-                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider">TOTAL AREA %</span>
+                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">TOTAL AREA %</span>
                 <span id="fameTotalArea" class="text-base font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
               </div>
             </div>
@@ -988,7 +1010,7 @@
           </div>
 
           <!-- Metadata Info Card -->
-          <div id="fameMetadataCard" class="hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+          <div id="fameMetadataCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
             <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
               <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">METADATA SAMPEL</h3>
               <button id="fameCopyInfoBtn" class="text-[10px] font-bold text-emerald-500 hover:underline">
@@ -1002,13 +1024,13 @@
         </div>
 
         <!-- Kolom Kanan: Table View -->
-        <div id="fameMainContent" class="hidden space-y-6">
+        <div id="fameMainContent" class="space-y-6">
           <!-- Peak Data Table -->
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
               <div class="leading-tight">
                 <h3 class="text-sm font-bold text-zinc-900 dark:text-white tracking-wider">AREA PERCENT REPORT</h3>
-                <span class="text-[10px] text-zinc-400 dark:text-zinc-550">Klik judul kolom di bawah untuk menyalin satu kolom penuh ke clipboard</span>
+                <span class="text-[10px] text-zinc-400 dark:text-zinc-550 font-medium">Klik judul kolom di bawah untuk menyalin satu kolom penuh ke clipboard</span>
               </div>
               <div class="flex gap-2">
                 <button id="fameCopyTableBtn" class="px-4 py-2 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 font-bold text-xs transition-colors">
@@ -1034,12 +1056,6 @@
                   </tr>
                 </thead>
                 <tbody id="fameTableBody" class="font-mono divide-y divide-zinc-100 dark:divide-zinc-800/50">
-                  <!-- Diisi via JS -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>dark:divide-zinc-800/50">
                   <!-- Diisi via JS -->
                 </tbody>
               </table>
@@ -3985,8 +4001,12 @@ const Fame = {
 
   init() {
     this.fileInput = document.getElementById('fameFileInput');
+    this.fileInputCentered = document.getElementById('fameFileInputCentered');
     this.fileSelect = document.getElementById('fameFileSelect');
     this.clearAllBtn = document.getElementById('fameClearAllBtn');
+    
+    this.emptyState = document.getElementById('fameEmptyState');
+    this.dataLayout = document.getElementById('fameDataLayout');
     
     this.fileListContainer = document.getElementById('fameFileListContainer');
     this.statsCard = document.getElementById('fameStatsCard');
@@ -4008,6 +4028,9 @@ const Fame = {
     if (!this.fileInput) return; // Safeguard if DOM not ready (e.g. testing env)
 
     this.fileInput.addEventListener('change', (e) => this.handleFiles(e.target.files));
+    if (this.fileInputCentered) {
+      this.fileInputCentered.addEventListener('change', (e) => this.handleFiles(e.target.files));
+    }
     this.fileSelect.addEventListener('change', () => this.handleSelectFile());
     this.clearAllBtn.addEventListener('click', () => this.clearAll());
     
@@ -4015,29 +4038,32 @@ const Fame = {
     this.copyTableBtn.addEventListener('click', () => this.copyTableTsv());
     this.exportCsvBtn.addEventListener('click', () => this.exportCsv());
 
-    // Drag and drop events for file uploader label
-    const dropzone = this.fileInput.closest('label');
-    if (dropzone) {
-      ['dragenter', 'dragover'].forEach(eventName => {
-        dropzone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          dropzone.classList.add('border-emerald-500', 'bg-zinc-100', 'dark:bg-zinc-800/40');
-        }, false);
-      });
+    // Drag and drop events for file uploaders
+    [this.fileInput, this.fileInputCentered].forEach(inputEl => {
+      if (!inputEl) return;
+      const dropzone = inputEl.closest('label');
+      if (dropzone) {
+        ['dragenter', 'dragover'].forEach(eventName => {
+          dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropzone.classList.add('border-emerald-500', 'bg-zinc-100', 'dark:bg-zinc-800/40');
+          }, false);
+        });
 
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropzone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          dropzone.classList.remove('border-emerald-500', 'bg-zinc-100', 'dark:bg-zinc-800/40');
-        }, false);
-      });
+        ['dragleave', 'drop'].forEach(eventName => {
+          dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('border-emerald-500', 'bg-zinc-100', 'dark:bg-zinc-800/40');
+          }, false);
+        });
 
-      dropzone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        this.handleFiles(files);
-      }, false);
-    }
+        dropzone.addEventListener('drop', (e) => {
+          const dt = e.dataTransfer;
+          const files = dt.files;
+          this.handleFiles(files);
+        }, false);
+      }
+    });
   },
 
   async handleFiles(fileList) {
@@ -4247,6 +4273,9 @@ const Fame = {
     });
     
     if (this.files.length > 0) {
+      if (this.emptyState) this.emptyState.classList.add('hidden');
+      if (this.dataLayout) this.dataLayout.classList.remove('hidden');
+      
       this.fileListContainer.classList.remove('hidden');
       this.statsCard.classList.remove('hidden');
       this.metadataCard.classList.remove('hidden');
@@ -4260,10 +4289,14 @@ const Fame = {
         this.fileSelectCustom = new CustomSelect(this.fileSelect);
       }
     } else {
+      if (this.emptyState) this.emptyState.classList.remove('hidden');
+      if (this.dataLayout) this.dataLayout.classList.add('hidden');
+      
       this.fileListContainer.classList.add('hidden');
       this.statsCard.classList.add('hidden');
       this.metadataCard.classList.add('hidden');
       this.mainContent.classList.add('hidden');
+      if (this.fileInputCentered) this.fileInputCentered.value = "";
     }
   },
 
