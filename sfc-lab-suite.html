@@ -1067,11 +1067,11 @@
                 <thead>
                   <tr class="text-zinc-650 dark:text-zinc-455 font-bold bg-zinc-100 dark:bg-zinc-800/80">
                     <th onclick="window.Fac && window.Fac.copyColumn(0)" title="Klik untuk menyalin kolom Peak" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tl-xl w-16 cursor-pointer select-none transition-colors">Peak</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(1)" title="Klik untuk menyalin kolom RetTime" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">RetTime (min)</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(2)" title="Klik untuk menyalin kolom Type" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-20 cursor-pointer select-none transition-colors">Type</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(3)" title="Klik untuk menyalin kolom Width" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">Width (min)</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(4)" title="Klik untuk menyalin kolom Area" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-32 cursor-pointer select-none transition-colors">Area (pA*s)</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(5)" title="Klik untuk menyalin kolom Area%" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-24 cursor-pointer select-none transition-colors">Area (%)</th>
+                    <th onclick="window.Fac && window.Fac.copyColumn(1)" title="Klik untuk menyalin kolom RetTime" class="px-6 py-3 text-right sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">RetTime (min)</th>
+                    <th onclick="window.Fac && window.Fac.copyColumn(2)" title="Klik untuk menyalin kolom Type" class="px-6 py-3 text-left sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-20 cursor-pointer select-none transition-colors">Type</th>
+                    <th onclick="window.Fac && window.Fac.copyColumn(3)" title="Klik untuk menyalin kolom Width" class="px-6 py-3 text-right sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">Width (min)</th>
+                    <th onclick="window.Fac && window.Fac.copyColumn(4)" title="Klik untuk menyalin kolom Area" class="px-8 py-3 text-right sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-32 cursor-pointer select-none transition-colors">Area (pA*s)</th>
+                    <th onclick="window.Fac && window.Fac.copyColumn(5)" title="Klik untuk menyalin kolom Area%" class="px-8 py-3 text-right sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-24 cursor-pointer select-none transition-colors">Area (%)</th>
                     <th onclick="window.Fac && window.Fac.copyColumn(6)" title="Klik untuk menyalin kolom Name" class="px-6 py-3 text-left sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tr-xl cursor-pointer select-none transition-colors">Name</th>
                   </tr>
                 </thead>
@@ -4447,11 +4447,11 @@ const Fac = {
         
         let rowHtml = `
           <td class="px-4 py-2.5 text-center font-bold text-zinc-650 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/40">${r[0]}</td>
-          <td class="px-4 py-2.5 text-center border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[1]).toFixed(2)}</td>
-          <td class="px-4 py-2.5 text-center border-b border-zinc-100 dark:border-zinc-800/40">${r[2]}</td>
-          <td class="px-4 py-2.5 text-center border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[3]).toFixed(2)}</td>
-          <td class="px-4 py-2.5 text-center border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[4]).toFixed(2)}</td>
-          <td class="px-4 py-2.5 text-center border-b border-zinc-100 dark:border-zinc-800/40 font-bold text-emerald-600 dark:text-emerald-400">${parseFloat(r[5]).toFixed(2)}</td>
+          <td class="px-6 py-2.5 text-right border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[1]).toFixed(2)}</td>
+          <td class="px-6 py-2.5 text-left border-b border-zinc-100 dark:border-zinc-800/40">${r[2]}</td>
+          <td class="px-6 py-2.5 text-right border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[3]).toFixed(2)}</td>
+          <td class="px-8 py-2.5 text-right border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[4]).toFixed(2)}</td>
+          <td class="px-8 py-2.5 text-right border-b border-zinc-100 dark:border-zinc-800/40 font-bold text-emerald-600 dark:text-emerald-400">${parseFloat(r[5]).toFixed(2)}</td>
           <td class="px-6 py-2.5 text-left border-b border-zinc-100 dark:border-zinc-800/40 font-sans font-bold text-zinc-800 dark:text-zinc-200">${r[6]}</td>
         `;
         tr.innerHTML = rowHtml;
