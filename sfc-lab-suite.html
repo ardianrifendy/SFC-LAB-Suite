@@ -282,10 +282,10 @@
   </nav>
 
   <!-- Layout Wrapper -->
-  <div class="w-full flex flex-row relative min-h-[calc(100vh-64px)]">
+  <div class="w-full flex flex-row relative h-[calc(100vh-64px)] overflow-hidden">
     
     <!-- Sidebar Navigation (md:flex, hidden on mobile) -->
-    <aside id="sidebar" class="sidebar-transition w-64 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 py-6 px-4 hidden md:flex flex-col gap-6">
+    <aside id="sidebar" class="sidebar-transition w-64 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 py-6 px-4 hidden md:flex flex-col gap-6 h-full overflow-y-auto">
       
       <!-- Kategori SFC -->
       <div class="sidebar-group open">
@@ -355,7 +355,7 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 min-w-0 px-6 py-6 mb-20 md:mb-6 flex flex-col">
+    <main class="flex-1 min-w-0 px-6 py-6 pb-24 md:pb-8 flex flex-col h-full overflow-y-auto">
 
     <!-- ===== REGION: MODULE-EXTRACTOR ===== -->
     <div id="tabContent-extractor" class="tab-panel flex-1 flex flex-col hidden">
@@ -3429,6 +3429,38 @@ const Trend = {
       }
     };
 
+    const crosshairPlugin = {
+      id: 'crosshair',
+      afterDraw(chart) {
+        if (chart.tooltip && chart.tooltip._active && chart.tooltip._active.length) {
+          const activePoint = chart.tooltip._active[0];
+          const { ctx } = chart;
+          const { x, y } = activePoint.element;
+          const topY = chart.chartArea.top;
+          const bottomY = chart.chartArea.bottom;
+          const leftX = chart.chartArea.left;
+          const rightX = chart.chartArea.right;
+
+          ctx.save();
+          ctx.beginPath();
+          
+          // Garis vertikal
+          ctx.moveTo(x, topY);
+          ctx.lineTo(x, bottomY);
+          
+          // Garis horizontal
+          ctx.moveTo(leftX, y);
+          ctx.lineTo(rightX, y);
+          
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = isDark ? 'rgba(52, 211, 153, 0.45)' : 'rgba(16, 185, 129, 0.4)';
+          ctx.setLineDash([3, 3]);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+    };
+
     this.sfcChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -3481,7 +3513,7 @@ const Trend = {
           }
         }
       },
-      plugins: [smpMarkerPlugin]
+      plugins: [smpMarkerPlugin, crosshairPlugin]
     });
   },
 
@@ -5333,6 +5365,8 @@ const Fac = {
 const Osi = {
   customTempCounter: 0,
   lastCalculatedData: null,
+  mouseX: null,
+  mouseY: null,
   
   init() {
     this.container = document.getElementById('tabContent-osi');
@@ -5367,6 +5401,20 @@ const Osi = {
     
     this.canvas = document.getElementById('osiRegressCanvas');
     this.canvasPlaceholder = document.getElementById('osiCanvasPlaceholder');
+
+    if (this.canvas) {
+      this.canvas.addEventListener('mousemove', (e) => {
+        const rect = this.canvas.getBoundingClientRect();
+        this.mouseX = e.clientX - rect.left;
+        this.mouseY = e.clientY - rect.top;
+        this.drawChart();
+      });
+      this.canvas.addEventListener('mouseleave', () => {
+        this.mouseX = null;
+        this.mouseY = null;
+        this.drawChart();
+      });
+    }
 
     // Register events
     this.calculateBtn.addEventListener('click', () => this.calculate());
@@ -5800,6 +5848,80 @@ const Osi = {
     ctx.font = 'bold 8px sans-serif';
     ctx.textAlign = 'left';
     ctx.fillText(`Target: ${Math.round(shelfLifeHours / 24)} hari`, tx + 8, ty - 4);
+
+    // Draw Crosshair on OSI Canvas if Hovered
+    if (this.mouseX !== null && this.mouseY !== null) {
+      if (this.mouseX >= padLeft && this.mouseX <= width - padRight &&
+          this.mouseY >= padTop && this.mouseY <= height - padBottom) {
+        
+        ctx.save();
+        ctx.beginPath();
+        
+        // Garis vertikal
+        ctx.moveTo(this.mouseX, padTop);
+        ctx.lineTo(this.mouseX, height - padBottom);
+        
+        // Garis horizontal
+        ctx.moveTo(padLeft, this.mouseY);
+        ctx.lineTo(width - padRight, this.mouseY);
+        
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = isDark ? 'rgba(52, 211, 153, 0.45)' : 'rgba(16, 185, 129, 0.4)';
+        ctx.setLineDash([3, 3]);
+        ctx.stroke();
+        
+        // Titik persimpangan
+        ctx.beginPath();
+        ctx.arc(this.mouseX, this.mouseY, 3.5, 0, 2 * Math.PI);
+        ctx.fillStyle = isDark ? '#34d399' : '#059669';
+        ctx.fill();
+        
+        // Hitung nilai riil koordinat
+        const invX = minX + ((this.mouseX - padLeft) / (width - padLeft - padRight)) * (maxX - minX);
+        const invY = minY + ((height - padBottom - this.mouseY) / (height - padTop - padBottom)) * (maxY - minY);
+        const rawTime = Math.exp(invY);
+        
+        // Format label
+        const tempText = invX.toFixed(1) + "°C";
+        let timeText = rawTime.toFixed(1) + " jam";
+        if (rawTime >= 24) {
+          timeText += ` (${(rawTime / 24).toFixed(1)} hari)`;
+        }
+        const tooltipText = `${tempText} | ${timeText}`;
+        
+        // Gambar tooltip box melayang
+        ctx.font = 'bold 9px sans-serif';
+        const textWidth = ctx.measureText(tooltipText).width;
+        const boxW = textWidth + 10;
+        const boxH = 16;
+        
+        // Tentukan posisi tooltip agar tidak keluar layar
+        let boxX = this.mouseX + 8;
+        if (boxX + boxW > width - padRight) {
+          boxX = this.mouseX - boxW - 8;
+        }
+        let boxY = this.mouseY - boxH - 8;
+        if (boxY < padTop) {
+          boxY = this.mouseY + 8;
+        }
+        
+        ctx.fillStyle = isDark ? '#1f2937' : '#ffffff';
+        ctx.strokeStyle = isDark ? '#374151' : '#e5e7eb';
+        ctx.lineWidth = 1.5;
+        
+        ctx.beginPath();
+        ctx.rect(boxX, boxY, boxW, boxH);
+        ctx.fill();
+        ctx.stroke();
+        
+        ctx.fillStyle = isDark ? '#f3f4f6' : '#1f2937';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(tooltipText, boxX + boxW / 2, boxY + boxH / 2 + 0.5);
+        
+        ctx.restore();
+      }
+    }
   }
 };
 
