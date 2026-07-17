@@ -1279,17 +1279,14 @@
             <p class="text-xs text-zinc-500 dark:text-zinc-400">Prediksi masa simpan produk berdasarkan ekstrapolasi linear semilog data Induction Time vs Suhu Uji.</p>
           </div>
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-            <span class="text-[10px] font-bold text-zinc-500 dark:text-zinc-400">OSI Engine Active</span>
-          </div>
-        </div>
-
-        <!-- Layout 3 Kolom Berdampingan (Kiri ke Kanan) -->
-        <div class="grid grid-cols-1 md:grid-cols-[1.1fr_1.1fr_1.2fr] gap-5 flex-1 items-stretch">
+            <sp        <!-- Layout 3 Kolom Berdampingan (Kiri ke Kanan) -->
+        <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1.1fr_1.4fr] gap-6 flex-1 items-stretch">
           
-          <!-- KOLOM 1: INPUT HASIL DAN TEMPERATUR -->
+          <!-- KOLOM 1: INPUT SUHU, TARGET & PROSES -->
           <div class="space-y-4 border-r border-zinc-100 dark:border-zinc-800/60 pr-1 lg:pr-3 flex flex-col justify-between">
-            <div class="space-y-3 flex-1">
+            
+            <!-- SUB-SEKSI 1: INPUT HASIL & TEMPERATUR -->
+            <div class="space-y-3">
               <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase flex items-center gap-1.5">
                 <span class="w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[10px] font-black">1</span>
                 Input Hasil & Temperatur
@@ -1340,7 +1337,7 @@
                     <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">140 °C</span>
                   </label>
                   <div class="flex-1 flex items-center gap-1">
-                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="140" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-950 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="140" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-955 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
                     <span class="text-[9px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
@@ -1352,7 +1349,7 @@
                     <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">150 °C</span>
                   </label>
                   <div class="flex-1 flex items-center gap-1">
-                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="150" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-950 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="150" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-955 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
                     <span class="text-[9px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
@@ -1365,24 +1362,8 @@
               </div>
             </div>
 
-            <!-- Bagian Edukasi / Metodologi Pengisian Ruang Bawah -->
-            <div class="mt-4 p-3 rounded-xl bg-zinc-55 bg-zinc-100/60 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/80 text-[10px] leading-relaxed text-zinc-500 dark:text-zinc-400 space-y-1.5">
-              <span class="font-bold text-zinc-700 dark:text-zinc-300 block">ℹ️ PERSAMAAN EKSTRAPOLASI (ARRHENIUS)</span>
-              <p>Masa simpan diestimasi secara linear semilogaritmik berdasarkan persamaan kinetika reaksi oksidasi:</p>
-              <div class="text-center font-mono py-1 bg-white dark:bg-zinc-950 rounded border border-zinc-200/50 dark:border-zinc-800 text-zinc-800 dark:text-zinc-250">
-                ln(t) = m · T + c
-              </div>
-              <p>Di mana <strong>t</strong> adalah Induction Time (jam) dan <strong>T</strong> adalah temperatur uji (°C).</p>
-            </div>
-          </div>
-
-          <!-- KOLOM 2: PILIH TARGET DAN TEMPERATUR -->
-          <div class="space-y-4 border-r border-zinc-100 dark:border-zinc-800/60 pr-1 lg:pr-3 flex flex-col justify-between">
-            <div class="space-y-3.5 flex-1">
-              <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase flex items-center gap-1.5">
-                <span class="w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[10px] font-black">2</span>
-                Pilih Target & Temperatur
-              </h3>
+            <!-- SUB-SEKSI 2: TARGET TEMPERATUR & BUTTON -->
+            <div class="space-y-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 flex-1 flex flex-col justify-between">
               
               <!-- Input Box & Interactive Slider -->
               <div class="space-y-3 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/10">
@@ -1396,7 +1377,7 @@
                   </div>
                 </div>
                 
-                <!-- Range Slider Interaktif (Realtime update!) -->
+                <!-- Range Slider Interaktif -->
                 <div class="space-y-1">
                   <input type="range" id="osiTargetTempSlider" min="0" max="60" value="25" class="w-full h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-emerald-500">
                   <div class="flex justify-between text-[8px] font-semibold text-zinc-400">
@@ -1412,75 +1393,71 @@
               <!-- Preset Suhu Penyimpanan Riil -->
               <div class="space-y-2">
                 <span class="block text-[9px] font-bold text-zinc-450 dark:text-zinc-500 tracking-wider uppercase">🎯 PRESET SUHU PENYIMPANAN</span>
-                <div class="grid grid-cols-2 gap-2">
-                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 25; document.getElementById('osiTargetTempSlider').value = 25; window.Osi && window.Osi.calculate()" class="p-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
-                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300">Standard Lab</span>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 25; document.getElementById('osiTargetTempSlider').value = 25; window.Osi && window.Osi.calculate()" class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
+                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300 leading-tight">Standard Lab</span>
                     <span class="text-[8px] text-zinc-450 font-mono">25 °C</span>
                   </button>
-                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 20; document.getElementById('osiTargetTempSlider').value = 20; window.Osi && window.Osi.calculate()" class="p-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
-                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300">Suhu AC Ruangan</span>
+                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 20; document.getElementById('osiTargetTempSlider').value = 20; window.Osi && window.Osi.calculate()" class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
+                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300 leading-tight">AC Ruangan</span>
                     <span class="text-[8px] text-zinc-450 font-mono">20 °C</span>
                   </button>
-                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 30; document.getElementById('osiTargetTempSlider').value = 30; window.Osi && window.Osi.calculate()" class="p-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
-                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300">Suhu Tropis</span>
+                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 30; document.getElementById('osiTargetTempSlider').value = 30; window.Osi && window.Osi.calculate()" class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
+                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300 leading-tight">Suhu Tropis</span>
                     <span class="text-[8px] text-zinc-450 font-mono">30 °C</span>
                   </button>
-                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 4; document.getElementById('osiTargetTempSlider').value = 4; window.Osi && window.Osi.calculate()" class="p-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
-                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300">Kulkas (Chiller)</span>
+                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 4; document.getElementById('osiTargetTempSlider').value = 4; window.Osi && window.Osi.calculate()" class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
+                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300 leading-tight">Kulkas (Chiller)</span>
                     <span class="text-[8px] text-zinc-450 font-mono">4 °C</span>
                   </button>
                 </div>
               </div>
-            </div>
 
-            <!-- Tombol Hitung & Tampilkan Grafik -->
-            <div class="space-y-2 mt-auto pt-3 border-t border-zinc-100 dark:border-zinc-800/60">
-              <button id="osiCalculateBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-xs shadow-md shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all transform active:scale-[0.98]">
+              <!-- Tombol Hitung utama -->
+              <button id="osiCalculateBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-xs shadow-md shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all transform active:scale-[0.98]">
                 ⏳ Hitung Proyeksi Shelf Life
-              </button>
-              
-              <!-- Tombol Show Grafik (Muncul setelah kalkulasi berhasil) -->
-              <button id="osiShowChartBtn" class="hidden w-full py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-xs">
-                📊 Tampilkan Grafik Proyeksi
               </button>
             </div>
           </div>
 
-          <!-- KOLOM 3: PROYEKSI SHELF LIFE (HASIL DAN PARAMETER) -->
-          <div class="space-y-4 flex flex-col justify-between">
-            <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase flex items-center gap-1.5">
-              <span class="w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[10px] font-black">3</span>
-              Proyeksi Shelf Life
-            </h3>
-            
+          <!-- KOLOM 2: PROYEKSI SHELF LIFE (HASIL DAN PARAMETER) -->
+          <div class="space-y-4 border-r border-zinc-100 dark:border-zinc-800/60 pr-1 lg:pr-3 flex flex-col justify-between">
             <div class="space-y-3.5 flex-1 flex flex-col justify-between">
-              <!-- Card Proyeksi Terbesar -->
-              <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-3.5 shadow-md space-y-2 flex-shrink-0">
-                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+              
+              <div class="space-y-3.5">
+                <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase flex items-center gap-1.5">
+                  <span class="w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[10px] font-black">2</span>
+                  Proyeksi Shelf Life
+                </h3>
                 
-                <div class="flex items-center justify-between">
-                  <span class="text-[8px] font-extrabold tracking-widest text-emerald-100 uppercase">HASIL PROYEKSI</span>
-                  <span id="osiActiveTargetTempBadge" class="px-2 py-0.5 rounded-full bg-white/20 text-[8px] font-bold text-white">Suhu Target: 25 °C</span>
-                </div>
-                
-                <div class="space-y-0.5">
-                  <div class="text-2xl font-mono font-black tracking-tight" id="osiResultYearsText">- <span class="text-xs font-bold text-emerald-100">Tahun</span></div>
-                  <div class="text-[9px] font-semibold text-emerald-100/90" id="osiResultDetailText">Induction time setara dengan: - hari</div>
-                </div>
+                <!-- Card Proyeksi Terbesar -->
+                <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-3.5 shadow-md space-y-2 flex-shrink-0">
+                  <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+                  
+                  <div class="flex items-center justify-between">
+                    <span class="text-[8px] font-extrabold tracking-widest text-emerald-100 uppercase">HASIL PROYEKSI</span>
+                    <span id="osiActiveTargetTempBadge" class="px-2 py-0.5 rounded-full bg-white/20 text-[8px] font-bold text-white">Suhu Target: 25 °C</span>
+                  </div>
+                  
+                  <div class="space-y-0.5">
+                    <div class="text-2xl font-mono font-black tracking-tight" id="osiResultYearsText">- <span class="text-xs font-bold text-emerald-100">Tahun</span></div>
+                    <div class="text-[9px] font-semibold text-emerald-100/90" id="osiResultDetailText">Induction time setara dengan: - hari</div>
+                  </div>
 
-                <!-- Pecahan Waktu Detail -->
-                <div class="grid grid-cols-3 gap-2 pt-1.5 border-t border-white/10 text-center">
-                  <div class="p-1 rounded bg-white/10">
-                    <span class="block text-[8px] font-bold text-emerald-250">TAHUN</span>
-                    <span id="osiBreakdownYears" class="text-xs font-bold font-mono">-</span>
-                  </div>
-                  <div class="p-1 rounded bg-white/10">
-                    <span class="block text-[8px] font-bold text-emerald-250">BULAN</span>
-                    <span id="osiBreakdownMonths" class="text-xs font-bold font-mono">-</span>
-                  </div>
-                  <div class="p-1 rounded bg-white/10">
-                    <span class="block text-[8px] font-bold text-emerald-250">HARI</span>
-                    <span id="osiBreakdownDays" class="text-xs font-bold font-mono">-</span>
+                  <!-- Pecahan Waktu Detail -->
+                  <div class="grid grid-cols-3 gap-2 pt-1.5 border-t border-white/10 text-center">
+                    <div class="p-1 rounded bg-white/10">
+                      <span class="block text-[8px] font-bold text-emerald-250">TAHUN</span>
+                      <span id="osiBreakdownYears" class="text-xs font-bold font-mono">-</span>
+                    </div>
+                    <div class="p-1 rounded bg-white/10">
+                      <span class="block text-[8px] font-bold text-emerald-250">BULAN</span>
+                      <span id="osiBreakdownMonths" class="text-xs font-bold font-mono">-</span>
+                    </div>
+                    <div class="p-1 rounded bg-white/10">
+                      <span class="block text-[8px] font-bold text-emerald-250">HARI</span>
+                      <span id="osiBreakdownDays" class="text-xs font-bold font-mono">-</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1512,7 +1489,7 @@
                 </div>
               </div>
 
-              <!-- Evaluasi Keandalan Dinamis (Pengisian Ruang Bawah) -->
+              <!-- Evaluasi Keandalan Dinamis -->
               <div id="osiReliabilityCard" class="p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40 space-y-1.5">
                 <div class="flex items-center justify-between">
                   <span class="text-[9px] font-bold text-zinc-450 dark:text-zinc-500 uppercase tracking-wider">🛡️ Evaluasi Keandalan Data</span>
@@ -1523,7 +1500,32 @@
                 </p>
               </div>
             </div>
+          </div>
 
+          <!-- KOLOM 3: KURVA REGRESI SEMILOG VISUAL (LANGSUNG TAMPIL!) -->
+          <div class="space-y-3.5 flex flex-col h-full">
+            <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase flex items-center gap-1.5">
+              <span class="w-4 h-4 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-[10px] font-black">3</span>
+              Kurva Regresi Semilog
+            </h3>
+            
+            <div class="relative flex-1 bg-zinc-50 dark:bg-zinc-950 rounded-xl border border-zinc-200/60 dark:border-zinc-800/80 flex items-center justify-center overflow-hidden min-h-[300px] h-full">
+              <canvas id="osiRegressCanvas" class="w-full h-full"></canvas>
+              <div id="osiCanvasPlaceholder" class="absolute inset-0 bg-zinc-50/90 dark:bg-zinc-955/95 flex flex-col items-center justify-center text-center p-3 z-10">
+                <span class="text-3xl mb-2">📊</span>
+                <span class="text-xs font-bold text-zinc-550 dark:text-zinc-400 leading-tight">Kurva proyeksi otomatis digambar setelah hitung.</span>
+              </div>
+            </div>
+            
+            <!-- Catatan Edukasi / Metodologi Pengisian Ruang Bawah Kanan -->
+            <div class="p-3 rounded-xl bg-zinc-100/60 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800/80 text-[10px] leading-relaxed text-zinc-500 dark:text-zinc-400 space-y-1.5">
+              <span class="font-bold text-zinc-700 dark:text-zinc-300 block">ℹ️ PERSAMAAN ARRHENIUS EKSTRAPOLASI KINETIKA</span>
+              <p>Masa simpan diestimasi secara linear semilogaritmik menggunakan rumus kinetika Arrhenius:</p>
+              <div class="text-center font-mono py-1 bg-white dark:bg-zinc-950 rounded border border-zinc-200/50 dark:border-zinc-800 text-zinc-800 dark:text-zinc-250">
+                ln(t) = m · T + c
+              </div>
+              <p>Di mana <strong>t</strong> adalah Induction Time (jam) dan <strong>T</strong> adalah temperatur uji (°C). Grafik di atas memetakan data riil lab (titik hijau) dan mengekstrapolasinya ke target (titik kuning).</p>
+            </div>
           </div>
 
         </div>
@@ -5335,6 +5337,9 @@ const Osi = {
     this.lastCalculatedData = { dataPoints, slope, intercept, targetTemp, shelfLifeHours };
     if (this.showChartBtn) this.showChartBtn.classList.remove('hidden');
     if (this.canvasPlaceholder) this.canvasPlaceholder.classList.add('hidden');
+    
+    // Draw the semilog regression chart live on the screen
+    this.drawChart();
   },
 
   drawChart() {
@@ -5493,6 +5498,15 @@ function handleRouting() {
   const activePanel = document.getElementById(`tabContent-${hash}`);
   if (activePanel) {
     activePanel.classList.remove('hidden');
+    
+    // Auto draw/redraw canvas graphs once the tab is visible
+    if (hash === 'osi' && window.Osi) {
+      setTimeout(() => window.Osi.drawChart(), 50);
+    } else if (hash === 'trend' && window.Trend) {
+      setTimeout(() => {
+        if (window.Trend.chart) window.Trend.chart.update();
+      }, 50);
+    }
   }
 
   // Update Navigation Links (Sidebar & Mobile)
