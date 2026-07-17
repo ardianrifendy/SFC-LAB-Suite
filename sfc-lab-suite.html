@@ -343,8 +343,8 @@
       
       <div class="sidebar-menu-divider border-t border-zinc-200/50 dark:border-zinc-800/80 mx-2"></div>
       
-      <!-- Kategori OSI (Placeholder) -->
-      <div class="sidebar-group">
+      <!-- Kategori OSI -->
+      <div class="sidebar-group open">
         <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1 cursor-pointer select-none group sidebar-group-toggle">
           <span class="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
           <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-300">OSI TOOLS</span>
@@ -354,10 +354,10 @@
         </div>
         
         <div class="sidebar-group-content mt-2 space-y-1">
-          <div class="sidebar-menu-item opacity-50 cursor-not-allowed" title="OSI Extractor (Segera Hadir)">
+          <a href="#osi" data-tab="osi" class="sidebar-menu-item" title="OSI Shelf Life Calculator">
             <span class="text-base mr-3">⏳</span>
-            <span class="sidebar-text-content">OSI Extractor</span>
-          </div>
+            <span class="sidebar-text-content">Shelf Life Calculator</span>
+          </a>
         </div>
       </div>
       
@@ -1238,6 +1238,217 @@
               </table>
             </div>
           </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== REGION: MODULE-OSI ===== -->
+    <div id="tabContent-osi" class="tab-panel hidden">
+      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-zinc-100 dark:border-zinc-800 pb-4">
+          <div>
+            <h2 class="text-2xl font-extrabold text-zinc-900 dark:text-white">OSI Shelf Life Calculator</h2>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400">Prediksi masa simpan produk berdasarkan ekstrapolasi linear semilog data Induction Time vs Suhu Uji.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+            <span class="text-xs font-bold text-zinc-500 dark:text-zinc-400">OSI Engine Active</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_450px] gap-8">
+          
+          <!-- Kolom Kiri: Form & Inputs -->
+          <div class="space-y-6">
+            
+            <!-- Panduan Uji -->
+            <div class="p-4 rounded-xl bg-amber-50/60 dark:bg-amber-950/10 border border-amber-200/50 dark:border-amber-900/30 text-xs text-amber-800 dark:text-amber-300">
+              <p class="font-bold mb-1">💡 Petunjuk Input Data:</p>
+              <ul class="list-disc list-inside space-y-0.5 opacity-90">
+                <li>Centang minimal <strong>3 temperatur uji</strong> di bawah ini.</li>
+                <li>Masukkan nilai <strong>Induction Time (jam)</strong> untuk masing-masing temperatur yang dipilih.</li>
+                <li>Tentukan target suhu penyimpanan (default 25 °C) untuk mengekstrapolasi umur simpan produk.</li>
+              </ul>
+            </div>
+
+            <!-- Titik Temperatur & Jam Induksi -->
+            <div class="space-y-4">
+              <h3 class="text-sm font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase">1. Titik Data Uji (Suhu vs Waktu Induksi)</h3>
+              
+              <div class="space-y-3" id="osiTempInputGrid">
+                <!-- Baris Input Suhu Bawaan (110, 120, 130, 140, 150) -->
+                <!-- Baris 110 -->
+                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
+                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
+                    <input type="checkbox" data-temp="110" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">110 °C</span>
+                  </label>
+                  <div class="flex-1 flex items-center gap-2">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="110" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="26.35">
+                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  </div>
+                </div>
+
+                <!-- Baris 120 -->
+                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
+                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
+                    <input type="checkbox" data-temp="120" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">120 °C</span>
+                  </label>
+                  <div class="flex-1 flex items-center gap-2">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="120" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="12.25">
+                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  </div>
+                </div>
+
+                <!-- Baris 130 -->
+                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors">
+                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
+                    <input type="checkbox" data-temp="130" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">130 °C</span>
+                  </label>
+                  <div class="flex-1 flex items-center gap-2">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="130" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="5.80">
+                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  </div>
+                </div>
+
+                <!-- Baris 140 -->
+                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors opacity-60">
+                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
+                    <input type="checkbox" data-temp="140" class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">140 °C</span>
+                  </label>
+                  <div class="flex-1 flex items-center gap-2">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="140" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-950 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  </div>
+                </div>
+
+                <!-- Baris 150 -->
+                <div class="flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors opacity-60">
+                  <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
+                    <input type="checkbox" data-temp="150" class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+                    <span class="text-sm font-bold text-zinc-800 dark:text-zinc-250">150 °C</span>
+                  </label>
+                  <div class="flex-1 flex items-center gap-2">
+                    <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="150" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-950 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+                    <span class="text-xs font-bold text-zinc-400">jam</span>
+                  </div>
+                </div>
+
+              </div>
+              
+              <!-- Tombol tambah suhu kustom -->
+              <div class="flex justify-start">
+                <button id="osiAddCustomTempBtn" class="text-xs font-bold text-emerald-500 hover:text-emerald-600 flex items-center gap-1.5">
+                  ➕ Tambah Suhu Kustom
+                </button>
+              </div>
+            </div>
+
+            <!-- Target Suhu Penyimpanan -->
+            <div class="space-y-3">
+              <h3 class="text-sm font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase">2. Target Suhu Penyimpanan</h3>
+              <div class="flex items-center gap-4 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/10">
+                <div class="flex-1">
+                  <label for="osiTargetTemp" class="block text-xs font-bold text-zinc-500 dark:text-zinc-400 mb-1.5">Target Suhu Proyeksi (°C)</label>
+                  <input type="number" id="osiTargetTemp" value="25" min="0" max="100" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-2 text-sm font-bold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
+                </div>
+                <div class="flex-shrink-0 flex flex-col items-center justify-center p-2 rounded-lg bg-zinc-200/50 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold text-xs min-w-[70px] mt-5">
+                  <span>°C</span>
+                </div>
+              </div>
+            </div>
+
+            <button id="osiCalculateBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-sm shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/35 transition-all transform active:scale-[0.98]">
+              ⏳ Hitung Proyeksi Shelf Life
+            </button>
+
+          </div>
+          
+          <!-- Kolom Kanan: Hasil & Visualisasi -->
+          <div class="space-y-6">
+            
+            <!-- Card Proyeksi Terbesar -->
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-6 shadow-xl space-y-4">
+              <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+              
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-extrabold tracking-widest text-emerald-100 uppercase">PROYEKSI SHELF LIFE</span>
+                <span id="osiActiveTargetTempBadge" class="px-2 py-0.5 rounded-full bg-white/20 text-[10px] font-bold text-white">Suhu Target: 25 °C</span>
+              </div>
+              
+              <div class="space-y-1">
+                <div class="text-4xl font-black font-mono tracking-tight" id="osiResultYearsText">- <span class="text-sm font-bold text-emerald-100">Tahun</span></div>
+                <div class="text-sm font-semibold text-emerald-100/90" id="osiResultDetailText">Induction time setara dengan: - hari (- jam)</div>
+              </div>
+
+              <!-- Pecahan Waktu Detail -->
+              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-white/10 text-center">
+                <div class="p-2 rounded-lg bg-white/10">
+                  <span class="block text-[8px] font-bold text-emerald-200">TAHUN</span>
+                  <span id="osiBreakdownYears" class="text-sm font-bold font-mono">-</span>
+                </div>
+                <div class="p-2 rounded-lg bg-white/10">
+                  <span class="block text-[8px] font-bold text-emerald-200">BULAN</span>
+                  <span id="osiBreakdownMonths" class="text-sm font-bold font-mono">-</span>
+                </div>
+                <div class="p-2 rounded-lg bg-white/10">
+                  <span class="block text-[8px] font-bold text-emerald-200">HARI</span>
+                  <span id="osiBreakdownDays" class="text-sm font-bold font-mono">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Parameter Statistik Linearitas -->
+            <div class="bg-zinc-50 dark:bg-zinc-900/40 rounded-2xl p-5 border border-zinc-200/80 dark:border-zinc-800/80 transition-colors space-y-4">
+              <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase border-b border-zinc-200/50 dark:border-zinc-800 pb-2">Hasil & Parameter Regresi</h3>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
+                  <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">R-SQUARE (R²)</span>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <span id="osiRSquareVal" class="text-sm font-extrabold text-zinc-800 dark:text-zinc-100 font-mono">-</span>
+                    <span id="osiRSquareBadge" class="hidden px-1.5 py-0.5 rounded text-[8px] font-bold"></span>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
+                  <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">SLOPE (m)</span>
+                  <span id="osiSlopeVal" class="block text-sm font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
+                  <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">Q10 FACTOR</span>
+                  <span id="osiQ10Val" class="block text-sm font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/60">
+                  <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">INTERCEPT (c)</span>
+                  <span id="osiInterceptVal" class="block text-sm font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Canvas Grafik Regresi Semilog -->
+            <div class="bg-zinc-50 dark:bg-zinc-900/40 rounded-2xl p-5 border border-zinc-200/80 dark:border-zinc-800/80 transition-colors space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase">Grafik Proyeksi Semilog</h3>
+                <span class="text-[9px] font-bold text-zinc-400 font-mono">y = ln(t) vs x = Temp</span>
+              </div>
+              <div class="relative h-56 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200/60 dark:border-zinc-800 flex items-center justify-center overflow-hidden">
+                <canvas id="osiRegressCanvas" class="w-full h-full"></canvas>
+                <!-- Overlay placeholder jika data belum komplit -->
+                <div id="osiCanvasPlaceholder" class="absolute inset-0 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xs flex flex-col items-center justify-center text-center p-4">
+                  <span class="text-3xl mb-2">📊</span>
+                  <span class="text-xs font-bold text-zinc-500 dark:text-zinc-450">Grafik proyeksi otomatis digambar setelah menekan tombol hitung.</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
       </div>
@@ -4763,6 +4974,302 @@ const Fac = {
   }
 };
 
+// ===== REGION: MODULE-OSI =====
+const Osi = {
+  customTempCounter: 0,
+  
+  init() {
+    this.container = document.getElementById('tabContent-osi');
+    if (!this.container) return;
+
+    this.calculateBtn = document.getElementById('osiCalculateBtn');
+    this.addCustomTempBtn = document.getElementById('osiAddCustomTempBtn');
+    this.targetTempInput = document.getElementById('osiTargetTemp');
+    
+    // Output DOM
+    this.activeTargetTempBadge = document.getElementById('osiActiveTargetTempBadge');
+    this.resultYearsText = document.getElementById('osiResultYearsText');
+    this.resultDetailText = document.getElementById('osiResultDetailText');
+    this.breakdownYears = document.getElementById('osiBreakdownYears');
+    this.breakdownMonths = document.getElementById('osiBreakdownMonths');
+    this.breakdownDays = document.getElementById('osiBreakdownDays');
+    
+    this.rSquareVal = document.getElementById('osiRSquareVal');
+    this.rSquareBadge = document.getElementById('osiRSquareBadge');
+    this.slopeVal = document.getElementById('osiSlopeVal');
+    this.q10Val = document.getElementById('osiQ10Val');
+    this.interceptVal = document.getElementById('osiInterceptVal');
+    
+    this.canvas = document.getElementById('osiRegressCanvas');
+    this.canvasPlaceholder = document.getElementById('osiCanvasPlaceholder');
+
+    // Register events
+    this.calculateBtn.addEventListener('click', () => this.calculate());
+    this.addCustomTempBtn.addEventListener('click', () => this.addCustomTempRow());
+    
+    // Checkbox and disabled input behavior
+    this.container.addEventListener('change', (e) => {
+      if (e.target.classList.contains('osi-temp-checkbox')) {
+        const temp = e.target.getAttribute('data-temp');
+        const timeInput = this.container.querySelector(`[data-temp-val="${temp}"]`);
+        if (timeInput) {
+          timeInput.disabled = !e.target.checked;
+          const parentRow = e.target.closest('.flex');
+          if (e.target.checked) {
+            parentRow.classList.remove('opacity-60');
+          } else {
+            parentRow.classList.add('opacity-60');
+          }
+        }
+      }
+    });
+
+    // Dark mode redrawing
+    window.addEventListener('themeChanged', () => {
+      if (this.canvasPlaceholder && this.canvasPlaceholder.classList.contains('hidden')) {
+        this.drawChart();
+      }
+    });
+
+    // Load initial calculation if pre-filled data is valid
+    this.calculate();
+  },
+
+  addCustomTempRow() {
+    this.customTempCounter++;
+    const id = `custom_${this.customTempCounter}`;
+    const grid = document.getElementById('osiTempInputGrid');
+    
+    const row = document.createElement('div');
+    row.className = 'flex items-center gap-4 p-3 rounded-xl border border-zinc-200/60 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/30 transition-colors animate-slide-in';
+    row.innerHTML = `
+      <label class="flex items-center gap-3 cursor-pointer select-none min-w-[100px]">
+        <input type="checkbox" data-temp="${id}" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
+        <input type="number" placeholder="Suhu" class="w-16 rounded-md border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-1 py-0.5 text-xs font-bold text-center focus:border-emerald-500 focus:outline-none dark:text-white osi-custom-temp-label" value="140">
+        <span class="text-xs font-bold text-zinc-400">°C</span>
+      </label>
+      <div class="flex-1 flex items-center gap-2">
+        <input type="number" step="0.01" min="0" placeholder="Induction Time" data-temp-val="${id}" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+        <span class="text-xs font-bold text-zinc-400">jam</span>
+      </div>
+      <button class="text-xs text-rose-500 hover:text-rose-600 font-bold ml-1" onclick="this.closest('.flex').remove()">✕</button>
+    `;
+    grid.appendChild(row);
+  },
+
+  calculate() {
+    const checkboxes = this.container.querySelectorAll('.osi-temp-checkbox');
+    const dataPoints = [];
+    
+    checkboxes.forEach(cb => {
+      if (cb.checked) {
+        const id = cb.getAttribute('data-temp');
+        const timeInput = this.container.querySelector(`[data-temp-val="${id}"]`);
+        
+        let tempVal;
+        if (cb.nextElementSibling && cb.nextElementSibling.classList.contains('osi-custom-temp-label')) {
+          tempVal = parseFloat(cb.nextElementSibling.value);
+        } else {
+          tempVal = parseFloat(id);
+        }
+        
+        if (timeInput && timeInput.value) {
+          const timeVal = parseFloat(timeInput.value);
+          if (!isNaN(tempVal) && !isNaN(timeVal) && timeVal > 0) {
+            dataPoints.push({ x: tempVal, y: Math.log(timeVal), rawY: timeVal });
+          }
+        }
+      }
+    });
+
+    if (dataPoints.length < 3) {
+      showToast("⚠ Centang & masukkan minimal 3 titik data suhu!");
+      return;
+    }
+
+    const n = dataPoints.length;
+    let sumX = 0, sumY = 0;
+    dataPoints.forEach(p => {
+      sumX += p.x;
+      sumY += p.y;
+    });
+
+    const avgX = sumX / n;
+    const avgY = sumY / n;
+    
+    let ssXX = 0, ssYY = 0, ssXY = 0;
+    dataPoints.forEach(p => {
+      ssXX += Math.pow(p.x - avgX, 2);
+      ssYY += Math.pow(p.y - avgY, 2);
+      ssXY += (p.x - avgX) * (p.y - avgY);
+    });
+
+    if (ssXX === 0) {
+      showToast("❌ Eror: Variasi suhu tidak boleh nol!");
+      return;
+    }
+
+    const slope = ssXY / ssXX;
+    const intercept = avgY - (slope * avgX);
+    
+    let r2 = 0;
+    if (ssYY > 0) {
+      r2 = Math.pow(ssXY, 2) / (ssXX * ssYY);
+    }
+
+    const q10 = Math.exp(-slope * 10);
+    const targetTemp = parseFloat(this.targetTempInput.value) || 25;
+    const logShelfLife = intercept + (slope * targetTemp);
+    const shelfLifeHours = Math.exp(logShelfLife);
+
+    this.activeTargetTempBadge.textContent = `Suhu Target: ${targetTemp} °C`;
+    
+    const totalDays = shelfLifeHours / 24;
+    const years = Math.floor(totalDays / 365);
+    const remainingDaysAfterYears = totalDays % 365;
+    const months = Math.floor(remainingDaysAfterYears / 30.416);
+    const days = Math.floor(remainingDaysAfterYears % 30.416);
+
+    this.resultYearsText.innerHTML = `${(totalDays / 365).toFixed(2)} <span class="text-sm font-bold text-emerald-100 dark:text-emerald-350">Tahun</span>`;
+    this.resultDetailText.textContent = `Induction time setara dengan: ${Math.floor(totalDays)} hari (${Math.floor(shelfLifeHours).toLocaleString()} jam)`;
+    
+    this.breakdownYears.textContent = years;
+    this.breakdownMonths.textContent = months;
+    this.breakdownDays.textContent = days;
+
+    this.rSquareVal.textContent = r2.toFixed(4);
+    this.slopeVal.textContent = slope.toFixed(4);
+    this.q10Val.textContent = q10.toFixed(4);
+    this.interceptVal.textContent = intercept.toFixed(4);
+
+    this.rSquareBadge.className = "px-1.5 py-0.5 rounded text-[8px] font-bold block";
+    if (r2 >= 0.98) {
+      this.rSquareBadge.textContent = "Sangat Akurat";
+      this.rSquareBadge.classList.add('bg-emerald-100', 'text-emerald-700', 'dark:bg-emerald-950/30', 'dark:text-emerald-400');
+    } else if (r2 >= 0.95) {
+      this.rSquareBadge.textContent = "Linear";
+      this.rSquareBadge.classList.add('bg-blue-100', 'text-blue-700', 'dark:bg-blue-950/30', 'dark:text-blue-400');
+    } else {
+      this.rSquareBadge.textContent = "Kurang Linear";
+      this.rSquareBadge.classList.add('bg-rose-100', 'text-rose-700', 'dark:bg-rose-950/30', 'dark:text-rose-400');
+    }
+    this.rSquareBadge.classList.remove('hidden');
+
+    this.canvasPlaceholder.classList.add('hidden');
+    this.drawChart(dataPoints, slope, intercept, targetTemp, shelfLifeHours);
+  },
+
+  drawChart(dataPoints = [], slope = 0, intercept = 0, targetTemp = 25, shelfLifeHours = 0) {
+    if (!this.canvas) return;
+    const ctx = this.canvas.getContext('2d');
+    
+    const dpr = window.devicePixelRatio || 1;
+    const rect = this.canvas.getBoundingClientRect();
+    this.canvas.width = rect.width * dpr;
+    this.canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    const width = rect.width;
+    const height = rect.height;
+    ctx.clearRect(0, 0, width, height);
+
+    if (dataPoints.length === 0) return;
+
+    const isDark = document.documentElement.classList.contains('dark');
+    const gridColor = isDark ? '#27272a' : '#e4e4e7';
+    const textColor = isDark ? '#a1a1aa' : '#71717a';
+    const pointColor = '#10b981';
+    const lineColor = isDark ? '#34d399' : '#059669';
+    const targetPointColor = '#f59e0b';
+
+    const allPoints = [...dataPoints, { x: targetTemp, y: Math.log(shelfLifeHours) }];
+    
+    const xValues = allPoints.map(p => p.x);
+    const yValues = allPoints.map(p => p.y);
+    const minX = Math.min(...xValues) - 10;
+    const maxX = Math.max(...xValues) + 10;
+    const minY = Math.min(...yValues) - 0.5;
+    const maxY = Math.max(...yValues) + 0.5;
+
+    const padLeft = 45;
+    const padRight = 20;
+    const padTop = 20;
+    const padBottom = 35;
+
+    const mapX = (x) => padLeft + ((x - minX) / (maxX - minX)) * (width - padLeft - padRight);
+    const mapY = (y) => height - padBottom - ((y - minY) / (maxY - minY)) * (height - padTop - padBottom);
+
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = gridColor;
+    ctx.font = '8px monospace';
+    ctx.fillStyle = textColor;
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+
+    const ySteps = 5;
+    for (let i = 0; i <= ySteps; i++) {
+      const yVal = minY + (i / ySteps) * (maxY - minY);
+      const py = mapY(yVal);
+      ctx.beginPath();
+      ctx.moveTo(padLeft, py);
+      ctx.lineTo(width - padRight, py);
+      ctx.stroke();
+      
+      const rawHour = Math.exp(yVal);
+      let label = rawHour.toFixed(1);
+      if (rawHour >= 1000) label = Math.round(rawHour / 24) + "d";
+      ctx.fillText(label, padLeft - 6, py);
+    }
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    const xSteps = 5;
+    for (let i = 0; i <= xSteps; i++) {
+      const xVal = minX + (i / xSteps) * (maxX - minX);
+      const px = mapX(xVal);
+      ctx.beginPath();
+      ctx.moveTo(px, padTop);
+      ctx.lineTo(px, height - padBottom);
+      ctx.stroke();
+      ctx.fillText(Math.round(xVal) + "°C", px, height - padBottom + 6);
+    }
+
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = lineColor;
+    ctx.beginPath();
+    ctx.moveTo(mapX(minX), mapY(intercept + slope * minX));
+    ctx.lineTo(mapX(maxX), mapY(intercept + slope * maxX));
+    ctx.stroke();
+
+    dataPoints.forEach(p => {
+      const px = mapX(p.x);
+      const py = mapY(p.y);
+      ctx.fillStyle = pointColor;
+      ctx.beginPath();
+      ctx.arc(px, py, 5, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.strokeStyle = isDark ? '#18181b' : '#ffffff';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    });
+
+    const tx = mapX(targetTemp);
+    const ty = mapY(Math.log(shelfLifeHours));
+    ctx.fillStyle = targetPointColor;
+    ctx.beginPath();
+    ctx.arc(tx, ty, 6, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.strokeStyle = isDark ? '#18181b' : '#ffffff';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.fillStyle = targetPointColor;
+    ctx.font = 'bold 8px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(`Target: ${Math.round(shelfLifeHours / 24)} hari`, tx + 8, ty - 4);
+  }
+};
+
 // ===== REGION: UI-SHELL =====
 const themeToggleBtn = document.getElementById('themeToggle');
 
@@ -4852,6 +5359,7 @@ window.Blend = Blend;
 window.DataMaster = DataMaster;
 window.Diff = Diff;
 window.Fac = Fac;
+window.Osi = Osi;
 
 // Initializations
 initTheme();
@@ -4874,6 +5382,7 @@ Blend.init();
 DataMaster.init();
 Diff.init();
 Fac.init();
+Osi.init();
 // Helper class to convert native HTML select elements into premium web-styled dropdowns
 class CustomSelect {
   constructor(selectElement) {
