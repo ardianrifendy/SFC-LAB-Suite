@@ -289,12 +289,9 @@
       
       <!-- Kategori SFC -->
       <div class="sidebar-group open">
-        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1 cursor-pointer select-none group sidebar-group-toggle">
+        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>
-          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-300">SFC TOOLS</span>
-          <svg class="w-3 h-3 sidebar-group-chevron ml-auto flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
+          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-650 dark:text-zinc-400 uppercase">SFC Tools</span>
         </div>
         
         <div class="sidebar-group-content mt-2 space-y-1">
@@ -325,12 +322,9 @@
       
       <!-- Kategori FAC -->
       <div class="sidebar-group open">
-        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1 cursor-pointer select-none group sidebar-group-toggle">
+        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1">
           <span class="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0"></span>
-          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-300">FAC TOOLS</span>
-          <svg class="w-3 h-3 sidebar-group-chevron ml-auto flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
+          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-650 dark:text-zinc-400 uppercase">FAC Tools</span>
         </div>
         
         <div class="sidebar-group-content mt-2 space-y-1">
@@ -345,12 +339,9 @@
       
       <!-- Kategori OSI -->
       <div class="sidebar-group open">
-        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1 cursor-pointer select-none group sidebar-group-toggle">
+        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1">
           <span class="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
-          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-300">OSI TOOLS</span>
-          <svg class="w-3 h-3 sidebar-group-chevron ml-auto flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
+          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-650 dark:text-zinc-400 uppercase">OSI Tools</span>
         </div>
         
         <div class="sidebar-group-content mt-2 space-y-1">
@@ -376,8 +367,13 @@
             <h2 class="text-xl font-extrabold text-zinc-900 dark:text-white">SFC Value Extractor</h2>
             <p class="text-xs text-zinc-500 dark:text-zinc-400">Parsing laporan mentah instrumen SFC menjadi tabel rapi.</p>
           </div>
-          <div id="extractorTubeBadge" class="hidden px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200/65 dark:border-emerald-900/60">
-            0 sampel terdeteksi
+          <div class="flex items-center gap-3">
+            <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('extractor')">
+              📖 Petunjuk Penggunaan
+            </button>
+            <div id="extractorTubeBadge" class="hidden px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 border border-emerald-200/65 dark:border-emerald-900/60">
+              0 sampel terdeteksi
+            </div>
           </div>
         </div>
         
@@ -519,7 +515,20 @@
 
     <!-- ===== REGION: MODULE-TREND ===== -->
     <div id="tabContent-trend" class="tab-panel flex-1 flex flex-col hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6 flex-1 items-stretch">
+      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex-1 flex flex-col mb-4">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
+          <div>
+            <h2 class="text-xl font-extrabold text-zinc-900 dark:text-white">SFC Predict MP</h2>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400">Memetakan data SFC sampel di berbagai suhu uji dan memproyeksikan Slip Melting Point (SMP).</p>
+          </div>
+          <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('trend')">
+            📖 Petunjuk Penggunaan
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6 flex-1 items-stretch">
         
         <div class="space-y-6 flex flex-col h-full">
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors flex-1 flex flex-col space-y-4">
@@ -598,13 +607,27 @@
           </div>
         </div>
 
+        </div>
       </div>
     </div>
 
 
     <!-- ===== REGION: MODULE-BLEND ===== -->
-    <div id="tabContent-blend" class="tab-panel hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6">
+    <div id="tabContent-blend" class="tab-panel flex-1 flex flex-col hidden">
+      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex-1 flex flex-col mb-4">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
+          <div>
+            <h2 class="text-xl font-extrabold text-zinc-900 dark:text-white">SFC Blend Calculator</h2>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400">Prediksi profil SFC hasil campuran (blending) dari beberapa minyak penyusun berdasarkan rasio persen.</p>
+          </div>
+          <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('blend')">
+            📖 Petunjuk Penggunaan
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6 flex-1 items-stretch">
         
         <div class="flex flex-col gap-6">
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
@@ -705,6 +728,7 @@
           </div>
         </div>
 
+        </div>
       </div>
     </div>
 
@@ -714,11 +738,17 @@
       <div class="space-y-6">
         
         <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
             <div>
-              <h2 class="text-xl font-bold text-zinc-950 dark:text-zinc-50">Database Data Master SFC</h2>
+              <h2 class="text-xl font-extrabold text-zinc-950 dark:text-zinc-55">Database Data Master SFC</h2>
               <p class="text-xs text-zinc-500">Kumpulan riwayat pengujian laboratorium yang digunakan sebagai referensi.</p>
             </div>
+            <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('data')">
+              📖 Petunjuk Penggunaan
+            </button>
+          </div>
+          
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
             
             <div class="flex flex-wrap gap-2">
               <button id="dataOpenAddModalBtn" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md transition-colors">
@@ -952,11 +982,17 @@
       <div class="space-y-6">
         
         <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
             <div>
-              <h2 class="text-xl font-bold text-zinc-950 dark:text-zinc-50">Differential Viewer</h2>
+              <h2 class="text-xl font-extrabold text-zinc-955 dark:text-zinc-50">Differential Viewer</h2>
               <p class="text-xs text-zinc-500">Menganalisis deviasi/selisih antara kurva prediksi blend vs hasil laboratorium aktual.</p>
             </div>
+            <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('diff')">
+              📖 Petunjuk Penggunaan
+            </button>
+          </div>
+          
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
             
             <div class="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-2 text-xs">
               <span class="font-semibold text-zinc-500">TOLERANSI SELISIH:</span>
@@ -1115,7 +1151,12 @@
             🧬
           </div>
           <h2 class="text-2xl font-extrabold text-zinc-900 dark:text-white">FAC Extractor</h2>
-          <p class="text-xs text-zinc-550 dark:text-zinc-400">Ekstrak metadata sampel dan tabel Area% dari file PDF laporan GC-FID secara instan.</p>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400">Ekstrak metadata sampel dan tabel Area% dari file PDF laporan GC-FID secara instan.</p>
+          <div class="flex justify-center pt-1.5">
+            <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('fac')">
+              📖 Petunjuk Penggunaan
+            </button>
+          </div>
         </div>
         
         <!-- Large Centered Uploader -->
@@ -1135,9 +1176,14 @@
         <!-- Kolom Kiri: Controls, Stats, & Metadata -->
         <div class="space-y-4 lg:h-full lg:flex lg:flex-col lg:overflow-hidden">
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex-shrink-0">
-            <h2 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
-              🧬 FAC Extractor
-            </h2>
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2 mb-2">
+              <h2 class="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
+                🧬 FAC Extractor
+              </h2>
+              <button class="px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[9px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors" onclick="showHelpGuide('fac')">
+                📖 Petunjuk
+              </button>
+            </div>
             
             <!-- File Uploader Mini (Sidebar) -->
             <div class="space-y-2">
@@ -1278,9 +1324,14 @@
             <h2 class="text-xl font-extrabold text-zinc-900 dark:text-white">OSI Shelf Life Calculator</h2>
             <p class="text-xs text-zinc-500 dark:text-zinc-400">Prediksi masa simpan produk berdasarkan ekstrapolasi linear semilog data Induction Time vs Suhu Uji.</p>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-            <span class="text-[10px] font-bold text-zinc-500 dark:text-zinc-400">OSI Engine Active</span>
+          <div class="flex items-center gap-3">
+            <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('osi')">
+              📖 Petunjuk Penggunaan
+            </button>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span class="text-[10px] font-bold text-zinc-500 dark:text-zinc-400">OSI Engine Active</span>
+            </div>
           </div>
         </div>
 
@@ -1605,6 +1656,30 @@
         </button>
         <button id="globalConfirmOkBtn" class="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-md transition-colors">
           Ya, Setuju
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Help Guide Modal -->
+  <div id="globalHelpModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 max-w-lg w-full h-[75vh] max-h-[560px] shadow-2xl flex flex-col justify-between animate-slide-in">
+      
+      <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3 flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📖</span>
+          <h3 class="text-sm font-bold text-zinc-900 dark:text-white" id="globalHelpTitle">Petunjuk Penggunaan</h3>
+        </div>
+        <button onclick="document.getElementById('globalHelpModal').classList.add('hidden')" class="text-zinc-400 hover:text-zinc-500 dark:hover:text-zinc-300 font-extrabold text-lg p-1">✕</button>
+      </div>
+      
+      <div class="flex-1 overflow-y-auto pr-1 my-3 text-xs text-zinc-650 dark:text-zinc-350 space-y-4 leading-relaxed font-normal text-left" id="globalHelpContent">
+        <!-- Konten panduan diisi via JS dinamis -->
+      </div>
+      
+      <div class="flex justify-end pt-2 border-t border-zinc-100 dark:border-zinc-800 flex-shrink-0">
+        <button onclick="document.getElementById('globalHelpModal').classList.add('hidden')" class="px-5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 font-bold text-xs shadow-xs transition-colors">
+          Paham, Tutup
         </button>
       </div>
     </div>
@@ -5527,12 +5602,6 @@ function handleRouting() {
           if (!activeGroup.classList.contains('open')) {
             activeGroup.classList.add('open');
           }
-          // Auto collapse other sidebar groups
-          document.querySelectorAll('.sidebar-group').forEach(grp => {
-            if (grp !== activeGroup) {
-              grp.classList.remove('open');
-            }
-          });
         }
       } else {
         link.classList.remove('text-zinc-500');
@@ -5561,6 +5630,147 @@ window.DataMaster = DataMaster;
 window.Diff = Diff;
 window.Fac = Fac;
 window.Osi = Osi;
+
+// Petunjuk Penggunaan untuk masing-masing tools
+const HELP_GUIDES = {
+  extractor: {
+    title: "Petunjuk Penggunaan: SFC Value Extractor",
+    html: `
+      <div class="space-y-3">
+        <p><strong>Fungsi:</strong> Mengekstrak data SFC secara otomatis dari teks laporan mentah instrumen Bruker/SFC.</p>
+        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
+          <li>Salin (Ctrl+C) seluruh teks laporan mentah dari instrumen Anda.</li>
+          <li>Tempelkan (Ctrl+V) teks tersebut ke dalam kotak input <strong>"1. Tempel Laporan Mentah"</strong> di sebelah kiri.</li>
+          <li>Pilih <strong>Mode Parsing</strong> di bagian bawah:
+            <ul class="list-disc pl-4 mt-1 font-normal">
+              <li><strong>Sample Definition (A)</strong>: Untuk data sampel harian tunggal / kontrol kualitas biasa.</li>
+              <li><strong>Sample Archive (B)</strong>: Untuk ekstraksi data massal arsip besar.</li>
+            </ul>
+          </li>
+          <li>Klik <strong>"Proses Data"</strong>.</li>
+          <li>Hasil ekstraksi akan tampil dalam bentuk tabel di sebelah kanan. Anda dapat mengedit nama sampel secara langsung, lalu klik <strong>"Simpan ke Data Master"</strong> untuk menyimpannya secara permanen.</li>
+        </ol>
+      </div>
+    `
+  },
+  trend: {
+    title: "Petunjuk Penggunaan: SFC Predict MP (Trend)",
+    html: `
+      <div class="space-y-3">
+        <p><strong>Fungsi:</strong> Menganalisis profil SFC sampel pada berbagai suhu dan memproyeksikan perkiraan suhu Slip Melting Point (SMP).</p>
+        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
+          <li>Pilih <strong>Rentang Suhu Analisis</strong>:
+            <ul class="list-disc pl-4 mt-1 font-normal">
+              <li><strong>Mode 1 (2.5°C - 20°C)</strong>: Untuk lemak lunak seperti mentega, margarin meja, atau shortening kue.</li>
+              <li><strong>Mode 2 (10°C - 60°C)</strong>: Untuk lemak keras, stearin, atau produk hidrogenasi.</li>
+            </ul>
+          </li>
+          <li>Pilih <strong>Suhu Mulai (Start Temp)</strong> di grid di bawahnya.</li>
+          <li>Tempelkan data SFC dari Excel (Format: Baris horizontal nilai SFC berurutan sesuai rentang suhu).</li>
+          <li>Klik <strong>"Proses Data"</strong>.</li>
+          <li>Grafik kurva profil SFC akan digambar secara interaktif. Titik perpotongan garis merah putus-putus menunjukkan <strong>Modus Slip Melting Point (SMP)</strong> hasil estimasi/ceil mode.</li>
+        </ol>
+      </div>
+    `
+  },
+  blend: {
+    title: "Petunjuk Penggunaan: SFC Blend Calculator",
+    html: `
+      <div class="space-y-3">
+        <p><strong>Fungsi:</strong> Memprediksi profil SFC dari campuran (blending) beberapa komponen lemak berdasarkan rasio persen.</p>
+        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
+          <li>Klik <strong>"➕ Tambah Komponen"</strong> untuk memasukkan komponen lemak baru.</li>
+          <li>Pada setiap komponen, pilih <strong>Nama Jenis Lemak</strong> dari dropdown referensi database (misal: PO, ST, HPKOL, dsb.).</li>
+          <li>Masukkan <strong>Persentase Rasio Blending (%)</strong> untuk masing-masing komponen. Pastikan total penjumlahan persen di bagian bawah pas bernilai <strong>100%</strong>.</li>
+          <li>Klik <strong>"Hitung Prediksi Blend"</strong>.</li>
+          <li>Hasil proyeksi campuran akan digambar pada grafik garis di sebelah kanan beserta rincian tabel SFC campuran pada setiap titik suhu uji.</li>
+        </ol>
+      </div>
+    `
+  },
+  data: {
+    title: "Petunjuk Penggunaan: SFC Data Master",
+    html: `
+      <div class="space-y-3">
+        <p><strong>Fungsi:</strong> Mengelola database referensi profil SFC yang digunakan dalam kalkulasi blending dan komparasi.</p>
+        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
+          <li>Gunakan kolom pencarian di bagian atas untuk memfilter sampel berdasarkan nama.</li>
+          <li>Gunakan chips kategori di bawah kolom pencarian untuk memfilter data referensi secara cepat (misal: PO, PKO, ST, dll).</li>
+          <li>Anda dapat menambahkan data baru secara manual dengan mengeklik <strong>"➕ Tambah Data Baru"</strong> (Single Data atau Impor TSV massal).</li>
+          <li>Untuk mencadangkan atau membagikan database, klik tombol <strong>"Ekspor CSV"</strong>. Anda juga dapat mengimpor file CSV eksternal via tombol <strong>"Impor CSV"</strong>.</li>
+        </ol>
+      </div>
+    `
+  },
+  diff: {
+    title: "Petunjuk Penggunaan: Differential Viewer (SFC Compare)",
+    html: `
+      <div class="space-y-3">
+        <p><strong>Fungsi:</strong> Membandingkan selisih/deviasi nilai SFC antara rumus hasil blending prediksi vs hasil uji laboratorium aktual.</p>
+        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
+          <li>Pilih <strong>Sumber Prediksi Blend</strong> dari dropdown (dari kalkulator blend aktif).</li>
+          <li>Pilih <strong>Data Aktual Uji Lab</strong> dari tabel Data Master di bawahnya dengan mengeklik baris data yang sesuai.</li>
+          <li>Atur <strong>Toleransi Selisih</strong> deviasi di bagian kanan atas (default: Hijau &lt;= 2%, Kuning &lt;= 5%, Merah &gt; 5%).</li>
+          <li>Tabel deviasi di bawahnya akan secara otomatis menandai perbedaan dengan warna indikator kualitas deviasi:
+            <ul class="list-disc pl-4 mt-1 font-normal">
+              <li>🟢 <strong>Aman/Presisi</strong> (Selisih dalam batas hijau)</li>
+              <li>🟡 <strong>Peringatan/Deviasi Sedang</strong> (Selisih dalam batas kuning)</li>
+              <li>🔴 <strong>Tidak Standar/Deviasi Tinggi</strong> (Selisih melebihi batas kuning)</li>
+            </ul>
+          </li>
+          <li>Klik <strong>"Simpan Perbandingan ke Riwayat"</strong> untuk menyimpan hasil analisis komparasi ini.</li>
+        </ol>
+      </div>
+    `
+  },
+  fac: {
+    title: "Petunjuk Penggunaan: FAC Extractor",
+    html: `
+      <div class="space-y-3">
+        <p><strong>Fungsi:</strong> Mengurai (parsing) komposisi Fatty Acid Composition (FAC) dari file PDF laporan kromatografi GC-FID (Agilent).</p>
+        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
+          <li>Seret (Drag & Drop) satu atau beberapa file PDF laporan FAC ke area kotak uploader di tengah layar, atau klik kotak tersebut untuk memilih file PDF dari komputer.</li>
+          <li>Sistem akan mengekstrak metadata (Nama Sampel, Waktu Analisis, Operator) serta tabel area persen kromatogram secara otomatis.</li>
+          <li>Jika ekstraksi selesai, tabel hasil FAC akan muncul di layar.</li>
+          <li>Klik judul kolom (misal: C16:0, C18:1, dll) untuk menyalin satu kolom nilai tersebut secara instan ke clipboard.</li>
+          <li>Klik <strong>"Salin Tabel (TSV)"</strong> untuk menyalin seluruh tabel guna ditempel langsung di Excel, atau klik <strong>"Export CSV"</strong> untuk mengunduhnya sebagai berkas spreadsheet.</li>
+        </ol>
+      </div>
+    `
+  },
+  osi: {
+    title: "Petunjuk Penggunaan: OSI Shelf Life Calculator",
+    html: `
+      <div class="space-y-3">
+        <p><strong>Fungsi:</strong> Memprediksi masa simpan produk (Shelf Life) berdasarkan ekstrapolasi linear semilog data Induction Time uji stabilitas oksidatif suhu tinggi.</p>
+        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
+          <li><strong>Input Data Uji (Kolom Kiri)</strong>: Masukkan nilai Induction Time (dalam satuan jam) pada baris suhu uji yang Anda lakukan (misal: 110°C, 120°C, 130°C). Pastikan minimal ada <strong>3 titik suhu uji yang dicentang aktif</strong>.</li>
+          <li><strong>Pilih Target Ekstrapolasi (Kolom Kiri)</strong>: Geser slider target temperatur penyimpanan atau ketik angka derajat celsius pada kotak input (25°C untuk suhu ruang, 4°C untuk chiller).</li>
+          <li>Klik <strong>"Hitung Proyeksi Shelf Life"</strong>.</li>
+          <li><strong>Hasil Proyeksi (Kolom Tengah)</strong>: Akan menampilkan perkiraan masa simpan dalam satuan Tahun, Bulan, dan Hari, disertai dengan parameter statistik regresi linier ($R^2$, Slope, Intercept, Q10).</li>
+          <li><strong>Evaluasi Keandalan (Kolom Tengah)</strong>: Panel ini akan menilai kevalidan data Anda berdasarkan nilai linearitas $R^2$ (Sangat Tinggi jika $R^2 \ge 0.98$).</li>
+          <li><strong>Grafik Semilog (Kolom Kanan)</strong>: Menampilkan visualisasi kurva regresi secara real-time. Titik hijau adalah data uji lab Anda dan titik kuning adalah hasil ekstrapolasi target Anda.</li>
+        </ol>
+      </div>
+    `
+  }
+};
+
+function showHelpGuide(toolKey) {
+  const guide = HELP_GUIDES[toolKey];
+  if (!guide) return;
+  
+  const titleEl = document.getElementById('globalHelpTitle');
+  const contentEl = document.getElementById('globalHelpContent');
+  const modalEl = document.getElementById('globalHelpModal');
+  
+  if (titleEl && contentEl && modalEl) {
+    titleEl.innerText = guide.title;
+    contentEl.innerHTML = guide.html;
+    modalEl.classList.remove('hidden');
+  }
+}
+window.showHelpGuide = showHelpGuide;
 
 // Initializations
 initTheme();
@@ -5776,16 +5986,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Sidebar Group Accordion folder toggle
-  const groupToggles = document.querySelectorAll('.sidebar-group-toggle');
-  groupToggles.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const group = toggle.closest('.sidebar-group');
-      if (group) {
-        group.classList.toggle('open');
-      }
-    });
-  });
+  // Sidebar Group Accordion is permanently open. No toggle actions registered.
 });
 
   </script>
