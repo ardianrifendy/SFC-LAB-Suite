@@ -927,7 +927,7 @@
     <div id="tabContent-fame" class="tab-panel hidden animate-fade-in">
       <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6">
         
-        <!-- Kolom Kiri: Controls & File List -->
+        <!-- Kolom Kiri: Controls, Stats, & Metadata -->
         <div class="space-y-6">
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
             <h2 class="text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
@@ -935,14 +935,14 @@
             </h2>
             <p class="text-xs text-zinc-500">Ekstrak metadata dan tabel Area% dari PDF laporan GC-FID (Agilent ChemStation).</p>
             
-            <!-- File Uploader -->
+            <!-- File Uploader (Compact Version) -->
             <div class="space-y-2">
               <label class="block text-[10px] font-bold text-zinc-550 dark:text-zinc-450 tracking-wider">UNGGAH LAPORAN PDF</label>
-              <label class="flex flex-col items-center justify-center w-full h-32 px-4 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
-                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                  <span class="text-3xl mb-2">📁</span>
-                  <p class="text-xs font-bold text-zinc-600 dark:text-zinc-400">Pilih satu atau beberapa PDF</p>
-                  <p class="text-[10px] text-zinc-400 dark:text-zinc-500 mt-1">Format laporan PDF Agilent</p>
+              <label class="flex items-center gap-3 w-full py-3 px-4 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
+                <span class="text-2xl">📁</span>
+                <div class="text-left leading-tight">
+                  <p class="text-xs font-bold text-zinc-650 dark:text-zinc-300">Pilih / Drag PDF FAME</p>
+                  <p class="text-[10px] text-zinc-400 dark:text-zinc-500">Format laporan Agilent</p>
                 </div>
                 <input type="file" id="fameFileInput" multiple accept=".pdf" class="hidden">
               </label>
@@ -962,7 +962,7 @@
             </div>
           </div>
 
-          <!-- Summary Stats Card (Hanya muncul jika file terunggah) -->
+          <!-- Summary Stats Card -->
           <div id="fameStatsCard" class="hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
             <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK ANALISA</h3>
             <div class="grid grid-cols-2 gap-3">
@@ -986,28 +986,30 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Kolom Kanan: Metadata & Table View -->
-        <div id="fameMainContent" class="hidden space-y-6">
           <!-- Metadata Info Card -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
-              <h3 class="text-sm font-bold text-zinc-900 dark:text-white tracking-wider">METADATA SAMPEL</h3>
-              <button id="fameCopyInfoBtn" class="px-3 py-1.5 rounded-lg border border-zinc-350 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-700 text-xs font-bold text-zinc-600 dark:text-zinc-450 transition-colors">
-                📋 Salin Metadata
+          <div id="fameMetadataCard" class="hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
+              <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">METADATA SAMPEL</h3>
+              <button id="fameCopyInfoBtn" class="text-[10px] font-bold text-emerald-500 hover:underline">
+                📋 Salin
               </button>
             </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs" id="fameMetadataGrid">
+            <div class="grid grid-cols-1 gap-2.5 text-xs max-h-[300px] overflow-y-auto pr-1" id="fameMetadataGrid">
               <!-- Diisi via JS -->
             </div>
           </div>
+        </div>
 
+        <!-- Kolom Kanan: Table View -->
+        <div id="fameMainContent" class="hidden space-y-6">
           <!-- Peak Data Table -->
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
-              <h3 class="text-sm font-bold text-zinc-900 dark:text-white tracking-wider">AREA PERCENT REPORT</h3>
+              <div class="leading-tight">
+                <h3 class="text-sm font-bold text-zinc-900 dark:text-white tracking-wider">AREA PERCENT REPORT</h3>
+                <span class="text-[10px] text-zinc-400 dark:text-zinc-550">Klik judul kolom di bawah untuk menyalin satu kolom penuh ke clipboard</span>
+              </div>
               <div class="flex gap-2">
                 <button id="fameCopyTableBtn" class="px-4 py-2 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 font-bold text-xs transition-colors">
                   📋 Salin Tabel (TSV)
@@ -1018,20 +1020,26 @@
               </div>
             </div>
 
-            <div class="overflow-auto border border-zinc-200 dark:border-zinc-800 rounded-xl max-h-[480px]">
+            <div class="overflow-auto border border-zinc-200 dark:border-zinc-800 rounded-xl max-h-[580px]">
               <table class="w-full border-collapse text-left text-xs">
                 <thead>
-                  <tr class="text-zinc-650 dark:text-zinc-400 font-bold bg-zinc-100 dark:bg-zinc-800/80">
-                    <th class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tl-xl w-14">Peak</th>
-                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28">RetTime (min)</th>
-                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-20">Type</th>
-                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28">Width (min)</th>
-                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-32">Area (pA*s)</th>
-                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 w-24">Area (%)</th>
-                    <th class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tr-xl">Name</th>
+                  <tr class="text-zinc-650 dark:text-zinc-450 font-bold bg-zinc-100 dark:bg-zinc-800/80">
+                    <th onclick="window.Fame && window.Fame.copyColumn(0)" title="Klik untuk menyalin kolom Peak" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tl-xl w-16 cursor-pointer select-none transition-colors">Peak</th>
+                    <th onclick="window.Fame && window.Fame.copyColumn(1)" title="Klik untuk menyalin kolom RetTime" class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">RetTime (min)</th>
+                    <th onclick="window.Fame && window.Fame.copyColumn(2)" title="Klik untuk menyalin kolom Type" class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-20 cursor-pointer select-none transition-colors">Type</th>
+                    <th onclick="window.Fame && window.Fame.copyColumn(3)" title="Klik untuk menyalin kolom Width" class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">Width (min)</th>
+                    <th onclick="window.Fame && window.Fame.copyColumn(4)" title="Klik untuk menyalin kolom Area" class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-32 cursor-pointer select-none transition-colors">Area (pA*s)</th>
+                    <th onclick="window.Fame && window.Fame.copyColumn(5)" title="Klik untuk menyalin kolom Area%" class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-24 cursor-pointer select-none transition-colors">Area (%)</th>
+                    <th onclick="window.Fame && window.Fame.copyColumn(6)" title="Klik untuk menyalin kolom Name" class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tr-xl cursor-pointer select-none transition-colors">Name</th>
                   </tr>
                 </thead>
                 <tbody id="fameTableBody" class="font-mono divide-y divide-zinc-100 dark:divide-zinc-800/50">
+                  <!-- Diisi via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>dark:divide-zinc-800/50">
                   <!-- Diisi via JS -->
                 </tbody>
               </table>
@@ -3982,6 +3990,7 @@ const Fame = {
     
     this.fileListContainer = document.getElementById('fameFileListContainer');
     this.statsCard = document.getElementById('fameStatsCard');
+    this.metadataCard = document.getElementById('fameMetadataCard');
     this.mainContent = document.getElementById('fameMainContent');
     
     this.ivValue = document.getElementById('fameIvValue');
@@ -4240,6 +4249,7 @@ const Fame = {
     if (this.files.length > 0) {
       this.fileListContainer.classList.remove('hidden');
       this.statsCard.classList.remove('hidden');
+      this.metadataCard.classList.remove('hidden');
       this.mainContent.classList.remove('hidden');
       
       if (window.CustomSelect) {
@@ -4252,6 +4262,7 @@ const Fame = {
     } else {
       this.fileListContainer.classList.add('hidden');
       this.statsCard.classList.add('hidden');
+      this.metadataCard.classList.add('hidden');
       this.mainContent.classList.add('hidden');
     }
   },
@@ -4341,6 +4352,23 @@ const Fame = {
         this.tableBody.appendChild(tr);
       });
     }
+  },
+
+  copyColumn(colIdx) {
+    if (this.currentIdx === null || !this.files[this.currentIdx]) return;
+    const file = this.files[this.currentIdx];
+    const colNames = ["Peak", "RetTime", "Type", "Width", "Area", "Area%", "Name"];
+    const colName = colNames[colIdx] || "Kolom";
+    
+    const colValues = file.rows.map(r => r[colIdx]);
+    const text = colValues.join("\n");
+    
+    navigator.clipboard.writeText(text).then(() => {
+      showToast(`✔ Kolom ${colName} disalin ke clipboard!`);
+    }).catch(err => {
+      console.error("Gagal menyalin kolom:", err);
+      showToast(`❌ Gagal menyalin kolom ${colName}`);
+    });
   },
 
   copyMetadata() {
