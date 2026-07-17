@@ -4814,10 +4814,17 @@ function handleRouting() {
     if (tabName === hash) {
       if (isSidebarItem) {
         link.classList.add('active');
-        // Auto expand parent category if collapsed
-        const group = link.closest('.sidebar-group');
-        if (group && !group.classList.contains('open')) {
-          group.classList.add('open');
+        const activeGroup = link.closest('.sidebar-group');
+        if (activeGroup) {
+          if (!activeGroup.classList.contains('open')) {
+            activeGroup.classList.add('open');
+          }
+          // Auto collapse other sidebar groups
+          document.querySelectorAll('.sidebar-group').forEach(grp => {
+            if (grp !== activeGroup) {
+              grp.classList.remove('open');
+            }
+          });
         }
       } else {
         link.classList.remove('text-zinc-500');
