@@ -110,12 +110,12 @@
     }
 
     /* Tab Switch Transitions */
-    .tab-panel {
-      animation: fadeIn 0.25s ease-out;
+    .tab-panel:not(.hidden) {
+      animation: tabFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: scale(0.995) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
     
     /* Toast Animation */
@@ -649,9 +649,53 @@
               </div>
             </div>
 
-            <button id="blendCalculateBtn" disabled class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-extrabold text-sm shadow-lg transition-colors">
+            <button id="blendCalculateBtn" disabled class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed text-white font-extrabold text-xs shadow-lg transition-colors">
               Hitung Prediksi Blend
             </button>
+
+            <!-- SEKSI AUTO-SOLVER (OPTIMASI RASIO) -->
+            <div class="border-t border-zinc-100 dark:border-zinc-800/60 pt-3 mt-1 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center gap-1.5">
+                  🎯 SFC Auto-Solver
+                </span>
+                <button type="button" onclick="const p = document.getElementById('blendSolverPanel'); p.classList.toggle('hidden'); if(!p.classList.contains('hidden')){document.getElementById('blendTarget10').focus();}" class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+                  Toggle Input Target
+                </button>
+              </div>
+
+              <div id="blendSolverPanel" class="hidden p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/10 space-y-2.5">
+                <p class="text-[9px] text-zinc-500 leading-tight">Masukkan target nilai SFC di suhu tertentu, lalu sistem akan mencari rasio blend terbaik secara otomatis.</p>
+                
+                <div class="grid grid-cols-3 gap-2">
+                  <div class="space-y-1">
+                    <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">TARGET 10°C</span>
+                    <div class="relative">
+                      <input type="number" step="any" min="0" max="100" id="blendTarget10" placeholder="-" class="w-full h-8 text-right pr-5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2 py-0 text-xs font-mono dark:text-white focus:outline-none focus:border-emerald-500">
+                      <span class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 text-[9px] font-bold">%</span>
+                    </div>
+                  </div>
+                  <div class="space-y-1">
+                    <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">TARGET 20°C</span>
+                    <div class="relative">
+                      <input type="number" step="any" min="0" max="100" id="blendTarget20" placeholder="-" class="w-full h-8 text-right pr-5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2 py-0 text-xs font-mono dark:text-white focus:outline-none focus:border-emerald-500">
+                      <span class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 text-[9px] font-bold">%</span>
+                    </div>
+                  </div>
+                  <div class="space-y-1">
+                    <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">TARGET 30°C</span>
+                    <div class="relative">
+                      <input type="number" step="any" min="0" max="100" id="blendTarget30" placeholder="-" class="w-full h-8 text-right pr-5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2 py-0 text-xs font-mono dark:text-white focus:outline-none focus:border-emerald-500">
+                      <span class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 text-[9px] font-bold">%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" id="blendSolveBtn" class="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] shadow transition-colors transform active:scale-[0.98]">
+                  🎯 Optimasi & Cari Rasio Terbaik
+                </button>
+              </div>
+            </div>
           </div>
 
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
@@ -1412,6 +1456,14 @@
                   ➕ Tambah Suhu Kustom
                 </button>
               </div>
+            </div>
+
+            <!-- Warning Validasi Deviasi Termodinamika -->
+            <div id="osiValidationError" class="hidden p-2.5 rounded-xl border border-amber-300 dark:border-amber-900/50 bg-amber-50/50 dark:bg-amber-950/20 text-[10px] text-amber-700 dark:text-amber-400 space-y-1">
+              <div class="flex items-center gap-1.5 font-bold">
+                <span>⚠</span> Peringatan Validasi Tren Data
+              </div>
+              <p class="leading-relaxed font-medium">Nilai induction time pada suhu tinggi terdeteksi lebih lambat atau sama dengan suhu rendah. Harap periksa kembali akurasi input data uji Anda.</p>
             </div>
 
             <!-- SUB-SEKSI 2: TARGET TEMPERATUR & BUTTON -->
@@ -3497,6 +3549,11 @@ const Blend = {
     this.saveFormulaBtn.addEventListener('click', () => this.saveFormula());
     this.plotBtn.addEventListener('click', () => this.plotInTrend());
     this.resetRefBtn.addEventListener('click', () => this.resetRefOverrides());
+    
+    const solveBtn = document.getElementById('blendSolveBtn');
+    if (solveBtn) {
+      solveBtn.addEventListener('click', () => this.solveOptimalBlend());
+    }
 
     this.refreshRefs();
     this.loadSavedFormulas();
@@ -3852,6 +3909,115 @@ const Blend = {
     });
     this.updateTotalPercent();
     showToast(`✔ Formula "${formula.name}" dimuat`);
+  },
+
+  solveOptimalBlend() {
+    // 1. Ambil jenis komponen yang dipilih oleh user
+    const rows = this.componentContainer.querySelectorAll('.blend-comp-row');
+    const selectedComponents = [];
+    rows.forEach(row => {
+      const jenis = row.querySelector('.blend-comp-jenis').value;
+      if (jenis && this.refProfiles[jenis]) {
+        selectedComponents.push({
+          jenis,
+          profile: this.refProfiles[jenis],
+          inputPct: row.querySelector('.blend-comp-pct')
+        });
+      }
+    });
+
+    if (selectedComponents.length < 2) {
+      showToast("❌ Pilih minimal 2 komponen minyak di atas terlebih dahulu!");
+      return;
+    }
+
+    // 2. Ambil target SFC yang diinput oleh user
+    const targets = {};
+    const t10 = parseFloat(document.getElementById('blendTarget10').value);
+    if (!isNaN(t10)) targets.t10 = t10;
+    const t20 = parseFloat(document.getElementById('blendTarget20').value);
+    if (!isNaN(t20)) targets.t20 = t20;
+    const t30 = parseFloat(document.getElementById('blendTarget30').value);
+    if (!isNaN(t30)) targets.t30 = t30;
+
+    if (Object.keys(targets).length === 0) {
+      showToast("❌ Masukkan minimal satu target suhu (10°C, 20°C, atau 30°C)!");
+      return;
+    }
+
+    // 3. Algoritma Optimasi (Random Search with Contraction)
+    const k = selectedComponents.length;
+    let bestWeights = new Array(k).fill(100 / k);
+    
+    // Fungsi hitung error kuadrat (SSE)
+    const calcSSE = (weights) => {
+      let sse = 0;
+      for (const [tempKey, targetVal] of Object.entries(targets)) {
+        // Hitung sfc blend pada suhu tempKey
+        let blendVal = 0;
+        for (let i = 0; i < k; i++) {
+          blendVal += (weights[i] / 100) * (selectedComponents[i].profile[tempKey] || 0);
+        }
+        sse += Math.pow(blendVal - targetVal, 2);
+      }
+      return sse;
+    };
+
+    let bestSSE = calcSSE(bestWeights);
+    let stepSize = 10; // Ukuran langkah acak awal
+
+    // Jalankan 5000 iterasi optimasi
+    for (let iter = 0; iter < 5000; iter++) {
+      // Buat kandidat bobot baru dengan noise
+      let candidate = [...bestWeights];
+      
+      // Pilih dua indeks secara acak untuk disesuaikan
+      const i1 = Math.floor(Math.random() * k);
+      const i2 = Math.floor(Math.random() * k);
+      if (i1 !== i2) {
+        const delta = (Math.random() - 0.5) * stepSize;
+        candidate[i1] += delta;
+        candidate[i2] -= delta;
+      } else {
+        // Tambahkan noise kecil ke semua
+        for (let i = 0; i < k; i++) {
+          candidate[i] += (Math.random() - 0.5) * (stepSize / 2);
+        }
+      }
+
+      // Proyeksi ke batasan: weights >= 0
+      for (let i = 0; i < k; i++) {
+        if (candidate[i] < 0) candidate[i] = 0;
+      }
+
+      // Normalisasi agar total 100
+      const sum = candidate.reduce((sum, w) => sum + w, 0);
+      if (sum > 0) {
+        candidate = candidate.map(w => (w / sum) * 100);
+      } else {
+        candidate = new Array(k).fill(100 / k);
+      }
+
+      const currentSSE = calcSSE(candidate);
+      if (currentSSE < bestSSE) {
+        bestWeights = candidate;
+        bestSSE = currentSSE;
+      }
+
+      // Kurangi ukuran langkah secara eksponensial seiring iterasi
+      stepSize = 10 * Math.exp(-iter / 1500);
+    }
+
+    // 4. Masukkan kembali bobot terbaik ke input UI
+    for (let i = 0; i < k; i++) {
+      // Bulatkan ke 2 desimal agar rapi
+      selectedComponents[i].inputPct.value = bestWeights[i].toFixed(2);
+    }
+
+    // 5. Jalankan kalkulasi & update visual
+    this.updateTotalPercent();
+    this.calculate();
+    showToast(`🎯 Solver Berhasil! Selisih Error: ${bestSSE.toFixed(4)}`);
   },
 
   renderRefTable() {
@@ -5399,6 +5565,23 @@ const Osi = {
         }
       }
     });
+
+    // Proteksi Human Error: Validasi Tren Suhu vs Induction Time
+    const sortedPoints = [...dataPoints].sort((a, b) => a.x - b.x);
+    let trendViolation = false;
+    for (let i = 0; i < sortedPoints.length - 1; i++) {
+      if (sortedPoints[i].rawY <= sortedPoints[i + 1].rawY) {
+        trendViolation = true;
+        break;
+      }
+    }
+
+    const validationWarning = document.getElementById('osiValidationError');
+    if (trendViolation) {
+      if (validationWarning) validationWarning.classList.remove('hidden');
+    } else {
+      if (validationWarning) validationWarning.classList.add('hidden');
+    }
 
     if (dataPoints.length < 3) {
       if (this.reliabilityBadge && this.reliabilityText) {
