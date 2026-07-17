@@ -5147,7 +5147,7 @@ const Osi = {
     checkboxes.forEach(cb => {
       if (cb.checked) {
         const id = cb.getAttribute('data-temp');
-        const timeInput = this.container.querySelector(`[data-temp-val="${temp = id}"]`);
+        const timeInput = this.container.querySelector(`[data-temp-val="${id}"]`);
         
         let tempVal;
         if (cb.nextElementSibling && cb.nextElementSibling.classList.contains('osi-custom-temp-label')) {
