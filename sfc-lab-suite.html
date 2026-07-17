@@ -5242,7 +5242,7 @@ const Osi = {
     // Checkbox and disabled input behavior
     this.container.addEventListener('change', (e) => {
       if (e.target.classList.contains('osi-temp-checkbox')) {
-        const parentRow = e.target.closest('.flex');
+        const parentRow = e.target.closest('#osiTempInputGrid > div');
         if (parentRow) {
           this.syncRowState(parentRow);
         }
