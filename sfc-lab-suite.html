@@ -5441,7 +5441,8 @@ const Osi = {
     }
 
     const q10 = Math.exp(-slope * 10);
-    const targetTemp = parseFloat(this.targetTempInput.value) || 25;
+    const parsedTarget = parseFloat(this.targetTempInput.value);
+    const targetTemp = !isNaN(parsedTarget) ? parsedTarget : 25;
     const logShelfLife = intercept + (slope * targetTemp);
     const shelfLifeHours = Math.exp(logShelfLife);
 
