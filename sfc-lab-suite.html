@@ -1054,11 +1054,11 @@
             </div>
             
             <!-- Warning Notice QC (Tersembunyi secara default) -->
-            <div id="facAlertNotice" class="hidden p-4 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/20 text-rose-800 dark:text-rose-350 text-xs flex gap-3 items-start animate-fade-in flex-shrink-0">
+            <div id="facAlertNotice" class="hidden p-4 rounded-xl border border-amber-200 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/15 text-amber-800 dark:text-amber-300 text-xs flex gap-3 items-start animate-fade-in flex-shrink-0">
               <span class="text-xl">⚠️</span>
               <div class="space-y-1">
-                <p class="font-bold text-sm">Peringatan Kejanggalan Analisa (QC Alert)</p>
-                <p id="facAlertMessage" class="font-medium whitespace-pre-line leading-relaxed">Terdeteksi nilai tidak wajar pada komponen tertentu atau peak 31-37 yang mengindikasikan hasil analisa aneh.</p>
+                <p class="font-bold text-sm">Perhatian Hasil Analisa (QC Notice)</p>
+                <p id="facAlertMessage" class="font-medium whitespace-pre-line leading-relaxed">Terdeteksi parameter tertentu yang disarankan untuk diperiksa kembali.</p>
               </div>
             </div>
 
@@ -4397,12 +4397,12 @@ const Fac = {
     // Tampilkan / Sembunyikan Warning Notice QC
     if (this.alertNotice) {
       if (weirdComponents.length > 0 || weirdPeaks.length > 0) {
-        let msg = "Terdeteksi nilai pada elemen berikut yang mengindikasikan hasil analisa aneh:\n";
+        let msg = "Terdeteksi nilai pada elemen berikut yang disarankan untuk diperiksa kembali oleh operator:\n";
         if (weirdComponents.length > 0) {
-          msg += `• Komponen anomali: ${weirdComponents.join(', ')}\n`;
+          msg += `• Komponen terdeteksi: ${weirdComponents.join(', ')}\n`;
         }
         if (weirdPeaks.length > 0) {
-          msg += `• Peak anomali (31-37): ${weirdPeaks.join(', ')}`;
+          msg += `• Peak terdeteksi (31-37): ${weirdPeaks.join(', ')}`;
         }
         const msgEl = this.alertNotice.querySelector('#facAlertMessage');
         if (msgEl) msgEl.innerText = msg;
