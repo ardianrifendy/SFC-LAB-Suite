@@ -976,12 +976,12 @@
                 <span class="text-[9px] font-bold text-zinc-500 tracking-wider">DAFTAR DOKUMEN FAC</span>
                 <button id="facClearAllBtn" class="text-[9px] font-bold text-rose-500 hover:underline">Hapus Semua</button>
               </div>
-              <div class="flex gap-2 items-center">
-                <select id="facFileSelect" class="flex-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors min-w-0">
+              <div class="space-y-2">
+                <select id="facFileSelect" class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
                   <!-- Diisi secara dinamis -->
                 </select>
-                <button id="facCopyFilenameBtn" title="Salin nama file sebagai folder .D" class="px-2.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex-shrink-0 flex items-center gap-1">
-                  <span>📋</span><span>.D</span>
+                <button id="facCopyFilenameBtn" title="Salin nama file sebagai folder .D" class="w-full py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                  <span>📋</span><span>Salin Nama Folder (.D)</span>
                 </button>
               </div>
             </div>
@@ -4288,7 +4288,7 @@ const Fac = {
       this.metadataCard.classList.remove('hidden');
       this.mainContent.classList.remove('hidden');
       
-      if (window.CustomSelect) {
+      if (typeof CustomSelect !== 'undefined') {
         const parent = this.fileSelect.parentNode;
         const customWrapper = parent.querySelector('.custom-select-wrapper');
         if (customWrapper) customWrapper.remove();
@@ -4724,6 +4724,7 @@ class CustomSelect {
     this.label.innerText = selectedOpt ? selectedOpt.text : '-- Pilih --';
   }
 }
+window.CustomSelect = CustomSelect;
 
 // Instantiate custom dropdown selectors
 const customSelectIds = ['extractorSaveType', 'dataTypeFilter', 'dataSingleType', 'diffPredSource'];
