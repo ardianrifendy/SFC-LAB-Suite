@@ -1491,70 +1491,74 @@
                 </h3>
                 
                 <!-- Card Proyeksi Terbesar -->
-                <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-3.5 shadow-md space-y-2 flex-shrink-0">
+                <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white p-5 shadow-lg space-y-3.5 flex-shrink-0">
                   <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
                   
                   <div class="flex items-center justify-between">
-                    <span class="text-[8px] font-extrabold tracking-widest text-emerald-100 uppercase">HASIL PROYEKSI</span>
-                    <span id="osiActiveTargetTempBadge" class="px-2 py-0.5 rounded-full bg-white/20 text-[8px] font-bold text-white">Suhu Target: 25 °C</span>
+                    <span class="text-[10px] font-extrabold tracking-widest text-emerald-100 uppercase">HASIL PROYEKSI</span>
+                    <span id="osiActiveTargetTempBadge" class="px-2.5 py-0.5 rounded-full bg-white/20 text-[9px] font-bold text-white">Suhu Target: 25 °C</span>
                   </div>
                   
-                  <div class="space-y-0.5">
-                    <div class="text-2xl font-mono font-black tracking-tight" id="osiResultYearsText">- <span class="text-xs font-bold text-emerald-100">Tahun</span></div>
-                    <div class="text-[9px] font-semibold text-emerald-100/90" id="osiResultDetailText">Induction time setara dengan: - hari</div>
+                  <div class="space-y-1">
+                    <div class="text-4xl lg:text-5xl font-mono font-black tracking-tight" id="osiResultYearsText">- <span class="text-lg font-bold text-emerald-150">Tahun</span></div>
+                    <div class="text-xs font-semibold text-emerald-100/90" id="osiResultDetailText">Induction time setara dengan: - hari</div>
                   </div>
 
                   <!-- Pecahan Waktu Detail -->
-                  <div class="grid grid-cols-3 gap-2 pt-1.5 border-t border-white/10 text-center">
-                    <div class="p-1 rounded bg-white/10">
-                      <span class="block text-[8px] font-bold text-emerald-250">TAHUN</span>
-                      <span id="osiBreakdownYears" class="text-xs font-bold font-mono">-</span>
+                  <div class="grid grid-cols-3 gap-2.5 pt-2.5 border-t border-white/15 text-center">
+                    <div class="p-2.5 rounded-lg bg-white/10">
+                      <span class="block text-[10px] font-bold text-emerald-250 tracking-wider">TAHUN</span>
+                      <span id="osiBreakdownYears" class="text-xl font-black font-mono">-</span>
                     </div>
-                    <div class="p-1 rounded bg-white/10">
-                      <span class="block text-[8px] font-bold text-emerald-250">BULAN</span>
-                      <span id="osiBreakdownMonths" class="text-xs font-bold font-mono">-</span>
+                    <div class="p-2.5 rounded-lg bg-white/10">
+                      <span class="block text-[10px] font-bold text-emerald-250 tracking-wider">BULAN</span>
+                      <span id="osiBreakdownMonths" class="text-xl font-black font-mono">-</span>
                     </div>
-                    <div class="p-1 rounded bg-white/10">
-                      <span class="block text-[8px] font-bold text-emerald-250">HARI</span>
-                      <span id="osiBreakdownDays" class="text-xs font-bold font-mono">-</span>
+                    <div class="p-2.5 rounded-lg bg-white/10">
+                      <span class="block text-[10px] font-bold text-emerald-250 tracking-wider">HARI</span>
+                      <span id="osiBreakdownDays" class="text-xl font-black font-mono">-</span>
                     </div>
                   </div>
                 </div>
               </div>
-
+ 
               <!-- Parameter Statistik Linearitas -->
-              <div class="bg-zinc-50 dark:bg-zinc-900/40 rounded-xl p-3 border border-zinc-200/80 dark:border-zinc-800/80 transition-colors space-y-2 flex-shrink-0">
-                <h4 class="text-[10px] font-bold text-zinc-550 dark:text-zinc-350 tracking-wider uppercase border-b border-zinc-200/50 dark:border-zinc-800/60 pb-1">Parameter Hasil Regresi</h4>
+              <div class="bg-zinc-50 dark:bg-zinc-900/40 rounded-xl p-4 border border-zinc-200/80 dark:border-zinc-800/80 transition-colors space-y-3 flex-shrink-0">
+                <h4 class="text-xs font-bold text-zinc-550 dark:text-zinc-350 tracking-wider uppercase border-b border-zinc-200/50 dark:border-zinc-800/60 pb-1.5">Parameter Hasil Regresi</h4>
                 
-                <div class="grid grid-cols-2 gap-2">
-                  <div class="p-1.5 rounded bg-white dark:bg-zinc-900 border border-zinc-250/40 dark:border-zinc-800/60">
-                    <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">R-SQUARE (R²)</span>
-                    <div class="flex items-center gap-1 mt-0.5">
-                      <span id="osiRSquareVal" class="text-xs font-extrabold text-zinc-800 dark:text-zinc-100 font-mono">-</span>
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div class="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-250/40 dark:border-zinc-800/60">
+                    <span class="block text-[9px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">R-SQUARE (R²)</span>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span id="osiRSquareVal" class="text-sm font-extrabold text-zinc-850 dark:text-zinc-100 font-mono">-</span>
                       <span id="osiRSquareBadge" class="hidden px-1 py-0.5 rounded text-[8px] font-bold"></span>
                     </div>
                   </div>
-                  <div class="p-1.5 rounded bg-white dark:bg-zinc-900 border border-zinc-250/40 dark:border-zinc-800/60">
-                    <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">SLOPE (m)</span>
-                    <span id="osiSlopeVal" class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                  <div class="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-250/40 dark:border-zinc-800/60">
+                    <span class="block text-[9px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">SLOPE (m)</span>
+                    <span id="osiSlopeVal" class="block text-sm font-extrabold text-zinc-850 dark:text-zinc-100 font-mono mt-0.5">-</span>
                   </div>
-                  <div class="p-1.5 rounded bg-white dark:bg-zinc-900 border border-zinc-250/40 dark:border-zinc-800/60">
-                    <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">Q10 FACTOR</span>
-                    <span id="osiQ10Val" class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                  <div class="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-250/40 dark:border-zinc-800/60">
+                    <span class="block text-[9px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">Q10 FACTOR</span>
+                    <span id="osiQ10Val" class="block text-sm font-extrabold text-zinc-850 dark:text-zinc-100 font-mono mt-0.5">-</span>
                   </div>
-                  <div class="p-1.5 rounded bg-white dark:bg-zinc-900 border border-zinc-250/40 dark:border-zinc-800/60">
-                    <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">INTERCEPT (c)</span>
-                    <span id="osiInterceptVal" class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-100 font-mono mt-0.5">-</span>
+                  <div class="p-2.5 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-250/40 dark:border-zinc-800/60">
+                    <span class="block text-[9px] font-bold text-zinc-400 dark:text-zinc-555 tracking-wider">INTERCEPT (c)</span>
+                    <span id="osiInterceptVal" class="block text-sm font-extrabold text-zinc-850 dark:text-zinc-100 font-mono mt-0.5">-</span>
                   </div>
                 </div>
               </div>
-
+ 
               <!-- Evaluasi Keandalan Dinamis -->
-              <div id="osiReliabilityCard" class="p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40 space-y-1.5 flex-grow flex flex-col justify-start">
+              <div id="osiReliabilityCard" class="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40 space-y-2">
                 <div class="flex items-center justify-between">
-                  <span class="text-[9px] font-bold text-zinc-450 dark:text-zinc-500 uppercase tracking-wider">🛡️ Evaluasi Keandalan Data</span>
-                  <span id="osiReliabilityBadge" class="px-2 py-0.5 rounded-full text-[8px] font-bold bg-zinc-100 text-zinc-700">Menunggu Data</span>
+                  <span class="text-[10px] font-bold text-zinc-450 dark:text-zinc-500 uppercase tracking-wider">🛡️ Evaluasi Keandalan Data</span>
+                  <span id="osiReliabilityBadge" class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-zinc-100 text-zinc-700">Menunggu Data</span>
                 </div>
+                <p id="osiReliabilityText" class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">
+                  Centang minimal 3 titik suhu dan jalankan kalkulasi untuk memvalidasi linearitas kurva regresi.
+                </p>
+              </div>>
                 <p id="osiReliabilityText" class="text-[10px] text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">
                   Centang minimal 3 titik suhu dan jalankan kalkulasi untuk memvalidasi linearitas kurva regresi.
                 </p>
