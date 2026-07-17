@@ -977,9 +977,17 @@
                 <button id="facClearAllBtn" class="text-[9px] font-bold text-rose-500 hover:underline">Hapus Semua</button>
               </div>
               <div class="space-y-2">
-                <select id="facFileSelect" class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
-                  <!-- Diisi secara dinamis -->
-                </select>
+                <div class="flex gap-2 items-center">
+                  <select id="facFileSelect" class="flex-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors min-w-0">
+                    <!-- Diisi secara dinamis -->
+                  </select>
+                  <button id="facPrevFileBtn" title="File Sebelumnya" class="px-3 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex-shrink-0 flex items-center justify-center">
+                    ▲
+                  </button>
+                  <button id="facNextFileBtn" title="File Berikutnya" class="px-3 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex-shrink-0 flex items-center justify-center">
+                    ▼
+                  </button>
+                </div>
                 <button id="facCopyFilenameBtn" title="Salin nama file sebagai folder .D" class="w-full py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex items-center justify-center gap-1.5 shadow-sm">
                   <span>📋</span><span>Salin Nama File (.D)</span>
                 </button>
@@ -4028,6 +4036,8 @@ const Fac = {
     this.copyTableBtn = document.getElementById('facCopyTableBtn');
     this.exportCsvBtn = document.getElementById('facExportCsvBtn');
     this.copyFilenameBtn = document.getElementById('facCopyFilenameBtn');
+    this.prevFileBtn = document.getElementById('facPrevFileBtn');
+    this.nextFileBtn = document.getElementById('facNextFileBtn');
 
     if (!this.fileInput) return; // Safeguard if DOM not ready (e.g. testing env)
 
@@ -4043,6 +4053,12 @@ const Fac = {
     this.exportCsvBtn.addEventListener('click', () => this.exportCsv());
     if (this.copyFilenameBtn) {
       this.copyFilenameBtn.addEventListener('click', () => this.copyFilenameAsD());
+    }
+    if (this.prevFileBtn) {
+      this.prevFileBtn.addEventListener('click', () => this.switchFile(-1));
+    }
+    if (this.nextFileBtn) {
+      this.nextFileBtn.addEventListener('click', () => this.switchFile(1));
     }
 
     // Drag and drop events for file uploaders
@@ -4432,6 +4448,25 @@ const Fac = {
       console.error("Gagal menyalin nama file:", err);
       showToast("❌ Gagal menyalin nama file");
     });
+  },
+
+  switchFile(dir) {
+    if (this.files.length <= 1 || this.currentIdx === null) return;
+    
+    let newIdx = this.currentIdx + dir;
+    if (newIdx < 0) {
+      newIdx = this.files.length - 1;
+    } else if (newIdx >= this.files.length) {
+      newIdx = 0;
+    }
+    
+    this.fileSelect.value = String(newIdx);
+    this.currentIdx = newIdx;
+    this.renderCurrentFile();
+    
+    if (this.fileSelectCustom && typeof this.fileSelectCustom.syncLabel === 'function') {
+      this.fileSelectCustom.syncLabel();
+    }
   },
 
   copyMetadata() {
