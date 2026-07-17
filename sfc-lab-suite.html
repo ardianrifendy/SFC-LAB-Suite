@@ -4402,11 +4402,11 @@ const Fac = {
         
         let rowHtml = `
           <td class="px-4 py-2.5 text-center font-bold text-zinc-650 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/40">${r[0]}</td>
-          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[1]).toFixed(3)}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[1]).toFixed(2)}</td>
           <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${r[2]}</td>
-          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[3]).toFixed(3)}</td>
-          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[4]).toFixed(1)}</td>
-          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40 font-bold text-emerald-600 dark:text-emerald-400">${parseFloat(r[5]).toFixed(3)}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[3]).toFixed(2)}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[4]).toFixed(2)}</td>
+          <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40 font-bold text-emerald-600 dark:text-emerald-400">${parseFloat(r[5]).toFixed(2)}</td>
           <td class="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/40 font-sans font-bold text-zinc-800 dark:text-zinc-200">${r[6]}</td>
         `;
         tr.innerHTML = rowHtml;
@@ -4421,8 +4421,17 @@ const Fac = {
     const colNames = ["Peak", "RetTime", "Type", "Width", "Area", "Area%", "Name"];
     const colName = colNames[colIdx] || "Kolom";
     
-    const colValues = file.rows.map(r => r[colIdx]);
-    const text = colValues.join("\n");
+    const colValues = file.rows.map(r => {
+      let val = r[colIdx];
+      if ([1, 3, 4, 5].includes(colIdx)) {
+        val = (parseFloat(val) || 0.0).toFixed(2);
+      }
+      return val;
+    });
+    
+    // Auto transpose Area% (index 5) horizontally with TAB separator (\t)
+    const isAreaPct = (colIdx === 5);
+    const text = colValues.join(isAreaPct ? "\t" : "\n");
     
     navigator.clipboard.writeText(text).then(() => {
       showToast(`✔ Kolom ${colName} disalin ke clipboard!`);
