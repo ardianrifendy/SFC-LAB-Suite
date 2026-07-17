@@ -5294,7 +5294,7 @@ themeToggleBtn.addEventListener('click', () => {
   window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: isDark ? 'light' : 'dark' } }));
 });
 
-const validTabs = ['extractor', 'trend', 'blend', 'data', 'diff', 'fac'];
+const validTabs = ['extractor', 'trend', 'blend', 'data', 'diff', 'fac', 'osi'];
 
 function handleRouting() {
   let hash = window.location.hash.substring(1);
