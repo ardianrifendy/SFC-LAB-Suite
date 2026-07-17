@@ -976,10 +976,13 @@
                 <span class="text-[9px] font-bold text-zinc-500 tracking-wider">DAFTAR DOKUMEN FAC</span>
                 <button id="facClearAllBtn" class="text-[9px] font-bold text-rose-500 hover:underline">Hapus Semua</button>
               </div>
-              <div class="relative w-full">
-                <select id="facFileSelect" class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
+              <div class="flex gap-2 items-center">
+                <select id="facFileSelect" class="flex-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors min-w-0">
                   <!-- Diisi secara dinamis -->
                 </select>
+                <button id="facCopyFilenameBtn" title="Salin nama file sebagai folder .D" class="px-2.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex-shrink-0 flex items-center gap-1">
+                  <span>📋</span><span>.D</span>
+                </button>
               </div>
             </div>
           </div>
@@ -4024,6 +4027,7 @@ const Fac = {
     this.copyInfoBtn = document.getElementById('facCopyInfoBtn');
     this.copyTableBtn = document.getElementById('facCopyTableBtn');
     this.exportCsvBtn = document.getElementById('facExportCsvBtn');
+    this.copyFilenameBtn = document.getElementById('facCopyFilenameBtn');
 
     if (!this.fileInput) return; // Safeguard if DOM not ready (e.g. testing env)
 
@@ -4037,6 +4041,9 @@ const Fac = {
     this.copyInfoBtn.addEventListener('click', () => this.copyMetadata());
     this.copyTableBtn.addEventListener('click', () => this.copyTableTsv());
     this.exportCsvBtn.addEventListener('click', () => this.exportCsv());
+    if (this.copyFilenameBtn) {
+      this.copyFilenameBtn.addEventListener('click', () => this.copyFilenameAsD());
+    }
 
     // Drag and drop events for file uploaders
     [this.fileInput, this.fileInputCentered].forEach(inputEl => {
@@ -4401,6 +4408,24 @@ const Fac = {
     }).catch(err => {
       console.error("Gagal menyalin kolom:", err);
       showToast(`❌ Gagal menyalin kolom ${colName}`);
+    });
+  },
+
+  copyFilenameAsD() {
+    if (this.currentIdx === null || !this.files[this.currentIdx]) return;
+    const originalName = this.files[this.currentIdx].name;
+    const dotIdx = originalName.lastIndexOf('.');
+    let baseName = originalName;
+    if (dotIdx !== -1) {
+      baseName = originalName.substring(0, dotIdx);
+    }
+    const targetName = baseName + ".D";
+    
+    navigator.clipboard.writeText(targetName).then(() => {
+      showToast(`✔ Disalin: ${targetName}`);
+    }).catch(err => {
+      console.error("Gagal menyalin nama file:", err);
+      showToast("❌ Gagal menyalin nama file");
     });
   },
 
