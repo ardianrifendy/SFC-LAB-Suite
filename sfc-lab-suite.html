@@ -1319,7 +1319,7 @@
       <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex-1 flex flex-col">
         
         <!-- Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
+        <div class="flex flex-col md:flex-row md:items-center justify-start gap-2 mb-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
           <div>
             <h2 class="text-xl font-extrabold text-zinc-900 dark:text-white">OSI Shelf Life Calculator</h2>
             <p class="text-xs text-zinc-500 dark:text-zinc-400">Prediksi masa simpan produk berdasarkan ekstrapolasi linear semilog data Induction Time vs Suhu Uji.</p>
@@ -1328,10 +1328,6 @@
             <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('osi')">
               📖 Petunjuk Penggunaan
             </button>
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-              <span class="text-[10px] font-bold text-zinc-500 dark:text-zinc-400">OSI Engine Active</span>
-            </div>
           </div>
         </div>
 
@@ -1339,7 +1335,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1.1fr_1.4fr] gap-6 flex-1 items-stretch">
           
           <!-- KOLOM 1: INPUT SUHU, TARGET & PROSES -->
-          <div class="space-y-4 border-r border-zinc-100 dark:border-zinc-800/60 pr-1 lg:pr-3 flex flex-col justify-between">
+          <div class="space-y-4 border-r border-zinc-100 dark:border-zinc-800/60 pr-1 lg:pr-3 flex flex-col justify-start">
             
             <!-- SUB-SEKSI 1: INPUT HASIL & TEMPERATUR -->
             <div class="space-y-3">
@@ -1419,7 +1415,7 @@
             </div>
 
             <!-- SUB-SEKSI 2: TARGET TEMPERATUR & BUTTON -->
-            <div class="space-y-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 flex-1 flex flex-col justify-between">
+            <div class="space-y-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/60 flex-1 flex flex-col justify-start">
               
               <!-- Input Box & Interactive Slider -->
               <div class="space-y-3 p-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/10">
@@ -1447,24 +1443,24 @@
               </div>
 
               <!-- Preset Suhu Penyimpanan Riil -->
-              <div class="space-y-2">
-                <span class="block text-[9px] font-bold text-zinc-450 dark:text-zinc-500 tracking-wider uppercase">🎯 PRESET SUHU PENYIMPANAN</span>
-                <div class="grid grid-cols-2 gap-1.5">
-                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 25; document.getElementById('osiTargetTempSlider').value = 25; window.Osi && window.Osi.calculate()" class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
-                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300 leading-tight">Standard Lab</span>
-                    <span class="text-[8px] text-zinc-450 font-mono">25 °C</span>
+              <div class="space-y-2 mt-2">
+                <span class="block text-[10px] font-bold text-zinc-550 dark:text-zinc-405 tracking-wider uppercase">🎯 PRESET SUHU PENYIMPANAN</span>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 25; document.getElementById('osiTargetTempSlider').value = 25; window.Osi && window.Osi.calculate()" class="p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-1 shadow-sm">
+                    <span class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-200 leading-tight">Standard Lab</span>
+                    <span class="text-xs text-emerald-600 dark:text-emerald-450 font-mono font-bold">25 °C</span>
                   </button>
-                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 20; document.getElementById('osiTargetTempSlider').value = 20; window.Osi && window.Osi.calculate()" class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
-                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300 leading-tight">AC Ruangan</span>
-                    <span class="text-[8px] text-zinc-450 font-mono">20 °C</span>
+                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 20; document.getElementById('osiTargetTempSlider').value = 20; window.Osi && window.Osi.calculate()" class="p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-1 shadow-sm">
+                    <span class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-200 leading-tight">AC Ruangan</span>
+                    <span class="text-xs text-emerald-600 dark:text-emerald-450 font-mono font-bold">20 °C</span>
                   </button>
-                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 30; document.getElementById('osiTargetTempSlider').value = 30; window.Osi && window.Osi.calculate()" class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
-                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300 leading-tight">Suhu Tropis</span>
-                    <span class="text-[8px] text-zinc-450 font-mono">30 °C</span>
+                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 30; document.getElementById('osiTargetTempSlider').value = 30; window.Osi && window.Osi.calculate()" class="p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-1 shadow-sm">
+                    <span class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-200 leading-tight">Suhu Tropis</span>
+                    <span class="text-xs text-emerald-600 dark:text-emerald-450 font-mono font-bold">30 °C</span>
                   </button>
-                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 4; document.getElementById('osiTargetTempSlider').value = 4; window.Osi && window.Osi.calculate()" class="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-0.5">
-                    <span class="block text-[9px] font-bold text-zinc-700 dark:text-zinc-300 leading-tight">Kulkas (Chiller)</span>
-                    <span class="text-[8px] text-zinc-450 font-mono">4 °C</span>
+                  <button type="button" onclick="document.getElementById('osiTargetTemp').value = 4; document.getElementById('osiTargetTempSlider').value = 4; window.Osi && window.Osi.calculate()" class="p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-left transition-colors space-y-1 shadow-sm">
+                    <span class="block text-xs font-extrabold text-zinc-800 dark:text-zinc-200 leading-tight">Kulkas (Chiller)</span>
+                    <span class="text-xs text-emerald-600 dark:text-emerald-450 font-mono font-bold">4 °C</span>
                   </button>
                 </div>
               </div>
@@ -1477,8 +1473,8 @@
           </div>
 
           <!-- KOLOM 2: PROYEKSI SHELF LIFE (HASIL DAN PARAMETER) -->
-          <div class="space-y-4 border-r border-zinc-100 dark:border-zinc-800/60 pr-1 lg:pr-3 flex flex-col justify-between">
-            <div class="space-y-3.5 flex-1 flex flex-col justify-between">
+          <div class="space-y-4 border-r border-zinc-100 dark:border-zinc-800/60 pr-1 lg:pr-3 flex flex-col justify-start">
+            <div class="space-y-3.5 flex-1 flex flex-col justify-start">
               
               <div class="space-y-3.5">
                 <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide uppercase flex items-center gap-1.5">
@@ -5246,17 +5242,11 @@ const Osi = {
     // Checkbox and disabled input behavior
     this.container.addEventListener('change', (e) => {
       if (e.target.classList.contains('osi-temp-checkbox')) {
-        const temp = e.target.getAttribute('data-temp');
-        const timeInput = this.container.querySelector(`[data-temp-val="${temp}"]`);
-        if (timeInput) {
-          timeInput.disabled = !e.target.checked;
-          const parentRow = e.target.closest('.flex');
-          if (e.target.checked) {
-            parentRow.classList.remove('opacity-60');
-          } else {
-            parentRow.classList.add('opacity-60');
-          }
+        const parentRow = e.target.closest('.flex');
+        if (parentRow) {
+          this.syncRowState(parentRow);
         }
+        this.calculate();
       }
     });
 
@@ -5267,8 +5257,45 @@ const Osi = {
       }
     });
 
+    // Sync initial state for all rows
+    this.container.querySelectorAll('#osiTempInputGrid > div').forEach(row => {
+      this.syncRowState(row);
+    });
+
     // Load initial calculation if pre-filled data is valid
     this.calculate();
+  },
+
+  syncRowState(row) {
+    const cb = row.querySelector('.osi-temp-checkbox');
+    if (!cb) return;
+    const tempId = cb.getAttribute('data-temp');
+    const timeInput = row.querySelector(`[data-temp-val="${tempId}"]`);
+    const labelSpan = row.querySelector('label span');
+    
+    if (cb.checked) {
+      row.classList.remove('opacity-50', 'opacity-60');
+      if (timeInput) {
+        timeInput.disabled = false;
+        timeInput.classList.remove('bg-zinc-100/55', 'dark:bg-zinc-955');
+        timeInput.classList.add('bg-white', 'dark:bg-zinc-900');
+      }
+      if (labelSpan) {
+        labelSpan.classList.remove('text-zinc-400', 'dark:text-zinc-500');
+        labelSpan.classList.add('text-zinc-800', 'dark:text-zinc-250');
+      }
+    } else {
+      row.classList.add('opacity-60');
+      if (timeInput) {
+        timeInput.disabled = true;
+        timeInput.classList.remove('bg-white', 'dark:bg-zinc-900');
+        timeInput.classList.add('bg-zinc-100/55', 'dark:bg-zinc-955');
+      }
+      if (labelSpan) {
+        labelSpan.classList.remove('text-zinc-800', 'dark:text-zinc-250');
+        labelSpan.classList.add('text-zinc-400', 'dark:text-zinc-500');
+      }
+    }
   },
 
   addCustomTempRow() {
@@ -5291,6 +5318,7 @@ const Osi = {
       <button class="text-xs text-rose-500 hover:text-rose-600 font-bold ml-1" onclick="this.closest('.flex').remove()">✕</button>
     `;
     grid.appendChild(row);
+    this.syncRowState(row);
   },
 
   calculate() {
