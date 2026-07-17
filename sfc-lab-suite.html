@@ -4615,7 +4615,8 @@ class CustomSelect {
     
     // Create wrapper container
     this.wrapper = document.createElement('div');
-    this.wrapper.className = 'relative w-full';
+    const isFlex1 = this.select.classList.contains('flex-1');
+    this.wrapper.className = 'relative w-full custom-select-wrapper' + (isFlex1 ? ' flex-1 min-w-0' : '');
     
     // Create custom toggle button
     this.btn = document.createElement('button');
