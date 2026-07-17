@@ -4357,15 +4357,20 @@ const Fac = {
     this.highestComp.textContent = maxCompName;
     this.highestComp.title = maxCompName;
     
-    const infoOrder = ["Sample Name", "Sample Info", "Req. by", "Acq. Operator", "Acq. Instrument", "Location", "Injection Date", "Acq. Method", "Analysis Method", "Data File"];
+    const metadataToShow = [
+      { key: "Acq. Operator", label: "Nama Operator" },
+      { key: "Acq. Method", label: "Metode yang digunakan" },
+      { key: "Injection Date", label: "Tanggal Inject" },
+      { key: "Sample Info", label: "Sample Info" }
+    ];
     
-    infoOrder.forEach(key => {
-      const val = file.info[key] || "-";
+    metadataToShow.forEach(item => {
+      const val = file.info[item.key] || "-";
       const itemDiv = document.createElement('div');
-      itemDiv.className = 'bg-zinc-50 dark:bg-zinc-900/50 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800/80 transition-colors';
+      itemDiv.className = 'bg-zinc-50 dark:bg-zinc-900/50 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800/80 transition-colors flex-shrink-0';
       itemDiv.innerHTML = `
-        <span class="block text-[9px] font-bold text-zinc-400 dark:text-zinc-500 tracking-wider mb-0.5">${key.toUpperCase()}</span>
-        <span class="font-semibold text-zinc-800 dark:text-zinc-200 break-words">${val}</span>
+        <span class="block text-[9px] font-bold text-zinc-450 dark:text-zinc-500 tracking-wider mb-0.5">${item.label.toUpperCase()}</span>
+        <span class="font-semibold text-zinc-850 dark:text-zinc-200 break-words">${val}</span>
       `;
       this.metadataGrid.appendChild(itemDiv);
     });
@@ -4433,9 +4438,17 @@ const Fac = {
     if (this.currentIdx === null || !this.files[this.currentIdx]) return;
     const file = this.files[this.currentIdx];
     
+    const metadataToShow = [
+      { key: "Acq. Operator", label: "Nama Operator" },
+      { key: "Acq. Method", label: "Metode yang digunakan" },
+      { key: "Injection Date", label: "Tanggal Inject" },
+      { key: "Sample Info", label: "Sample Info" }
+    ];
+    
     let text = "";
-    Object.entries(file.info).forEach(([key, val]) => {
-      text += `${key}: ${val}\n`;
+    metadataToShow.forEach(item => {
+      const val = file.info[item.key] || "-";
+      text += `${item.label}: ${val}\n`;
     });
     
     navigator.clipboard.writeText(text).then(() => {
