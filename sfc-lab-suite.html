@@ -126,6 +126,78 @@
       from { transform: translate(-50%, 20px); opacity: 0; }
       to { transform: translate(-50%, 0); opacity: 1; }
     }
+
+    /* Sidebar Styles */
+    .sidebar-transition {
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .sidebar-menu-item {
+      display: flex;
+      align-items: center;
+      padding: 0.625rem 0.875rem;
+      border-radius: 0.75rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #71717a; /* zinc-500 */
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .dark .sidebar-menu-item {
+      color: #a1a1aa; /* zinc-400 */
+    }
+    .sidebar-menu-item:hover {
+      background-color: rgba(228, 228, 231, 0.5); /* zinc-200/50 */
+      color: #18181b; /* zinc-900 */
+    }
+    .dark .sidebar-menu-item:hover {
+      background-color: rgba(39, 39, 42, 0.5); /* zinc-800/50 */
+      color: #ffffff;
+    }
+    .sidebar-menu-item.active {
+      background-color: #10b981; /* emerald-500 */
+      color: #ffffff !important;
+      font-weight: 700;
+      box-shadow: 0 4px 12px -2px rgba(16, 185, 129, 0.3);
+    }
+    
+    /* Accordion Dropdown Styles */
+    .sidebar-group-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar-group.open .sidebar-group-content {
+      max-height: 400px; /* Nilai max-height aman */
+    }
+    .sidebar-group-chevron {
+      transition: transform 0.3s ease;
+    }
+    .sidebar-group.open .sidebar-group-chevron {
+      transform: rotate(90deg);
+    }
+    
+    /* Collapsed Sidebar overrides */
+    .sidebar-collapsed .sidebar-text-content {
+      display: none;
+    }
+    .sidebar-collapsed .sidebar-group-chevron {
+      display: none;
+    }
+    .sidebar-collapsed .sidebar-group-content {
+      max-height: 0 !important; /* Tutup paksa sub-menu jika di-collapse */
+    }
+    .sidebar-collapsed .sidebar-menu-item {
+      justify-content: center;
+      padding: 0.75rem;
+    }
+    .sidebar-collapsed .sidebar-menu-title {
+      display: none;
+    }
+    .sidebar-collapsed .sidebar-menu-divider {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
   </style>
 </head>
 <body class="bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen transition-colors duration-200">
@@ -133,25 +205,20 @@
   <!-- ===== REGION: UI-SHELL ===== -->
   <!-- Container Header & Desktop Nav -->
   <header class="sticky top-0 z-40 bg-white/80 dark:bg-zinc-900/80 backdrop-blur border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-200">
-    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+    <div class="max-w-[90rem] mx-auto px-4 h-16 flex items-center justify-between gap-4">
       
       <!-- Brand Title (🧪 SFC Lab Suite) -->
-      <div class="flex items-center gap-2 flex-shrink-0">
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <button id="sidebarToggle" class="p-2 rounded-xl text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors" title="Toggle Sidebar">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
         <span class="text-2xl">🧪</span>
         <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
           QC Instrument - Tools
         </h1>
       </div>
-
-      <!-- Desktop Navigation Tabs (md:flex, hidden on mobile) -->
-      <nav class="hidden md:flex items-center gap-1 font-medium text-sm">
-        <a href="#extractor" data-tab="extractor" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Extractor</a>
-        <a href="#trend" data-tab="trend" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Predict MP</a>
-        <a href="#blend" data-tab="blend" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Blend Calculator</a>
-        <a href="#data" data-tab="data" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Data Master</a>
-        <a href="#diff" data-tab="diff" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">SFC Compare</a>
-        <a href="#fac" data-tab="fac" class="px-4 py-2 rounded-lg hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors duration-150">FAC Extractor</a>
-      </nav>
 
       <!-- Theme Toggle Button -->
       <button id="themeToggle" class="p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors duration-150 flex-shrink-0" aria-label="Toggle Theme">
@@ -208,8 +275,87 @@
     </a>
   </nav>
 
-  <!-- Main Content Area -->
-  <main class="max-w-7xl mx-auto px-4 py-6 mb-20 md:mb-6">
+  <!-- Layout Wrapper -->
+  <div class="max-w-[90rem] mx-auto flex flex-row relative min-h-[calc(100vh-64px)]">
+    
+    <!-- Sidebar Navigation (md:flex, hidden on mobile) -->
+    <aside id="sidebar" class="sidebar-transition w-64 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/50 backdrop-blur py-6 px-4 hidden md:flex flex-col gap-6">
+      
+      <!-- Kategori SFC -->
+      <div class="sidebar-group open">
+        <div class="flex items-center justify-between text-zinc-400 dark:text-zinc-500 px-3 py-1 cursor-pointer select-none group sidebar-group-toggle">
+          <span class="text-[9px] font-bold tracking-wider sidebar-menu-title">ANALISA SFC</span>
+          <svg class="w-3 h-3 sidebar-group-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+        
+        <div class="sidebar-group-content mt-2 space-y-1">
+          <a href="#extractor" data-tab="extractor" class="sidebar-menu-item" title="SFC Extractor">
+            <span class="text-base mr-3">📥</span>
+            <span class="sidebar-text-content">SFC Extractor</span>
+          </a>
+          <a href="#trend" data-tab="trend" class="sidebar-menu-item" title="SFC Predict MP">
+            <span class="text-base mr-3">📈</span>
+            <span class="sidebar-text-content">SFC Predict MP</span>
+          </a>
+          <a href="#blend" data-tab="blend" class="sidebar-menu-item" title="SFC Blend Calculator">
+            <span class="text-base mr-3">🧮</span>
+            <span class="sidebar-text-content">SFC Blend Calculator</span>
+          </a>
+          <a href="#data" data-tab="data" class="sidebar-menu-item" title="SFC Data Master">
+            <span class="text-base mr-3">🗄️</span>
+            <span class="sidebar-text-content">SFC Data Master</span>
+          </a>
+          <a href="#diff" data-tab="diff" class="sidebar-menu-item" title="SFC Compare">
+            <span class="text-base mr-3">🔄</span>
+            <span class="sidebar-text-content">SFC Compare</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="sidebar-menu-divider border-t border-zinc-200/50 dark:border-zinc-800/80 mx-2"></div>
+      
+      <!-- Kategori FAC -->
+      <div class="sidebar-group open">
+        <div class="flex items-center justify-between text-zinc-400 dark:text-zinc-500 px-3 py-1 cursor-pointer select-none group sidebar-group-toggle">
+          <span class="text-[9px] font-bold tracking-wider sidebar-menu-title">ANALISA FAC</span>
+          <svg class="w-3 h-3 sidebar-group-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+        
+        <div class="sidebar-group-content mt-2 space-y-1">
+          <a href="#fac" data-tab="fac" class="sidebar-menu-item" title="FAC Extractor">
+            <span class="text-base mr-3">🧬</span>
+            <span class="sidebar-text-content">FAC Extractor</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="sidebar-menu-divider border-t border-zinc-200/50 dark:border-zinc-800/80 mx-2"></div>
+      
+      <!-- Kategori OSI (Placeholder) -->
+      <div class="sidebar-group">
+        <div class="flex items-center justify-between text-zinc-400 dark:text-zinc-500 px-3 py-1 cursor-pointer select-none group sidebar-group-toggle">
+          <span class="text-[9px] font-bold tracking-wider sidebar-menu-title">ANALISA OSI</span>
+          <svg class="w-3 h-3 sidebar-group-chevron" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+        
+        <div class="sidebar-group-content mt-2 space-y-1">
+          <div class="sidebar-menu-item opacity-50 cursor-not-allowed" title="OSI Extractor (Segera Hadir)">
+            <span class="text-base mr-3">⏳</span>
+            <span class="sidebar-text-content">OSI Extractor</span>
+          </div>
+        </div>
+      </div>
+      
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 min-w-0 px-6 py-6 mb-20 md:mb-6">
 
     <!-- ===== REGION: MODULE-EXTRACTOR ===== -->
     <div id="tabContent-extractor" class="tab-panel hidden">
@@ -1089,6 +1235,7 @@
     </div>
 
   </main>
+</div>
 
   <!-- Global Toast Element -->
   <div id="globalToast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-bold text-sm rounded-full shadow-2xl flex items-center gap-2 toast-anim">
@@ -4650,16 +4797,30 @@ function handleRouting() {
     activePanel.classList.remove('hidden');
   }
 
-  // Update Navigation Links (Desktop & Mobile)
+  // Update Navigation Links (Sidebar & Mobile)
   document.querySelectorAll('a[data-tab]').forEach(link => {
     const tabName = link.getAttribute('data-tab');
+    const isSidebarItem = link.classList.contains('sidebar-menu-item');
+    
     if (tabName === hash) {
-      link.classList.remove('text-zinc-500', 'hover:bg-zinc-200/50', 'dark:hover:bg-zinc-800/50');
-      link.classList.add('text-emerald-500', 'font-semibold');
-      link.classList.add('bg-zinc-200/80', 'dark:bg-zinc-800/80', 'border-b-2', 'border-emerald-500', 'rounded-b-none');
+      if (isSidebarItem) {
+        link.classList.add('active');
+        // Auto expand parent category if collapsed
+        const group = link.closest('.sidebar-group');
+        if (group && !group.classList.contains('open')) {
+          group.classList.add('open');
+        }
+      } else {
+        link.classList.remove('text-zinc-500');
+        link.classList.add('text-emerald-500', 'font-semibold');
+      }
     } else {
-      link.classList.add('text-zinc-500');
-      link.classList.remove('text-emerald-500', 'font-semibold', 'bg-zinc-200/80', 'dark:bg-zinc-800/80', 'border-b-2', 'border-emerald-500', 'rounded-b-none');
+      if (isSidebarItem) {
+        link.classList.remove('active');
+      } else {
+        link.classList.add('text-zinc-500');
+        link.classList.remove('text-emerald-500', 'font-semibold');
+      }
     }
   });
 
@@ -4875,6 +5036,31 @@ if (DEBUG) {
     console.error('Assertion self-test engine gagal:', err);
   }
 }
+
+// Initializations
+document.addEventListener('DOMContentLoaded', () => {
+  // Sidebar Toggle collapse/expand
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  if (sidebar && sidebarToggle) {
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('w-64');
+      sidebar.classList.toggle('w-16');
+      sidebar.classList.toggle('sidebar-collapsed');
+    });
+  }
+
+  // Sidebar Group Accordion folder toggle
+  const groupToggles = document.querySelectorAll('.sidebar-group-toggle');
+  groupToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const group = toggle.closest('.sidebar-group');
+      if (group) {
+        group.classList.toggle('open');
+      }
+    });
+  });
+});
 
   </script>
 </body>
