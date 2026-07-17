@@ -948,11 +948,11 @@
       </div>
 
       <!-- Layout saat ADA DATA (Grid 2 Kolom) -->
-      <div id="facDataLayout" class="hidden grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6">
+      <div id="facDataLayout" class="hidden grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 lg:h-[calc(100vh-130px)] lg:overflow-hidden pb-4 lg:pb-0">
         
         <!-- Kolom Kiri: Controls, Stats, & Metadata -->
-        <div class="space-y-6">
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+        <div class="space-y-4 lg:h-full lg:flex lg:flex-col lg:overflow-hidden">
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex-shrink-0">
             <h2 class="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
               🧬 FAC Extractor
             </h2>
@@ -960,11 +960,11 @@
             <!-- File Uploader Mini (Sidebar) -->
             <div class="space-y-2">
               <label class="block text-[10px] font-bold text-zinc-550 dark:text-zinc-450 tracking-wider">UNGGAH LAPORAN PDF BARU</label>
-              <label class="flex items-center gap-3 w-full py-3 px-4 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
-                <span class="text-2xl">📁</span>
+              <label class="flex items-center gap-3 w-full py-2.5 px-4 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
+                <span class="text-xl">📁</span>
                 <div class="text-left leading-tight">
                   <p class="text-xs font-bold text-zinc-650 dark:text-zinc-300">Pilih / Drag PDF FAC</p>
-                  <p class="text-[10px] text-zinc-400 dark:text-zinc-500">Format laporan Agilent</p>
+                  <p class="text-[9px] text-zinc-400 dark:text-zinc-500">Format laporan Agilent</p>
                 </div>
                 <input type="file" id="facFileInput" multiple accept=".pdf" class="hidden">
               </label>
@@ -973,11 +973,11 @@
             <!-- List File Terunggah -->
             <div id="facFileListContainer" class="space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-[10px] font-bold text-zinc-500 tracking-wider">DAFTAR DOKUMEN FAC</span>
-                <button id="facClearAllBtn" class="text-[10px] font-bold text-rose-500 hover:underline">Hapus Semua</button>
+                <span class="text-[9px] font-bold text-zinc-500 tracking-wider">DAFTAR DOKUMEN FAC</span>
+                <button id="facClearAllBtn" class="text-[9px] font-bold text-rose-500 hover:underline">Hapus Semua</button>
               </div>
               <div class="relative w-full">
-                <select id="facFileSelect" class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2.5 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
+                <select id="facFileSelect" class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors">
                   <!-- Diisi secara dinamis -->
                 </select>
               </div>
@@ -985,49 +985,49 @@
           </div>
 
           <!-- Summary Stats Card -->
-          <div id="facStatsCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
-            <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK ANALISA</h3>
-            <div class="grid grid-cols-2 gap-3">
-              <div class="bg-zinc-50 dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
+          <div id="facStatsCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex-shrink-0">
+            <h3 class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK ANALISA</h3>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-2.5 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
                 <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">IODINE VALUE (IV)</span>
-                <span id="facIvValue" class="text-base font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+                <span id="facIvValue" class="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
               </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 p-3 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-2.5 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
                 <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">TOTAL AREA %</span>
-                <span id="facTotalArea" class="text-base font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+                <span id="facTotalArea" class="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
               </div>
             </div>
-            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-3 space-y-2 text-xs">
+            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-2 space-y-1.5 text-xs">
               <div class="flex justify-between">
                 <span class="text-zinc-500">Jumlah Peak:</span>
                 <span id="facPeakCount" class="font-bold text-zinc-800 dark:text-zinc-200 font-mono">-</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-zinc-500">Komponen Utama:</span>
-                <span id="facHighestComponent" class="font-bold text-emerald-600 dark:text-emerald-400 truncate max-w-[140px]" title="-">-</span>
+                <span id="facHighestComponent" class="font-bold text-emerald-600 dark:text-emerald-400 truncate max-w-[120px]" title="-">-</span>
               </div>
             </div>
           </div>
 
           <!-- Metadata Info Card -->
-          <div id="facMetadataCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <h3 class="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">METADATA SAMPEL</h3>
+          <div id="facMetadataCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex-1 min-h-0 flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2 flex-shrink-0">
+              <h3 class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">METADATA SAMPEL</h3>
               <button id="facCopyInfoBtn" class="text-[10px] font-bold text-emerald-500 hover:underline">
                 📋 Salin
               </button>
             </div>
-            <div class="grid grid-cols-1 gap-2.5 text-xs max-h-[300px] overflow-y-auto pr-1" id="facMetadataGrid">
+            <div class="flex-1 overflow-y-auto pr-1 space-y-2 text-xs" id="facMetadataGrid">
               <!-- Diisi via JS -->
             </div>
           </div>
         </div>
 
         <!-- Kolom Kanan: Table View -->
-        <div id="facMainContent" class="space-y-6">
+        <div id="facMainContent" class="lg:h-full lg:flex lg:flex-col lg:overflow-hidden">
           <!-- Peak Data Table -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 h-full flex flex-col overflow-hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3 flex-shrink-0">
               <div class="leading-tight">
                 <h3 class="text-sm font-bold text-zinc-900 dark:text-white tracking-wider">AREA PERCENT REPORT</h3>
                 <span class="text-[10px] text-zinc-400 dark:text-zinc-550 font-medium">Klik judul kolom di bawah untuk menyalin satu kolom penuh ke clipboard</span>
@@ -1042,10 +1042,10 @@
               </div>
             </div>
 
-            <div class="overflow-auto border border-zinc-200 dark:border-zinc-800 rounded-xl max-h-[580px]">
+            <div class="flex-1 h-0 overflow-auto border border-zinc-200 dark:border-zinc-800 rounded-xl">
               <table class="w-full border-collapse text-left text-xs">
                 <thead>
-                  <tr class="text-zinc-650 dark:text-zinc-450 font-bold bg-zinc-100 dark:bg-zinc-800/80">
+                  <tr class="text-zinc-650 dark:text-zinc-455 font-bold bg-zinc-100 dark:bg-zinc-800/80">
                     <th onclick="window.Fac && window.Fac.copyColumn(0)" title="Klik untuk menyalin kolom Peak" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tl-xl w-16 cursor-pointer select-none transition-colors">Peak</th>
                     <th onclick="window.Fac && window.Fac.copyColumn(1)" title="Klik untuk menyalin kolom RetTime" class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">RetTime (min)</th>
                     <th onclick="window.Fac && window.Fac.copyColumn(2)" title="Klik untuk menyalin kolom Type" class="px-4 py-3 sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-20 cursor-pointer select-none transition-colors">Type</th>
