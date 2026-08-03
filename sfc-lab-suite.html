@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
 <head>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('sfc.theme') || 'system';
+      const isDarkSystem = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (savedTheme === 'system' && isDarkSystem)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QC Instrument - Tools</title>
@@ -120,11 +131,11 @@
     
     /* Toast Animation */
     .toast-anim {
-      animation: slideUp 0.3s ease-out;
+      animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    @keyframes slideUp {
-      from { transform: translate(-50%, 20px); opacity: 0; }
-      to { transform: translate(-50%, 0); opacity: 1; }
+    @keyframes slideInRight {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     /* Sidebar Styles */
@@ -187,15 +198,17 @@
     .sidebar-collapsed .sidebar-group-toggle {
       display: none;
     }
-    .sidebar-collapsed .sidebar-menu-divider {
-      display: none;
-    }
+
     .sidebar-collapsed .sidebar-group-content {
-      max-height: 0 !important; /* Tutup paksa sub-menu jika di-collapse */
+      max-height: none !important; /* Buka paksa sub-menu agar ikon tampil */
+      overflow: visible !important;
     }
     .sidebar-collapsed .sidebar-menu-item {
       justify-content: center;
       padding: 0.75rem;
+    }
+    .sidebar-collapsed .sidebar-menu-item svg {
+      margin-right: 0 !important;
     }
     .sidebar-collapsed .sidebar-menu-title {
       display: none;
@@ -204,14 +217,181 @@
       margin-left: 0.5rem;
       margin-right: 0.5rem;
     }
+    
+    /* High-contrast Input & Select Focus States */
+    input[type="text"], input[type="number"], input[type="date"], select, textarea {
+      transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+    }
+    input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+      background-color: #ffffff !important;
+      border-color: #10b981 !important; /* emerald-500 */
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+    }
+    .dark input[type="text"]:focus, .dark input[type="number"]:focus, .dark input[type="date"]:focus, .dark select:focus, .dark textarea:focus {
+      background-color: #000000 !important;
+      border-color: #10b981 !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+    }
+
+    /* Custom Minimalist Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(161, 161, 170, 0.4) !important;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: rgba(63, 63, 70, 0.6) !important;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.5) !important;
+    }
+
+    /* Table Styling Enhancements (Zebra Striping, Thin Borders, Small Bold Headers) */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th {
+      font-size: 10px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      color: #71717a !important; /* zinc-500 */
+      background-color: #f4f4f5 !important; /* zinc-100 */
+      padding: 0.625rem 0.75rem !important; /* py-2.5 px-3 */
+      border-bottom: 1px solid #e4e4e7 !important; /* zinc-200 */
+    }
+    .dark th {
+      color: #a1a1aa !important; /* zinc-400 */
+      background-color: #18181b !important; /* zinc-900 */
+      border-bottom: 1px solid #27272a !important; /* zinc-800 */
+    }
+    td {
+      padding: 0.625rem 0.75rem !important; /* py-2.5 px-3 */
+      border-bottom: 1px solid rgba(228, 228, 231, 0.4) !important; /* zinc-200/40 */
+      font-size: 0.75rem !important; /* text-xs */
+    }
+    .dark td {
+      border-bottom: 1px solid rgba(39, 39, 42, 0.4) !important; /* zinc-800/40 */
+    }
+    tr:nth-child(even) {
+      background-color: rgba(244, 244, 245, 0.4) !important; /* even:bg-zinc-100/40 */
+    }
+    .dark tr:nth-child(even) {
+      background-color: rgba(24, 24, 27, 0.3) !important; /* even:bg-zinc-900/30 */
+    }
+    tr:hover {
+      background-color: rgba(244, 244, 245, 0.8) !important;
+    }
+    .dark tr:hover {
+      background-color: rgba(39, 39, 42, 0.6) !important;
+    }
+
+    /* Tactile Button Feedback Global */
+    button {
+      transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease-in-out, opacity 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+    }
+    button:active {
+      transform: scale(0.97) !important;
+    }
+    button:disabled:active, button.disabled:active {
+      transform: none !important;
+    }
+
+    /* Real-time Valid Input CSS Checkmark Indicator */
+    input[type="text"]:required:valid:not(:placeholder-shown),
+    input[type="date"]:required:valid:not(:placeholder-shown) {
+      border-color: #10b981 !important; /* emerald-500 */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2310b981' stroke-width='3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: right 0.75rem center !important;
+      background-size: 1rem 1rem !important;
+      padding-right: 2.25rem !important;
+    }
+
+    /* Skeleton Loading Shimmer Screen Styles */
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+    .skeleton-row td div {
+      background: linear-gradient(90deg, rgba(228, 228, 231, 0.4) 25%, rgba(244, 244, 245, 0.8) 37%, rgba(228, 228, 231, 0.4) 63%) !important;
+      background-size: 200% 100% !important;
+      animation: shimmer 1.5s infinite linear !important;
+    }
+    .dark .skeleton-row td div {
+      background: linear-gradient(90deg, rgba(39, 39, 42, 0.4) 25%, rgba(63, 63, 70, 0.8) 37%, rgba(39, 39, 42, 0.4) 63%) !important;
+      background-size: 200% 100% !important;
+      animation: shimmer 1.5s infinite linear !important;
+    }
+
+    /* CSS Tooltip styling */
+    .tooltip-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .tooltip-text {
+      visibility: hidden;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #18181b; /* zinc-900 */
+      color: #ffffff;
+      text-align: center;
+      padding: 0.375rem 0.625rem;
+      border-radius: 0.5rem;
+      font-size: 9px;
+      font-weight: 500;
+      white-space: nowrap;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      z-index: 50;
+      opacity: 0;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    .dark .tooltip-text {
+      background-color: #f4f4f5; /* zinc-100 */
+      color: #18181b; /* zinc-900 */
+    }
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    .tooltip-text.tooltip-multiline {
+      white-space: normal !important;
+      bottom: auto !important;
+      top: 130% !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: 210px !important;
+      max-width: 230px !important;
+      text-align: left !important;
+      z-index: 50 !important;
+    }
+
+    /* Fix Sidebar Icon Overflow (Non-standard Tailwind Size fallback) */
+    .sidebar-menu-item svg {
+      width: 1.125rem !important; /* 18px */
+      height: 1.125rem !important; /* 18px */
+    }
   </style>
 </head>
 <body class="bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen transition-colors duration-200">
 
   <!-- ===== REGION: UI-SHELL ===== -->
-  <!-- Container Header & Desktop Nav -->
   <header class="sticky top-0 z-40 bg-white/80 dark:bg-zinc-900/80 backdrop-blur border-b border-zinc-200 dark:border-zinc-800 transition-colors duration-200">
-    <div class="w-full px-6 h-16 flex items-center justify-between gap-4">
+    <div class="w-full px-4 sm:px-5 h-14 flex items-center justify-between gap-4">
       
       <!-- Brand Title (🧪 SFC Lab Suite) -->
       <div class="flex items-center gap-3 flex-shrink-0">
@@ -301,37 +481,52 @@
   </nav>
 
   <!-- Layout Wrapper -->
-  <div class="w-full flex flex-row relative h-[calc(100vh-64px)] overflow-hidden">
+  <div class="w-full flex flex-row relative h-[calc(100vh-56px)] overflow-hidden">
     
     <!-- Sidebar Navigation (md:flex, hidden on mobile) -->
     <aside id="sidebar" class="sidebar-transition w-64 flex-shrink-0 border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 py-6 px-4 hidden md:flex flex-col gap-6 h-full overflow-y-auto">
       
       <!-- Kategori SFC -->
       <div class="sidebar-group open">
-        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>
-          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-650 dark:text-zinc-400 uppercase">SFC Tools</span>
+        <div class="sidebar-group-toggle flex items-center justify-between text-zinc-400 dark:text-zinc-500 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 cursor-pointer select-none transition-colors">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>
+            <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-400 uppercase">SFC Tools</span>
+          </div>
+          <svg class="sidebar-group-chevron w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
         </div>
         
-        <div class="sidebar-group-content mt-2 space-y-1">
-          <a href="#extractor" data-tab="extractor" class="sidebar-menu-item" title="SFC Extractor">
-            <span class="text-base mr-3">📥</span>
+        <div class="sidebar-group-content mt-1.5 space-y-1">
+          <a href="#extractor" data-tab="extractor" class="sidebar-menu-item rounded-xl" title="SFC Extractor">
+            <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m0 0l-3-3m3 3l3-3m-9 8h12a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
             <span class="sidebar-text-content">SFC Extractor</span>
           </a>
-          <a href="#trend" data-tab="trend" class="sidebar-menu-item" title="SFC Predict MP">
-            <span class="text-base mr-3">📈</span>
+          <a href="#trend" data-tab="trend" class="sidebar-menu-item rounded-xl" title="SFC Predict MP">
+            <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
             <span class="sidebar-text-content">SFC Predict MP</span>
           </a>
-          <a href="#blend" data-tab="blend" class="sidebar-menu-item" title="SFC Blend Calculator">
-            <span class="text-base mr-3">🧮</span>
+          <a href="#blend" data-tab="blend" class="sidebar-menu-item rounded-xl" title="SFC Blend Calculator">
+            <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 11h.01M9 11h.01M12 14h.01M15 11h.01M12 7h.01M15 7h.01M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2z" />
+            </svg>
             <span class="sidebar-text-content">SFC Blend Calculator</span>
           </a>
-          <a href="#data" data-tab="data" class="sidebar-menu-item" title="SFC Data Master">
-            <span class="text-base mr-3">🗄️</span>
+          <a href="#data" data-tab="data" class="sidebar-menu-item rounded-xl" title="SFC Data Master">
+            <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+            </svg>
             <span class="sidebar-text-content">SFC Data Master</span>
           </a>
-          <a href="#diff" data-tab="diff" class="sidebar-menu-item" title="SFC Compare">
-            <span class="text-base mr-3">🔄</span>
+          <a href="#diff" data-tab="diff" class="sidebar-menu-item rounded-xl" title="SFC Compare">
+            <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
             <span class="sidebar-text-content">SFC Compare</span>
           </a>
         </div>
@@ -341,14 +536,21 @@
       
       <!-- Kategori FAC -->
       <div class="sidebar-group open">
-        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0"></span>
-          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-650 dark:text-zinc-400 uppercase">FAC Tools</span>
+        <div class="sidebar-group-toggle flex items-center justify-between text-zinc-400 dark:text-zinc-500 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 cursor-pointer select-none transition-colors">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0"></span>
+            <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-400 uppercase">FAC Tools</span>
+          </div>
+          <svg class="sidebar-group-chevron w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
         </div>
         
-        <div class="sidebar-group-content mt-2 space-y-1">
-          <a href="#fac" data-tab="fac" class="sidebar-menu-item" title="FAC Extractor">
-            <span class="text-base mr-3">🧬</span>
+        <div class="sidebar-group-content mt-1.5 space-y-1">
+          <a href="#fac" data-tab="fac" class="sidebar-menu-item rounded-xl" title="FAC Extractor">
+            <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
             <span class="sidebar-text-content">FAC Extractor</span>
           </a>
         </div>
@@ -358,14 +560,21 @@
       
       <!-- Kategori OSI -->
       <div class="sidebar-group open">
-        <div class="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 px-3 py-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
-          <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-650 dark:text-zinc-400 uppercase">OSI Tools</span>
+        <div class="sidebar-group-toggle flex items-center justify-between text-zinc-400 dark:text-zinc-500 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 cursor-pointer select-none transition-colors">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+            <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-400 uppercase">OSI Tools</span>
+          </div>
+          <svg class="sidebar-group-chevron w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
         </div>
         
-        <div class="sidebar-group-content mt-2 space-y-1">
-          <a href="#osi" data-tab="osi" class="sidebar-menu-item" title="OSI Shelf Life Calculator">
-            <span class="text-base mr-3">⏳</span>
+        <div class="sidebar-group-content mt-1.5 space-y-1">
+          <a href="#osi" data-tab="osi" class="sidebar-menu-item rounded-xl" title="OSI Shelf Life Calculator">
+            <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
             <span class="sidebar-text-content">Shelf Life Calculator</span>
           </a>
         </div>
@@ -374,7 +583,8 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 min-w-0 px-6 py-6 pb-24 md:pb-8 flex flex-col h-full overflow-y-auto">
+    <main class="flex-1 min-w-0 px-4 sm:px-5 py-3.5 pb-20 md:pb-6 flex flex-col h-full overflow-y-auto">
+      <div class="w-full flex-1 flex flex-col space-y-4">
 
     <!-- ===== REGION: MODULE-EXTRACTOR ===== -->
     <div id="tabContent-extractor" class="tab-panel flex-1 flex flex-col hidden">
@@ -542,9 +752,32 @@
             <h2 class="text-xl font-extrabold text-zinc-900 dark:text-white">SFC Predict MP</h2>
             <p class="text-xs text-zinc-500 dark:text-zinc-400">Memetakan data SFC sampel di berbagai suhu uji dan memproyeksikan Slip Melting Point (SMP).</p>
           </div>
-          <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('trend')">
-            📖 Petunjuk Penggunaan
-          </button>
+          <div class="flex items-center gap-2">
+            <div class="relative flex items-center gap-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs">
+              <span class="font-bold text-zinc-500 text-[10px] tracking-wider select-none">METODE MP:</span>
+              <button id="trendMpCalcModeBtn" class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 focus:outline-none hover:opacity-80 transition-opacity">
+                <span id="trendMpCalcModeLabel">Linear (Bawaan)</span>
+                <svg class="w-3 h-3 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <!-- Dropdown Panel Melayang -->
+              <div id="trendMpCalcModeDropdown" class="hidden absolute right-0 top-full mt-2 w-44 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl py-1 z-50 text-[10px] font-bold animate-slide-in">
+                <div data-value="linear" class="px-3.5 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 cursor-pointer text-zinc-700 dark:text-zinc-300 transition-colors flex items-center justify-between">
+                  <span>Linear (Bawaan)</span>
+                  <span class="check-icon hidden text-emerald-500">✔</span>
+                </div>
+                <div data-value="semilog" class="px-3.5 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 cursor-pointer text-zinc-700 dark:text-zinc-300 transition-colors flex items-center justify-between">
+                  <span>Semilog (Eksponensial)</span>
+                  <span class="check-icon hidden text-emerald-500">✔</span>
+                </div>
+              </div>
+            </div>
+            <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors flex items-center gap-1.5" onclick="showHelpGuide('trend')">
+              📖 Petunjuk Penggunaan
+            </button>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-6 flex-1 items-stretch">
@@ -603,7 +836,7 @@
               <span>🔥</span>
               <span>Prediksi Slip Melting Point (SMP)</span>
             </div>
-            <p class="text-[10px] text-zinc-500 dark:text-zinc-400 leading-normal">
+            <p id="trendPredictionDesc" class="text-[10px] text-zinc-500 dark:text-zinc-400 leading-normal">
               *Prediksi dihitung menggunakan Interpolasi Linear pada saat SFC menyentuh 5%.
             </p>
             <ul id="trendPredictionList" class="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-350">
@@ -936,14 +1169,16 @@
     </div>
 
     <!-- Modal Form Tambah Data Baru (Manual & TSV) -->
-    <div id="dataAddModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 max-w-2xl w-full shadow-2xl space-y-4 animate-slide-in">
-        <div class="flex items-center justify-between">
-          <h3 class="text-lg font-bold text-zinc-900 dark:text-white">➕ Tambah Data Baru</h3>
-          <button id="dataCloseAddModal" class="text-zinc-400 hover:text-zinc-500">❌</button>
+    <div id="dataAddModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 max-w-4xl w-full shadow-2xl space-y-4 animate-slide-in">
+        <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+          <h3 class="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            <span>➕</span> Tambah Data Baru
+          </h3>
+          <button id="dataCloseAddModal" class="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-250 font-extrabold text-lg p-1 transition-colors">✕</button>
         </div>
 
-        <div class="flex border-b border-zinc-200 dark:border-zinc-700 text-sm">
+        <div class="flex border-b border-zinc-200 dark:border-zinc-800 text-xs">
           <label class="flex-1 text-center py-2.5 font-semibold cursor-pointer border-b-2 border-transparent peer-checked:border-emerald-500">
             <input type="radio" name="dataAddMode" id="dataAddModeSingle" checked class="sr-only peer">
             <span class="peer-checked:text-emerald-500 peer-checked:font-bold">Input Single Data</span>
@@ -954,101 +1189,114 @@
           </label>
         </div>
 
+        <!-- Form Input Single Data -->
         <div id="dataAddFormModeSingle" class="space-y-4 text-xs">
           <form id="dataSingleForm" class="space-y-4">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div class="col-span-2 sm:col-span-1">
-                <label class="block text-[9px] font-bold text-zinc-500 mb-1">TANGGAL</label>
-                <input type="date" id="dataSingleDate" required class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-3 py-2 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+              
+              <!-- Kolom Kiri: Metadata Sampel (2 dari 5 kolom) -->
+              <div class="md:col-span-2 space-y-4 border-b md:border-b-0 md:border-r border-zinc-100 dark:border-zinc-800 pb-4 md:pb-0 pr-0 md:pr-6">
+                <h4 class="text-[10px] font-extrabold text-emerald-600 dark:text-emerald-450 uppercase tracking-wider mb-2">Identitas Sampel</h4>
+                
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[9px] font-bold text-zinc-500 mb-1">TANGGAL</label>
+                    <input type="date" id="dataSingleDate" required class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 px-3 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] font-bold text-zinc-500 mb-1">JAM</label>
+                    <input type="time" id="dataSingleTime" required class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 px-3 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-[9px] font-bold text-zinc-500 mb-1">NAMA / IDENTITAS SAMPEL</label>
+                  <input type="text" id="dataSingleName" required placeholder="Contoh: Batch 10..." class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 px-3 py-2.5 focus:outline-none dark:text-white text-xs">
+                </div>
+
+                <div>
+                  <label class="block text-[9px] font-bold text-zinc-500 mb-1">JENIS MINYAK / LEMAK</label>
+                  <select id="dataSingleType" required class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 px-3 py-2.5 focus:outline-none dark:text-white text-xs">
+                    <option value="RBDHPKOL">RBDHPKOL</option>
+                    <option value="RBDHPKST">RBDHPKST</option>
+                    <option value="RDBPKOL">RDBPKOL</option>
+                    <option value="RBDPST">RBDPST</option>
+                    <option value="RBDPKO">RBDPKO</option>
+                    <option value="RBDPKOL">RBDPKOL</option>
+                    <option value="RBDPKST">RBDPKST</option>
+                    <option value="HPKO">HPKO</option>
+                    <option value="RBDPO">RBDPO</option>
+                    <option value="RBDST IV 32">RBDST IV 32</option>
+                    <option value="RBDST IV 35">RBDST IV 35</option>
+                    <option value="HPST">HPST</option>
+                    <option value="CIE OLEIN">CIE OLEIN</option>
+                    <option value="HPKST">HPKST</option>
+                    <option value="OLEIN IV 57">OLEIN IV 57</option>
+                  </select>
+                </div>
               </div>
-              <div class="col-span-2 sm:col-span-1">
-                <label class="block text-[9px] font-bold text-zinc-500 mb-1">JAM</label>
-                <input type="time" id="dataSingleTime" required class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-3 py-2 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
+              
+              <!-- Kolom Kanan: Nilai SFC 12-Titik (3 dari 5 kolom) -->
+              <div class="md:col-span-3 space-y-4">
+                <h4 class="text-[10px] font-extrabold text-emerald-600 dark:text-emerald-450 uppercase tracking-wider mb-2">Nilai SFC (%) Tiap Suhu</h4>
+                
+                <div class="grid grid-cols-4 gap-3">
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">10°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t10" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">15°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t15" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">20°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t20" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">25°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t25" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">30°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t30" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">35°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t35" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">40°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t40" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">45°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t45" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">50°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t50" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">55°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t55" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">60°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t60" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                  <div>
+                    <label class="block text-[9px] text-zinc-400 dark:text-zinc-500 text-center mb-0.5">65°C</label>
+                    <input type="number" step="any" min="0" max="100" id="dataSingleVal-t65" required class="w-full text-center rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/60 py-2.5 focus:outline-none dark:text-white font-mono text-xs">
+                  </div>
+                </div>
               </div>
-              <div class="col-span-2">
-                <label class="block text-[9px] font-bold text-zinc-500 mb-1">NAMA/IDENTITAS SAMPEL</label>
-                <input type="text" id="dataSingleName" required placeholder="Nama Sampel..." class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-3 py-2 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-              </div>
+              
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="block text-[9px] font-bold text-zinc-500 mb-1">JENIS SAMPEL</label>
-                <select id="dataSingleType" required class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 px-3 py-2 focus:border-emerald-500 focus:outline-none dark:text-white">
-                  <option value="RBDHPKOL">RBDHPKOL</option>
-                  <option value="RBDHPKST">RBDHPKST</option>
-                  <option value="RDBPKOL">RDBPKOL</option>
-                  <option value="RBDPST">RBDPST</option>
-                  <option value="RBDPKO">RBDPKO</option>
-                  <option value="RBDPKOL">RBDPKOL</option>
-                  <option value="RBDPKST">RBDPKST</option>
-                  <option value="HPKO">HPKO</option>
-                  <option value="RBDPO">RBDPO</option>
-                  <option value="RBDST IV 32">RBDST IV 32</option>
-                  <option value="RBDST IV 35">RBDST IV 35</option>
-                  <option value="HPST">HPST</option>
-                  <option value="CIE OLEIN">CIE OLEIN</option>
-                  <option value="HPKST">HPKST</option>
-                  <option value="OLEIN IV 57">OLEIN IV 57</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-[10px] font-bold text-zinc-500 mb-2">NILAI SFC UNTUK TIAP TITIK SUHU (%)</label>
-              <div class="grid grid-cols-4 sm:grid-cols-6 gap-2">
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">10°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t10" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">15°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t15" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">20°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t20" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">25°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t25" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">30°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t30" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">35°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t35" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">40°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t40" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-550 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">45°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t45" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-550 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">50°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t50" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">55°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t55" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">60°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t60" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-                <div>
-                  <label class="block text-[9px] text-zinc-400 text-center mb-0.5">65°C</label>
-                  <input type="number" step="any" min="0" max="100" id="dataSingleVal-t65" required class="w-full text-center rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 py-1.5 focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-                </div>
-              </div>
-            </div>
-
-            <div class="flex justify-end gap-3 pt-3">
+            <div class="flex justify-end gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
               <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-colors">
                 💾 Simpan Baris Data
               </button>
@@ -1056,13 +1304,14 @@
           </form>
         </div>
 
+        <!-- Form Impor Masal TSV -->
         <div id="dataAddFormModeTSV" class="hidden space-y-4 text-xs">
           <p class="text-zinc-500 leading-normal">
             Tempelkan baris data TSV (termasuk nomor, tanggal, jam, nama, jenis, dan 12 nilai suhu) langsung dari spreadsheet Excel.
           </p>
           
           <form id="dataTSVForm" class="space-y-4">
-            <textarea id="dataTSVTextarea" rows="8" placeholder="Format baris:&#10;No	Tanggal_Produksi	Jam_Produksi	Nama_Sampel	Jenis_Sampel	T10	T15	T20	T25	T30	T35	T40	T45	T50	T55	T60	T65" class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-3 font-mono text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors"></textarea>
+            <textarea id="dataTSVTextarea" rows="8" placeholder="Format baris:&#10;No	Tanggal_Produksi	Jam_Produksi	Nama_Sampel	Jenis_Sampel	T10	T15	T20	T25	T30	T35	T40	T45	T50	T55	T60	T65" class="w-full rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-3 font-mono text-xs focus:outline-none dark:text-white transition-colors"></textarea>
             
             <div class="flex justify-end gap-3">
               <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold transition-colors">
@@ -1094,16 +1343,22 @@
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
             
             <div class="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-2 text-xs">
-              <span class="font-semibold text-zinc-500">TOLERANSI SELISIH:</span>
+              <span class="font-semibold text-zinc-550 flex items-center gap-1">
+                TOLERANSI SELISIH
+                <span class="tooltip-container">
+                  <span class="text-zinc-400 dark:text-zinc-500 font-extrabold text-[8px] border border-zinc-300 dark:border-zinc-700 rounded-full w-3.5 h-3.5 flex items-center justify-center cursor-help select-none">?</span>
+                  <span class="tooltip-text">Batas persentase deviasi warna penanda deviasi (Hijau / Kuning / Merah)</span>
+                </span>
+              </span>
               <div class="flex items-center gap-1.5">
-                <span class="text-emerald-505 font-bold">🟢 &lt;=</span>
+                <span class="text-emerald-550 font-bold">🟢 &lt;=</span>
                 <input type="number" id="diffThresholdGreen" step="any" value="2" class="w-12 text-center rounded border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-850 py-0.5 focus:outline-none font-mono">
               </div>
               <div class="flex items-center gap-1.5 border-l border-zinc-250 dark:border-zinc-700 pl-3">
-                <span class="text-amber-505 font-bold">🟡 &lt;=</span>
+                <span class="text-amber-550 font-bold">🟡 &lt;=</span>
                 <input type="number" id="diffThresholdAmber" step="any" value="5" class="w-12 text-center rounded border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-850 py-0.5 focus:outline-none font-mono">
               </div>
-              <span class="text-rose-500 font-bold border-l border-zinc-250 dark:border-zinc-700 pl-3">🔴 &gt; 5</span>
+              <span id="diffThresholdRedLabel" class="text-rose-500 font-bold border-l border-zinc-250 dark:border-zinc-700 pl-3">🔴 &gt; 5</span>
             </div>
           </div>
 
@@ -1322,20 +1577,45 @@
             </div>
           </div>
 
-          <!-- Summary Stats Card -->
-          <div id="facStatsCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex-shrink-0">
-            <h3 class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK ANALISA</h3>
-            <div class="grid grid-cols-2 gap-2">
-              <div class="bg-zinc-50 dark:bg-zinc-900 p-2.5 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
-                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">IODINE VALUE (IV)</span>
-                <span id="facIvValue" class="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
-              </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 p-2.5 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
-                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">TOTAL AREA %</span>
-                <span id="facTotalArea" class="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+          <!-- Summary Stats & Smart Matrix Card -->
+          <div id="facStatsCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-2.5 flex-shrink-0">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
+              <h3 class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK & MATRIKS ANALISA</h3>
+              <span id="facMatrixConfidence" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/60">-</span>
+            </div>
+            
+            <!-- Predicted Matrix Name & Circle Info Icon Button -->
+            <div class="flex items-center gap-2">
+              <span class="text-base">🧪</span>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center gap-1.5">
+                  <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 uppercase tracking-wider">Dugaan Matriks Sampel</span>
+                  
+                  <!-- Circle i Info Button with Tooltip -->
+                  <div class="tooltip-container group cursor-pointer select-none">
+                    <span id="facMatrixInfoBtn" class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[9px] font-black flex items-center justify-center transition-colors">i</span>
+                    <div id="facMatrixTooltipText" class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5">
+                      <!-- Diisi via JS -->
+                    </div>
+                  </div>
+                </div>
+                <span id="facMatrixName" class="text-[11px] font-extrabold text-zinc-900 dark:text-white leading-tight block mt-0.5">-</span>
               </div>
             </div>
-            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-2 space-y-1.5 text-xs">
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-2 pt-0.5">
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-2 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
+                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">IODINE VALUE (IV)</span>
+                <span id="facIvValue" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-2 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
+                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">TOTAL AREA %</span>
+                <span id="facTotalArea" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+              </div>
+            </div>
+
+            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-1.5 space-y-1 text-xs">
               <div class="flex justify-between">
                 <span class="text-zinc-500">Jumlah Peak:</span>
                 <span id="facPeakCount" class="font-bold text-zinc-800 dark:text-zinc-200 font-mono">-</span>
@@ -1451,8 +1731,9 @@
                     <input type="checkbox" data-temp="110" checked class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
                     <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">110 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-1">
-                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="110" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="26.35">
+                  <div class="flex-1 flex items-center gap-1 relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[8px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-wider pointer-events-none">IND</span>
+                    <input type="number" step="0.01" min="0" placeholder="0.00" data-temp-val="110" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 pl-10 pr-2 py-0.5 text-xs font-semibold focus:outline-none dark:text-white transition-colors osi-time-input font-mono" value="26.35">
                     <span class="text-[9px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
@@ -1463,8 +1744,9 @@
                     <input type="checkbox" data-temp="120" checked class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
                     <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">120 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-1">
-                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="120" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="12.25">
+                  <div class="flex-1 flex items-center gap-1 relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[8px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-wider pointer-events-none">IND</span>
+                    <input type="number" step="0.01" min="0" placeholder="0.00" data-temp-val="120" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 pl-10 pr-2 py-0.5 text-xs font-semibold focus:outline-none dark:text-white transition-colors osi-time-input font-mono" value="12.25">
                     <span class="text-[9px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
@@ -1475,8 +1757,9 @@
                     <input type="checkbox" data-temp="130" checked class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
                     <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">130 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-1">
-                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="130" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input" value="5.80">
+                  <div class="flex-1 flex items-center gap-1 relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[8px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-wider pointer-events-none">IND</span>
+                    <input type="number" step="0.01" min="0" placeholder="0.00" data-temp-val="130" class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-white dark:bg-zinc-900 pl-10 pr-2 py-0.5 text-xs font-semibold focus:outline-none dark:text-white transition-colors osi-time-input font-mono" value="5.80">
                     <span class="text-[9px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
@@ -1487,8 +1770,9 @@
                     <input type="checkbox" data-temp="140" class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
                     <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">140 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-1">
-                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="140" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-955 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+                  <div class="flex-1 flex items-center gap-1 relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[8px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-wider pointer-events-none">IND</span>
+                    <input type="number" step="0.01" min="0" placeholder="0.00" data-temp-val="140" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-955 pl-10 pr-2 py-0.5 text-xs font-semibold focus:outline-none dark:text-white transition-colors osi-time-input font-mono">
                     <span class="text-[9px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
@@ -1499,8 +1783,9 @@
                     <input type="checkbox" data-temp="150" class="w-3.5 h-3.5 rounded text-emerald-500 focus:ring-emerald-500 border-zinc-300 dark:border-zinc-700 osi-temp-checkbox">
                     <span class="text-xs font-bold text-zinc-800 dark:text-zinc-250">150 °C</span>
                   </label>
-                  <div class="flex-1 flex items-center gap-1">
-                    <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="150" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-955 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+                  <div class="flex-1 flex items-center gap-1 relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[8px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-wider pointer-events-none">IND</span>
+                    <input type="number" step="0.01" min="0" placeholder="0.00" data-temp-val="150" disabled class="w-full rounded-lg border border-zinc-300 dark:border-zinc-750 bg-zinc-100/55 dark:bg-zinc-955 pl-10 pr-2 py-0.5 text-xs font-semibold focus:outline-none dark:text-white transition-colors osi-time-input font-mono">
                     <span class="text-[9px] font-bold text-zinc-400">jam</span>
                   </div>
                 </div>
@@ -1729,11 +2014,12 @@
       </div>
     </div>
 
+      </div>
   </main>
 </div>
 
   <!-- Global Toast Element -->
-  <div id="globalToast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-bold text-sm rounded-full shadow-2xl flex items-center gap-2 toast-anim">
+  <div id="globalToast" class="hidden fixed top-6 right-6 z-50 px-5 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-bold text-xs rounded-2xl shadow-2xl flex items-center gap-2 toast-anim">
     <span id="globalToastText">✔ Berhasil disalin</span>
   </div>
 
@@ -1795,6 +2081,13 @@
       </div>
     </div>
   </div>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" class="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white shadow-2xl flex items-center justify-center transition-all duration-300 translate-y-20 opacity-0 pointer-events-none" title="Kembali ke Atas" aria-label="Scroll to Top">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
 
   <script>
     const DATA_MASTER_SEED = `no,tanggal_produksi,jam_produksi,nama_sampel,jenis_sampel,t10,t15,t20,t25,t30,t35,t40,t45,t50,t55,t60,t65
@@ -2685,6 +2978,9 @@ const Calc = {
 
     if (validPoints.length < 2) return { text: "Data tidak cukup", tempNumeric: null };
 
+    // Baca konfigurasi mode kalkulasi (linear vs semilog)
+    const mode = (typeof Store !== 'undefined' && Store.get('sfc.mpCalcMode')) || 'linear';
+
     for (let i = 0; i < validPoints.length - 1; i++) {
       let y1 = validPoints[i].sfc;
       let y2 = validPoints[i + 1].sfc;
@@ -2693,7 +2989,18 @@ const Calc = {
 
       if (y1 >= 5 && y2 <= 5) {
         if (y2 === y1) return { text: `${x2.toFixed(1)}°C`, tempNumeric: x2 };
-        let predictedTemp = x1 + (5 - y1) * (x2 - x1) / (y2 - y1);
+        
+        let predictedTemp;
+        if (mode === 'semilog') {
+          // Semilog Interpolation: ln(y) = ln(a) + b * x
+          const lny1 = Math.log(y1 > 0 ? y1 : 0.01);
+          const lny2 = Math.log(y2 > 0 ? y2 : 0.01);
+          const ln5 = Math.log(5);
+          predictedTemp = x1 + (ln5 - lny1) * (x2 - x1) / (lny2 - lny1);
+        } else {
+          // Linear Interpolation biasa
+          predictedTemp = x1 + (5 - y1) * (x2 - x1) / (y2 - y1);
+        }
         return { text: `${predictedTemp.toFixed(1)}°C`, tempNumeric: parseFloat(predictedTemp.toFixed(1)) };
       }
     }
@@ -2892,7 +3199,14 @@ const Extractor = {
     const mode = this.modeToggle.checked ? 'raw' : 'sfc';
     const raw = this.rawInput.value;
 
+    this.parserErrors = []; // Reset errors
+
     if (!this.isModeValid(raw, mode)) {
+      if (mode === 'sfc') {
+        this.warningMsg.innerHTML = `⚠️ <strong>Format Gagal:</strong> Laporan mode 'Sample Definition (A)' harus mengandung teks <code>SFC_RESULT = [angka]</code>.`;
+      } else {
+        this.warningMsg.innerHTML = `⚠️ <strong>Format Gagal:</strong> Laporan mode 'Sample Archive (B)' harus memiliki kandungan nilai SFC dalam tanda kutip (misal: <code>"95.51"</code>).`;
+      }
       this.warningMsg.classList.remove('hidden');
       return;
     }
@@ -2929,8 +3243,24 @@ const Extractor = {
       this.sendTrendBtn.classList.add('hidden');
     } else {
       const rowsData = this.extractRawRows(raw);
+      if (this.parserErrors && this.parserErrors.length > 0) {
+        let errorHtml = `<div class="font-bold mb-1.5">⚠️ Detail Kesalahan Parsing:</div><ul class="list-disc list-inside space-y-1 text-[10px] font-medium opacity-90">`;
+        this.parserErrors.slice(0, 3).forEach(err => {
+          errorHtml += `<li>${err}</li>`;
+        });
+        if (this.parserErrors.length > 3) {
+          errorHtml += `<li>...dan ${this.parserErrors.length - 3} kesalahan lainnya.</li>`;
+        }
+        errorHtml += `</ul>`;
+        this.warningMsg.innerHTML = errorHtml;
+        this.warningMsg.classList.remove('hidden');
+        return;
+      }
+      this.warningMsg.classList.add('hidden');
+
       if (rowsData.length === 0) {
-        alert('Tidak ada baris data valid terdeteksi!');
+        this.warningMsg.innerHTML = `⚠️ Tidak ada baris data valid yang berhasil diekstrak! Periksa kembali struktur tabel Anda.`;
+        this.warningMsg.classList.remove('hidden');
         return;
       }
 
@@ -3007,19 +3337,62 @@ const Extractor = {
   },
 
   extractRawRows(text) {
-    const lines = text.split('\n').map(l => l.trim()).filter(l => l.includes('\t'));
-    const headerLine = lines.find(l => /N\d/.test(l));
-    if (!headerLine) return [];
-    const header = headerLine.split('\t');
-    return lines.filter(l => l !== headerLine).map(line => {
-      const cols = line.split('\t');
+    this.parserErrors = [];
+
+    const rawLines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    if (rawLines.length === 0) {
+      this.parserErrors.push("Input kosong. Tempelkan data laporan mentah terlebih dahulu.");
+      return [];
+    }
+
+    // Cerdas mendeteksi pemisah kolom (tab vs spasi beruntun)
+    const hasTab = rawLines.some(l => l.includes('\t'));
+    
+    // Fungsi pembagi baris pintar (aman membagi spasi di luar tanda kutip)
+    const splitLine = (l) => {
+      if (hasTab) {
+        return l.split('\t').map(c => c.trim());
+      } else {
+        return l.match(/(?:[^\s"]+|"[^"]*")+/g) || [];
+      }
+    };
+
+    const headerLine = rawLines.find(l => /N\d/.test(l));
+    if (!headerLine) {
+      this.parserErrors.push("Header data tidak ditemukan. Pastikan ada baris kolom suhu seperti 'N10', 'N15', 'N20', dsb.");
+      return [];
+    }
+
+    const header = splitLine(headerLine);
+    const rows = [];
+
+    rawLines.forEach((line, idx) => {
+      if (line === headerLine) return;
+      
+      const cols = splitLine(line);
+      if (cols.length < 3) {
+        this.parserErrors.push(`Baris ${idx + 1}: Data terpotong atau kolom tidak lengkap.`);
+        return;
+      }
+
+      const sampleId = cols[1] || cols[0] || 'Unknown';
       const values = [];
+      
       cols.forEach((v, i) => {
         const m = v.match(/^"([\d.]+)"$/);
-        if (m && header[i]) values.push({ temp: header[i].replace('N', '') + '°C', value: m[1] });
+        if (m && header[i]) {
+          values.push({ temp: header[i].replace('N', '').replace('O', '') + '°C', value: m[1] });
+        }
       });
-      return { sampleId: cols[1] || 'Unknown', values };
-    }).filter(r => r.values.length);
+
+      if (values.length === 0) {
+        this.parserErrors.push(`Baris ${idx + 1} (Sampel: ${sampleId}): Nilai SFC dalam tanda kutip (misal: "95.51") tidak ditemukan.`);
+      } else {
+        rows.push({ sampleId, values });
+      }
+    });
+
+    return rows;
   },
 
   async copyTable() {
@@ -3153,6 +3526,62 @@ const Trend = {
     window.addEventListener('themeChanged', () => this.updateChartTheme());
 
     this.updateTempPreview();
+
+    // Inisialisasi custom dropdown mode kalkulasi Slip Melting Point (SMP)
+    const btn = document.getElementById('trendMpCalcModeBtn');
+    const dropdown = document.getElementById('trendMpCalcModeDropdown');
+    const label = document.getElementById('trendMpCalcModeLabel');
+    
+    if (btn && dropdown) {
+      const updateDropdownVisual = (val) => {
+        if (label) {
+          label.textContent = val === 'semilog' ? 'Semilog (Eksponensial)' : 'Linear (Bawaan)';
+        }
+        dropdown.querySelectorAll('[data-value]').forEach(item => {
+          const checkIcon = item.querySelector('.check-icon');
+          if (checkIcon) {
+            if (item.getAttribute('data-value') === val) {
+              checkIcon.classList.remove('hidden');
+            } else {
+              checkIcon.classList.add('hidden');
+            }
+          }
+        });
+      };
+
+      const savedMode = (typeof Store !== 'undefined' && Store.get('sfc.mpCalcMode')) || 'linear';
+      updateDropdownVisual(savedMode);
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('hidden');
+      });
+
+      dropdown.querySelectorAll('[data-value]').forEach(item => {
+        item.addEventListener('click', () => {
+          const val = item.getAttribute('data-value');
+          if (typeof Store !== 'undefined') {
+            Store.set('sfc.mpCalcMode', val);
+          } else {
+            localStorage.setItem('sfc.mpCalcMode', val);
+          }
+          updateDropdownVisual(val);
+          dropdown.classList.add('hidden');
+
+          // Picu kalkulasi ulang instan di Extractor dan Trend
+          if (typeof Extractor !== 'undefined' && Extractor.rawInput && Extractor.rawInput.value.trim() !== '') {
+            Extractor.process();
+          }
+          if (typeof Trend !== 'undefined' && Trend.pasteArea && Trend.pasteArea.value.trim() !== '') {
+            Trend.processPastedData();
+          }
+        });
+      });
+
+      document.addEventListener('click', () => {
+        dropdown.classList.add('hidden');
+      });
+    }
   },
 
   renderStartTempSelector() {
@@ -3389,6 +3818,17 @@ const Trend = {
     if (predictionHtmlList.length > 0) {
       this.predictionList.innerHTML = predictionHtmlList.join('');
       this.predictionBox.classList.remove('hidden');
+      
+      // Update deskripsi metode prediksi secara dinamis
+      const predDesc = document.getElementById('trendPredictionDesc');
+      if (predDesc) {
+        const mode = (typeof Store !== 'undefined' && Store.get('sfc.mpCalcMode')) || 'linear';
+        if (mode === 'semilog') {
+          predDesc.innerHTML = `*Prediksi dihitung menggunakan Interpolasi Semilog (Eksponensial) pada saat SFC menyentuh 5%.`;
+        } else {
+          predDesc.innerHTML = `*Prediksi dihitung menggunakan Interpolasi Linear pada saat SFC menyentuh 5%.`;
+        }
+      }
     } else {
       this.predictionBox.classList.add('hidden');
     }
@@ -3411,6 +3851,25 @@ const Trend = {
         const { ctx, scales, chartArea } = chart;
         const xAxis = scales.x;
         const yAxis = scales.y;
+
+        // Draw horizontal threshold line at Y = 5.0% SFC
+        ctx.save();
+        const thresholdYPixel = yAxis.getPixelForValue(5);
+        ctx.beginPath();
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = isDark ? 'rgba(239, 68, 68, 0.45)' : 'rgba(220, 38, 38, 0.35)';
+        ctx.moveTo(chartArea.left, thresholdYPixel);
+        ctx.lineTo(chartArea.right, thresholdYPixel);
+        ctx.stroke();
+
+        // Draw text label on the left edge of threshold line
+        ctx.fillStyle = isDark ? '#f87171' : '#dc2626';
+        ctx.font = 'bold 8px sans-serif';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('SMP Threshold: 5.0%', chartArea.left + 5, thresholdYPixel - 2);
+        ctx.restore();
 
         if (!window.currentSMPPoints || window.currentSMPPoints.length === 0) return;
 
@@ -3669,22 +4128,22 @@ const Blend = {
     
     row.innerHTML = `
       <div class="flex-1 relative">
-        <button type="button" class="blend-comp-jenis-btn h-[36px] w-full flex items-center justify-between rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-3 py-0 text-xs focus:border-emerald-500 focus:outline-none dark:text-white font-medium">
+        <button type="button" class="blend-comp-jenis-btn h-10 w-full flex items-center justify-between rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/60 px-3 py-0 text-xs focus:outline-none dark:text-white font-semibold">
           <span class="blend-comp-jenis-label">${defaultJenis || '-- Pilih Jenis --'}</span>
           <svg class="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
         </button>
-        <div class="blend-comp-jenis-menu hidden absolute left-0 right-0 mt-1 max-h-60 overflow-y-auto z-30 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl py-1 text-xs text-left">
+        <div class="blend-comp-jenis-menu hidden absolute left-0 right-0 mt-1 max-h-60 overflow-y-auto z-30 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-2xl py-1 text-xs text-left">
           <!-- items -->
         </div>
         <input type="hidden" class="blend-comp-jenis" value="${defaultJenis}">
       </div>
       <div class="w-28 shrink-0">
         <div class="relative">
-          <input type="number" step="any" min="0" max="100" value="${defaultPct || ''}" placeholder="0" class="blend-comp-pct h-[36px] w-full text-right pr-6 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-3 py-0 text-xs focus:border-emerald-500 focus:outline-none dark:text-white font-mono">
-          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-555 text-[10px]">%</span>
+          <input type="number" step="any" min="0" max="100" value="${defaultPct || ''}" placeholder="0" class="blend-comp-pct h-10 w-full text-right pr-6 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/60 px-3 py-0 text-xs focus:outline-none dark:text-white font-mono">
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500 text-[10px]">%</span>
         </div>
       </div>
-      <button class="blend-comp-del h-[36px] w-[36px] flex items-center justify-center rounded-xl text-zinc-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-colors" aria-label="Hapus komponen">
+      <button class="blend-comp-del h-10 w-10 flex items-center justify-center rounded-xl text-zinc-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 transition-colors" aria-label="Hapus komponen">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
         </svg>
@@ -4331,7 +4790,30 @@ const DataMaster = {
     });
 
     this.currentPage = 1;
-    this.renderTable();
+    this.renderSkeleton();
+    
+    if (this.filterTimeout) clearTimeout(this.filterTimeout);
+    this.filterTimeout = setTimeout(() => {
+      this.renderTable();
+    }, 250);
+  },
+
+  renderSkeleton() {
+    this.tableBody.innerHTML = '';
+    for (let i = 0; i < 5; i++) {
+      const tr = document.createElement('tr');
+      tr.className = 'skeleton-row border-b border-zinc-150 dark:border-zinc-800/40';
+      tr.innerHTML = `
+        <td class="px-3 py-3 text-center"><div class="h-3.5 w-4 bg-zinc-200/60 dark:bg-zinc-800/40 rounded mx-auto animate-pulse"></div></td>
+        <td class="px-3 py-3"><div class="h-3.5 w-24 bg-zinc-200/60 dark:bg-zinc-800/40 rounded animate-pulse"></div></td>
+        <td class="px-3 py-3"><div class="h-3.5 w-10 bg-zinc-200/60 dark:bg-zinc-800/40 rounded animate-pulse"></div></td>
+        <td class="px-3 py-3"><div class="h-3.5 w-16 bg-zinc-200/60 dark:bg-zinc-800/40 rounded animate-pulse"></div></td>
+        ${'<td class="px-2 py-3"><div class="h-3.5 w-7 bg-zinc-200/60 dark:bg-zinc-800/40 rounded mx-auto animate-pulse"></div></td>'.repeat(12)}
+        <td class="px-3 py-3 text-center"><div class="h-3.5 w-6 bg-zinc-200/60 dark:bg-zinc-800/40 rounded mx-auto animate-pulse"></div></td>
+        <td class="px-3 py-3 text-center"><div class="h-3.5 w-6 bg-zinc-200/60 dark:bg-zinc-800/40 rounded mx-auto animate-pulse"></div></td>
+      `;
+      this.tableBody.appendChild(tr);
+    }
   },
 
   renderTable() {
@@ -4350,7 +4832,21 @@ const DataMaster = {
       : 'Tidak ada data';
 
     if (paginated.length === 0) {
-      this.tableBody.innerHTML = `<tr><td colspan="18" class="px-4 py-8 text-center text-zinc-500">Data tidak ditemukan</td></tr>`;
+      this.tableBody.innerHTML = `
+        <tr>
+          <td colspan="18" class="px-4 py-12 text-center">
+            <div class="flex flex-col items-center justify-center space-y-2.5 text-zinc-400 dark:text-zinc-500">
+              <svg class="w-10 h-10 stroke-1.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.008 1.24l.885 1.77a2.25 2.25 0 002.007 1.24h1.98a2.25 2.25 0 002.007-1.24l.885-1.77a2.25 2.25 0 012.007-1.24h3.86m-18 0h18a2.25 2.25 0 012.25 2.25v4.5A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75v-4.5A2.25 2.25 0 012.25 13.5zM10.5 5.25h3.86a2.25 2.25 0 012.008 1.24l.885 1.77a2.25 2.25 0 002.007 1.24h1.98a2.25 2.25 0 002.007-1.24l.885-1.77a2.25 2.25 0 012.007-1.24h3.86" />
+              </svg>
+              <div class="space-y-0.5">
+                <p class="text-xs font-bold text-zinc-500 dark:text-zinc-400">Data Master Kosong / Tidak Ditemukan</p>
+                <p class="text-[10px] text-zinc-400 dark:text-zinc-500 font-medium">Sesuaikan kata kunci pencarian atau tambah baris data baru</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
       return;
     }
 
@@ -4728,6 +5224,11 @@ const Diff = {
     const greenTh = parseFloat(this.greenThresholdInput.value) || 2;
     const amberTh = parseFloat(this.amberThresholdInput.value) || 5;
 
+    const redLabel = document.getElementById('diffThresholdRedLabel');
+    if (redLabel) {
+      redLabel.innerHTML = `🔴 &gt; ${amberTh}`;
+    }
+
     // Baris 1: Prediksi
     const trPred = document.createElement('tr');
     trPred.className = 'border-b border-zinc-150 dark:border-zinc-800/40 hover:bg-zinc-50 dark:hover:bg-zinc-800/30 font-mono text-xs';
@@ -4805,7 +5306,21 @@ const Diff = {
     this.historyList.innerHTML = '';
 
     if (history.length === 0) {
-      this.historyList.innerHTML = '<tr><td colspan="4" class="px-4 py-8 text-center text-zinc-550">Belum ada riwayat perbandingan</td></tr>';
+      this.historyList.innerHTML = `
+        <tr>
+          <td colspan="4" class="px-4 py-10 text-center">
+            <div class="flex flex-col items-center justify-center space-y-2.5 text-zinc-400 dark:text-zinc-500">
+              <svg class="w-10 h-10 stroke-1.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+              <div class="space-y-0.5">
+                <p class="text-xs font-bold text-zinc-500 dark:text-zinc-400">Belum Ada Riwayat Perbandingan</p>
+                <p class="text-[10px] text-zinc-400 dark:text-zinc-500 font-medium">Hasil komparasi prediktif vs aktual Anda akan tersimpan di sini</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
       return;
     }
 
@@ -4879,6 +5394,10 @@ const Fac = {
     this.dataLayout = document.getElementById('facDataLayout');
     
     this.fileListContainer = document.getElementById('facFileListContainer');
+    this.matrixCard = document.getElementById('facMatrixCard');
+    this.matrixName = document.getElementById('facMatrixName');
+    this.matrixConfidence = document.getElementById('facMatrixConfidence');
+    this.matrixIntegrityBox = document.getElementById('facMatrixIntegrityBox');
     this.statsCard = document.getElementById('facStatsCard');
     this.metadataCard = document.getElementById('facMetadataCard');
     this.mainContent = document.getElementById('facMainContent');
@@ -5160,6 +5679,7 @@ const Fac = {
       if (this.dataLayout) this.dataLayout.classList.remove('hidden');
       
       this.fileListContainer.classList.remove('hidden');
+      if (this.matrixCard) this.matrixCard.classList.remove('hidden');
       this.statsCard.classList.remove('hidden');
       this.metadataCard.classList.remove('hidden');
       this.mainContent.classList.remove('hidden');
@@ -5176,6 +5696,7 @@ const Fac = {
       if (this.dataLayout) this.dataLayout.classList.add('hidden');
       
       this.fileListContainer.classList.add('hidden');
+      if (this.matrixCard) this.matrixCard.classList.add('hidden');
       this.statsCard.classList.add('hidden');
       this.metadataCard.classList.add('hidden');
       this.mainContent.classList.add('hidden');
@@ -5195,6 +5716,150 @@ const Fac = {
     this.renderCurrentFile();
   },
 
+  matrixStandards: [
+    {
+      id: "fhpko",
+      name: "Fully Hydrogenated PKO",
+      ivMin: 0.0, ivMax: 1.5,
+      keyRanges: { "C12:0": [45.0, 58.0], "C14:0": [13.0, 19.0], "C18:0": [10.0, 18.0] }
+    },
+    {
+      id: "fhco",
+      name: "Fully Hydrogenated CNO",
+      ivMin: 0.0, ivMax: 1.5,
+      keyRanges: { "C12:0": [45.0, 55.0], "C8:0": [5.0, 10.0], "C10:0": [4.5, 8.0], "C18:0": [7.0, 14.0] }
+    },
+    {
+      id: "fhpo",
+      name: "Fully Hydrogenated Palm",
+      ivMin: 0.0, ivMax: 2.0,
+      keyRanges: { "C16:0": [40.0, 65.0], "C18:0": [35.0, 55.0] }
+    },
+    {
+      id: "pho",
+      name: "Partially Hydrogenated Fat",
+      ivMin: 15.0, ivMax: 48.0,
+      keyRanges: { "C18:1TRANS": [1.0, 40.0], "C18:1": [20.0, 50.0] }
+    },
+    {
+      id: "olein",
+      name: "RBD Olein",
+      ivMin: 56.0, ivMax: 62.0,
+      keyRanges: { "C16:0": [39.0, 45.0], "C18:1": [38.0, 44.0], "C18:2": [10.0, 13.5] }
+    },
+    {
+      id: "stearin",
+      name: "RBD Stearin",
+      ivMin: 25.0, ivMax: 45.0,
+      keyRanges: { "C16:0": [48.0, 65.0], "C18:1": [26.0, 38.0] }
+    },
+    {
+      id: "cpo",
+      name: "Palm Oil / Shortening",
+      ivMin: 51.0, ivMax: 55.0,
+      keyRanges: { "C16:0": [43.0, 47.5], "C18:1": [36.0, 41.0], "C18:2": [9.0, 12.0] }
+    },
+    {
+      id: "pko",
+      name: "Palm Kernel Oil (PKO)",
+      ivMin: 14.0, ivMax: 19.0,
+      keyRanges: { "C12:0": [45.0, 55.0], "C14:0": [14.0, 18.0] }
+    },
+    {
+      id: "cno",
+      name: "Coconut Oil (CNO)",
+      ivMin: 7.5, ivMax: 10.5,
+      keyRanges: { "C12:0": [45.0, 53.0], "C8:0": [5.0, 10.0], "C10:0": [4.5, 8.0] }
+    },
+    {
+      id: "soy",
+      name: "Soybean Oil",
+      ivMin: 120.0, ivMax: 143.0,
+      keyRanges: { "C18:2": [50.0, 57.0], "C18:1": [18.0, 26.0], "C18:3": [5.0, 10.0] }
+    }
+  ],
+
+  identifyMatrix(rows, calculatedIv) {
+    const faMap = {};
+    rows.forEach(r => {
+      const name = (r[6] || "").trim().toUpperCase().replace(/\s+/g, '');
+      const pct = parseFloat(r[5]) || 0.0;
+      faMap[name] = pct;
+    });
+
+    const getFa = (code) => {
+      const codeClean = code.replace(/\s+/g, '').toUpperCase();
+      for (const [k, v] of Object.entries(faMap)) {
+        if (k === codeClean || k.startsWith(codeClean)) return v;
+      }
+      return 0.0;
+    };
+
+    const c12 = getFa("C12:0");
+    const c18_1 = getFa("C18:1");
+    const c18_3 = getFa("C18:3");
+
+    let bestMatch = null;
+    let highestScore = -1;
+
+    this.matrixStandards.forEach(std => {
+      let score = 0;
+
+      // Score IV match (max 40 pts)
+      if (calculatedIv >= std.ivMin && calculatedIv <= std.ivMax) {
+        score += 40;
+      } else if (calculatedIv >= std.ivMin - 4 && calculatedIv <= std.ivMax + 4) {
+        score += 20;
+      }
+
+      // Score Key FA Ranges (max 60 pts)
+      const rangeKeys = Object.keys(std.keyRanges);
+      const ptsPerKey = 60 / rangeKeys.length;
+      
+      rangeKeys.forEach(faKey => {
+        const [min, max] = std.keyRanges[faKey];
+        const val = getFa(faKey);
+        if (val >= min && val <= max) {
+          score += ptsPerKey;
+        } else if (val >= min - 3 && val <= max + 3) {
+          score += ptsPerKey * 0.5;
+        }
+      });
+
+      if (score > highestScore) {
+        highestScore = score;
+        bestMatch = std;
+      }
+    });
+
+    const confidenceMatch = Math.min(99, Math.round(highestScore));
+    const warnings = [];
+
+    if (bestMatch) {
+      if (["olein", "stearin", "cpo"].includes(bestMatch.id) && c12 > 0.8) {
+        warnings.push(`⚠️ Terdeteksi Lauric Acid (C12:0) = ${c12.toFixed(2)}%. Indikasi kontaminasi silang PKO / CNO.`);
+      }
+
+      if (["olein", "stearin", "cpo"].includes(bestMatch.id) && c18_3 > 0.8) {
+        warnings.push(`⚠️ Terdeteksi C18:3 (Linolenic Acid) = ${c18_3.toFixed(2)}%. Indikasi kontaminasi Soft Oil (Soybean/Canola).`);
+      }
+
+      if (["fhpko", "fhco", "fhpo"].includes(bestMatch.id) && c18_1 > 1.5) {
+        warnings.push(`⚠️ Terdeteksi C18:1 (Unsaturated) = ${c18_1.toFixed(2)}%. Hidrogenasi belum sempurna 100%.`);
+      }
+
+      if (calculatedIv < bestMatch.ivMin || calculatedIv > bestMatch.ivMax) {
+        warnings.push(`⚠️ IV (${calculatedIv.toFixed(2)}) berada di luar spesifikasi standar ${bestMatch.name} (${bestMatch.ivMin} – ${bestMatch.ivMax}).`);
+      }
+    }
+
+    return {
+      name: bestMatch ? bestMatch.name : "Unclassified Fat Matrix",
+      confidence: confidenceMatch,
+      warnings: warnings
+    };
+  },
+
   renderCurrentFile() {
     this.metadataGrid.innerHTML = "";
     this.tableBody.innerHTML = "";
@@ -5205,6 +5870,9 @@ const Fac = {
       this.peakCount.textContent = "-";
       this.highestComp.textContent = "-";
       this.highestComp.title = "-";
+      if (this.matrixName) this.matrixName.textContent = "-";
+      if (this.matrixConfidence) this.matrixConfidence.textContent = "-";
+      if (this.matrixIntegrityBox) this.matrixIntegrityBox.innerHTML = "";
       return;
     }
     
@@ -5267,12 +5935,33 @@ const Fac = {
     this.peakCount.textContent = file.rows.length + " peak";
     this.highestComp.textContent = maxCompName;
     this.highestComp.title = maxCompName;
+
+    // Identifikasi Matriks Minyak & Integritas Kualitas
+    const matrixInfo = this.identifyMatrix(file.rows, iv);
+    if (this.matrixName) this.matrixName.textContent = matrixInfo.name;
+    if (this.matrixConfidence) this.matrixConfidence.textContent = `Match ${matrixInfo.confidence}%`;
+
+    const tooltipEl = document.getElementById('facMatrixTooltipText');
+    const infoBtn = document.getElementById('facMatrixInfoBtn');
+
+    if (tooltipEl) {
+      if (matrixInfo.warnings.length === 0) {
+        tooltipEl.innerHTML = `✔ <strong>Spesifikasi Sesuai Standard</strong><br>Profil asam lemak & IV sesuai batas CODEX/PORAM.`;
+        if (infoBtn) {
+          infoBtn.className = 'w-3.5 h-3.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500 hover:text-white text-[9px] font-black flex items-center justify-center transition-colors';
+        }
+      } else {
+        tooltipEl.innerHTML = matrixInfo.warnings.map(w => `<div>${w}</div>`).join('');
+        if (infoBtn) {
+          infoBtn.className = 'w-3.5 h-3.5 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 hover:bg-amber-500 hover:text-white text-[9px] font-black flex items-center justify-center transition-colors';
+        }
+      }
+    }
     
     const metadataToShow = [
-      { key: "Acq. Operator", label: "Nama Operator" },
-      { key: "Acq. Method", label: "Metode yang digunakan" },
       { key: "Injection Date", label: "Tanggal Inject" },
-      { key: "Sample Info", label: "Sample Info" }
+      { key: "Sample Info", label: "Sample Info" },
+      { key: "Acq. Operator", label: "Operator" }
     ];
     
     metadataToShow.forEach(item => {
@@ -5317,11 +6006,8 @@ const Fac = {
     const colName = colNames[colIdx] || "Kolom";
     
     const colValues = file.rows.map(r => {
-      let val = r[colIdx];
-      if ([1, 3, 4, 5].includes(colIdx)) {
-        val = (parseFloat(val) || 0.0).toFixed(2);
-      }
-      return val;
+      // Pertahankan presisi desimal penuh dari instrumen saat disalin ke clipboard
+      return r[colIdx];
     });
     
     // Auto transpose Area% (index 5) horizontally with TAB separator (\t)
@@ -5378,10 +6064,9 @@ const Fac = {
     const file = this.files[this.currentIdx];
     
     const metadataToShow = [
-      { key: "Acq. Operator", label: "Nama Operator" },
-      { key: "Acq. Method", label: "Metode yang digunakan" },
       { key: "Injection Date", label: "Tanggal Inject" },
-      { key: "Sample Info", label: "Sample Info" }
+      { key: "Sample Info", label: "Sample Info" },
+      { key: "Acq. Operator", label: "Operator" }
     ];
     
     let text = "";
@@ -5661,8 +6346,9 @@ const Osi = {
         <input type="number" placeholder="Suhu" class="w-12 rounded border border-zinc-300 dark:border-zinc-755 bg-white dark:bg-zinc-900 px-1 py-0.5 text-xs font-bold text-center focus:border-emerald-500 focus:outline-none dark:text-white osi-custom-temp-label" value="140">
         <span class="text-[10px] font-bold text-zinc-400">°C</span>
       </label>
-      <div class="flex-1 flex items-center gap-1">
-        <input type="number" step="0.01" min="0" placeholder="Induction" data-temp-val="${id}" class="w-full rounded border border-zinc-300 dark:border-zinc-755 bg-white dark:bg-zinc-900 px-2 py-0.5 text-xs font-semibold focus:border-emerald-500 focus:outline-none dark:text-white transition-colors osi-time-input">
+      <div class="flex-1 flex items-center gap-1 relative">
+        <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-[8px] font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-wider pointer-events-none">IND</span>
+        <input type="number" step="0.01" min="0" placeholder="0.00" data-temp-val="${id}" class="w-full rounded border border-zinc-300 dark:border-zinc-755 bg-white dark:bg-zinc-900 pl-10 pr-2 py-0.5 text-xs font-semibold focus:outline-none dark:text-white transition-colors osi-time-input font-mono">
         <span class="text-[9px] font-bold text-zinc-400">jam</span>
       </div>
       <button class="text-xs text-rose-500 hover:text-rose-600 font-bold ml-1" onclick="this.closest('.flex').remove()">✕</button>
@@ -5943,6 +6629,36 @@ const Osi = {
     ctx.textAlign = 'left';
     ctx.fillText(`Target: ${Math.round(shelfLifeHours / 24)} hari`, tx + 8, ty - 4);
 
+    // Draw Popular Shelf Life Guidelines (1 Month, 6 Months, 1 Year)
+    ctx.save();
+    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = isDark ? 'rgba(248, 113, 113, 0.75)' : 'rgba(220, 38, 38, 0.65)';
+    ctx.setLineDash([5, 4]);
+    ctx.fillStyle = isDark ? '#f87171' : '#dc2626';
+    ctx.font = 'bold 10px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+
+    const guidelines = [
+      { hours: 720, label: '1 Bulan' },
+      { hours: 4320, label: '6 Bulan' },
+      { hours: 8760, label: '1 Tahun' }
+    ];
+
+    guidelines.forEach(guide => {
+      const lnVal = Math.log(guide.hours);
+      if (lnVal >= minY && lnVal <= maxY) {
+        const gy = mapY(lnVal);
+        ctx.beginPath();
+        ctx.moveTo(padLeft, gy);
+        ctx.lineTo(width - padRight, gy);
+        ctx.stroke();
+        
+        ctx.fillText(`-- ${guide.label} (${guide.hours / 24} hari)`, width - padRight - 4, gy - 2);
+      }
+    });
+    ctx.restore();
+
     // Draw Crosshair on OSI Canvas if Hovered
     if (this.mouseX !== null && this.mouseY !== null) {
       if (this.mouseX >= padLeft && this.mouseX <= width - padRight &&
@@ -6189,7 +6905,43 @@ function handleRouting() {
   console.log(`Routed to tab: #${hash}`);
 }
 
-window.addEventListener('hashchange', handleRouting);
+function checkUnsavedChanges() {
+  const pctInputs = document.querySelectorAll('.blend-comp-pct');
+  let hasBlendValue = false;
+  pctInputs.forEach(input => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val) && val > 0) hasBlendValue = true;
+  });
+  
+  const pasteArea1 = document.getElementById('extractorPasteArea');
+  const pasteArea2 = document.getElementById('trendPasteArea');
+  const pasteArea3 = document.getElementById('facPasteArea');
+  
+  const hasPasteData = (pasteArea1 && pasteArea1.value.trim() !== '') || 
+                       (pasteArea2 && pasteArea2.value.trim() !== '') ||
+                       (pasteArea3 && pasteArea3.value.trim() !== '');
+
+  return hasBlendValue || hasPasteData;
+}
+
+let currentTabHash = window.location.hash || '#extractor';
+
+window.addEventListener('hashchange', (e) => {
+  const newHash = window.location.hash;
+  if (checkUnsavedChanges()) {
+    const confirmLeave = confirm("Perhatian! Ada input data yang belum diproses atau disimpan. Yakin ingin meninggalkan halaman ini dan membuang perubahan?");
+    if (!confirmLeave) {
+      window.removeEventListener('hashchange', handleRouting);
+      window.location.hash = currentTabHash;
+      setTimeout(() => {
+        window.addEventListener('hashchange', handleRouting);
+      }, 50);
+      return;
+    }
+  }
+  currentTabHash = newHash;
+  handleRouting();
+});
 
 // Daftarkan modul ke scope window global untuk mendukung wiring antar-modul (cross-module invocation)
 window.Extractor = Extractor;
@@ -6555,8 +7307,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Sidebar Group Accordion is permanently open. No toggle actions registered.
+  // Sidebar Group Accordion toggle
+  document.querySelectorAll('.sidebar-group-toggle').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      if (sidebar && sidebar.classList.contains('sidebar-collapsed')) return;
+      const group = toggle.closest('.sidebar-group');
+      if (group) {
+        group.classList.toggle('open');
+      }
+    });
+  });
   
+  // Scroll to Top Button Logic
+  const scrollTopBtn = document.getElementById('scrollToTopBtn');
+  const mainContentArea = document.querySelector('main');
+  if (scrollTopBtn && mainContentArea) {
+    mainContentArea.addEventListener('scroll', () => {
+      if (mainContentArea.scrollTop > 300) {
+        scrollTopBtn.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      } else {
+        scrollTopBtn.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }
+    });
+    
+    scrollTopBtn.addEventListener('click', () => {
+      mainContentArea.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
   // Start live clock
   startLiveClock();
 });
