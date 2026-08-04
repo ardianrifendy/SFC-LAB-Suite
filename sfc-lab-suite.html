@@ -2212,9 +2212,6 @@
             🧪
           </div>
           <div>
-            <h1 class="text-base font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
-              <span id="qcHeaderTitle">Reagent Preparation</span>
-              <span id="qcHeaderBadge" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">QC Chems & Scaling</span>
             </h1>
             <p id="qcHeaderSubtitle" class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Kalkulator resep reagen presisi, penimbangan bahan kimia, & SOP pembuatan larutan laboratorium.</p>
           </div>
@@ -2225,180 +2222,249 @@
         </button>
       </div>
 
-      <!-- ===== SUB-TAB 1: REAGEN PREP & SCALING ===== -->
+      <!-- ===== SUB-TAB 1: REAGENT PREPARATION CALCULATOR ===== -->
       <div id="qcSubTabReagents" class="qc-subtab-content space-y-4 w-full max-w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full max-w-full">
-          <!-- Controls Panel (Left: 4 cols) -->
-          <div class="lg:col-span-4 bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
-            <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
-              <span>🧫</span> Kontrol Reagen & Target Volume
-            </h3>
-            
-            <div class="space-y-1.5">
-              <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                <span>🔬</span> Pilih Kategori / Parameter Uji Lab
-              </label>
-              <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect">
-                <button type="button" class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect', event)">
-                  <span id="label_qcReagentCategorySelect" class="truncate flex items-center gap-2">🌐 Semua Parameter Uji (Seluruh Reagen Lab)</span>
-                  <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </button>
-                <input type="hidden" id="qcReagentCategorySelect" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value)">
-                <div id="menu_qcReagentCategorySelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
-                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'all', '🌐 Semua Parameter Uji (Seluruh Reagen Lab)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter Uji (Seluruh Reagen Lab)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-2">✓</span></div>
-                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'p_spektro', '🔬 Uji Phosphorus Content (Spektro P ppm)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content (Spektro P ppm)</span></div>
-                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'cl_salt', '💧 Uji Klorida & Garam (Titrasi AgNO₃ & NaCl)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam (Titrasi AgNO₃ & NaCl)</span></div>
-                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'fac_gc', '🧬 Uji Fatty Acid Composition (FAC / GC-FID)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition (FAC / GC-FID)</span></div>
-                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'titrimetric', '🧈 Uji Titrasi Minyak (FFA, IV, PV, SV)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak (FFA, IV, PV, SV)</span></div>
+        
+        <!-- Dual Reagent Calculator Grid (2 Cards Side-by-Side) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full max-w-full">
+          
+          <!-- CARD 1: REAGENT PREPARATION #1 -->
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3.5 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
+                <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
+                  <span>🧫</span> Reagen #1 — Kontrol & Resep
+                </h3>
+                <span class="px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 font-extrabold text-[9.5px]">Kalkulator 1</span>
+              </div>
+
+              <!-- Controls 1 -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div class="space-y-1">
+                  <label class="block text-[10.5px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                    <span>🔬</span> Kategori Uji Lab
+                  </label>
+                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect">
+                    <button type="button" class="w-full px-3 py-1.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none shadow-sm h-8" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect', event)">
+                      <span id="label_qcReagentCategorySelect" class="truncate">🌐 Semua Parameter</span>
+                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <input type="hidden" id="qcReagentCategorySelect" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value, 1)">
+                    <div id="menu_qcReagentCategorySelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'all', '🌐 Semua Parameter', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-1">✓</span></div>
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'p_spektro', '🔬 Uji Phosphorus Content', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content</span></div>
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'cl_salt', '💧 Uji Klorida & Garam', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam</span></div>
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'fac_gc', '🧬 Uji Fatty Acid Composition', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition</span></div>
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'titrimetric', '🧈 Uji Titrasi Minyak', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak</span></div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div class="space-y-1.5">
-              <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                <span>🧪</span> Pilih Reagen / Larutan Kimia
-              </label>
-              <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect">
-                <button type="button" class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect', event)">
-                  <span id="label_qcReagentSelect" class="truncate flex items-center gap-2">Na2S2O3 0.1 N (Larutan Pentiter Titrasi IV & PV)</span>
-                  <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </button>
-                <input type="hidden" id="qcReagentSelect" value="na2s2o3_01n" onchange="window.Qc && window.Qc.calcReagents()">
-                <div id="menu_qcReagentSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
-                  <!-- JS dynamically populates items -->
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-1.5">
-              <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Target Volume Larutan (mL)</label>
-              <div class="relative">
-                <input id="qcReagentVolume" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white focus:ring-2 focus:ring-violet-500" placeholder="250">
-                <span class="absolute right-3 top-2 text-[10px] font-extrabold text-zinc-400">mL</span>
-              </div>
-            </div>
-
-            <div class="space-y-1.5">
-              <div class="flex items-center justify-between">
-                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Target Konsentrasi & Satuan</label>
-                <span id="qcReagentDefaultNormBadge" class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">Std: 2.0 N</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <input id="qcReagentNorm" type="number" step="0.01" value="2.0" oninput="window.Qc && window.Qc.calcReagents()" class="flex-1 px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white focus:ring-2 focus:ring-violet-500" placeholder="2.0">
-                <div class="relative w-32 custom-ui-select" id="wrapper_qcReagentUnitSelect">
-                  <button type="button" class="w-full px-2.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-extrabold text-violet-600 dark:text-violet-400 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect', event)">
-                    <span id="label_qcReagentUnitSelect" class="truncate">N (Normality)</span>
-                    <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                  </button>
-                  <input type="hidden" id="qcReagentUnitSelect" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value)">
-                  <div id="menu_qcReagentUnitSelect" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 w-36">
-                    <div onclick="window.UISelect.select('qcReagentUnitSelect', 'N', 'N (Normality)', val => window.Qc.changeReagentUnit(val))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="N"><span>N (Normality)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-2">✓</span></div>
-                    <div onclick="window.UISelect.select('qcReagentUnitSelect', 'M', 'M (Molarity)', val => window.Qc.changeReagentUnit(val))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="M"><span>M (Molarity)</span></div>
-                    <div onclick="window.UISelect.select('qcReagentUnitSelect', '%', '% (Percent w/v)', val => window.Qc.changeReagentUnit(val))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="%"><span>% (Percent w/v)</span></div>
-                    <div onclick="window.UISelect.select('qcReagentUnitSelect', 'ppm', 'ppm (Parts/Million)', val => window.Qc.changeReagentUnit(val))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="ppm"><span>ppm (Parts/Million)</span></div>
+                <div class="space-y-1">
+                  <label class="block text-[10.5px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                    <span>🧪</span> Reagen / Larutan Kimia
+                  </label>
+                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect">
+                    <button type="button" class="w-full px-3 py-1.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none shadow-sm h-8" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect', event)">
+                      <span id="label_qcReagentSelect" class="truncate">Na2S2O3 0.1 N</span>
+                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <input type="hidden" id="qcReagentSelect" value="na2s2o3_01n" onchange="window.Qc && window.Qc.calcReagents(1)">
+                    <div id="menu_qcReagentSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                      <!-- JS dynamically populates items -->
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Quick Preset Volume Buttons -->
-            <div class="space-y-1">
-              <span class="block text-[10px] font-bold text-zinc-400 uppercase">Volume Cepat:</span>
-              <div class="grid grid-cols-4 gap-1.5">
-                <button onclick="document.getElementById('qcReagentVolume').value=50; window.Qc && window.Qc.calcReagents();" class="py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 dark:hover:bg-violet-950/60 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">50 mL</button>
-                <button onclick="document.getElementById('qcReagentVolume').value=200; window.Qc && window.Qc.calcReagents();" class="py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 dark:hover:bg-violet-950/60 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">200 mL</button>
-                <button onclick="document.getElementById('qcReagentVolume').value=250; window.Qc && window.Qc.calcReagents();" class="py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 dark:hover:bg-violet-950/60 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">250 mL</button>
-                <button onclick="document.getElementById('qcReagentVolume').value=500; window.Qc && window.Qc.calcReagents();" class="py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 dark:hover:bg-violet-950/60 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">500 mL</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Recipe Card & SOP Steps (Right: 8 cols) -->
-          <div class="lg:col-span-8 space-y-4">
-            <!-- Scaled Recipe Banner -->
-            <div id="qcReagentRecipeBanner" class="bg-gradient-to-r from-violet-900 to-indigo-900 text-white rounded-2xl p-5 shadow-xl border border-violet-700/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <span class="text-[10px] font-extrabold tracking-wider uppercase text-violet-300 block">RESEP HASIL KALKULASI PRESISI</span>
-                <h2 id="qcReagentRecipeTitle" class="text-base font-extrabold mt-0.5">KOH 2N Methanolis (Target: 250 mL)</h2>
-                <div id="qcReagentRecipeList" class="mt-2 text-xs space-y-1 font-mono text-violet-100">
-                  <!-- Diisi via JS -->
+              <!-- Vol & Norm 1 -->
+              <div class="grid grid-cols-2 gap-2.5">
+                <div class="space-y-1">
+                  <label class="block text-[10.5px] font-bold text-zinc-600 dark:text-zinc-400">Target Volume (mL)</label>
+                  <div class="relative">
+                    <input id="qcReagentVolume" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents(1)" class="w-full px-3 py-1.5 h-8 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white" placeholder="250">
+                    <span class="absolute right-2.5 top-2 text-[10px] font-extrabold text-zinc-400">mL</span>
+                  </div>
+                </div>
+                <div class="space-y-1">
+                  <div class="flex items-center justify-between">
+                    <label class="block text-[10.5px] font-bold text-zinc-600 dark:text-zinc-400">Konsentrasi & Satuan</label>
+                    <span id="qcReagentDefaultNormBadge" class="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400">Std: 0.1 N</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <input id="qcReagentNorm" type="number" step="0.01" value="0.1" oninput="window.Qc && window.Qc.calcReagents(1)" class="w-full px-2.5 py-1.5 h-8 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white" placeholder="0.1">
+                    <div class="relative w-24 custom-ui-select" id="wrapper_qcReagentUnitSelect">
+                      <button type="button" class="w-full px-2 py-1.5 h-8 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-extrabold text-violet-600 dark:text-violet-400 flex items-center justify-between hover:border-violet-500 shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect', event)">
+                        <span id="label_qcReagentUnitSelect" class="truncate">N</span>
+                        <svg class="w-3 h-3 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+                      <input type="hidden" id="qcReagentUnitSelect" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value, 1)">
+                      <div id="menu_qcReagentUnitSelect" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-28">
+                        <div onclick="window.UISelect.select('qcReagentUnitSelect', 'N', 'N', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2.5 py-1 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 font-black rounded-lg mx-0.5 flex items-center justify-between" data-val="N"><span>N</span><span class="ui-check text-violet-500 font-extrabold text-xs">✓</span></div>
+                        <div onclick="window.UISelect.select('qcReagentUnitSelect', 'M', 'M', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2.5 py-1 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="M"><span>M</span></div>
+                        <div onclick="window.UISelect.select('qcReagentUnitSelect', '%', '%', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2.5 py-1 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="%"><span>%</span></div>
+                        <div onclick="window.UISelect.select('qcReagentUnitSelect', 'ppm', 'ppm', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2.5 py-1 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="ppm"><span>ppm</span></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <button onclick="window.Qc && window.Qc.copyReagentRecipe()" class="px-4 py-2 rounded-xl bg-violet-500 hover:bg-violet-400 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5 flex-shrink-0">
-                <span>📋</span><span>Salin Resep</span>
-              </button>
-            </div>
 
-            <!-- Step-by-Step SOP Pembuatan Larutan -->
-            <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
-                <span>📑</span> Prosedur Pembuatan & SOP Laboratorium
-              </h3>
-              <div id="qcReagentSopContainer" class="space-y-2.5 text-xs">
-                <!-- Diisi via JS -->
+              <!-- Quick Presets 1 -->
+              <div class="flex items-center gap-1 pt-0.5">
+                <span class="text-[10px] font-bold text-zinc-400 uppercase mr-1">Vol:</span>
+                <button onclick="document.getElementById('qcReagentVolume').value=50; window.Qc && window.Qc.calcReagents(1);" class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">50 mL</button>
+                <button onclick="document.getElementById('qcReagentVolume').value=200; window.Qc && window.Qc.calcReagents(1);" class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">200 mL</button>
+                <button onclick="document.getElementById('qcReagentVolume').value=250; window.Qc && window.Qc.calcReagents(1);" class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">250 mL</button>
+                <button onclick="document.getElementById('qcReagentVolume').value=500; window.Qc && window.Qc.calcReagents(1);" class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">500 mL</button>
+              </div>
+
+              <!-- Recipe Result 1 -->
+              <div id="qcReagentRecipeBanner" class="bg-gradient-to-r from-violet-900 to-indigo-900 text-white rounded-xl p-3 shadow-md border border-violet-700/50 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[9px] font-extrabold tracking-wider uppercase text-violet-300 block">RESEP KALKULASI #1</span>
+                  <h4 id="qcReagentRecipeTitle" class="text-xs font-extrabold mt-0.5">Na2S2O3 0.1N (250 mL @ 0.1 N)</h4>
+                  <div id="qcReagentRecipeList" class="mt-1 text-[10.5px] space-y-0.5 font-mono text-violet-100">
+                    <!-- JS populated -->
+                  </div>
+                </div>
+                <button onclick="window.Qc && window.Qc.copyReagentRecipe(1)" class="px-2.5 py-1 rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-extrabold text-[10px] shadow-sm transition-colors flex items-center gap-1 flex-shrink-0">
+                  <span>📋</span><span>Salin Resep</span>
+                </button>
+              </div>
+
+              <!-- SOP Pembuatan 1 -->
+              <div class="space-y-1 pt-0.5">
+                <h4 class="text-[10.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
+                  <span>📑</span> SOP Pembuatan #1
+                </h4>
+                <div id="qcReagentSopContainer" class="space-y-1 text-[10.5px]">
+                  <!-- JS populated -->
+                </div>
               </div>
             </div>
+          </div>
 
-            <!-- Step-by-Step SOP Standarisasi Baku Primer (Khusus Reagen Titran) -->
-            <div id="qcReagentStdSopCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
+          <!-- CARD 2: REAGENT PREPARATION #2 (Membuat 2 Reagen Sekaligus) -->
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3.5 flex flex-col justify-between">
+            <div class="space-y-3">
               <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
                 <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
-                  <span>🧪</span> Metode & Prosedur Standarisasi Baku Primer
+                  <span>🧫</span> Reagen #2 — Kontrol & Resep
                 </h3>
-                <span id="qcReagentStdPrimaryBadge" class="px-2.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 font-extrabold text-[10px]">
-                  Standard: KIO3
-                </span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 font-extrabold text-[9.5px]">Kalkulator 2</span>
               </div>
-              <div id="qcReagentStdSopContainer" class="space-y-2.5 text-xs">
-                <!-- Diisi via JS -->
+
+              <!-- Controls 2 -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div class="space-y-1">
+                  <label class="block text-[10.5px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                    <span>🔬</span> Kategori Uji Lab
+                  </label>
+                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect2">
+                    <button type="button" class="w-full px-3 py-1.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-emerald-500 focus:outline-none shadow-sm h-8" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect2', event)">
+                      <span id="label_qcReagentCategorySelect2" class="truncate">🌐 Semua Parameter</span>
+                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <input type="hidden" id="qcReagentCategorySelect2" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value, 2)">
+                    <div id="menu_qcReagentCategorySelect2" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'all', '🌐 Semua Parameter', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter</span><span class="ui-check text-emerald-500 font-extrabold text-xs ml-1">✓</span></div>
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'p_spektro', '🔬 Uji Phosphorus Content', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content</span></div>
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'cl_salt', '💧 Uji Klorida & Garam', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam</span></div>
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'fac_gc', '🧬 Uji Fatty Acid Composition', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition</span></div>
+                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'titrimetric', '🧈 Uji Titrasi Minyak', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-1">
+                  <label class="block text-[10.5px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                    <span>🧪</span> Reagen / Larutan Kimia
+                  </label>
+                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect2">
+                    <button type="button" class="w-full px-3 py-1.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-emerald-500 focus:outline-none shadow-sm h-8" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect2', event)">
+                      <span id="label_qcReagentSelect2" class="truncate">AgNO3 0.1 N</span>
+                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <input type="hidden" id="qcReagentSelect2" value="agno3_01n" onchange="window.Qc && window.Qc.calcReagents(2)">
+                    <div id="menu_qcReagentSelect2" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                      <!-- JS dynamically populates items -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vol & Norm 2 -->
+              <div class="grid grid-cols-2 gap-2.5">
+                <div class="space-y-1">
+                  <label class="block text-[10.5px] font-bold text-zinc-600 dark:text-zinc-400">Target Volume (mL)</label>
+                  <div class="relative">
+                    <input id="qcReagentVolume2" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents(2)" class="w-full px-3 py-1.5 h-8 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white" placeholder="250">
+                    <span class="absolute right-2.5 top-2 text-[10px] font-extrabold text-zinc-400">mL</span>
+                  </div>
+                </div>
+                <div class="space-y-1">
+                  <div class="flex items-center justify-between">
+                    <label class="block text-[10.5px] font-bold text-zinc-600 dark:text-zinc-400">Konsentrasi & Satuan</label>
+                    <span id="qcReagentDefaultNormBadge2" class="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">Std: 0.1 N</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <input id="qcReagentNorm2" type="number" step="0.01" value="0.1" oninput="window.Qc && window.Qc.calcReagents(2)" class="w-full px-2.5 py-1.5 h-8 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white" placeholder="0.1">
+                    <div class="relative w-24 custom-ui-select" id="wrapper_qcReagentUnitSelect2">
+                      <button type="button" class="w-full px-2 py-1.5 h-8 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-extrabold text-emerald-600 dark:text-emerald-400 flex items-center justify-between hover:border-emerald-500 shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect2', event)">
+                        <span id="label_qcReagentUnitSelect2" class="truncate">N</span>
+                        <svg class="w-3 h-3 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+                      <input type="hidden" id="qcReagentUnitSelect2" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value, 2)">
+                      <div id="menu_qcReagentUnitSelect2" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-28">
+                        <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'N', 'N', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2.5 py-1 cursor-pointer text-xs font-bold bg-emerald-500/10 text-emerald-600 font-black rounded-lg mx-0.5 flex items-center justify-between" data-val="N"><span>N</span><span class="ui-check text-emerald-500 font-extrabold text-xs">✓</span></div>
+                        <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'M', 'M', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2.5 py-1 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="M"><span>M</span></div>
+                        <div onclick="window.UISelect.select('qcReagentUnitSelect2', '%', '%', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2.5 py-1 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="%"><span>%</span></div>
+                        <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'ppm', 'ppm', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2.5 py-1 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="ppm"><span>ppm</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Presets 2 -->
+              <div class="flex items-center gap-1 pt-0.5">
+                <span class="text-[10px] font-bold text-zinc-400 uppercase mr-1">Vol:</span>
+                <button onclick="document.getElementById('qcReagentVolume2').value=50; window.Qc && window.Qc.calcReagents(2);" class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">50 mL</button>
+                <button onclick="document.getElementById('qcReagentVolume2').value=200; window.Qc && window.Qc.calcReagents(2);" class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">200 mL</button>
+                <button onclick="document.getElementById('qcReagentVolume2').value=250; window.Qc && window.Qc.calcReagents(2);" class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">250 mL</button>
+                <button onclick="document.getElementById('qcReagentVolume2').value=500; window.Qc && window.Qc.calcReagents(2);" class="px-2 py-0.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[10px] text-zinc-700 dark:text-zinc-300 transition-colors">500 mL</button>
+              </div>
+
+              <!-- Recipe Result 2 -->
+              <div id="qcReagentRecipeBanner2" class="bg-gradient-to-r from-emerald-900 to-teal-900 text-white rounded-xl p-3 shadow-md border border-emerald-700/50 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[9px] font-extrabold tracking-wider uppercase text-emerald-300 block">RESEP KALKULASI #2</span>
+                  <h4 id="qcReagentRecipeTitle2" class="text-xs font-extrabold mt-0.5">AgNO3 0.1N (250 mL @ 0.1 N)</h4>
+                  <div id="qcReagentRecipeList2" class="mt-1 text-[10.5px] space-y-0.5 font-mono text-emerald-100">
+                    <!-- JS populated -->
+                  </div>
+                </div>
+                <button onclick="window.Qc && window.Qc.copyReagentRecipe(2)" class="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-[10px] shadow-sm transition-colors flex items-center gap-1 flex-shrink-0">
+                  <span>📋</span><span>Salin Resep</span>
+                </button>
+              </div>
+
+              <!-- SOP Pembuatan 2 -->
+              <div class="space-y-1 pt-0.5">
+                <h4 class="text-[10.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
+                  <span>📑</span> SOP Pembuatan #2
+                </h4>
+                <div id="qcReagentSopContainer2" class="space-y-1 text-[10.5px]">
+                  <!-- JS populated -->
+                </div>
               </div>
             </div>
           </div>
+
         </div>
 
-        <!-- Standarisasi Titrasi Reagen Table (Khusus Pentiter) -->
-        <div id="qcReagentStdTableCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 w-full max-w-full">
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
-            <div>
-              <h3 id="qcReagentStdTableTitle" class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
-                <span>⚗️</span> Tabel Standarisasi Penetapan Normalitas Reagen Titrasi
-              </h3>
-              <p id="qcReagentStdTableSub" class="text-xs text-zinc-500 mt-0.5">Penetapan normalitas presisi berdasarkan 5 serial penimbangan baku primer.</p>
-            </div>
-            <div class="flex flex-wrap items-center gap-2">
-              <button onclick="window.Qc && window.Qc.reset5ReagentStdRows()" class="px-3 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
-                <span>⚡</span><span>Reset 5 Titrasi</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.copyReagentStdTable()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
-                <span>📋</span><span>Copy Excel</span>
-              </button>
-            </div>
-          </div>
-
-          <div id="qcReagentStdFormulaBadgeBar" class="px-3 py-2 rounded-xl bg-violet-500/10 border border-violet-500/20 text-xs font-medium text-violet-900 dark:text-violet-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-            <!-- Diisi via JS -->
-          </div>
-
-          <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
-            <table class="w-full text-left text-xs">
-              <thead class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[10px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
-                <tr>
-                  <th class="px-2.5 py-1.5 w-8 text-center">No</th>
-                  <th class="px-2.5 py-1.5 min-w-[150px]">Baku Primer / Reagen</th>
-                  <th class="px-2.5 py-1.5 min-w-[110px]">Berat Primer W (g)</th>
-                  <th class="px-2.5 py-1.5 min-w-[110px]">Vol Titran V (mL)</th>
-                  <th class="px-2.5 py-1.5 min-w-[120px]">Hasil Normalitas (N)</th>
-                  <th class="px-2.5 py-1.5 min-w-[110px]">Status Presisi</th>
-                  <th class="px-2.5 py-1.5 w-8 text-center">Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="qcReagentStdTbody" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
-                <!-- JS rows -->
-              </tbody>
-            </table>
-          </div>
-
-          <div id="qcReagentStdStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono font-bold text-zinc-600 dark:text-zinc-400">
+      </div>
             <!-- JS stats -->
           </div>
         </div>
@@ -8362,9 +8428,7 @@ const Qc = {
         formulaText: "N = (Berat NaCl (g) × 1000) / (Vol AgNO3 (mL) × 58.44)",
         sop: [
           "Timbang presisi ~0.0150 gram baku primer NaCl murni (dikeringkan 140°C selama 2 jam) ke dalam Erlenmeyer 250 mL.",
-          "Larutkan dalam 50 mL Aquadest bebas klorida.",
-          "Tambahkan 1 mL larutan Indikator Kalium Kromat (K2CrO4) 5%.",
-          "Titrasi dengan larutan AgNO3 sambil dikocok kuat hingga terbentuk warna endapan merah bata pucat permanen (Ag2CrO4). Catat Volume Titran (mL)."
+          "Larutkan dalam 50 mL Aquadest bebas klorida."
         ],
         defaultRows: [
           { id: 1, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0143, v: 25.20 },
@@ -8377,9 +8441,10 @@ const Qc = {
     }
   },
 
-  filterReagentCategory(catKey) {
-    const menuEl = document.getElementById('menu_qcReagentSelect');
-    const inputEl = document.getElementById('qcReagentSelect');
+  filterReagentCategory(catKey, cardId = 1) {
+    const suffix = cardId === 2 ? '2' : '';
+    const menuEl = document.getElementById('menu_qcReagentSelect' + suffix);
+    const inputEl = document.getElementById('qcReagentSelect' + suffix);
     if (!menuEl || !inputEl) return;
 
     const reagentsByCategory = {
@@ -8415,29 +8480,109 @@ const Qc = {
         { title: "🧬 Uji Fatty Acid Composition (FAC / GC-FID)", items: reagentsByCategory.fac_gc },
         { title: "🧈 Uji Titrasi Minyak (Standarisasi Penitir)", items: reagentsByCategory.titrimetric }
       ];
-      firstItem = groups[0].items[0];
+      firstItem = cardId === 2 ? groups[1].items[0] : groups[0].items[0];
 
       groups.forEach(g => {
-        menuHtml += `<div class="text-[10px] font-extrabold uppercase tracking-wider text-violet-600 dark:text-violet-400 px-3 py-1 bg-violet-500/5 dark:bg-violet-950/40 border-y border-violet-500/10 my-0.5">${g.title}</div>`;
+        menuHtml += `<div class="text-[10px] font-extrabold uppercase tracking-wider ${cardId===2?'text-emerald-600 dark:text-emerald-400':'text-violet-600 dark:text-violet-400'} px-3 py-1 bg-violet-500/5 dark:bg-violet-950/40 border-y border-violet-500/10 my-0.5">${g.title}</div>`;
         g.items.forEach(r => {
-          menuHtml += `<div onclick="window.UISelect.select('qcReagentSelect', '${r.key}', '${r.label}', () => window.Qc.calcReagents())" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="${r.key}"><span>${r.label}</span></div>`;
+          menuHtml += `<div onclick="window.UISelect.select('qcReagentSelect${suffix}', '${r.key}', '${r.label}', () => window.Qc.calcReagents(${cardId}))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="${r.key}"><span>${r.label}</span></div>`;
         });
       });
     } else {
       const items = reagentsByCategory[catKey] || [];
       firstItem = items[0];
       items.forEach(r => {
-        menuHtml += `<div onclick="window.UISelect.select('qcReagentSelect', '${r.key}', '${r.label}', () => window.Qc.calcReagents())" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="${r.key}"><span>${r.label}</span></div>`;
+        menuHtml += `<div onclick="window.UISelect.select('qcReagentSelect${suffix}', '${r.key}', '${r.label}', () => window.Qc.calcReagents(${cardId}))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="${r.key}"><span>${r.label}</span></div>`;
       });
     }
 
     menuEl.innerHTML = menuHtml;
 
     if (firstItem) {
-      window.UISelect.select('qcReagentSelect', firstItem.key, firstItem.label, () => this.calcReagents());
+      window.UISelect.select('qcReagentSelect' + suffix, firstItem.key, firstItem.label, () => this.calcReagents(cardId));
     } else {
-      this.calcReagents();
+      this.calcReagents(cardId);
     }
+  },
+
+  changeReagentUnit(unit, cardId = 1) {
+    const suffix = cardId === 2 ? '2' : '';
+    const normBadge = document.getElementById('qcReagentDefaultNormBadge' + suffix);
+    const sel = document.getElementById('qcReagentSelect' + suffix)?.value || (cardId === 2 ? 'agno3_01n' : 'na2s2o3_01n');
+    const rData = this.reagentRecipes[sel];
+    if (rData) {
+      rData.normUnit = unit;
+    }
+    if (normBadge && rData) {
+      normBadge.innerText = `Std: ${rData.defaultNorm} ${unit}`;
+    }
+    this.calcReagents(cardId);
+  },
+
+  calcReagents(cardId = 1) {
+    const suffix = cardId === 2 ? '2' : '';
+    const sel = document.getElementById('qcReagentSelect' + suffix)?.value || (cardId === 2 ? 'agno3_01n' : 'na2s2o3_01n');
+    const targetVol = parseFloat(document.getElementById('qcReagentVolume' + suffix)?.value) || 250;
+    
+    const rData = this.reagentRecipes[sel] || (cardId === 2 ? this.reagentRecipes.agno3_01n : this.reagentRecipes.na2s2o3_01n);
+
+    const normInput = document.getElementById('qcReagentNorm' + suffix);
+    let targetNorm = parseFloat(normInput?.value);
+    if (isNaN(targetNorm) || targetNorm <= 0) {
+      targetNorm = rData.defaultNorm;
+      if (normInput) normInput.value = rData.defaultNorm;
+    }
+
+    const normBadge = document.getElementById('qcReagentDefaultNormBadge' + suffix);
+    if (normBadge) normBadge.innerText = `Std: ${rData.defaultNorm} ${rData.normUnit || 'N'}`;
+
+    const factorVol = targetVol / rData.baseVol;
+    const factorNorm = targetNorm / rData.defaultNorm;
+    const factorTotal = factorVol * factorNorm;
+
+    const titleEl = document.getElementById('qcReagentRecipeTitle' + suffix);
+    const listEl = document.getElementById('qcReagentRecipeList' + suffix);
+    const sopEl = document.getElementById('qcReagentSopContainer' + suffix);
+
+    if (titleEl) titleEl.innerText = `${rData.title} (${targetVol} mL @ ${targetNorm} ${rData.normUnit || 'N'})`;
+
+    if (listEl) {
+      listEl.innerHTML = rData.items.map(item => {
+        const factorToUse = item.unit === 'mL' && (item.name.includes('Aquadest') || item.name.includes('Methanol')) ? factorVol : factorTotal;
+        const scaledVal = (item.base * factorToUse).toFixed(item.unit === 'gram' && item.base < 1 ? 4 : 2);
+        return `<div class="flex items-center justify-between border-b border-white/10 pb-0.5">
+                  <span>• ${item.name}</span>
+                  <span class="font-extrabold text-amber-300">${scaledVal} ${item.unit}</span>
+                </div>`;
+      }).join('');
+    }
+
+    if (sopEl && typeof rData.sopFunc === 'function') {
+      const dynamicSop = rData.sopFunc(targetVol, factorTotal, targetNorm);
+      sopEl.innerHTML = dynamicSop.map((step, idx) => {
+        return `<div class="flex gap-2 items-start p-1.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800">
+                  <span class="w-4 h-4 rounded-full ${cardId===2?'bg-emerald-600':'bg-violet-600'} text-white font-extrabold text-[9.5px] flex items-center justify-center flex-shrink-0 mt-0.5">${idx + 1}</span>
+                  <p class="text-zinc-700 dark:text-zinc-300 font-medium text-[10.5px] leading-snug">${step}</p>
+                </div>`;
+      }).join('');
+    }
+  },
+
+  copyReagentRecipe(cardId = 1) {
+    const suffix = cardId === 2 ? '2' : '';
+    const sel = document.getElementById('qcReagentSelect' + suffix)?.value || (cardId === 2 ? 'agno3_01n' : 'na2s2o3_01n');
+    const targetVol = parseFloat(document.getElementById('qcReagentVolume' + suffix)?.value) || 250;
+    const rData = this.reagentRecipes[sel] || (cardId === 2 ? this.reagentRecipes.agno3_01n : this.reagentRecipes.na2s2o3_01n);
+    const factor = targetVol / rData.baseVol;
+
+    let text = `[RESEP REAGEN] ${rData.title}\nTarget Volume: ${targetVol} mL\n\nBahan-Bahan:\n`;
+    rData.items.forEach(item => {
+      let scaledAmt = (item.base * factor).toFixed(item.unit === 'gram' ? 4 : 1);
+      text += `- ${item.name}: ${scaledAmt} ${item.unit}\n`;
+    });
+
+    navigator.clipboard.writeText(text);
+    if (window.showToast) window.showToast(`✔ Resep Reagen #${cardId} disalin ke Clipboard!`);
   },
 
   renderCustomSelectUI(selectId) {
@@ -8530,112 +8675,6 @@ const Qc = {
     ['qcReagentCategorySelect', 'qcReagentSelect', 'qcOilParamSelect', 'qcWaterParamSelect'].forEach(id => {
       this.renderCustomSelectUI(id);
     });
-  },
-
-  calcReagents() {
-    const sel = document.getElementById('qcReagentSelect')?.value || 'na2s2o3_01n';
-    const targetVol = parseFloat(document.getElementById('qcReagentVolume')?.value) || 250;
-    
-    const rData = this.reagentRecipes[sel] || this.reagentRecipes.na2s2o3_01n;
-
-    const normInput = document.getElementById('qcReagentNorm');
-    let targetNorm = parseFloat(normInput?.value);
-    if (isNaN(targetNorm) || targetNorm <= 0) {
-      targetNorm = rData.defaultNorm;
-      if (normInput) normInput.value = rData.defaultNorm;
-    }
-
-    const normBadge = document.getElementById('qcReagentDefaultNormBadge');
-    if (normBadge) normBadge.innerText = `Std: ${rData.defaultNorm} ${rData.normUnit}`;
-
-    const normUnitEl = document.getElementById('qcReagentNormUnit');
-    if (normUnitEl) normUnitEl.innerText = rData.normUnit;
-
-    const factorVol = targetVol / rData.baseVol;
-    const factorNorm = targetNorm / rData.defaultNorm;
-    const factorTotal = factorVol * factorNorm;
-
-    const titleEl = document.getElementById('qcReagentRecipeTitle');
-    const listEl = document.getElementById('qcReagentRecipeList');
-    const sopEl = document.getElementById('qcReagentSopContainer');
-
-    if (titleEl) titleEl.innerText = `${rData.title} (Target: ${targetVol} mL @ ${targetNorm} ${rData.normUnit})`;
-
-    if (listEl) {
-      listEl.innerHTML = rData.items.map(item => {
-        const factorToUse = item.unit === 'mL' && (item.name.includes('Aquadest') || item.name.includes('Methanol')) ? factorVol : factorTotal;
-        const scaledVal = (item.base * factorToUse).toFixed(item.unit === 'gram' && item.base < 1 ? 4 : 2);
-        return `<div class="flex items-center justify-between border-b border-violet-800/40 pb-1">
-                  <span>• ${item.name}</span>
-                  <span class="font-extrabold text-amber-300">${scaledVal} ${item.unit}</span>
-                </div>`;
-      }).join('');
-    }
-
-    if (sopEl && typeof rData.sopFunc === 'function') {
-      const dynamicSop = rData.sopFunc(targetVol, factorTotal, targetNorm);
-      sopEl.innerHTML = dynamicSop.map((step, idx) => {
-        return `<div class="flex gap-2.5 items-start p-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800">
-                  <span class="w-5 h-5 rounded-full bg-violet-600 text-white font-extrabold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">${idx + 1}</span>
-                  <p class="text-zinc-700 dark:text-zinc-300 font-medium leading-relaxed">${step}</p>
-                </div>`;
-      }).join('');
-    }
-
-    // Render Standarisasi SOP & Table if stdInfo exists for this reagent
-    const stdSopCard = document.getElementById('qcReagentStdSopCard');
-    const stdTableCard = document.getElementById('qcReagentStdTableCard');
-    const stdSopContainer = document.getElementById('qcReagentStdSopContainer');
-    const stdPrimaryBadge = document.getElementById('qcReagentStdPrimaryBadge');
-
-    if (rData.stdInfo) {
-      if (stdSopCard) stdSopCard.classList.remove('hidden');
-      if (stdTableCard) stdTableCard.classList.remove('hidden');
-
-      if (stdPrimaryBadge) stdPrimaryBadge.innerText = `Standard Baku Primer: ${rData.stdInfo.primaryStd}`;
-
-      if (stdSopContainer) {
-        stdSopContainer.innerHTML = rData.stdInfo.sop.map((step, idx) => {
-          return `<div class="flex gap-2.5 items-start p-2 rounded-xl bg-violet-500/5 dark:bg-violet-950/30 border border-violet-200/60 dark:border-violet-800/40">
-                    <span class="w-5 h-5 rounded-full bg-indigo-600 text-white font-extrabold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">${idx + 1}</span>
-                    <p class="text-zinc-700 dark:text-zinc-300 font-medium leading-relaxed">${step}</p>
-                  </div>`;
-        }).join('');
-      }
-
-      // Update rows if switching to a new titrant reagent
-      if (this.activeTitrantKey !== sel) {
-        this.activeTitrantKey = sel;
-        this.reagentStdRows = JSON.parse(JSON.stringify(rData.stdInfo.defaultRows));
-      }
-
-      this.renderReagentStdTable();
-    } else {
-      if (stdSopCard) stdSopCard.classList.add('hidden');
-      if (stdTableCard) stdTableCard.classList.add('hidden');
-    }
-  },
-
-  copyReagentRecipe() {
-    const sel = document.getElementById('qcReagentSelect')?.value || 'koh_meth_2n';
-    const targetVol = parseFloat(document.getElementById('qcReagentVolume')?.value) || 250;
-    const rData = this.reagentRecipes[sel];
-    const factor = targetVol / rData.baseVol;
-
-    let text = `=== RESEP REAGEN QC: ${rData.title} (Target: ${targetVol} mL) ===\n\nBAHAN KIMIA:\n`;
-    rData.items.forEach(item => {
-      const val = (item.base * factor).toFixed(item.unit === 'gram' && item.base < 1 ? 4 : 2);
-      text += `- ${item.name}: ${val} ${item.unit}\n`;
-    });
-    text += `\nSOP LAB:\n`;
-    if (typeof rData.sopFunc === 'function') {
-      rData.sopFunc(targetVol, factor).forEach((s, idx) => {
-        text += `${idx + 1}. ${s}\n`;
-      });
-    }
-
-    navigator.clipboard.writeText(text);
-    if (window.showToast) window.showToast("✔ Resep reagen berhasil disalin!");
   },
 
   calcOil() {
@@ -8869,11 +8908,12 @@ const Qc = {
   reagentStdRows: [],
 
   init() {
-    this.calcReagents();
+    this.filterReagentCategory('all', 1);
+    this.filterReagentCategory('all', 2);
+    this.calcReagents(1);
+    this.calcReagents(2);
     this.reset10OilRows();
     this.reset10WaterRows();
-    this.reset10ReagentStdRows();
-    if (window.enhanceAllSelects) window.enhanceAllSelects(document);
   },
 
   // OIL SAMPLE MODULE LOGIC
@@ -9628,7 +9668,9 @@ const UISelect = {
       });
     }
 
-    if (input) input.dispatchEvent(new Event('change', { bubbles: true }));
+    if (input && typeof input.dispatchEvent === 'function') {
+      try { input.dispatchEvent(new Event('change', { bubbles: true })); } catch(err) {}
+    }
     if (typeof onchangeJs === 'function') onchangeJs(val);
   }
 };
