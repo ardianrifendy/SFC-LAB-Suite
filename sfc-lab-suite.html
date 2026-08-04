@@ -8844,6 +8844,7 @@ const Qc = {
     this.reset10OilRows();
     this.reset10WaterRows();
     this.reset10ReagentStdRows();
+    if (window.enhanceAllSelects) window.enhanceAllSelects(document);
   },
 
   // OIL SAMPLE MODULE LOGIC
@@ -9688,22 +9689,21 @@ class CustomSelect {
 window.CustomSelect = CustomSelect;
 
 function enhanceAllSelects(container = document) {
-  if (!container) return;
+  if (!container || typeof container.querySelectorAll !== 'function') return;
   const selects = container.querySelectorAll('select');
   selects.forEach(sel => {
-    if (!sel.dataset.customSelectInitialized) {
+    if (sel && (!sel.dataset || !sel.dataset.customSelectInitialized)) {
       new CustomSelect(sel);
     }
   });
 }
 window.enhanceAllSelects = enhanceAllSelects;
 
-// Instantiate custom dropdown selectors
-const customSelectIds = ['extractorSaveType', 'dataTypeFilter', 'dataSingleType', 'diffPredSource', 'qcReagentSelect', 'qcFfaFactor', 'qcOilParamSelect', 'qcWaterParamSelect'];
-customSelectIds.forEach(id => {
-  const el = document.getElementById(id);
-  if (el) new CustomSelect(el);
-});
+// Automatically enhance ALL select elements across the entire application
+if (typeof document !== 'undefined') {
+  enhanceAllSelects(document);
+  document.addEventListener('DOMContentLoaded', () => enhanceAllSelects(document));
+}
 
 // ===== REGION: SELF-TEST =====
 // Audit QA Self-Test completed successfully
