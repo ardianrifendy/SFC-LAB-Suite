@@ -2245,6 +2245,17 @@
               </div>
             </div>
 
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Target Konsentrasi (N / M / %)</label>
+                <span id="qcReagentDefaultNormBadge" class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">Std: 2.0 N</span>
+              </div>
+              <div class="relative">
+                <input id="qcReagentNorm" type="number" step="0.01" value="2.0" oninput="window.Qc && window.Qc.calcReagents()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white focus:ring-2 focus:ring-violet-500" placeholder="2.0">
+                <span id="qcReagentNormUnit" class="absolute right-3 top-2 text-[10px] font-extrabold text-zinc-400">N</span>
+              </div>
+            </div>
+
             <!-- Quick Preset Volume Buttons -->
             <div class="space-y-1">
               <span class="block text-[10px] font-bold text-zinc-400 uppercase">Volume Cepat:</span>
@@ -2286,10 +2297,27 @@
         </div>
       </div>
 
-      <!-- ===== SUB-TAB 2: OIL QC & TITRATION ===== -->
+      <!-- ===== SUB-TAB 2: OIL SAMPLE & TITRATION ===== -->
       <div id="qcSubTabOil" class="qc-subtab-content hidden space-y-4">
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Mode Switch Bar (Single Mode vs Batch Mode 10 Sampel) -->
+        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">Mode Perhitungan Minyak:</span>
+            <span id="qcOilModeLabel" class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300">Single Sample</span>
+          </div>
+          <div class="flex items-center bg-zinc-100 dark:bg-zinc-900 p-1 rounded-xl border border-zinc-200 dark:border-zinc-800 self-stretch sm:self-auto">
+            <button id="qcOilModeSingleBtn" onclick="window.Qc && window.Qc.setOilMode('single')" class="px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-white dark:bg-zinc-800 text-violet-600 dark:text-violet-400 shadow-xs flex-1 sm:flex-none">
+              👤 Single (1 Sampel)
+            </button>
+            <button id="qcOilModeBatchBtn" onclick="window.Qc && window.Qc.setOilMode('batch')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all flex-1 sm:flex-none">
+              📋 Batch Multi-Sampel (10+)
+            </button>
+          </div>
+        </div>
+
+        <!-- SINGLE SAMPLE VIEW (2-COLUMN GRID) -->
+        <div id="qcOilSingleView" class="grid grid-cols-1 lg:grid-cols-12 gap-4">
           
           <!-- LEFT COLUMN (5 cols): Parameter Selector & Input Form Controls -->
           <div class="lg:col-span-5 bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
@@ -2307,6 +2335,9 @@
                 <option value="imp">🧫 Impurities Content (Kadar Kotoran %)</option>
                 <option value="salt">🧂 Salt Content (Kadar Garam NaCl %)</option>
                 <option value="lauric">🌴 Lauric Acid % (Asam Laurat GC Area)</option>
+                <option value="p_spektro">🔬 Phosphorus Content (Spektro P ppm)</option>
+                <option value="av_spektro">🔬 Anisidine Value (Spektro AV 350nm)</option>
+                <option value="dobi_spektro">🔬 DOBI & Carotene Content (Spektro)</option>
               </select>
             </div>
 
@@ -2432,6 +2463,54 @@
               <div>
                 <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Area C12:0 (%) (Hasil Gas Chromatography)</label>
                 <input id="qcLauricArea" type="number" step="0.001" value="0.792" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+            </div>
+
+            <!-- 9. PHOSPHORUS SPEKTRO INPUTS -->
+            <div id="qcOilInputs_p_spektro" class="qc-oil-input-group hidden space-y-3">
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sampel Minyak (W - gram)</label>
+                <input id="qcPWeight" type="number" step="0.001" value="5.000" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Absorbansi Spektrofotometer (Abs)</label>
+                <input id="qcPAbs" type="number" step="0.001" value="0.142" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Volume Labu Pengenceran (mL)</label>
+                <input id="qcPVol" type="number" step="1" value="50" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+            </div>
+
+            <!-- 10. ANISIDINE SPEKTRO INPUTS -->
+            <div id="qcOilInputs_av_spektro" class="qc-oil-input-group hidden space-y-3">
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sampel Minyak (W - gram)</label>
+                <input id="qcAvWeight" type="number" step="0.001" value="1.025" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Absorbansi Blanko (A0 pada 350nm)</label>
+                <input id="qcAvA0" type="number" step="0.001" value="0.045" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Absorbansi Sampel + Reagen (A1 pada 350nm)</label>
+                <input id="qcAvA1" type="number" step="0.001" value="0.185" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+            </div>
+
+            <!-- 11. DOBI SPEKTRO INPUTS -->
+            <div id="qcOilInputs_dobi_spektro" class="qc-oil-input-group hidden space-y-3">
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sampel CPO (W - gram)</label>
+                <input id="qcDobiWeight" type="number" step="0.0001" value="0.1025" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Absorbansi 446 nm (A446)</label>
+                <input id="qcDobiA446" type="number" step="0.001" value="0.612" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Absorbansi 350 nm (A350)</label>
+                <input id="qcDobiA350" type="number" step="0.001" value="0.240" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
@@ -2579,6 +2658,60 @@
               </div>
             </div>
 
+            <!-- 9. PHOSPHORUS SPEKTRO RESULT -->
+            <div id="qcOilResults_p_spektro" class="qc-oil-result-group hidden bg-gradient-to-r from-cyan-950 to-blue-950 text-white rounded-2xl p-6 shadow-xl border border-cyan-700/50 space-y-4">
+              <div class="flex items-center justify-between border-b border-cyan-700/60 pb-3">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-cyan-300 block">PHOSPHORUS CONTENT (SPEKTRO)</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-cyan-900/80 text-cyan-200 border border-cyan-700">y = m·x + c</span>
+                  <button onclick="window.Qc && window.Qc.openCurveModal('p_spektro')" class="p-1 rounded-lg bg-cyan-800 hover:bg-cyan-700 text-amber-300 text-xs transition-colors" title="Atur Slope & Intercept">⚙️</button>
+                </div>
+              </div>
+              <div>
+                <h2 id="qcPResult" class="text-3xl font-black font-mono text-amber-300">17.75 ppm</h2>
+                <p class="text-xs text-cyan-200 mt-1 font-medium">Kadar Fosfor Minyak (Phosphorus Content P ppm)</p>
+              </div>
+              <div class="pt-2">
+                <button onclick="window.Qc && window.Qc.copySingleParamResult('Phosphorus', document.getElementById('qcPResult').innerText)" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                  <span>📋</span><span>Salin Hasil Phosphorus</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 10. ANISIDINE SPEKTRO RESULT -->
+            <div id="qcOilResults_av_spektro" class="qc-oil-result-group hidden bg-gradient-to-r from-amber-950 to-yellow-950 text-white rounded-2xl p-6 shadow-xl border border-amber-700/50 space-y-4">
+              <div class="flex items-center justify-between border-b border-amber-700/60 pb-3">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300 block">ANISIDINE VALUE (SPEKTRO 350nm)</span>
+                <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-amber-900/80 text-amber-200 border border-amber-700">Rumus: 25 × (1.2·A1 - A0) / W</span>
+              </div>
+              <div>
+                <h2 id="qcAvResult" class="text-3xl font-black font-mono text-amber-300">4.32</h2>
+                <p class="text-xs text-amber-200 mt-1 font-medium">Bilangan Anisidin (Oksidasi Sekunder)</p>
+              </div>
+              <div class="pt-2">
+                <button onclick="window.Qc && window.Qc.copySingleParamResult('Anisidine Value', document.getElementById('qcAvResult').innerText)" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                  <span>📋</span><span>Salin Hasil Anisidine</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 11. DOBI SPEKTRO RESULT -->
+            <div id="qcOilResults_dobi_spektro" class="qc-oil-result-group hidden bg-gradient-to-r from-emerald-950 to-teal-950 text-white rounded-2xl p-6 shadow-xl border border-emerald-700/50 space-y-4">
+              <div class="flex items-center justify-between border-b border-emerald-700/60 pb-3">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-300 block">DOBI & KADAR KAROTEN</span>
+                <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-900/80 text-emerald-200 border border-emerald-700">DOBI = A446 / A350</span>
+              </div>
+              <div>
+                <h2 id="qcDobiResult" class="text-3xl font-black font-mono text-amber-300">2.55</h2>
+                <p class="text-xs text-emerald-200 mt-1 font-medium">Kadar Karoten: <strong id="qcCaroteneResult" class="text-amber-300 font-mono text-base">228.6 ppm</strong></p>
+              </div>
+              <div class="pt-2">
+                <button onclick="window.Qc && window.Qc.copySingleParamResult('DOBI', document.getElementById('qcDobiResult').innerText + ' (Carotene: ' + document.getElementById('qcCaroteneResult').innerText + ')')" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                  <span>📋</span><span>Salin Hasil DOBI</span>
+                </button>
+              </div>
+            </div>
+
             <!-- Summary Copy Card -->
             <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
               <span class="text-xs font-bold text-zinc-600 dark:text-zinc-400">Salin seluruh parameter minyak sekaligus:</span>
@@ -2587,6 +2720,59 @@
               </button>
             </div>
 
+          </div>
+        </div>
+
+        <!-- BATCH MULTI-SAMPLE VIEW (FULL WIDTH TABLE) -->
+        <div id="qcOilBatchView" class="hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 space-y-4">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-4">
+            <div>
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>📋</span> Tabel Kalkulasi Batch Multi-Sampel (Serial Sample Testing)
+              </h3>
+              <p class="text-xs text-zinc-500 mt-0.5">Input banyak sampel bersamaan dalam satu sesi analisis lab QC.</p>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="window.Qc && window.Qc.addOilBatchRow()" class="px-3 py-1.5 rounded-xl bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 font-extrabold text-xs hover:bg-violet-200 transition-colors flex items-center gap-1">
+                <span>➕</span><span>Tambah Baris</span>
+              </button>
+              <button onclick="window.Qc && window.Qc.generate10OilBatchRows()" class="px-3.5 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
+                <span>⚡</span><span>Generate 10 Sampel</span>
+              </button>
+              <button onclick="window.Qc && window.Qc.copyOilBatchTable()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
+                <span>📋</span><span>Copy Tabel Excel</span>
+              </button>
+              <button onclick="window.Qc && window.Qc.clearOilBatchTable()" class="px-3 py-1.5 rounded-xl bg-rose-100 text-rose-600 border border-rose-300 font-extrabold text-xs hover:bg-rose-200 transition-colors">
+                <span>🧹</span><span>Clear</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Interactive Batch Table -->
+          <div class="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[10px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
+                <tr>
+                  <th class="px-3 py-2.5 w-10 text-center">No</th>
+                  <th class="px-3 py-2.5 min-w-[160px]">Nama / ID Sampel Tangki</th>
+                  <th class="px-3 py-2.5 min-w-[110px]">Berat Sampel (W - g)</th>
+                  <th class="px-3 py-2.5 min-w-[120px]" id="qcOilBatchValHeader">Vol Titrasi (V - mL)</th>
+                  <th class="px-3 py-2.5 min-w-[130px]">Hasil Calculator</th>
+                  <th class="px-3 py-2.5 min-w-[110px]">Status Quality</th>
+                  <th class="px-3 py-2.5 w-12 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="qcOilBatchTbody" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
+                <!-- Generated rows by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Batch Summary Statistics Bar -->
+          <div id="qcOilBatchStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono">
+            <!-- Stat items -->
           </div>
         </div>
 
@@ -2605,8 +2791,9 @@
                 <span>💧</span> Pilih Parameter Uji Air:
               </label>
               <select id="qcWaterParamSelect" onchange="window.Qc && window.Qc.switchWaterParam(this.value)" class="w-full px-3.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
-                <option value="cl">💧 Chloride Content (ppm & as NaCl ppm)</option>
+                <option value="cl">💧 Chloride Content (Titrasi AgNO3 ppm)</option>
                 <option value="hard">🧱 Total Hardness (Kesadahan Air ppm)</option>
+                <option value="cl_spektro">🔬 Chloride Content (Spektro / Photometric ppm)</option>
               </select>
             </div>
 
@@ -2636,6 +2823,18 @@
               <div>
                 <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Faktor Kesadahan Air (Standard 41.2)</label>
                 <input id="qcWaterHardFactor" type="number" step="0.1" value="41.2" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+            </div>
+
+            <!-- 3. CHLORIDE SPEKTRO INPUTS -->
+            <div id="qcWaterInputs_cl_spektro" class="qc-water-input-group hidden space-y-3">
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Volume Sampel Air (Vsamp - mL)</label>
+                <input id="qcWaterClSpektroVol" type="number" step="0.1" value="10.0" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Absorbansi Spektro (Abs)</label>
+                <input id="qcWaterClSpektroAbs" type="number" step="0.001" value="0.085" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
@@ -2674,6 +2873,26 @@
               <div class="pt-2">
                 <button onclick="window.Qc && window.Qc.copySingleParamResult('Total Hardness', document.getElementById('qcWaterHardResult').innerText)" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
                   <span>📋</span><span>Salin Hasil Hardness</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. CHLORIDE SPEKTRO RESULT -->
+            <div id="qcWaterResults_cl_spektro" class="qc-water-result-group hidden bg-gradient-to-r from-cyan-950 to-blue-950 text-white rounded-2xl p-6 shadow-xl border border-cyan-700/50 space-y-4">
+              <div class="flex items-center justify-between border-b border-cyan-700/60 pb-3">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-cyan-300 block">CHLORIDE SPEKTROPHOTOMETER</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-cyan-900/80 text-cyan-200 border border-cyan-700">y = m·x + c</span>
+                  <button onclick="window.Qc && window.Qc.openCurveModal('cl_spektro')" class="p-1 rounded-lg bg-cyan-800 hover:bg-cyan-700 text-amber-300 text-xs transition-colors" title="Atur Slope & Intercept">⚙️</button>
+                </div>
+              </div>
+              <div>
+                <h2 id="qcWaterClSpektroResult" class="text-3xl font-black font-mono text-amber-300">4.25 ppm</h2>
+                <p class="text-xs text-cyan-200 mt-1 font-medium">Kadar Chloride Air (Spektro / Photometric)</p>
+              </div>
+              <div class="pt-2">
+                <button onclick="window.Qc && window.Qc.copySingleParamResult('Chloride Spektro', document.getElementById('qcWaterClSpektroResult').innerText)" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                  <span>📋</span><span>Salin Hasil Cl Spektro</span>
                 </button>
               </div>
             </div>
@@ -2756,6 +2975,40 @@
         <button onclick="document.getElementById('globalHelpModal').classList.add('hidden')" class="px-5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 font-bold text-xs shadow-xs transition-colors">
           Paham, Tutup
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spektro Calibration Curve Modal -->
+  <div id="qcCurveModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 w-full max-w-md p-6 space-y-5">
+      <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+        <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+          <span>⚙️</span> Pengaturan Kurva Kalibrasi Spektrofotometer
+        </h3>
+        <button onclick="document.getElementById('qcCurveModal').classList.add('hidden')" class="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 text-lg font-bold">✕</button>
+      </div>
+
+      <p id="qcCurveModalTitle" class="text-xs font-bold text-violet-600 dark:text-violet-400">Parameter: Phosphorus Content (Spektro P ppm)</p>
+
+      <div class="grid grid-cols-2 gap-4 text-xs">
+        <div>
+          <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Slope Kurva (m)</label>
+          <input id="qcCurveSlope" type="number" step="0.0001" value="25.0" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Intercept (c)</label>
+          <input id="qcCurveIntercept" type="number" step="0.0001" value="0.0" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+        </div>
+      </div>
+
+      <div class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/40 border border-violet-200 dark:border-violet-800/50 text-[11px] text-violet-700 dark:text-violet-300">
+        💡 Persamaan Regresi: <strong>y = m·x + c</strong> (di mana x = Absorbansi & y = Konsentrasi).
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="document.getElementById('qcCurveModal').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-extrabold text-xs">Batal</button>
+        <button onclick="window.Qc && window.Qc.saveCurveSettings()" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors">Simpan Kurva</button>
       </div>
     </div>
   </div>
@@ -8206,49 +8459,57 @@ const Qc = {
 
   reagentRecipes: {
     koh_meth_2n: {
-      title: "KOH 2N Methanolis (FAC / GC-FID)",
+      title: "KOH Methanolis (FAC / GC-FID)",
       baseVol: 250,
+      defaultNorm: 2.0,
+      normUnit: "N",
       items: [
         { name: "Methanol Absolute", base: 250, unit: "mL" },
         { name: "KOH Pelet (Puriss >85%)", base: 33.0, unit: "gram" }
       ],
-      sopFunc: (targetVol, factor) => [
-        `Timbang ${(33.0 * factor).toFixed(2)} gram KOH pelet (skala ${targetVol} mL) dengan neraca analitik presisi.`,
+      sopFunc: (targetVol, factor, norm) => [
+        `Timbang ${(33.0 * factor).toFixed(2)} gram KOH pelet (skala ${targetVol} mL, ${norm} N) dengan neraca analitik presisi.`,
         `Ukur Methanol absolute sebanyak ${targetVol} mL dalam labu takar.`,
         `Larutkan KOH pelet ke dalam Methanol perlahan sambil diaduk magnetic stirrer hingga larut sempurna (eksotermis).`,
-        `Pindahkan ke botol reagen gelap dan beri label nama, konsentrasi 2N, serta tanggal pembuatan.`
+        `Pindahkan ke botol reagen gelap dan beri label nama, konsentrasi ${norm} N, serta tanggal pembuatan.`
       ]
     },
     naoh_meth_05n: {
-      title: "NaOH 0.5N Methanolis (FAC PFAD/PKFAD)",
+      title: "NaOH Methanolis (FAC PFAD/PKFAD)",
       baseVol: 250,
+      defaultNorm: 0.5,
+      normUnit: "N",
       items: [
         { name: "Methanol Absolute", base: 250, unit: "mL" },
         { name: "NaOH Pelet (Puriss)", base: 5.0, unit: "gram" }
       ],
-      sopFunc: (targetVol, factor) => [
-        `Timbang ${(5.0 * factor).toFixed(2)} gram NaOH pelet (skala ${targetVol} mL) dengan neraca analitik presisi.`,
+      sopFunc: (targetVol, factor, norm) => [
+        `Timbang ${(5.0 * factor).toFixed(2)} gram NaOH pelet (skala ${targetVol} mL, ${norm} N) dengan neraca analitik presisi.`,
         `Ukur Methanol absolute sebanyak ${targetVol} mL dalam labu ukur.`,
         `Aduk hingga NaOH larut sempurna dalam Methanol.`,
         `Simpan dalam wadah tertutup rapat untuk preparasi titrasi FAC PFAD/PKFAD.`
       ]
     },
     agno3_01n: {
-      title: "AgNO3 0.1 N (Titrasi Chloride / NaCl)",
+      title: "AgNO3 (Titrasi Chloride / NaCl)",
       baseVol: 250,
+      defaultNorm: 0.1,
+      normUnit: "N",
       items: [
         { name: "Aquadest / Demineralized Water", base: 250, unit: "mL" },
         { name: "AgNO3 (Silver Nitrate)", base: 4.2468, unit: "gram" }
       ],
-      sopFunc: (targetVol, factor) => [
-        `Timbang ${(4.2468 * factor).toFixed(4)} gram kristal AgNO3 presisi.`,
+      sopFunc: (targetVol, factor, norm) => [
+        `Timbang ${(4.2468 * factor).toFixed(4)} gram kristal AgNO3 presisi untuk konsentrasi ${norm} N.`,
         `Larutkan dalam ${targetVol} mL Aquadest bebas klorida.`,
         `Simpan dalam botol cokelat / gelap karena AgNO3 sensitif terhadap cahaya matahari.`
       ]
     },
     hno3_11: {
-      title: "HNO3 1:1 (Pelarut Uji NaCl)",
+      title: "HNO3 Pelarut (Uji NaCl)",
       baseVol: 250,
+      defaultNorm: 1.0,
+      normUnit: "Rasio",
       items: [
         { name: "HNO3 Pekat (65%)", base: 125, unit: "mL" },
         { name: "Aquadest Demin", base: 125, unit: "mL" }
@@ -8260,8 +8521,10 @@ const Qc = {
       ]
     },
     hcl_11: {
-      title: "HCl 1:1 (Pelarut Uji Phosphor Content)",
+      title: "HCl Pelarut (Uji Phosphor Content)",
       baseVol: 250,
+      defaultNorm: 1.0,
+      normUnit: "Rasio",
       items: [
         { name: "HCl Pekat (37%)", base: 125, unit: "mL" },
         { name: "Aquadest Demin", base: 125, unit: "mL" }
@@ -8273,14 +8536,16 @@ const Qc = {
       ]
     },
     koh_50: {
-      title: "KOH 50% (Reagen Phosphor Content)",
+      title: "KOH Reagen (Uji Phosphor Content)",
       baseVol: 250,
+      defaultNorm: 50,
+      normUnit: "%",
       items: [
         { name: "KOH Pelet", base: 125, unit: "gram" },
         { name: "Aquadest Demin", base: 125, unit: "mL" }
       ],
-      sopFunc: (targetVol, factor) => [
-        `Timbang ${(125 * factor).toFixed(1)} gram KOH pelet.`,
+      sopFunc: (targetVol, factor, norm) => [
+        `Timbang ${(125 * factor).toFixed(1)} gram KOH pelet (target konsentrasi ${norm}%).`,
         `Larutkan dalam ${(125 * factor).toFixed(1)} mL Aquadest dalam gelas piala (reaksi eksotermis).`,
         `Dinginkan larutan pada suhu ruang sebelum digunakan.`
       ]
@@ -8288,6 +8553,8 @@ const Qc = {
     sod_molybdate: {
       title: "Sodium Molybdate / H2SO4 Reagent (Uji Phosphor)",
       baseVol: 250,
+      defaultNorm: 1.0,
+      normUnit: "M",
       items: [
         { name: "Sodium Molybdate Dihydrate", base: 6.25, unit: "gram" },
         { name: "H2SO4 Pekat (98%)", base: 35, unit: "mL" },
@@ -8302,6 +8569,8 @@ const Qc = {
     hydrazinium: {
       title: "Hydrazinium Sulfat Solution (Uji Phosphor)",
       baseVol: 250,
+      defaultNorm: 1.0,
+      normUnit: "M",
       items: [
         { name: "Hydrazinium Sulfate", base: 0.0375, unit: "gram" },
         { name: "Aquadest Demin", base: 250, unit: "mL" }
@@ -8317,19 +8586,36 @@ const Qc = {
   calcReagents() {
     const sel = document.getElementById('qcReagentSelect')?.value || 'koh_meth_2n';
     const targetVol = parseFloat(document.getElementById('qcReagentVolume')?.value) || 250;
-
+    
     const rData = this.reagentRecipes[sel] || this.reagentRecipes.koh_meth_2n;
-    const factor = targetVol / rData.baseVol;
+
+    const normInput = document.getElementById('qcReagentNorm');
+    let targetNorm = parseFloat(normInput?.value);
+    if (isNaN(targetNorm) || targetNorm <= 0) {
+      targetNorm = rData.defaultNorm;
+      if (normInput) normInput.value = rData.defaultNorm;
+    }
+
+    const normBadge = document.getElementById('qcReagentDefaultNormBadge');
+    if (normBadge) normBadge.innerText = `Std: ${rData.defaultNorm} ${rData.normUnit}`;
+
+    const normUnitEl = document.getElementById('qcReagentNormUnit');
+    if (normUnitEl) normUnitEl.innerText = rData.normUnit;
+
+    const factorVol = targetVol / rData.baseVol;
+    const factorNorm = targetNorm / rData.defaultNorm;
+    const factorTotal = factorVol * factorNorm;
 
     const titleEl = document.getElementById('qcReagentRecipeTitle');
     const listEl = document.getElementById('qcReagentRecipeList');
     const sopEl = document.getElementById('qcReagentSopContainer');
 
-    if (titleEl) titleEl.innerText = `${rData.title} (Target: ${targetVol} mL)`;
+    if (titleEl) titleEl.innerText = `${rData.title} (Target: ${targetVol} mL @ ${targetNorm} ${rData.normUnit})`;
 
     if (listEl) {
       listEl.innerHTML = rData.items.map(item => {
-        const scaledVal = (item.base * factor).toFixed(item.unit === 'gram' && item.base < 1 ? 4 : 2);
+        const factorToUse = item.unit === 'mL' && (item.name.includes('Aquadest') || item.name.includes('Methanol')) ? factorVol : factorTotal;
+        const scaledVal = (item.base * factorToUse).toFixed(item.unit === 'gram' && item.base < 1 ? 4 : 2);
         return `<div class="flex items-center justify-between border-b border-violet-800/40 pb-1">
                   <span>• ${item.name}</span>
                   <span class="font-extrabold text-amber-300">${scaledVal} ${item.unit}</span>
@@ -8338,7 +8624,7 @@ const Qc = {
     }
 
     if (sopEl && typeof rData.sopFunc === 'function') {
-      const dynamicSop = rData.sopFunc(targetVol, factor);
+      const dynamicSop = rData.sopFunc(targetVol, factorTotal, targetNorm);
       sopEl.innerHTML = dynamicSop.map((step, idx) => {
         return `<div class="flex gap-2.5 items-start p-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800">
                   <span class="w-5 h-5 rounded-full bg-violet-600 text-white font-extrabold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">${idx + 1}</span>
@@ -8450,6 +8736,49 @@ const Qc = {
         badgeEl.innerText = "IN SPEC (≤0.63%)";
       }
     }
+
+    // Spektro Phosphorus P ppm
+    const pW = parseFloat(document.getElementById('qcPWeight')?.value) || 5.0;
+    const pAbs = parseFloat(document.getElementById('qcPAbs')?.value) || 0;
+    const pVol = parseFloat(document.getElementById('qcPVol')?.value) || 50;
+    const pCurve = this.curves.p_spektro || { slope: 25.0, intercept: 0.0 };
+    
+    let pVal = 0;
+    if (pW > 0) {
+      pVal = ((pAbs * pCurve.slope + pCurve.intercept) * pVol) / pW;
+    }
+    const pEl = document.getElementById('qcPResult');
+    if (pEl) pEl.innerText = `${pVal.toFixed(2)} ppm`;
+
+    // Spektro Anisidine Value (AV)
+    const avW = parseFloat(document.getElementById('qcAvWeight')?.value) || 1.025;
+    const avA0 = parseFloat(document.getElementById('qcAvA0')?.value) || 0;
+    const avA1 = parseFloat(document.getElementById('qcAvA1')?.value) || 0;
+    
+    let avVal = 0;
+    if (avW > 0) {
+      avVal = (25 * (1.2 * avA1 - avA0)) / avW;
+    }
+    const avEl = document.getElementById('qcAvResult');
+    if (avEl) avEl.innerText = `${avVal.toFixed(2)}`;
+
+    // Spektro DOBI & Carotene
+    const dobiW = parseFloat(document.getElementById('qcDobiWeight')?.value) || 0.1025;
+    const dobiA446 = parseFloat(document.getElementById('qcDobiA446')?.value) || 0;
+    const dobiA350 = parseFloat(document.getElementById('qcDobiA350')?.value) || 0;
+
+    let dobiVal = 0;
+    let carotenePpm = 0;
+    if (dobiA350 > 0) {
+      dobiVal = dobiA446 / dobiA350;
+    }
+    if (dobiW > 0) {
+      carotenePpm = (dobiA446 * 383) / dobiW;
+    }
+    const dobiEl = document.getElementById('qcDobiResult');
+    if (dobiEl) dobiEl.innerText = `${dobiVal.toFixed(2)}`;
+    const caroteneEl = document.getElementById('qcCaroteneResult');
+    if (caroteneEl) caroteneEl.innerText = `${carotenePpm.toFixed(1)} ppm`;
   },
 
   copyOilSummary() {
@@ -8461,7 +8790,10 @@ const Qc = {
       `• Saponification Value (SV): ${document.getElementById('qcSvResult')?.innerText}\n` +
       `• Moisture (%): ${document.getElementById('qcMoisResult')?.innerText}\n` +
       `• Impurities (%): ${document.getElementById('qcImpResult')?.innerText}\n` +
-      `• Lauric Acid (%): ${document.getElementById('qcLauricResult')?.innerText}`;
+      `• Lauric Acid (%): ${document.getElementById('qcLauricResult')?.innerText}\n` +
+      `• Phosphorus Content (ppm): ${document.getElementById('qcPResult')?.innerText}\n` +
+      `• Anisidine Value (AV): ${document.getElementById('qcAvResult')?.innerText}\n` +
+      `• DOBI: ${document.getElementById('qcDobiResult')?.innerText}`;
 
     navigator.clipboard.writeText(text);
     if (window.showToast) window.showToast("✔ Ringkasan Hasil Uji Minyak disalin!");
@@ -8490,6 +8822,224 @@ const Qc = {
     const hardPpm = hardEdta * hardFactor;
     const hardEl = document.getElementById('qcWaterHardResult');
     if (hardEl) hardEl.innerText = `${hardPpm.toFixed(2)} ppm`;
+
+    // Spektro Chloride Water
+    const clSpektroVol = parseFloat(document.getElementById('qcWaterClSpektroVol')?.value) || 10.0;
+    const clSpektroAbs = parseFloat(document.getElementById('qcWaterClSpektroAbs')?.value) || 0;
+    const clCurve = this.curves.cl_spektro || { slope: 50.0, intercept: 0.0 };
+
+    let clSpektroPpm = 0;
+    if (clSpektroVol > 0) {
+      clSpektroPpm = (clSpektroAbs * clCurve.slope + clCurve.intercept) * (10 / clSpektroVol);
+    }
+    const clSpektroEl = document.getElementById('qcWaterClSpektroResult');
+    if (clSpektroEl) clSpektroEl.innerText = `${clSpektroPpm.toFixed(2)} ppm`;
+  },
+
+  // Calibration curve parameters state
+  curves: {
+    p_spektro: { slope: 25.0, intercept: 0.0 },
+    cl_spektro: { slope: 50.0, intercept: 0.0 }
+  },
+  activeCurveParam: 'p_spektro',
+
+  openCurveModal(paramKey) {
+    this.activeCurveParam = paramKey;
+    const curve = this.curves[paramKey] || { slope: 25.0, intercept: 0.0 };
+    const titleEl = document.getElementById('qcCurveModalTitle');
+    const slopeInput = document.getElementById('qcCurveSlope');
+    const interceptInput = document.getElementById('qcCurveIntercept');
+    
+    if (titleEl) {
+      titleEl.innerText = paramKey === 'p_spektro' 
+        ? "Parameter: Phosphorus Content (Spektro P ppm)" 
+        : "Parameter: Chloride Content (Spektro / Photometric ppm)";
+    }
+    if (slopeInput) slopeInput.value = curve.slope;
+    if (interceptInput) interceptInput.value = curve.intercept;
+    
+    const modal = document.getElementById('qcCurveModal');
+    if (modal) modal.classList.remove('hidden');
+  },
+
+  saveCurveSettings() {
+    const slope = parseFloat(document.getElementById('qcCurveSlope')?.value) || 25.0;
+    const intercept = parseFloat(document.getElementById('qcCurveIntercept')?.value) || 0.0;
+    
+    this.curves[this.activeCurveParam] = { slope, intercept };
+    
+    const modal = document.getElementById('qcCurveModal');
+    if (modal) modal.classList.add('hidden');
+    
+    if (window.showToast) window.showToast(`✔ Parameter Kurva (${this.activeCurveParam}) diperbarui: Slope=${slope}, Intercept=${intercept}`);
+    
+    this.calcOil();
+    this.calcWater();
+  },
+
+  // Batch Multi-Sample State & Methods
+  oilMode: 'single',
+  oilBatchRows: [],
+
+  setOilMode(mode) {
+    this.oilMode = mode;
+    const singleBtn = document.getElementById('qcOilModeSingleBtn');
+    const batchBtn = document.getElementById('qcOilModeBatchBtn');
+    const singleView = document.getElementById('qcOilSingleView');
+    const batchView = document.getElementById('qcOilBatchView');
+    const modeLabel = document.getElementById('qcOilModeLabel');
+
+    if (mode === 'batch') {
+      if (singleBtn) singleBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all flex-1 sm:flex-none";
+      if (batchBtn) batchBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-white dark:bg-zinc-800 text-violet-600 dark:text-violet-400 shadow-xs flex-1 sm:flex-none";
+      if (singleView) singleView.classList.add('hidden');
+      if (batchView) batchView.classList.remove('hidden');
+      if (modeLabel) modeLabel.innerText = "Batch Multi-Sample Mode";
+      
+      if (this.oilBatchRows.length === 0) {
+        this.generate10OilBatchRows();
+      } else {
+        this.renderOilBatchTable();
+      }
+    } else {
+      if (singleBtn) singleBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-white dark:bg-zinc-800 text-violet-600 dark:text-violet-400 shadow-xs flex-1 sm:flex-none";
+      if (batchBtn) batchBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all flex-1 sm:flex-none";
+      if (singleView) singleView.classList.remove('hidden');
+      if (batchView) batchView.classList.add('hidden');
+      if (modeLabel) modeLabel.innerText = "Single Sample Mode";
+    }
+  },
+
+  addOilBatchRow(name = '', weight = 3.50, val = 1.18) {
+    const nextNo = this.oilBatchRows.length + 1;
+    this.oilBatchRows.push({
+      id: Date.now() + Math.random(),
+      name: name || `Sampel #${nextNo} (Tangki CPO-${String(nextNo).padStart(2, '0')})`,
+      weight: weight,
+      val: val
+    });
+    this.renderOilBatchTable();
+  },
+
+  generate10OilBatchRows() {
+    this.oilBatchRows = [];
+    const sampleNames = [
+      "Tangki CPO #01 (Import)", "Tangki CPO #02 (Refinery Feed)", "Tangki RBDPO #03", 
+      "Tangki Olein #04", "Tangki Stearin #05", "PFAD Batch A", "PKFAD Batch B",
+      "Line Production 1", "Line Production 2", "Dispatch Sample #10"
+    ];
+    for (let i = 0; i < 10; i++) {
+      const w = +(3.45 + (i * 0.02)).toFixed(2);
+      const v = +(1.10 + (i * 0.03)).toFixed(2);
+      this.oilBatchRows.push({
+        id: Date.now() + i,
+        name: sampleNames[i],
+        weight: w,
+        val: v
+      });
+    }
+    this.renderOilBatchTable();
+    if (window.showToast) window.showToast("⚡ 10 Sampel Batch berhasil di-generate!");
+  },
+
+  removeOilBatchRow(idx) {
+    this.oilBatchRows.splice(idx, 1);
+    this.renderOilBatchTable();
+  },
+
+  clearOilBatchTable() {
+    this.oilBatchRows = [];
+    this.renderOilBatchTable();
+    if (window.showToast) window.showToast("🧹 Tabel Batch dibersihkan!");
+  },
+
+  renderOilBatchTable() {
+    const tbody = document.getElementById('qcOilBatchTbody');
+    const statsBar = document.getElementById('qcOilBatchStatsBar');
+    if (!tbody) return;
+
+    const param = document.getElementById('qcOilParamSelect')?.value || 'ffa';
+    const factor = parseFloat(document.getElementById('qcFfaFactor')?.value) || 25.6;
+    const norm = parseFloat(document.getElementById('qcFfaNorm')?.value) || 0.0997;
+
+    let totalVal = 0;
+    let minVal = Infinity;
+    let maxVal = -Infinity;
+
+    tbody.innerHTML = this.oilBatchRows.map((row, idx) => {
+      let calcRes = 0;
+      let unit = '%';
+      if (param === 'ffa') {
+        calcRes = row.weight > 0 ? (row.val * norm * factor) / row.weight : 0;
+        unit = '%';
+      } else if (param === 'iv') {
+        calcRes = row.weight > 0 ? ((48.45 - row.val) * 0.1035 * 12.69) / row.weight : 0;
+        unit = 'g I2/100g';
+      } else {
+        calcRes = row.weight > 0 ? (row.val * norm * factor) / row.weight : 0;
+        unit = '%';
+      }
+
+      if (calcRes > 0) {
+        totalVal += calcRes;
+        if (calcRes < minVal) minVal = calcRes;
+        if (calcRes > maxVal) maxVal = calcRes;
+      }
+
+      return `
+        <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors">
+          <td class="px-3 py-2 text-center font-bold text-zinc-400">${idx + 1}</td>
+          <td class="px-3 py-2">
+            <input type="text" value="${row.name}" onchange="window.Qc.oilBatchRows[${idx}].name=this.value" class="w-full px-2.5 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
+          </td>
+          <td class="px-3 py-2">
+            <input type="number" step="0.01" value="${row.weight}" oninput="window.Qc.oilBatchRows[${idx}].weight=parseFloat(this.value)||0; window.Qc.renderOilBatchTable();" class="w-full px-2.5 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs">
+          </td>
+          <td class="px-3 py-2">
+            <input type="number" step="0.01" value="${row.val}" oninput="window.Qc.oilBatchRows[${idx}].val=parseFloat(this.value)||0; window.Qc.renderOilBatchTable();" class="w-full px-2.5 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs">
+          </td>
+          <td class="px-3 py-2 font-mono font-black text-amber-500 text-sm">
+            ${calcRes.toFixed(param === 'mois' || param === 'imp' ? 3 : 2)} ${unit}
+          </td>
+          <td class="px-3 py-2">
+            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300">IN SPEC</span>
+          </td>
+          <td class="px-3 py-2 text-center">
+            <button onclick="window.Qc.removeOilBatchRow(${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs font-bold" title="Hapus Baris">🗑️</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    const count = this.oilBatchRows.length;
+    const avg = count > 0 ? totalVal / count : 0;
+    if (minVal === Infinity) minVal = 0;
+    if (maxVal === -Infinity) maxVal = 0;
+
+    if (statsBar) {
+      statsBar.innerHTML = `
+        <div>Total Sampel: <strong class="text-zinc-900 dark:text-white">${count} Baris</strong></div>
+        <div>Rata-Rata (Avg): <strong class="text-amber-500">${avg.toFixed(3)}</strong></div>
+        <div>Min / Max: <strong class="text-violet-500">${minVal.toFixed(3)} / ${maxVal.toFixed(3)}</strong></div>
+        <div>Out of Spec: <strong class="text-emerald-500">0 Sampel</strong></div>
+      `;
+    }
+  },
+
+  copyOilBatchTable() {
+    if (this.oilBatchRows.length === 0) {
+      if (window.showToast) window.showToast("⚠️ Tabel batch kosong!");
+      return;
+    }
+    let tsv = "No\tNama Sampel\tBerat (g)\tVol Titrasi (mL)\tHasil Perhitungan\n";
+    this.oilBatchRows.forEach((r, idx) => {
+      const norm = parseFloat(document.getElementById('qcFfaNorm')?.value) || 0.0997;
+      const factor = parseFloat(document.getElementById('qcFfaFactor')?.value) || 25.6;
+      const calcRes = r.weight > 0 ? (r.val * norm * factor) / r.weight : 0;
+      tsv += `${idx + 1}\t${r.name}\t${r.weight}\t${r.val}\t${calcRes.toFixed(3)}\n`;
+    });
+    navigator.clipboard.writeText(tsv);
+    if (window.showToast) window.showToast("✔ Tabel Batch berhasil disalin ke Excel!");
   },
 
   switchOilParam(paramKey) {
