@@ -2289,195 +2289,311 @@
       <!-- ===== SUB-TAB 2: OIL QC & TITRATION ===== -->
       <div id="qcSubTabOil" class="qc-subtab-content hidden space-y-4">
         
-        <!-- Header Copy Summary -->
-        <div class="flex items-center justify-between bg-white dark:bg-zinc-850 p-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-          <span class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200">Kalkulator Mutu Minyak & Lemak (Titration & Moisture/Impurities)</span>
-          <button onclick="window.Qc && window.Qc.copyOilSummary()" class="px-4 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-sm transition-colors flex items-center gap-1.5">
-            <span>📋</span><span>Salin Hasil Uji Minyak (Excel)</span>
+        <!-- Parameter Selector Dropdown Card -->
+        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="space-y-1 w-full sm:w-1/2">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Pilih Parameter Uji Minyak yang Ingin Dihitung:</label>
+            <select id="qcOilParamSelect" onchange="window.Qc && window.Qc.switchOilParam(this.value)" class="w-full px-3.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
+              <option value="ffa">🧈 FFA (Free Fatty Acid / Asam Lemak Bebas)</option>
+              <option value="iv">🧪 Iodine Value (IV / Bilangan Iodium)</option>
+              <option value="pv">⚗️ Peroxide Value (PV / Bilangan Peroksida)</option>
+              <option value="sv">🧼 Saponification Value (SV / Bilangan Penyabunan)</option>
+              <option value="mois">💧 Moisture Content (Kadar Air %)</option>
+              <option value="imp">🧫 Impurities Content (Kadar Kotoran %)</option>
+              <option value="salt">🧂 Salt Content (Kadar Garam NaCl %)</option>
+              <option value="lauric">🌴 Lauric Acid % (Asam Laurat GC Area)</option>
+            </select>
+          </div>
+          
+          <button onclick="window.Qc && window.Qc.copyOilSummary()" class="px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5 self-stretch sm:self-auto justify-center">
+            <span>📋</span><span>Salin Semua Ringkasan Uji Minyak (Excel)</span>
           </button>
         </div>
 
-        <!-- 3 Grid Cards (FFA & IV, PV & SV, Moisture & Impurities & Lauric) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          
-          <!-- CARD 1: FFA & IV -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>🧈</span> FFA & Iodine Value (IV)
+        <!-- DEDICATED PARAMETER CARDS (Shown one at a time) -->
+        <div id="qcOilParamCardsContainer">
+
+          <!-- 1. FFA CARD -->
+          <div id="qcOilParamCard_ffa" class="qc-oil-param-card bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>🧈</span> Kadar Asam Lemak Bebas (Free Fatty Acid / FFA)
               </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">Rumus: (V × N × Faktor) / W</span>
             </div>
-            
-            <div class="grid grid-cols-2 gap-2 text-xs">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">FFA Factor</label>
-                <select id="qcFfaFactor" onchange="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-bold text-[11px]">
-                  <option value="25.6">Palmitic / Palm Oil (25.6)</option>
-                  <option value="20.0">Lauric / PKO / Coconut (20.0)</option>
-                  <option value="28.2">Oleic / Soft Oils (28.2)</option>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Jenis Asam Lemak (FFA Factor)</label>
+                <select id="qcFfaFactor" onchange="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-bold text-xs">
+                  <option value="25.6">Palmitic / Palm Oil (Faktor 25.6)</option>
+                  <option value="20.0">Lauric / PKO / Coconut (Faktor 20.0)</option>
+                  <option value="28.2">Oleic / Soft Oils (Faktor 28.2)</option>
                 </select>
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat FFA (g)</label>
-                <input id="qcFfaWeight" type="number" step="0.01" value="3.5241" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sampel Minyak (W - gram)</label>
+                <input id="qcFfaWeight" type="number" step="0.01" value="3.5241" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Normalitas NaOH</label>
-                <input id="qcFfaNorm" type="number" step="0.001" value="0.0997" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Normalitas NaOH / KOH (N)</label>
+                <input id="qcFfaNorm" type="number" step="0.001" value="0.0997" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Titrasi FFA (mL)</label>
-                <input id="qcFfaVol" type="number" step="0.01" value="1.18" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Volume Titrasi NaOH (V - mL)</label>
+                <input id="qcFfaVol" type="number" step="0.01" value="1.18" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
-            <!-- FFA Result Box -->
-            <div class="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-900/40 flex items-center justify-between">
-              <span class="text-[11px] font-bold text-violet-900 dark:text-violet-200">Kadar FFA (%):</span>
-              <span id="qcFfaResult" class="text-sm font-extrabold font-mono text-violet-600 dark:text-violet-400">0.854 %</span>
-            </div>
-
-            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-2 grid grid-cols-2 gap-2 text-xs">
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-violet-900 to-indigo-900 text-white shadow-lg flex items-center justify-between">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat IV (g)</label>
-                <input id="qcIvWeight" type="number" step="0.01" value="0.4098" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-violet-300 block">HASIL PERHITUNGAN KADAR FFA</span>
+                <span id="qcFfaResult" class="text-2xl font-black font-mono text-amber-300">0.854 %</span>
               </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Norm Na2S2O3</label>
-                <input id="qcIvNorm" type="number" step="0.001" value="0.1035" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Blanko (mL)</label>
-                <input id="qcIvBlank" type="number" step="0.01" value="48.45" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Sampel (mL)</label>
-                <input id="qcIvVol" type="number" step="0.01" value="29.95" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-            </div>
-
-            <!-- IV Result Box -->
-            <div class="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/40 flex items-center justify-between">
-              <span class="text-[11px] font-bold text-emerald-900 dark:text-emerald-200">Iodine Value (IV):</span>
-              <span id="qcIvResult" class="text-sm font-extrabold font-mono text-emerald-600 dark:text-emerald-400">59.18 g I2/100g</span>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('FFA', document.getElementById('qcFfaResult').innerText)" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil FFA</span>
+              </button>
             </div>
           </div>
 
-          <!-- CARD 2: PV & SV -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>⚗️</span> Peroxide (PV) & Saponification (SV)
+          <!-- 2. IV CARD -->
+          <div id="qcOilParamCard_iv" class="qc-oil-param-card hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>🧪</span> Bilangan Iodium (Iodine Value / IV)
               </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800">Rumus: ((Vb - Vs) × N × 12.69) / W</span>
             </div>
-            
-            <div class="grid grid-cols-2 gap-2 text-xs">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat PV (g)</label>
-                <input id="qcPvWeight" type="number" step="0.01" value="5.08" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sampel IV (W - gram)</label>
+                <input id="qcIvWeight" type="number" step="0.01" value="0.4098" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Norm Na2S2O3</label>
-                <input id="qcPvNorm" type="number" step="0.0001" value="0.0105" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Normalitas Na2S2O3 (N)</label>
+                <input id="qcIvNorm" type="number" step="0.001" value="0.1035" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Blanko (mL)</label>
-                <input id="qcPvBlank" type="number" step="0.01" value="0.00" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Vol Titrasi Blanko (Vb - mL)</label>
+                <input id="qcIvBlank" type="number" step="0.01" value="48.45" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Sampel (mL)</label>
-                <input id="qcPvVol" type="number" step="0.01" value="7.444" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Vol Titrasi Sampel (Vs - mL)</label>
+                <input id="qcIvVol" type="number" step="0.01" value="29.95" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
-            <!-- PV Result Box -->
-            <div class="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-900/40 flex items-center justify-between">
-              <span class="text-[11px] font-bold text-violet-900 dark:text-violet-200">Peroxide Value (PV):</span>
-              <span id="qcPvResult" class="text-sm font-extrabold font-mono text-violet-600 dark:text-violet-400">15.39 meq/kg</span>
-            </div>
-
-            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-2 grid grid-cols-2 gap-2 text-xs">
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-900 to-teal-900 text-white shadow-lg flex items-center justify-between">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat SV (g)</label>
-                <input id="qcSvWeight" type="number" step="0.01" value="4.042" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-300 block">HASIL PERHITUNGAN IODINE VALUE (IV)</span>
+                <span id="qcIvResult" class="text-2xl font-black font-mono text-amber-300">59.18 g I2/100g</span>
               </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Norm HCl</label>
-                <input id="qcSvNorm" type="number" step="0.001" value="0.5199" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Blanko (mL)</label>
-                <input id="qcSvBlank" type="number" step="0.01" value="42.84" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Sampel (mL)</label>
-                <input id="qcSvVol" type="number" step="0.01" value="15.00" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-            </div>
-
-            <!-- SV Result Box -->
-            <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40 flex items-center justify-between">
-              <span class="text-[11px] font-bold text-amber-900 dark:text-amber-200">Saponification Value:</span>
-              <span id="qcSvResult" class="text-sm font-extrabold font-mono text-amber-600 dark:text-amber-400">200.78 mg KOH/g</span>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('IV', document.getElementById('qcIvResult').innerText)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil IV</span>
+              </button>
             </div>
           </div>
 
-          <!-- CARD 3: MOISTURE, IMPURITIES, SALT & LAURIC -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>🌴</span> Moisture, Impurities, Salt & % Lauric
+          <!-- 3. PV CARD -->
+          <div id="qcOilParamCard_pv" class="qc-oil-param-card hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>⚗️</span> Bilangan Peroksida (Peroxide Value / PV)
               </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">Rumus: ((Vs - Vb) × N × 1000) / W</span>
             </div>
-            
-            <div class="grid grid-cols-3 gap-2 text-xs">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">M0 Sampel (g)</label>
-                <input id="qcMoisWeight" type="number" step="0.01" value="5.0249" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sampel PV (W - gram)</label>
+                <input id="qcPvWeight" type="number" step="0.01" value="5.08" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">W1 Sebelum (g)</label>
-                <input id="qcMoisW1" type="number" step="0.0001" value="135.6610" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Normalitas Na2S2O3 (N)</label>
+                <input id="qcPvNorm" type="number" step="0.0001" value="0.0105" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">W2 Sesudah (g)</label>
-                <input id="qcMoisW2" type="number" step="0.0001" value="135.6463" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Vol Titrasi Blanko (Vb - mL)</label>
+                <input id="qcPvBlank" type="number" step="0.01" value="0.00" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Vol Titrasi Sampel (Vs - mL)</label>
+                <input id="qcPvVol" type="number" step="0.01" value="7.444" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <div class="p-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex justify-between items-center">
-                <span class="font-bold text-zinc-500">Moisture (%):</span>
-                <span id="qcMoisResult" class="font-extrabold font-mono text-emerald-600 dark:text-emerald-400">0.292 %</span>
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-purple-900 to-violet-900 text-white shadow-lg flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-300 block">HASIL PERHITUNGAN PEROXIDE VALUE (PV)</span>
+                <span id="qcPvResult" class="text-2xl font-black font-mono text-amber-300">15.39 meq/kg</span>
               </div>
-              <div class="p-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex justify-between items-center">
-                <span class="font-bold text-zinc-500">Impurities (%):</span>
-                <span id="qcImpResult" class="font-extrabold font-mono text-emerald-600 dark:text-emerald-400">0.019 %</span>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('PV', document.getElementById('qcPvResult').innerText)" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil PV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. SV CARD -->
+          <div id="qcOilParamCard_sv" class="qc-oil-param-card hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>🧼</span> Bilangan Penyabunan (Saponification Value / SV)
+              </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-300 dark:border-amber-800">Rumus: ((Vb - Vs) × N × 56.1) / W</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sampel SV (W - gram)</label>
+                <input id="qcSvWeight" type="number" step="0.01" value="4.042" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Normalitas HCl (N)</label>
+                <input id="qcSvNorm" type="number" step="0.001" value="0.5199" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Vol Titrasi Blanko (Vb - mL)</label>
+                <input id="qcSvBlank" type="number" step="0.01" value="42.84" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Vol Titrasi Sampel (Vs - mL)</label>
+                <input id="qcSvVol" type="number" step="0.01" value="15.00" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
-            <!-- Lauric Acid & Salt Section -->
-            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-2 grid grid-cols-2 gap-2 text-xs">
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-900 to-orange-900 text-white shadow-lg flex items-center justify-between">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Area C12:0 (%) (GC)</label>
-                <input id="qcLauricArea" type="number" step="0.001" value="0.792" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300 block">HASIL PERHITUNGAN SAPONIFICATION VALUE (SV)</span>
+                <span id="qcSvResult" class="text-2xl font-black font-mono text-amber-300">200.78 mg KOH/g</span>
+              </div>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('SV', document.getElementById('qcSvResult').innerText)" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil SV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 5. MOISTURE CARD -->
+          <div id="qcOilParamCard_mois" class="qc-oil-param-card hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>💧</span> Kadar Air (Moisture Content %)
+              </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-300 dark:border-blue-800">Rumus: ((W1 - W2) / M0) × 100</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sampel Minyak (M0 - gram)</label>
+                <input id="qcMoisWeight" type="number" step="0.01" value="5.0249" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Titrasi NaCl (mL)</label>
-                <input id="qcSaltVol" type="number" step="0.01" value="3.00" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sebelum Pengeringan (W1 - g)</label>
+                <input id="qcMoisW1" type="number" step="0.0001" value="135.6610" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Berat Sesudah Pengeringan (W2 - g)</label>
+                <input id="qcMoisW2" type="number" step="0.0001" value="135.6463" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
-            <!-- Lauric Acid Result Box with Spec Badge -->
-            <div class="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/40 flex items-center justify-between">
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-blue-900 to-cyan-900 text-white shadow-lg flex items-center justify-between">
               <div>
-                <span class="text-[11px] font-bold text-emerald-900 dark:text-emerald-200 block">Lauric Acid (%)</span>
-                <span class="text-[9px] text-zinc-500">Spec Max 0.63%</span>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-300 block">HASIL PERHITUNGAN KADAR AIR (MOISTURE)</span>
+                <span id="qcMoisResult" class="text-2xl font-black font-mono text-amber-300">0.292 %</span>
               </div>
-              <div class="flex items-center gap-2">
-                <span id="qcLauricSpecBadge" class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-300 dark:border-rose-800">OUT OF SPEC</span>
-                <span id="qcLauricResult" class="text-sm font-extrabold font-mono text-emerald-600 dark:text-emerald-400">1.678 %</span>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('Moisture', document.getElementById('qcMoisResult').innerText)" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil Moisture</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 6. IMPURITIES CARD -->
+          <div id="qcOilParamCard_imp" class="qc-oil-param-card hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>🧫</span> Kadar Kotoran (Impurities Content %)
+              </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-teal-100 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border border-teal-300 dark:border-teal-800">Rumus: Rasio Kotoran / M0</span>
+            </div>
+
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400">
+              💡 Kadar kotoran dihitung otomatis dari estimasi pengeringan/penyaringan sampel minyak.
+            </div>
+
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-teal-900 to-emerald-900 text-white shadow-lg flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-teal-300 block">HASIL PERHITUNGAN KADAR KOTORAN (IMPURITIES)</span>
+                <span id="qcImpResult" class="text-2xl font-black font-mono text-amber-300">0.019 %</span>
               </div>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('Impurities', document.getElementById('qcImpResult').innerText)" class="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil Impurities</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 7. SALT CARD -->
+          <div id="qcOilParamCard_salt" class="qc-oil-param-card hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>🧂</span> Kadar Garam (Salt Content as NaCl %)
+              </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-300 dark:border-indigo-800">Titrasi AgNO3 / NaCl</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Volume Titrasi AgNO3 0.1N (V - mL)</label>
+                <input id="qcSaltVol" type="number" step="0.01" value="3.00" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+            </div>
+
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-indigo-900 to-violet-900 text-white shadow-lg flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-300 block">VOL TITRASI KADAR GARAM</span>
+                <span id="qcSaltVolDisplay" class="text-2xl font-black font-mono text-amber-300">3.00 mL AgNO3</span>
+              </div>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('Salt Vol', document.getElementById('qcSaltVol').value + ' mL AgNO3')" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil Salt</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 8. LAURIC CARD -->
+          <div id="qcOilParamCard_lauric" class="qc-oil-param-card hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>🌴</span> Kadar Asam Laurat (Lauric Acid % dari GC Area C12:0)
+              </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-300 dark:border-rose-800">Spec Max 0.63%</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Area C12:0 (%) (Hasil Gas Chromatography)</label>
+                <input id="qcLauricArea" type="number" step="0.001" value="0.792" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
+              </div>
+            </div>
+
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-rose-950 to-pink-950 text-white shadow-lg flex items-center justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-300 block">KADAR ASAM LAURAT (LAURIC ACID)</span>
+                  <span id="qcLauricSpecBadge" class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-600 border border-rose-300">OUT OF SPEC</span>
+                </div>
+                <span id="qcLauricResult" class="text-2xl font-black font-mono text-amber-300">1.678 %</span>
+              </div>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('Lauric Acid', document.getElementById('qcLauricResult').innerText)" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil Lauric</span>
+              </button>
             </div>
           </div>
 
@@ -2487,70 +2603,92 @@
       <!-- ===== SUB-TAB 3: WATER QUALITY ANALYTICS ===== -->
       <div id="qcSubTabWater" class="qc-subtab-content hidden space-y-4">
         
-        <!-- Header Copy Summary -->
-        <div class="flex items-center justify-between bg-white dark:bg-zinc-850 p-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-          <span class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200">Kalkulator Analisis Air Process (Chloride & Total Hardness)</span>
-          <button onclick="window.Qc && window.Qc.copyWaterSummary()" class="px-4 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-sm transition-colors flex items-center gap-1.5">
-            <span>📋</span><span>Salin Hasil Uji Air (Excel)</span>
+        <!-- Parameter Selector Dropdown Card -->
+        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="space-y-1 w-full sm:w-1/2">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Pilih Parameter Uji Air yang Ingin Dihitung:</label>
+            <select id="qcWaterParamSelect" onchange="window.Qc && window.Qc.switchWaterParam(this.value)" class="w-full px-3.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
+              <option value="cl">💧 Chloride Content (ppm & as NaCl ppm)</option>
+              <option value="hard">🧱 Total Hardness (Kesadahan Air ppm)</option>
+            </select>
+          </div>
+          
+          <button onclick="window.Qc && window.Qc.copyWaterSummary()" class="px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5 self-stretch sm:self-auto justify-center">
+            <span>📋</span><span>Salin Ringkasan Uji Air (Excel)</span>
           </button>
         </div>
 
-        <!-- 2 Water Cards (Chloride & Hardness) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-          <!-- WATER CARD 1: CHLORIDE -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5 border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <span>💧</span> Chloride Content (Air)
-            </h3>
-            
-            <div class="space-y-2 text-xs">
+        <!-- DEDICATED WATER PARAMETER CARDS -->
+        <div id="qcWaterParamCardsContainer">
+
+          <!-- 1. CHLORIDE CARD -->
+          <div id="qcWaterParamCard_cl" class="qc-water-param-card bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>💧</span> Kadar Klorida (Chloride Content Air Process)
+              </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">Rumus: (V × N × 35450) / Vsamp</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Volume Sampel Air (mL)</label>
-                <input id="qcWaterClVolSamp" type="number" step="0.1" value="5.13" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Volume Sampel Air (Vsamp - mL)</label>
+                <input id="qcWaterClVolSamp" type="number" step="0.1" value="5.13" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Normalitas AgNO3</label>
-                <input id="qcWaterClNorm" type="number" step="0.001" value="0.0981" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Normalitas AgNO3 (N)</label>
+                <input id="qcWaterClNorm" type="number" step="0.001" value="0.0981" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Titrasi (mL)</label>
-                <input id="qcWaterClVolTit" type="number" step="0.01" value="1.05" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Vol Titrasi AgNO3 (V - mL)</label>
+                <input id="qcWaterClVolTit" type="number" step="0.01" value="1.05" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
-            <div class="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-900/40 space-y-1">
-              <div class="flex justify-between items-center text-xs">
-                <span class="font-bold text-violet-900 dark:text-violet-200">Chloride (ppm):</span>
-                <span id="qcWaterClPpmResult" class="font-extrabold font-mono text-violet-600 dark:text-violet-400">677.27 ppm</span>
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-violet-900 to-indigo-900 text-white shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="space-y-1">
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-violet-300 block">HASIL PERHITUNGAN CHLORIDE</span>
+                <div class="flex items-baseline gap-4">
+                  <span id="qcWaterClPpmResult" class="text-2xl font-black font-mono text-amber-300">677.27 ppm</span>
+                  <span class="text-xs text-violet-200">as NaCl: <strong id="qcWaterNaclPpmResult" class="text-amber-300 font-mono">1116.68 ppm</strong></span>
+                </div>
               </div>
-              <div class="flex justify-between items-center text-xs">
-                <span class="font-bold text-violet-900 dark:text-violet-200">as NaCl (ppm):</span>
-                <span id="qcWaterNaclPpmResult" class="font-extrabold font-mono text-violet-600 dark:text-violet-400">1116.68 ppm</span>
-              </div>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('Chloride', document.getElementById('qcWaterClPpmResult').innerText + ' (as NaCl: ' + document.getElementById('qcWaterNaclPpmResult').innerText + ')')" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil Chloride</span>
+              </button>
             </div>
           </div>
 
-          <!-- WATER CARD 2: HARDNESS -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5 border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <span>🧱</span> Hardness (Kesadahan Air)
-            </h3>
-            
-            <div class="space-y-2 text-xs">
+          <!-- 2. HARDNESS CARD -->
+          <div id="qcWaterParamCard_hard" class="qc-water-param-card hidden bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-5">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
+              <h3 class="text-sm font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
+                <span>🧱</span> Total Hardness (Kesadahan Air Process)
+              </h3>
+              <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-300 dark:border-amber-800">Rumus: V_EDTA × Faktor</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Titrasi EDTA (mL)</label>
-                <input id="qcWaterHardEdta" type="number" step="0.01" value="0.06" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Vol Titrasi EDTA (mL)</label>
+                <input id="qcWaterHardEdta" type="number" step="0.01" value="0.06" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Faktor Kesadahan Air</label>
-                <input id="qcWaterHardFactor" type="number" step="0.1" value="41.2" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 mb-1">Faktor Kesadahan Air (Standard 41.2)</label>
+                <input id="qcWaterHardFactor" type="number" step="0.1" value="41.2" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-xs">
               </div>
             </div>
 
-            <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40 flex items-center justify-between">
-              <span class="text-[11px] font-bold text-amber-900 dark:text-amber-200">Total Hardness:</span>
-              <span id="qcWaterHardResult" class="text-sm font-extrabold font-mono text-amber-600 dark:text-amber-400">2.47 ppm</span>
+            <!-- Prominent Result Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-900 to-orange-900 text-white shadow-lg flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300 block">HASIL PERHITUNGAN TOTAL HARDNESS</span>
+                <span id="qcWaterHardResult" class="text-2xl font-black font-mono text-amber-300">2.47 ppm</span>
+              </div>
+              <button onclick="window.Qc && window.Qc.copySingleParamResult('Total Hardness', document.getElementById('qcWaterHardResult').innerText)" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1.5">
+                <span>📋</span><span>Salin Hasil Hardness</span>
+              </button>
             </div>
           </div>
 
@@ -8358,6 +8496,24 @@ const Qc = {
     if (hardEl) hardEl.innerText = `${hardPpm.toFixed(2)} ppm`;
   },
 
+  switchOilParam(paramKey) {
+    document.querySelectorAll('.qc-oil-param-card').forEach(card => card.classList.add('hidden'));
+    const targetCard = document.getElementById(`qcOilParamCard_${paramKey}`);
+    if (targetCard) targetCard.classList.remove('hidden');
+  },
+
+  switchWaterParam(paramKey) {
+    document.querySelectorAll('.qc-water-param-card').forEach(card => card.classList.add('hidden'));
+    const targetCard = document.getElementById(`qcWaterParamCard_${paramKey}`);
+    if (targetCard) targetCard.classList.remove('hidden');
+  },
+
+  copySingleParamResult(paramName, resultValue) {
+    const text = `HASIL UJI QC - ${paramName}: ${resultValue}`;
+    navigator.clipboard.writeText(text);
+    if (window.showToast) window.showToast(`✔ Hasil ${paramName} (${resultValue}) disalin!`);
+  },
+
   copyWaterSummary() {
     this.calcWater();
     const text = `PARAMETER ANALISIS AIR PROCESS (WATER QUALITY - QC LAB)\n` +
@@ -8532,7 +8688,7 @@ class CustomSelect {
 window.CustomSelect = CustomSelect;
 
 // Instantiate custom dropdown selectors
-const customSelectIds = ['extractorSaveType', 'dataTypeFilter', 'dataSingleType', 'diffPredSource', 'qcReagentSelect', 'qcFfaFactor'];
+const customSelectIds = ['extractorSaveType', 'dataTypeFilter', 'dataSingleType', 'diffPredSource', 'qcReagentSelect', 'qcFfaFactor', 'qcOilParamSelect', 'qcWaterParamSelect'];
 customSelectIds.forEach(id => {
   const el = document.getElementById(id);
   if (el) new CustomSelect(el);
