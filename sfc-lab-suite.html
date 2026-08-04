@@ -364,6 +364,10 @@
       position: relative;
       display: inline-flex;
       align-items: center;
+      text-transform: none !important;
+    }
+    .tooltip-container span {
+      text-transform: lowercase !important;
     }
     .tooltip-text {
       visibility: hidden;
@@ -1623,7 +1627,7 @@
                   
                   <!-- Circle i Info Button with Tooltip -->
                   <div class="tooltip-container group cursor-pointer select-none">
-                    <span id="facMatrixInfoBtn" class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[9px] font-black flex items-center justify-center transition-colors">i</span>
+                    <span id="facMatrixInfoBtn" class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] font-serif italic font-bold flex items-center justify-center transition-colors lowercase normal-case leading-none">i</span>
                     <div id="facMatrixTooltipText" class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5">
                       <!-- Diisi via JS -->
                     </div>
@@ -1643,7 +1647,7 @@
                 <div class="flex items-center justify-center gap-1 w-full">
                   <span class="block text-[8.5px] font-extrabold text-zinc-600 dark:text-zinc-350 uppercase tracking-tight truncate">% LAURIC</span>
                   <div class="tooltip-container group cursor-pointer select-none">
-                    <span id="facLauricInfoBtn" class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                    <span id="facLauricInfoBtn" class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] font-serif italic font-bold flex items-center justify-center transition-colors lowercase normal-case leading-none">i</span>
                     <div id="facLauricTooltipText" class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2 text-left">
                       <strong>Kalkulasi % Lauric</strong><br>
                       <code>% Lauric = (C12:0 / 47.2) × 100</code><br>
@@ -1722,7 +1726,7 @@
                       <div class="flex items-center justify-center gap-1">
                         <span onclick="window.Fac && window.Fac.copyColumn(0)" title="Klik untuk menyalin kolom Peak" class="cursor-pointer hover:underline">Peak</span>
                         <div class="tooltip-container group cursor-pointer select-none">
-                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] font-serif italic font-bold flex items-center justify-center transition-colors lowercase normal-case leading-none">i</span>
                           <div class="tooltip-text tooltip-multiline tooltip-left-aligned shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-60 leading-normal font-normal normal-case">
                             <strong class="text-emerald-400">Nomor Puncak (Peak No):</strong><br>
                             Nomor urut puncak kromatogram yang terdeteksi oleh detektor GC-FID berdasarkan urutan waktu elusi komponen.
@@ -1734,7 +1738,7 @@
                       <div class="flex items-center justify-center gap-1">
                         <span onclick="window.Fac && window.Fac.copyColumn(1)" title="Klik untuk menyalin kolom RetTime" class="cursor-pointer hover:underline">RetTime (min)</span>
                         <div class="tooltip-container group cursor-pointer select-none">
-                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] font-serif italic font-bold flex items-center justify-center transition-colors lowercase normal-case leading-none">i</span>
                           <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-60 leading-normal">
                             <strong class="text-emerald-400">Waktu Retensi (Retention Time):</strong><br>
                             Waktu (dalam menit) yang dibutuhkan molekul sampel sejak diinjeksi hingga terdeteksi keluar dari kolom kapiler.
@@ -1746,7 +1750,7 @@
                       <div class="flex items-center justify-center gap-1">
                         <span onclick="window.Fac && window.Fac.copyColumn(2)" title="Klik untuk menyalin kolom Type" class="cursor-pointer hover:underline">Type</span>
                         <div class="tooltip-container group cursor-pointer select-none">
-                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] font-serif italic font-bold flex items-center justify-center transition-colors lowercase normal-case leading-none">i</span>
                           <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-64 leading-normal">
                             <strong class="text-emerald-400">Tipe Integrasi Puncak GC (Type):</strong><br>
                             • <strong>BB</strong>: Baseline to Baseline (Awal & akhir integrasi di garis dasar).<br>
@@ -1761,7 +1765,7 @@
                       <div class="flex items-center justify-center gap-1">
                         <span onclick="window.Fac && window.Fac.copyColumn(3)" title="Klik untuk menyalin kolom Width" class="cursor-pointer hover:underline">Width (min)</span>
                         <div class="tooltip-container group cursor-pointer select-none">
-                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] font-serif italic font-bold flex items-center justify-center transition-colors lowercase normal-case leading-none">i</span>
                           <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-60 leading-normal">
                             <strong class="text-emerald-400">Lebar Puncak (Peak Width):</strong><br>
                             Lebar puncak kromatogram pada 50% tinggi puncak (menit). Menggambarkan efisiensi pemisahan kolom & simetri puncak.
@@ -1773,7 +1777,7 @@
                       <div class="flex items-center justify-center gap-1">
                         <span onclick="window.Fac && window.Fac.copyColumn(4)" title="Klik untuk menyalin kolom Area" class="cursor-pointer hover:underline">Area (pA*s)</span>
                         <div class="tooltip-container group cursor-pointer select-none">
-                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] font-serif italic font-bold flex items-center justify-center transition-colors lowercase normal-case leading-none">i</span>
                           <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-64 leading-normal">
                             <strong class="text-emerald-400">Luas Area Puncak (Peak Area):</strong><br>
                             Total luas di bawah kurva puncak (pA*s). Berbanding lurus dengan kuantitas massa molekul sampel yang melintasi detektor FID.
@@ -1785,7 +1789,7 @@
                       <div class="flex items-center justify-center gap-1">
                         <span onclick="window.Fac && window.Fac.copyColumn(5)" title="Klik untuk menyalin kolom Area%" class="cursor-pointer hover:underline">Area (%)</span>
                         <div class="tooltip-container group cursor-pointer select-none">
-                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[10px] font-serif italic font-bold flex items-center justify-center transition-colors lowercase normal-case leading-none">i</span>
                           <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-64 leading-normal">
                             <strong class="text-emerald-400">Persentase Area (Area %):</strong><br>
                             Persentase luas puncak terhadap total luas seluruh puncak. Menggambarkan komposisi relatif massa asam lemak dalam sampel.
