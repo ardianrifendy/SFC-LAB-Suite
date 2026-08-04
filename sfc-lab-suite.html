@@ -242,6 +242,26 @@
       margin-right: 0.5rem;
     }
     
+    /* Eliminasi Native Browser Select Arrow & Number Spinners */
+    select {
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: right 0.6rem center !important;
+      background-size: 0.8rem 0.8rem !important;
+      padding-right: 1.75rem !important;
+    }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none !important;
+      margin: 0 !important;
+    }
+    input[type=number] {
+      -moz-appearance: textfield !important;
+    }
+
     /* High-contrast Input & Select Focus States */
     input[type="text"], input[type="number"], input[type="date"], select, textarea {
       transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
@@ -276,19 +296,19 @@
       background: rgba(16, 185, 129, 0.5) !important;
     }
 
-    /* Table Styling Enhancements (Zebra Striping, Thin Borders, Small Bold Headers) */
+    /* Table Styling Enhancements (Zebra Striping, Thin Borders, Compact Padding) */
     table {
       border-collapse: collapse;
       width: 100%;
     }
     th {
-      font-size: 10px !important;
-      font-weight: 700 !important;
+      font-size: 9.5px !important;
+      font-weight: 800 !important;
       text-transform: uppercase !important;
       letter-spacing: 0.05em !important;
       color: #71717a !important; /* zinc-500 */
       background-color: #f4f4f5 !important; /* zinc-100 */
-      padding: 0.625rem 0.75rem !important; /* py-2.5 px-3 */
+      padding: 0.45rem 0.6rem !important; /* py-1.5 px-2.5 */
       border-bottom: 1px solid #e4e4e7 !important; /* zinc-200 */
     }
     .dark th {
@@ -297,7 +317,7 @@
       border-bottom: 1px solid #27272a !important; /* zinc-800 */
     }
     td {
-      padding: 0.625rem 0.75rem !important; /* py-2.5 px-3 */
+      padding: 0.35rem 0.5rem !important; /* py-1.5 px-2 */
       border-bottom: 1px solid rgba(228, 228, 231, 0.4) !important; /* zinc-200/40 */
       font-size: 0.75rem !important; /* text-xs */
     }
@@ -2298,7 +2318,7 @@
             </div>
             <div class="flex items-center gap-2">
               <button onclick="window.Qc && window.Qc.reset10ReagentStdRows()" class="px-3.5 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors">
-                ⚡ Reset 10 Titrasi
+                ⚡ Reset 5 Titrasi
               </button>
               <button onclick="window.Qc && window.Qc.copyReagentStdTable()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors">
                 📋 Copy Excel
@@ -2367,7 +2387,7 @@
                 <span>➕</span><span>Tambah Baris</span>
               </button>
               <button onclick="window.Qc && window.Qc.reset10OilRows()" class="px-3.5 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
-                <span>⚡</span><span>Reset 10 Sampel</span>
+                <span>⚡</span><span>Reset 5 Sampel</span>
               </button>
               <button onclick="window.Qc && window.Qc.copyOilTable()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
                 <span>📋</span><span>Copy Tabel Excel</span>
@@ -2431,7 +2451,7 @@
                 <span>➕</span><span>Tambah Baris</span>
               </button>
               <button onclick="window.Qc && window.Qc.reset10WaterRows()" class="px-3.5 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
-                <span>⚡</span><span>Reset 10 Sampel</span>
+                <span>⚡</span><span>Reset 5 Sampel</span>
               </button>
               <button onclick="window.Qc && window.Qc.copyWaterTable()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
                 <span>📋</span><span>Copy Tabel Excel</span>
@@ -8483,16 +8503,15 @@ const Qc = {
     this.reset10OilRows();
   },
 
-  reset10OilRows() {
+  reset5OilRows() {
     const param = this.activeOilParam;
     const sampleNames = [
       "Tangki CPO #01 (Import)", "Tangki CPO #02 (Refinery Feed)", "Tangki RBDPO #03", 
-      "Tangki Olein #04", "Tangki Stearin #05", "PFAD Batch A", "PKFAD Batch B",
-      "Line Production 1", "Line Production 2", "Dispatch Sample #10"
+      "Tangki Olein #04", "Tangki Stearin #05"
     ];
 
     this.oilRows = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       let r = { id: Date.now() + i, name: sampleNames[i] };
       if (param === 'ffa') {
         r.factor = 25.6;
@@ -8548,6 +8567,10 @@ const Qc = {
     this.renderOilTable();
   },
 
+  reset10OilRows() {
+    this.reset5OilRows();
+  },
+
   addOilRow() {
     const param = this.activeOilParam;
     const nextNo = this.oilRows.length + 1;
@@ -8589,12 +8612,12 @@ const Qc = {
     // 1. Render Formula Info Header
     let formulaText = "";
     if (param === 'ffa') formulaText = "<strong>Rumus FFA (%):</strong> (Volume Titrasi × Norm NaOH × Faktor FFA) / Berat Sampel";
-    else if (param === 'iv') formulaText = "<strong>Rumus IV (g I2/100g):</strong> ((Vol Blanko - Vol Sampel) × Norm Na2S2O3 × 12.69) / Berat Sampel";
-    else if (param === 'pv') formulaText = "<strong>Rumus PV (meq/kg):</strong> ((Vol Sampel - Vol Blanko) × Norm Na2S2O3 × 1000) / Berat Sampel";
+    else if (param === 'iv') formulaText = "<strong>Rumus IV (g I₂/100g):</strong> ((Vol Blanko - Vol Sampel) × Norm Na₂S₂O₃ × 12.69) / Berat Sampel";
+    else if (param === 'pv') formulaText = "<strong>Rumus PV (meq/kg):</strong> ((Vol Sampel - Vol Blanko) × Norm Na₂S₂O₃ × 1000) / Berat Sampel";
     else if (param === 'sv') formulaText = "<strong>Rumus SV (mg KOH/g):</strong> ((Vol Blanko - Vol Sampel) × Norm HCl × 56.1) / Berat Sampel";
     else if (param === 'mois') formulaText = "<strong>Rumus Moisture (%):</strong> ((Berat Awal W1 - Berat Akhir W2) / Berat Sampel M0) × 100";
     else if (param === 'imp') formulaText = "<strong>Rumus Impurities (%):</strong> ((Berat Kertas Akhir W2 - Berat Kertas Awal W1) / Berat Sampel M0) × 100";
-    else if (param === 'salt') formulaText = "<strong>Rumus Salt Content (%):</strong> (Volume Titrasi AgNO3 × Norm AgNO3 × 5.85) / Berat Sampel";
+    else if (param === 'salt') formulaText = "<strong>Rumus Salt Content (%):</strong> (Volume Titrasi AgNO₃ × Norm AgNO₃ × 5.85) / Berat Sampel";
     else if (param === 'lauric') formulaText = "<strong>Rumus Lauric Acid (%):</strong> GC Area C12:0 (%) × 2.1189";
     else if (param === 'p_spektro') {
       const c = this.curves.p_spektro || { slope: 25, intercept: 0 };
@@ -8608,19 +8631,19 @@ const Qc = {
 
     // 2. Render Table Headers
     let cols = [];
-    if (param === 'ffa') cols = ["No", "Nama / ID Sampel Tangki", "Jenis FFA (Faktor)", "Berat W (g)", "Norm N", "Vol V (mL)", "FFA (%)", "Status Quality", "Aksi"];
-    else if (param === 'iv') cols = ["No", "Nama / ID Sampel Tangki", "Berat W (g)", "Norm N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "IV (g I2/100g)", "Status Quality", "Aksi"];
-    else if (param === 'pv') cols = ["No", "Nama / ID Sampel Tangki", "Berat W (g)", "Norm N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "PV (meq/kg)", "Status Quality", "Aksi"];
-    else if (param === 'sv') cols = ["No", "Nama / ID Sampel Tangki", "Berat W (g)", "Norm N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "SV (mg KOH/g)", "Status Quality", "Aksi"];
-    else if (param === 'mois') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel M0 (g)", "Berat Awal W1 (g)", "Berat Akhir W2 (g)", "Moisture (%)", "Status Quality", "Aksi"];
-    else if (param === 'imp') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel M0 (g)", "Kertas Awal W1 (g)", "Kertas Akhir W2 (g)", "Impurities (%)", "Status Quality", "Aksi"];
-    else if (param === 'salt') cols = ["No", "Nama / ID Sampel Tangki", "Berat W (g)", "Norm N", "Vol Titrasi V (mL)", "Salt NaCl (%)", "Status Quality", "Aksi"];
+    if (param === 'ffa') cols = ["No", "Nama / ID Sampel Tangki", "Jenis FFA (Faktor)", "Berat Sampel W (g)", "Norm Titran N", "Vol Titran V (mL)", "Kadar FFA (%)", "Status Quality", "Aksi"];
+    else if (param === 'iv') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Norm Na₂S₂O₃ N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "Hasil IV (g I₂/100g)", "Status Quality", "Aksi"];
+    else if (param === 'pv') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Norm Na₂S₂O₃ N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "Hasil PV (meq/kg)", "Status Quality", "Aksi"];
+    else if (param === 'sv') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Norm HCl N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "Hasil SV (mg KOH/g)", "Status Quality", "Aksi"];
+    else if (param === 'mois') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel M0 (g)", "Berat Awal W1 (g)", "Berat Akhir W2 (g)", "Kadar Moisture (%)", "Status Quality", "Aksi"];
+    else if (param === 'imp') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel M0 (g)", "Kertas Awal W1 (g)", "Kertas Akhir W2 (g)", "Kadar Impurities (%)", "Status Quality", "Aksi"];
+    else if (param === 'salt') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Norm AgNO₃ N", "Vol Titran V (mL)", "Kadar Salt NaCl (%)", "Status Quality", "Aksi"];
     else if (param === 'lauric') cols = ["No", "Nama / ID Sampel Tangki", "GC Area C12:0 (%)", "Lauric Acid (%)", "Status Quality", "Aksi"];
-    else if (param === 'p_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat W (g)", "Vol Labu VP (mL)", "Abs Blanko A0", "Abs Sampel A1", "Phosphorus (ppm)", "Status Quality", "Aksi"];
-    else if (param === 'av_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat W (g)", "Vol Labu VP (mL)", "Abs Blanko Ab", "Abs Reagen Ax", "Anisidine (AV)", "Status Quality", "Aksi"];
-    else if (param === 'dobi_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat W (g)", "Abs 446 nm", "Abs 350 nm", "DOBI", "Carotene (ppm)", "Status Quality", "Aksi"];
+    else if (param === 'p_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Vol Labu VP (mL)", "Abs Blanko A₀", "Abs Sampel A₁", "Fosfor (P ppm)", "Status Quality", "Aksi"];
+    else if (param === 'av_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Vol Labu VP (mL)", "Abs Blanko Ab", "Abs Reagen Ax", "Anisidine (AV)", "Status Quality", "Aksi"];
+    else if (param === 'dobi_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Abs 446 nm", "Abs 350 nm", "Rasio DOBI", "Carotene (ppm)", "Status Quality", "Aksi"];
 
-    thead.innerHTML = `<tr>` + cols.map((c, i) => `<th class="px-3 py-2.5 ${i===0||i===cols.length-1?'text-center w-10':'min-w-[120px]'}">${c}</th>`).join('') + `</tr>`;
+    thead.innerHTML = `<tr>` + cols.map((c, i) => `<th class="px-2.5 py-1.5 ${i===0||i===cols.length-1?'text-center w-8':'min-w-[110px]'}">${c}</th>`).join('') + `</tr>`;
 
     // 3. Render Table Rows & Calculations
     let totalVal = 0;
@@ -8692,76 +8715,79 @@ const Qc = {
       }
       if (isOut) outOfSpecCount++;
 
+      const inpCls = "w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500";
+      const selCls = "w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500 cursor-pointer";
+
       let inputsHtml = "";
       if (param === 'ffa') {
         inputsHtml = `
-          <td class="px-3 py-2">
-            <select onchange="window.Qc.oilRows[${idx}].factor=parseFloat(this.value); window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
+          <td class="px-2 py-1">
+            <select onchange="window.Qc.oilRows[${idx}].factor=parseFloat(this.value); window.Qc.renderOilTable();" class="${selCls}">
               <option value="25.6" ${r.factor===25.6?'selected':''}>Palmitic (25.6)</option>
               <option value="20.0" ${r.factor===20.0?'selected':''}>Lauric (20.0)</option>
               <option value="28.2" ${r.factor===28.2?'selected':''}>Oleic (28.2)</option>
             </select>
           </td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.oilRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.oilRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'iv') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'pv') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'sv') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'mois' || param === 'imp') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.m0}" oninput="window.Qc.oilRows[${idx}].m0=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.0001" value="${r.w1}" oninput="window.Qc.oilRows[${idx}].w1=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.0001" value="${r.w2}" oninput="window.Qc.oilRows[${idx}].w2=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.m0}" oninput="window.Qc.oilRows[${idx}].m0=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.0001" value="${r.w1}" oninput="window.Qc.oilRows[${idx}].w1=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.0001" value="${r.w2}" oninput="window.Qc.oilRows[${idx}].w2=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'salt') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.oilRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.oilRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'lauric') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.area}" oninput="window.Qc.oilRows[${idx}].area=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.area}" oninput="window.Qc.oilRows[${idx}].area=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'p_spektro') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="1" value="${r.vp}" oninput="window.Qc.oilRows[${idx}].vp=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.a0}" oninput="window.Qc.oilRows[${idx}].a0=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.a1}" oninput="window.Qc.oilRows[${idx}].a1=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="1" value="${r.vp}" oninput="window.Qc.oilRows[${idx}].vp=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a0}" oninput="window.Qc.oilRows[${idx}].a0=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a1}" oninput="window.Qc.oilRows[${idx}].a1=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'av_spektro') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="1" value="${r.vp}" oninput="window.Qc.oilRows[${idx}].vp=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.ab}" oninput="window.Qc.oilRows[${idx}].ab=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.ax}" oninput="window.Qc.oilRows[${idx}].ax=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="1" value="${r.vp}" oninput="window.Qc.oilRows[${idx}].vp=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.ab}" oninput="window.Qc.oilRows[${idx}].ab=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.ax}" oninput="window.Qc.oilRows[${idx}].ax=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'dobi_spektro') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.0001" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.a446}" oninput="window.Qc.oilRows[${idx}].a446=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.a350}" oninput="window.Qc.oilRows[${idx}].a350=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.0001" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a446}" oninput="window.Qc.oilRows[${idx}].a446=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a350}" oninput="window.Qc.oilRows[${idx}].a350=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
         `;
       }
 
@@ -8770,19 +8796,19 @@ const Qc = {
         : `${calcRes.toFixed(param === 'mois' || param === 'imp' || param === 'lauric' ? 3 : 2)} ${unit}`;
 
       const statusBadge = isOut
-        ? `<span class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-300">OUT OF SPEC</span>`
-        : `<span class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300">IN SPEC</span>`;
+        ? `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-300">OUT OF SPEC</span>`
+        : `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300">IN SPEC</span>`;
 
       return `
         <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors">
-          <td class="px-3 py-2 text-center font-bold text-zinc-400">${idx + 1}</td>
-          <td class="px-3 py-2">
-            <input type="text" value="${r.name}" onchange="window.Qc.oilRows[${idx}].name=this.value" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
+          <td class="px-2 py-1 text-center font-bold text-zinc-400">${idx + 1}</td>
+          <td class="px-2 py-1">
+            <input type="text" value="${r.name}" onchange="window.Qc.oilRows[${idx}].name=this.value" class="w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
           </td>
           ${inputsHtml}
-          <td class="px-3 py-2 font-mono font-black text-amber-500 text-sm">${resDisplay}</td>
-          <td class="px-3 py-2">${statusBadge}</td>
-          <td class="px-3 py-2 text-center">
+          <td class="px-2 py-1 font-mono font-black text-amber-500 text-xs">${resDisplay}</td>
+          <td class="px-2 py-1">${statusBadge}</td>
+          <td class="px-2 py-1 text-center">
             <button onclick="window.Qc.removeOilRow(${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs font-bold" title="Hapus Baris">🗑️</button>
           </td>
         </tr>
@@ -8831,19 +8857,18 @@ const Qc = {
         curveBtn.classList.add('hidden');
       }
     }
-    this.reset10WaterRows();
+    this.reset5WaterRows();
   },
 
-  reset10WaterRows() {
+  reset5WaterRows() {
     const param = this.activeWaterParam;
     const sampleNames = [
       "Water Feed Tank #01", "Boiler Water Line 1", "Boiler Water Line 2",
-      "Cooling Tower A", "Cooling Tower B", "RO Permeate Tank", "Demin Water Tank",
-      "Effluent Discharge", "Raw Water Intake", "Process Water Line #10"
+      "Cooling Tower A", "RO Permeate Tank"
     ];
 
     this.waterRows = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       let r = { id: Date.now() + i, name: sampleNames[i] };
       if (param === 'cl') {
         r.vsamp = 5.0;
@@ -8861,6 +8886,10 @@ const Qc = {
       this.waterRows.push(r);
     }
     this.renderWaterTable();
+  },
+
+  reset10WaterRows() {
+    this.reset5WaterRows();
   },
 
   addWaterRow() {
@@ -8894,7 +8923,7 @@ const Qc = {
     if (!thead || !tbody) return;
 
     let formulaText = "";
-    if (param === 'cl') formulaText = "<strong>Rumus Chloride (ppm):</strong> (Volume Titrasi AgNO3 × Norm AgNO3 × 35450) / Volume Sampel Air | <strong>as NaCl:</strong> Chloride ppm × 1.6488";
+    if (param === 'cl') formulaText = "<strong>Rumus Chloride (ppm):</strong> (Volume Titrasi AgNO₃ × Norm AgNO₃ × 35450) / Volume Sampel Air | <strong>as NaCl:</strong> Chloride ppm × 1.6488";
     else if (param === 'hard') formulaText = "<strong>Rumus Total Hardness (ppm):</strong> Volume Titrasi EDTA × Faktor Kesadahan (41.2)";
     else if (param === 'cl_spektro') {
       const c = this.curves.cl_spektro || { slope: 50, intercept: 0 };
@@ -8904,11 +8933,11 @@ const Qc = {
     if (badgeBar) badgeBar.innerHTML = `<span>${formulaText}</span><span class="px-2.5 py-0.5 rounded-full bg-violet-200 dark:bg-violet-900 text-violet-800 dark:text-violet-200 font-extrabold text-[10px]">Real-Time Sync</span>`;
 
     let cols = [];
-    if (param === 'cl') cols = ["No", "Nama / ID Sampel Air", "Vol Sampel Vsamp (mL)", "Norm AgNO3 N", "Vol Titrasi V (mL)", "Chloride (ppm)", "as NaCl (ppm)", "Aksi"];
+    if (param === 'cl') cols = ["No", "Nama / ID Sampel Air", "Vol Sampel Vsamp (mL)", "Norm AgNO₃ N", "Vol Titran V (mL)", "Klorida (ppm Cl⁻)", "as NaCl (ppm)", "Aksi"];
     else if (param === 'hard') cols = ["No", "Nama / ID Sampel Air", "Vol Sampel Vsamp (mL)", "Vol EDTA V (mL)", "Faktor Hardness", "Total Hardness (ppm)", "Aksi"];
-    else if (param === 'cl_spektro') cols = ["No", "Nama / ID Sampel Air", "Vol Sampel Vsamp (mL)", "Abs Blanko A0", "Abs Sampel A1", "Chloride Spektro (ppm)", "Aksi"];
+    else if (param === 'cl_spektro') cols = ["No", "Nama / ID Sampel Air", "Vol Sampel Vsamp (mL)", "Abs Blanko A₀", "Abs Sampel A₁", "Chloride Spektro (ppm)", "Aksi"];
 
-    thead.innerHTML = `<tr>` + cols.map((c, i) => `<th class="px-3 py-2.5 ${i===0||i===cols.length-1?'text-center w-10':'min-w-[120px]'}">${c}</th>`).join('') + `</tr>`;
+    thead.innerHTML = `<tr>` + cols.map((c, i) => `<th class="px-2.5 py-1.5 ${i===0||i===cols.length-1?'text-center w-8':'min-w-[110px]'}">${c}</th>`).join('') + `</tr>`;
 
     let totalVal = 0;
     let minVal = Infinity;
@@ -8935,40 +8964,42 @@ const Qc = {
         if (calcRes > maxVal) maxVal = calcRes;
       }
 
+      const inpCls = "w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500";
+
       let inputsHtml = "";
       if (param === 'cl') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.waterRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.waterRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.waterRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.waterRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'hard') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.waterRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.1" value="${r.factor}" oninput="window.Qc.waterRows[${idx}].factor=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.waterRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.1" value="${r.factor}" oninput="window.Qc.waterRows[${idx}].factor=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
         `;
       } else if (param === 'cl_spektro') {
         inputsHtml = `
-          <td class="px-3 py-2"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.a0}" oninput="window.Qc.waterRows[${idx}].a0=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
-          <td class="px-3 py-2"><input type="number" step="0.001" value="${r.a1}" oninput="window.Qc.waterRows[${idx}].a1=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs"></td>
+          <td class="px-2 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a0}" oninput="window.Qc.waterRows[${idx}].a0=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a1}" oninput="window.Qc.waterRows[${idx}].a1=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
         `;
       }
 
       const resDisplay = `${calcRes.toFixed(2)} ppm`;
-      const secondDisplay = secondRes !== null ? `<td class="px-3 py-2 font-mono font-bold text-violet-400 text-xs">${secondRes.toFixed(2)} ppm</td>` : "";
+      const secondDisplay = secondRes !== null ? `<td class="px-2 py-1 font-mono font-bold text-violet-400 text-xs">${secondRes.toFixed(2)} ppm</td>` : "";
 
       return `
         <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors">
-          <td class="px-3 py-2 text-center font-bold text-zinc-400">${idx + 1}</td>
-          <td class="px-3 py-2">
-            <input type="text" value="${r.name}" onchange="window.Qc.waterRows[${idx}].name=this.value" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
+          <td class="px-2 py-1 text-center font-bold text-zinc-400">${idx + 1}</td>
+          <td class="px-2 py-1">
+            <input type="text" value="${r.name}" onchange="window.Qc.waterRows[${idx}].name=this.value" class="w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
           </td>
           ${inputsHtml}
-          <td class="px-3 py-2 font-mono font-black text-amber-500 text-sm">${resDisplay}</td>
+          <td class="px-2 py-1 font-mono font-black text-amber-500 text-xs">${resDisplay}</td>
           ${secondDisplay}
-          <td class="px-3 py-2 text-center">
+          <td class="px-2 py-1 text-center">
             <button onclick="window.Qc.removeWaterRow(${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs font-bold" title="Hapus Baris">🗑️</button>
           </td>
         </tr>
@@ -9000,20 +9031,19 @@ const Qc = {
   },
 
   // REAGENT STANDARDIZATION LOGIC
-  reset10ReagentStdRows() {
+  reset5ReagentStdRows() {
     this.reagentStdRows = [
       { id: 1, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1025, v: 20.59 },
       { id: 2, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1040, v: 21.25 },
       { id: 3, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1045, v: 21.04 },
-      { id: 4, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1002, v: 20.78 },
-      { id: 5, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0143, v: 25.20 },
-      { id: 6, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0119, v: 21.10 },
-      { id: 7, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0118, v: 21.30 },
-      { id: 8, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0188, v: 31.40 },
-      { id: 9, std: "NaOH 0.1N (KHP Standard)", w: 0.2045, v: 10.15 },
-      { id: 10, std: "HCl 0.5N (Na2CO3 Standard)", w: 0.2650, v: 10.20 }
+      { id: 4, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0143, v: 25.20 },
+      { id: 5, std: "NaOH 0.1N (KHP Standard)", w: 0.2045, v: 10.15 }
     ];
     this.renderReagentStdTable();
+  },
+
+  reset10ReagentStdRows() {
+    this.reset5ReagentStdRows();
   },
 
   renderReagentStdTable() {
@@ -9024,6 +9054,8 @@ const Qc = {
     let totalNorm = 0;
     let count = this.reagentStdRows.length;
 
+    const inpCls = "w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500";
+
     tbody.innerHTML = this.reagentStdRows.map((r, idx) => {
       let nCalc = r.v > 0 ? (r.w * 1000) / (r.v * 49.03) : 0;
       if (r.std.includes("AgNO3")) nCalc = r.v > 0 ? (r.w * 1000) / (r.v * 58.44) : 0;
@@ -9032,22 +9064,22 @@ const Qc = {
 
       return `
         <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors">
-          <td class="px-3 py-2 text-center font-bold text-zinc-400">${idx + 1}</td>
-          <td class="px-3 py-2">
-            <input type="text" value="${r.std}" onchange="window.Qc.reagentStdRows[${idx}].std=this.value" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
+          <td class="px-2 py-1 text-center font-bold text-zinc-400">${idx + 1}</td>
+          <td class="px-2 py-1">
+            <input type="text" value="${r.std}" onchange="window.Qc.reagentStdRows[${idx}].std=this.value" class="w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
           </td>
-          <td class="px-3 py-2">
-            <input type="number" step="0.0001" value="${r.w}" oninput="window.Qc.reagentStdRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderReagentStdTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs">
+          <td class="px-2 py-1">
+            <input type="number" step="0.0001" value="${r.w}" oninput="window.Qc.reagentStdRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderReagentStdTable();" class="${inpCls}">
           </td>
-          <td class="px-3 py-2">
-            <input type="number" step="0.01" value="${r.v}" oninput="window.Qc.reagentStdRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderReagentStdTable();" class="w-full px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs">
+          <td class="px-2 py-1">
+            <input type="number" step="0.01" value="${r.v}" oninput="window.Qc.reagentStdRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderReagentStdTable();" class="${inpCls}">
           </td>
-          <td class="px-3 py-2 font-mono font-black text-amber-500 text-sm">${nCalc.toFixed(4)} N</td>
-          <td class="px-3 py-2">
-            <span class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300">VALIDATED</span>
+          <td class="px-2 py-1 font-mono font-black text-amber-500 text-xs">${nCalc.toFixed(4)} N</td>
+          <td class="px-2 py-1">
+            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300">PASS</span>
           </td>
-          <td class="px-3 py-2 text-center">
-            <button onclick="window.Qc.reagentStdRows.splice(${idx},1); window.Qc.renderReagentStdTable();" class="p-1 text-rose-500 hover:text-rose-700 text-xs font-bold">🗑️</button>
+          <td class="px-2 py-1 text-center">
+            <button onclick="window.Qc.reagentStdRows.splice(${idx},1); window.Qc.renderReagentStdTable();" class="p-1 text-rose-500 hover:text-rose-700 text-xs font-bold" title="Hapus Baris">🗑️</button>
           </td>
         </tr>
       `;
