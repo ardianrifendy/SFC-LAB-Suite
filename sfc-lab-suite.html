@@ -630,12 +630,12 @@
       
       <div class="sidebar-menu-divider border-t border-zinc-200/50 dark:border-zinc-800/80 mx-2"></div>
       
-      <!-- Kategori QC Tools -->
+      <!-- Kategori QC Calculator -->
       <div class="sidebar-group open">
         <div class="sidebar-group-toggle flex items-center justify-between text-zinc-400 dark:text-zinc-500 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800/50 cursor-pointer select-none transition-colors">
           <div class="flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-violet-500 flex-shrink-0"></span>
-            <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-400 uppercase">QC Tools</span>
+            <span class="text-[10px] font-extrabold tracking-wider sidebar-menu-title text-zinc-600 dark:text-zinc-400 uppercase">Calculator QC</span>
           </div>
           <svg class="sidebar-group-chevron w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -643,23 +643,23 @@
         </div>
         
         <div class="sidebar-group-content mt-1.5 space-y-1">
-          <a href="#qc-reagents" data-tab="qc-reagents" class="sidebar-menu-item rounded-xl" title="Reagen Prep & Scaling Presisi">
+          <a href="#qc-reagents" data-tab="qc-reagents" class="sidebar-menu-item rounded-xl" title="Reagent Preparation & Scaling Presisi">
             <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
             </svg>
-            <span class="sidebar-text-content">Reagen Prep</span>
+            <span class="sidebar-text-content">Reagent Preparation</span>
           </a>
-          <a href="#qc-oil" data-tab="qc-oil" class="sidebar-menu-item rounded-xl" title="Oil QC & Titration Calculator">
+          <a href="#qc-oil" data-tab="qc-oil" class="sidebar-menu-item rounded-xl" title="Oil Sample Calculator">
             <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 11h.01M9 11h.01M12 14h.01M15 11h.01M12 7h.01M15 7h.01M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2z" />
             </svg>
-            <span class="sidebar-text-content">Oil QC</span>
+            <span class="sidebar-text-content">Oil Sample</span>
           </a>
-          <a href="#qc-water" data-tab="qc-water" class="sidebar-menu-item rounded-xl" title="Water Quality Analytics">
+          <a href="#qc-water" data-tab="qc-water" class="sidebar-menu-item rounded-xl" title="Water Sample Calculator">
             <svg class="w-4.5 h-4.5 mr-3 flex-shrink-0 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
             </svg>
-            <span class="sidebar-text-content">Water Quality</span>
+            <span class="sidebar-text-content">Water Sample</span>
           </a>
         </div>
       </div>
@@ -2203,13 +2203,13 @@
         <!-- Sub-Tab Buttons -->
         <div class="flex items-center gap-1.5 bg-zinc-100 dark:bg-zinc-900 p-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 self-stretch sm:self-auto overflow-x-auto">
           <button id="qcBtnTabReagents" onclick="window.Qc && window.Qc.switchSubTab('reagents')" class="qc-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-white dark:bg-zinc-800 text-violet-600 dark:text-violet-400 shadow-xs">
-            🧪 1. Reagen Prep
+            🧪 1. Reagent Preparation
           </button>
           <button id="qcBtnTabOil" onclick="window.Qc && window.Qc.switchSubTab('oil')" class="qc-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all">
-            🛢️ 2. Oil QC
+            🛢️ 2. Oil Sample
           </button>
           <button id="qcBtnTabWater" onclick="window.Qc && window.Qc.switchSubTab('water')" class="qc-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all">
-            💧 3. Water Quality
+            💧 3. Water Sample
           </button>
         </div>
       </div>
