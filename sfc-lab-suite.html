@@ -373,13 +373,16 @@
       transform: translateX(-50%);
       background-color: #18181b; /* zinc-900 */
       color: #ffffff;
-      text-align: center;
-      padding: 0.375rem 0.625rem;
-      border-radius: 0.5rem;
-      font-size: 9px;
-      font-weight: 500;
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.75rem;
+      font-size: 11px !important;
+      font-weight: 400 !important;
+      text-transform: none !important;
+      letter-spacing: normal !important;
+      line-height: 1.4 !important;
       white-space: nowrap;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
       z-index: 50;
       opacity: 0;
       transition: opacity 0.2s, visibility 0.2s;
@@ -398,13 +401,13 @@
       top: 130% !important;
       left: 50% !important;
       transform: translateX(-50%) !important;
-      width: 210px !important;
-      max-width: 230px !important;
+      width: 240px !important;
+      max-width: 260px !important;
       text-align: left !important;
       z-index: 50 !important;
     }
     .tooltip-text.tooltip-left-aligned {
-      left: -8px !important;
+      left: 0 !important;
       transform: none !important;
     }
 
@@ -1720,7 +1723,7 @@
                         <span onclick="window.Fac && window.Fac.copyColumn(0)" title="Klik untuk menyalin kolom Peak" class="cursor-pointer hover:underline">Peak</span>
                         <div class="tooltip-container group cursor-pointer select-none">
                           <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
-                          <div class="tooltip-text tooltip-multiline tooltip-left-aligned shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-52 leading-normal">
+                          <div class="tooltip-text tooltip-multiline tooltip-left-aligned shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-60 leading-normal font-normal normal-case">
                             <strong class="text-emerald-400">Nomor Puncak (Peak No):</strong><br>
                             Nomor urut puncak kromatogram yang terdeteksi oleh detektor GC-FID berdasarkan urutan waktu elusi komponen.
                           </div>
