@@ -2185,33 +2185,24 @@
     <!-- ===== REGION: MODULE-QC ===== -->
     <div id="tabContent-qc" class="tab-panel flex-1 flex flex-col hidden space-y-4 w-full">
       
-      <!-- Module Header & Sub-Tab Switcher -->
+      <!-- Module Header -->
       <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl font-bold border border-violet-500/20">
-            🟣
+          <div id="qcHeaderIcon" class="w-10 h-10 rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl font-bold border border-violet-500/20">
+            🧪
           </div>
           <div>
             <h1 class="text-base font-extrabold text-zinc-900 dark:text-white flex items-center gap-2">
-              QC LAB CALCULATOR
-              <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">QC Chems & Titration</span>
+              <span id="qcHeaderTitle">Reagent Preparation</span>
+              <span id="qcHeaderBadge" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">QC Chems & Scaling</span>
             </h1>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Kalkulator analisis fisiko-kimia minyak, titrasi air, & resep reagen presisi.</p>
+            <p id="qcHeaderSubtitle" class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Kalkulator resep reagen presisi, penimbangan bahan kimia, & SOP pembuatan larutan laboratorium.</p>
           </div>
         </div>
 
-        <!-- Sub-Tab Buttons -->
-        <div class="flex items-center gap-1.5 bg-zinc-100 dark:bg-zinc-900 p-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 self-stretch sm:self-auto overflow-x-auto">
-          <button id="qcBtnTabReagents" onclick="window.Qc && window.Qc.switchSubTab('reagents')" class="qc-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-white dark:bg-zinc-800 text-violet-600 dark:text-violet-400 shadow-xs">
-            🧪 1. Reagent Preparation
-          </button>
-          <button id="qcBtnTabOil" onclick="window.Qc && window.Qc.switchSubTab('oil')" class="qc-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all">
-            🛢️ 2. Oil Sample
-          </button>
-          <button id="qcBtnTabWater" onclick="window.Qc && window.Qc.switchSubTab('water')" class="qc-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all">
-            💧 3. Water Sample
-          </button>
-        </div>
+        <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-violet-600 dark:text-violet-400 transition-colors flex items-center gap-1.5 self-stretch sm:self-auto justify-center" onclick="showHelpGuide('qc')">
+          📖 Petunjuk Penggunaan
+        </button>
       </div>
 
       <!-- ===== SUB-TAB 1: REAGEN PREP & SCALING ===== -->
@@ -8439,19 +8430,34 @@ const Qc = {
 
   switchSubTab(tab) {
     const tabs = ['reagents', 'oil', 'water'];
+    
+    const iconEl = document.getElementById('qcHeaderIcon');
+    const titleEl = document.getElementById('qcHeaderTitle');
+    const badgeEl = document.getElementById('qcHeaderBadge');
+    const subtitleEl = document.getElementById('qcHeaderSubtitle');
+
+    if (tab === 'reagents') {
+      if (iconEl) iconEl.innerText = '🧪';
+      if (titleEl) titleEl.innerText = 'Reagent Preparation';
+      if (badgeEl) badgeEl.innerText = 'QC Chems & Scaling';
+      if (subtitleEl) subtitleEl.innerText = 'Kalkulator resep reagen presisi, penimbangan bahan kimia, & SOP pembuatan larutan laboratorium.';
+    } else if (tab === 'oil') {
+      if (iconEl) iconEl.innerText = '🛢️';
+      if (titleEl) titleEl.innerText = 'Oil Sample Calculator';
+      if (badgeEl) badgeEl.innerText = 'QC Oil & Titration';
+      if (subtitleEl) subtitleEl.innerText = 'Kalkulator titrasi & fisiko-kimia sampel minyak (FFA, IV, PV, SV, Moisture, Impurities, Salt, Lauric, Spektro).';
+    } else if (tab === 'water') {
+      if (iconEl) iconEl.innerText = '💧';
+      if (titleEl) titleEl.innerText = 'Water Sample Calculator';
+      if (badgeEl) badgeEl.innerText = 'Water Quality Analytics';
+      if (subtitleEl) subtitleEl.innerText = 'Kalkulator klorida (AgNO3 & Spektro) dan kesadahan air (Total Hardness EDTA).';
+    }
+
     tabs.forEach(t => {
-      const btn = document.getElementById(`qcBtnTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
       const content = document.getElementById(`qcSubTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
-      
       if (t === tab) {
-        if (btn) {
-          btn.className = "qc-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-white dark:bg-zinc-800 text-violet-600 dark:text-violet-400 shadow-xs";
-        }
         if (content) content.classList.remove('hidden');
       } else {
-        if (btn) {
-          btn.className = "qc-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all";
-        }
         if (content) content.classList.add('hidden');
       }
     });
