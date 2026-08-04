@@ -2235,16 +2235,42 @@
             </h3>
             
             <div class="space-y-1.5">
-              <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Pilih Jenis Reagen Kimia</label>
+              <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                <span>🔬</span> Pilih Kategori / Parameter Uji Lab
+              </label>
+              <select id="qcReagentCategorySelect" onchange="window.Qc && window.Qc.filterReagentCategory(this.value)" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
+                <option value="all">🌐 Semua Parameter Uji (Seluruh Reagen Lab)</option>
+                <option value="p_spektro">🔬 Uji Phosphorus Content (Spektro P ppm)</option>
+                <option value="cl_salt">💧 Uji Klorida & Garam (Titrasi AgNO₃ & NaCl)</option>
+                <option value="fac_gc">🧬 Uji Fatty Acid Composition (FAC / GC-FID)</option>
+                <option value="titrimetric">🧈 Uji Titrasi Minyak (FFA, IV, PV, SV)</option>
+              </select>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                <span>🧪</span> Pilih Reagen / Larutan Kimia
+              </label>
               <select id="qcReagentSelect" onchange="window.Qc && window.Qc.calcReagents()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
-                <option value="koh_meth_2n">KOH 2N Methanolis (FAC / GC-FID)</option>
-                <option value="naoh_meth_05n">NaOH 0.5N Methanolis (FAC PFAD/PKFAD)</option>
-                <option value="agno3_01n">AgNO3 0.1 N (Titrasi Chloride / NaCl)</option>
-                <option value="hno3_11">HNO3 1:1 (Pelarut Uji NaCl)</option>
-                <option value="hcl_11">HCl 1:1 (Pelarut Uji Phosphor Content)</option>
-                <option value="koh_50">KOH 50% (Reagen Phosphor Content)</option>
-                <option value="sod_molybdate">Sodium Molybdate / H2SO4 (Uji Phosphor)</option>
-                <option value="hydrazinium">Hydrazinium Sulfat (Uji Phosphor)</option>
+                <optgroup label="🔬 Uji Phosphorus Content (Spektro P ppm)">
+                  <option value="hcl_11">HCl 1:1 (Pelarut Pelarutan Abu Uji Phosphor)</option>
+                  <option value="koh_50">KOH 50% (Reagen Pengendap / Pembasa Uji Phosphor)</option>
+                  <option value="sod_molybdate">Sodium Molybdate / H2SO4 (Reagen Molybdate Uji Phosphor)</option>
+                  <option value="hydrazinium">Hydrazinium Sulfat (Reagen Pereduksi Uji Phosphor)</option>
+                </optgroup>
+                <optgroup label="💧 Uji Klorida & Garam (Titrasi AgNO3 & NaCl)">
+                  <option value="agno3_01n">AgNO3 0.1 N (Larutan Titran Utama Uji Chloride / NaCl)</option>
+                  <option value="hno3_11">HNO3 1:1 (Pelarut Asam Ekstraksi Uji NaCl)</option>
+                </optgroup>
+                <optgroup label="🧬 Uji Fatty Acid Composition (FAC / GC-FID)">
+                  <option value="koh_meth_2n">KOH 2N Methanolis (Reagen Transesterifikasi FAC)</option>
+                  <option value="naoh_meth_05n">NaOH 0.5N Methanolis (Reagen Esterifikasi FAC PFAD/PKFAD)</option>
+                </optgroup>
+                <optgroup label="🧈 Uji Titrasi Minyak (Standarisasi Penitir)">
+                  <option value="naoh_01n">NaOH 0.1 N (Larutan Pentiter Titrasi FFA)</option>
+                  <option value="na2s2o3_01n">Na2S2O3 0.1 N (Larutan Pentiter Titrasi IV & PV)</option>
+                  <option value="hcl_05n">HCl 0.5 N (Larutan Pentiter Titrasi SV)</option>
+                </optgroup>
               </select>
             </div>
 
@@ -8173,14 +8199,109 @@ const Qc = {
         `Larutkan dalam labu takar ${targetVol} mL menggunakan Aquadest.`,
         `Kocok homogen. Larutan siap digunakan.`
       ]
+    },
+    naoh_01n: {
+      title: "NaOH 0.1N (Pentiter Titrasi Free Fatty Acid - FFA)",
+      baseVol: 250,
+      defaultNorm: 0.1,
+      normUnit: "N",
+      items: [
+        { name: "Aquadest Demin", base: 250, unit: "mL" },
+        { name: "NaOH Pelet (Puriss >98%)", base: 1.0, unit: "gram" }
+      ],
+      sopFunc: (targetVol, factor, norm) => [
+        `Timbang ${(1.0 * factor).toFixed(3)} gram NaOH pelet dengan cepat (sifat higroskopis).`,
+        `Larutkan dalam ${targetVol} mL Aquadest bebas CO2.`,
+        `Kocok homogen dan standarisasi normalitasnya (${norm} N) dengan baku primer KHP (Potassium Hydrogen Phthalate).`
+      ]
+    },
+    na2s2o3_01n: {
+      title: "Na2S2O3 0.1N (Pentiter Titrasi IV & PV)",
+      baseVol: 250,
+      defaultNorm: 0.1,
+      normUnit: "N",
+      items: [
+        { name: "Aquadest Demin", base: 250, unit: "mL" },
+        { name: "Sodium Thiosulfate Pentahydrate (Na2S2O3.5H2O)", base: 6.205, unit: "gram" },
+        { name: "Na2CO3 (Stabilizer)", base: 0.05, unit: "gram" }
+      ],
+      sopFunc: (targetVol, factor, norm) => [
+        `Timbang ${(6.205 * factor).toFixed(3)} gram Na2S2O3.5H2O dan ${(0.05 * factor).toFixed(3)} g Na2CO3 sebagai pengawet.`,
+        `Larutkan dalam ${targetVol} mL Aquadest yang telah dididihkan dan didinginkan.`,
+        `Simpan botol dalam tempat gelap selama 1 hari sebelum distandarisasi dengan KIO3.`
+      ]
+    },
+    hcl_05n: {
+      title: "HCl 0.5N (Pentiter Titrasi Saponification Value - SV)",
+      baseVol: 250,
+      defaultNorm: 0.5,
+      normUnit: "N",
+      items: [
+        { name: "Aquadest Demin", base: 239.5, unit: "mL" },
+        { name: "HCl Pekat (37%)", base: 10.5, unit: "mL" }
+      ],
+      sopFunc: (targetVol, factor, norm) => [
+        `Ukur ${(10.5 * factor).toFixed(1)} mL HCl 37% pekat dalam lemari asam.`,
+        `Encerkan dengan Aquadest demin hingga volume ${targetVol} mL.`,
+        `Standarisasi normalitas (${norm} N) dengan larutan standar Na2CO3.`
+      ]
     }
   },
 
+  filterReagentCategory(catKey) {
+    const selectEl = document.getElementById('qcReagentSelect');
+    if (!selectEl) return;
+
+    const reagentsByCategory = {
+      p_spektro: [
+        { key: 'hcl_11', label: 'HCl 1:1 (Pelarut Pelarutan Abu Uji Phosphor)' },
+        { key: 'koh_50', label: 'KOH 50% (Reagen Pengendap / Pembasa Uji Phosphor)' },
+        { key: 'sod_molybdate', label: 'Sodium Molybdate / H2SO4 (Reagen Molybdate Uji Phosphor)' },
+        { key: 'hydrazinium', label: 'Hydrazinium Sulfat (Reagen Pereduksi Uji Phosphor)' }
+      ],
+      cl_salt: [
+        { key: 'agno3_01n', label: 'AgNO3 0.1 N (Larutan Titran Utama Uji Chloride / NaCl)' },
+        { key: 'hno3_11', label: 'HNO3 1:1 (Pelarut Asam Ekstraksi Uji NaCl)' }
+      ],
+      fac_gc: [
+        { key: 'koh_meth_2n', label: 'KOH 2N Methanolis (Reagen Transesterifikasi FAC)' },
+        { key: 'naoh_meth_05n', label: 'NaOH 0.5N Methanolis (Reagen Esterifikasi FAC PFAD/PKFAD)' }
+      ],
+      titrimetric: [
+        { key: 'naoh_01n', label: 'NaOH 0.1 N (Larutan Pentiter Titrasi FFA)' },
+        { key: 'na2s2o3_01n', label: 'Na2S2O3 0.1 N (Larutan Pentiter Titrasi IV & PV)' },
+        { key: 'hcl_05n', label: 'HCl 0.5 N (Larutan Pentiter Titrasi SV)' }
+      ]
+    };
+
+    if (catKey === 'all') {
+      selectEl.innerHTML = `
+        <optgroup label="🔬 Uji Phosphorus Content (Spektro P ppm)">
+          ${reagentsByCategory.p_spektro.map(r => `<option value="${r.key}">${r.label}</option>`).join('')}
+        </optgroup>
+        <optgroup label="💧 Uji Klorida & Garam (Titrasi AgNO3 & NaCl)">
+          ${reagentsByCategory.cl_salt.map(r => `<option value="${r.key}">${r.label}</option>`).join('')}
+        </optgroup>
+        <optgroup label="🧬 Uji Fatty Acid Composition (FAC / GC-FID)">
+          ${reagentsByCategory.fac_gc.map(r => `<option value="${r.key}">${r.label}</option>`).join('')}
+        </optgroup>
+        <optgroup label="🧈 Uji Titrasi Minyak (Standarisasi Penitir)">
+          ${reagentsByCategory.titrimetric.map(r => `<option value="${r.key}">${r.label}</option>`).join('')}
+        </optgroup>
+      `;
+    } else {
+      const items = reagentsByCategory[catKey] || [];
+      selectEl.innerHTML = items.map(r => `<option value="${r.key}">${r.label}</option>`).join('');
+    }
+
+    this.calcReagents();
+  },
+
   calcReagents() {
-    const sel = document.getElementById('qcReagentSelect')?.value || 'koh_meth_2n';
+    const sel = document.getElementById('qcReagentSelect')?.value || 'hcl_11';
     const targetVol = parseFloat(document.getElementById('qcReagentVolume')?.value) || 250;
     
-    const rData = this.reagentRecipes[sel] || this.reagentRecipes.koh_meth_2n;
+    const rData = this.reagentRecipes[sel] || this.reagentRecipes.hcl_11;
 
     const normInput = document.getElementById('qcReagentNorm');
     let targetNorm = parseFloat(normInput?.value);
