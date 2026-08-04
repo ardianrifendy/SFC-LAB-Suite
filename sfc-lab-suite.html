@@ -2284,12 +2284,17 @@
 
             <div class="space-y-1.5">
               <div class="flex items-center justify-between">
-                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Target Konsentrasi (N / M / %)</label>
+                <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Target Konsentrasi & Satuan</label>
                 <span id="qcReagentDefaultNormBadge" class="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 dark:border-violet-800">Std: 2.0 N</span>
               </div>
-              <div class="relative">
-                <input id="qcReagentNorm" type="number" step="0.01" value="2.0" oninput="window.Qc && window.Qc.calcReagents()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white focus:ring-2 focus:ring-violet-500" placeholder="2.0">
-                <span id="qcReagentNormUnit" class="absolute right-3 top-2 text-[10px] font-extrabold text-zinc-400">N</span>
+              <div class="flex items-center gap-2">
+                <input id="qcReagentNorm" type="number" step="0.01" value="2.0" oninput="window.Qc && window.Qc.calcReagents()" class="flex-1 px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white focus:ring-2 focus:ring-violet-500" placeholder="2.0">
+                <select id="qcReagentUnitSelect" onchange="window.Qc && window.Qc.changeReagentUnit(this.value)" class="w-24 px-2.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-extrabold text-violet-600 dark:text-violet-400 focus:ring-2 focus:ring-violet-500">
+                  <option value="N">N (Normality)</option>
+                  <option value="M">M (Molarity)</option>
+                  <option value="%">% (Percent w/v)</option>
+                  <option value="ppm">ppm (Parts/Million)</option>
+                </select>
               </div>
             </div>
 
@@ -8402,7 +8407,100 @@ const Qc = {
       selectEl.innerHTML = items.map(r => `<option value="${r.key}">${r.label}</option>`).join('');
     }
 
+    this.renderCustomSelectUI('qcReagentSelect');
     this.calcReagents();
+  },
+
+  renderCustomSelectUI(selectId) {
+    const nativeSelect = document.getElementById(selectId);
+    if (!nativeSelect) return;
+
+    let wrapper = nativeSelect.closest('.custom-select-root');
+    if (!wrapper) {
+      wrapper = document.createElement('div');
+      wrapper.className = 'relative w-full custom-select-root';
+      nativeSelect.parentNode.insertBefore(wrapper, nativeSelect);
+      wrapper.appendChild(nativeSelect);
+      nativeSelect.style.display = 'none';
+    }
+
+    let btn = wrapper.querySelector('.custom-select-trigger');
+    let menu = wrapper.querySelector('.custom-select-menu');
+
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'custom-select-trigger w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm';
+      wrapper.appendChild(btn);
+    }
+
+    if (!menu) {
+      menu = document.createElement('div');
+      menu.className = 'custom-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full';
+      wrapper.appendChild(menu);
+    }
+
+    const selectedOpt = nativeSelect.options[nativeSelect.selectedIndex] || nativeSelect.options[0];
+    const selectedLabel = selectedOpt ? selectedOpt.text : '';
+
+    btn.innerHTML = `
+      <span class="truncate flex items-center gap-2">${selectedLabel}</span>
+      <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+    `;
+
+    let menuHtml = '';
+    const children = Array.from(nativeSelect.children);
+    
+    children.forEach(child => {
+      if (child.tagName === 'OPTGROUP') {
+        const groupLabel = child.getAttribute('label') || '';
+        menuHtml += `<div class="text-[10px] font-extrabold uppercase tracking-wider text-violet-600 dark:text-violet-400 px-3 py-1.5 bg-violet-500/5 dark:bg-violet-950/40 border-y border-violet-500/10 my-1">${groupLabel}</div>`;
+        Array.from(child.children).forEach(opt => {
+          const isSelected = opt.value === nativeSelect.value;
+          menuHtml += `
+            <div data-val="${opt.value}" class="custom-option-item px-3.5 py-2 text-xs font-bold ${isSelected ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black' : 'text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400'} cursor-pointer transition-colors flex items-center justify-between rounded-xl mx-1">
+              <span class="truncate">${opt.text}</span>
+              ${isSelected ? '<span class="text-violet-500 font-extrabold text-sm ml-2">✓</span>' : ''}
+            </div>
+          `;
+        });
+      } else if (child.tagName === 'OPTION') {
+        const isSelected = child.value === nativeSelect.value;
+        menuHtml += `
+          <div data-val="${child.value}" class="custom-option-item px-3.5 py-2 text-xs font-bold ${isSelected ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black' : 'text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400'} cursor-pointer transition-colors flex items-center justify-between rounded-xl mx-1">
+            <span class="truncate">${child.text}</span>
+            ${isSelected ? '<span class="text-violet-500 font-extrabold text-sm ml-2">✓</span>' : ''}
+          </div>
+        `;
+      }
+    });
+
+    menu.innerHTML = menuHtml;
+
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      document.querySelectorAll('.custom-select-menu').forEach(m => {
+        if (m !== menu) m.classList.add('hidden');
+      });
+      menu.classList.toggle('hidden');
+    };
+
+    menu.querySelectorAll('.custom-option-item').forEach(item => {
+      item.onclick = (e) => {
+        e.stopPropagation();
+        const val = item.getAttribute('data-val');
+        nativeSelect.value = val;
+        menu.classList.add('hidden');
+        nativeSelect.dispatchEvent(new Event('change'));
+        this.renderCustomSelectUI(selectId);
+      };
+    });
+  },
+
+  initAllCustomSelects() {
+    ['qcReagentCategorySelect', 'qcReagentSelect', 'qcOilParamSelect', 'qcWaterParamSelect'].forEach(id => {
+      this.renderCustomSelectUI(id);
+    });
   },
 
   calcReagents() {
@@ -9077,6 +9175,9 @@ const Qc = {
       `;
     }).join('');
 
+    // Enhance any native selects inside table rows
+    if (window.enhanceAllSelects) window.enhanceAllSelects(tbody);
+
     // 4. Render Summary Statistics
     const count = this.oilRows.length;
     const avg = count > 0 ? totalVal / count : 0;
@@ -9267,6 +9368,8 @@ const Qc = {
         </tr>
       `;
     }).join('');
+
+    if (window.enhanceAllSelects) window.enhanceAllSelects(tbody);
 
     const count = this.waterRows.length;
     const avg = count > 0 ? totalVal / count : 0;
@@ -9461,9 +9564,13 @@ Qc.init();
 // Helper class to convert native HTML select elements into premium web-styled dropdowns
 class CustomSelect {
   constructor(selectElement) {
-    if (!selectElement) return;
+    if (!selectElement || !selectElement.style) return;
+    if (selectElement.dataset) {
+      if (selectElement.dataset.customSelectInitialized) return;
+      selectElement.dataset.customSelectInitialized = "true";
+    }
     this.select = selectElement;
-    this.select.classList.add('hidden'); // Hide native select
+    this.select.style.display = 'none'; // Hide native select completely
     
     // Create wrapper container
     this.wrapper = document.createElement('div');
@@ -9473,14 +9580,14 @@ class CustomSelect {
     // Create custom toggle button
     this.btn = document.createElement('button');
     this.btn.type = 'button';
-    this.btn.className = 'w-full flex items-center justify-between rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-4 py-2.5 text-xs focus:border-emerald-500 focus:outline-none dark:text-white font-medium text-left transition-colors';
+    this.btn.className = 'w-full flex items-center justify-between rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1 text-xs focus:border-violet-500 focus:outline-none text-zinc-800 dark:text-zinc-200 font-bold text-left transition-all shadow-sm h-7';
     
     this.label = document.createElement('span');
-    this.label.className = 'truncate pr-2';
+    this.label.className = 'truncate pr-1';
     this.btn.appendChild(this.label);
     
     const arrow = document.createElement('span');
-    arrow.className = 'text-zinc-400 dark:text-zinc-500 transition-transform duration-200 text-[9px]';
+    arrow.className = 'text-zinc-400 dark:text-zinc-500 transition-transform duration-200 text-[8px] flex-shrink-0';
     arrow.innerHTML = '▼';
     this.btn.appendChild(arrow);
     
@@ -9488,7 +9595,7 @@ class CustomSelect {
     
     // Create custom dropdown list menu
     this.menu = document.createElement('div');
-    this.menu.className = 'hidden absolute left-0 right-0 mt-1 max-h-60 overflow-y-auto z-30 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl py-1 text-xs text-left custom-select-menu';
+    this.menu.className = 'hidden absolute left-0 right-0 mt-1 max-h-60 overflow-y-auto z-50 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl shadow-2xl py-1 text-xs text-left custom-select-menu space-y-0.5 min-w-[140px]';
     this.wrapper.appendChild(this.menu);
     
     // Insert wrapper in DOM next to original select
@@ -9502,7 +9609,6 @@ class CustomSelect {
       document.querySelectorAll('.custom-select-menu').forEach(m => {
         if (m !== this.menu) {
           m.classList.add('hidden');
-          m.previousElementSibling.querySelector('span:last-child').classList.remove('rotate-180');
         }
       });
       const isHidden = this.menu.classList.toggle('hidden');
@@ -9522,61 +9628,75 @@ class CustomSelect {
     // Initial populate
     this.update();
     
-    // Observe dynamic changes in select options (e.g. data master statistics reload)
+    // Observe dynamic changes in select options
     if (typeof MutationObserver !== 'undefined') {
       this.observer = new MutationObserver(() => this.update());
-      this.observer.observe(this.select, { childList: true });
-    }
-    
-    // Proxy value property changes via JS assignments
-    const self = this;
-    const originalValueProp = typeof HTMLSelectElement !== 'undefined' ? Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value') : null;
-    if (originalValueProp) {
-      Object.defineProperty(this.select, 'value', {
-        configurable: true,
-        get() {
-          return originalValueProp.get.call(this);
-        },
-        set(val) {
-          originalValueProp.set.call(this, val);
-          self.syncLabel();
-        }
-      });
+      this.observer.observe(this.select, { childList: true, subtree: true });
     }
   }
   
   update() {
     this.menu.innerHTML = '';
-    const options = Array.from(this.select.options);
+    const children = Array.from(this.select.children);
     
-    options.forEach(opt => {
-      const item = document.createElement('div');
-      item.className = 'px-4 py-2 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-850 text-zinc-800 dark:text-zinc-200 font-semibold border-b border-zinc-100/50 dark:border-zinc-800/50 last:border-0';
-      item.innerText = opt.text;
-      
-      item.addEventListener('click', () => {
-        this.select.value = opt.value;
-        this.syncLabel();
-        this.menu.classList.add('hidden');
-        this.btn.querySelector('span:last-child').classList.remove('rotate-180');
-        
-        // Dispatch change event to notify native select listeners
-        const event = new Event('change', { bubbles: true });
-        this.select.dispatchEvent(event);
-      });
-      
-      this.menu.appendChild(item);
+    children.forEach(child => {
+      if (child.tagName === 'OPTGROUP') {
+        const groupLabel = child.getAttribute('label') || '';
+        const grpHeader = document.createElement('div');
+        grpHeader.className = 'text-[9.5px] font-extrabold uppercase tracking-wider text-violet-600 dark:text-violet-400 px-3 py-1 bg-violet-500/5 dark:bg-violet-950/40 border-y border-violet-500/10 my-0.5';
+        grpHeader.innerText = groupLabel;
+        this.menu.appendChild(grpHeader);
+
+        Array.from(child.children).forEach(opt => {
+          this.createOptionItem(opt);
+        });
+      } else if (child.tagName === 'OPTION') {
+        this.createOptionItem(child);
+      }
     });
     
     this.syncLabel();
   }
+
+  createOptionItem(opt) {
+    const isSelected = opt.value === this.select.value;
+    const item = document.createElement('div');
+    item.className = `px-3 py-1.5 cursor-pointer text-xs font-bold ${isSelected ? 'bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black' : 'text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400'} transition-colors flex items-center justify-between rounded-xl mx-1`;
+    item.innerHTML = `<span class="truncate">${opt.text}</span>${isSelected ? '<span class="text-violet-500 font-extrabold text-xs ml-2">✓</span>' : ''}`;
+    
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.select.value = opt.value;
+      this.syncLabel();
+      this.update();
+      this.menu.classList.add('hidden');
+      
+      const event = new Event('change', { bubbles: true });
+      this.select.dispatchEvent(event);
+    });
+    
+    this.menu.appendChild(item);
+  }
   
   syncLabel() {
     const selectedOpt = this.select.options[this.select.selectedIndex];
-    this.label.innerText = selectedOpt ? selectedOpt.text : '-- Pilih --';
+    if (this.label) {
+      this.label.innerText = selectedOpt ? selectedOpt.text : '-- Pilih --';
+    }
   }
 }
 window.CustomSelect = CustomSelect;
+
+function enhanceAllSelects(container = document) {
+  if (!container) return;
+  const selects = container.querySelectorAll('select');
+  selects.forEach(sel => {
+    if (!sel.dataset.customSelectInitialized) {
+      new CustomSelect(sel);
+    }
+  });
+}
+window.enhanceAllSelects = enhanceAllSelects;
 
 // Instantiate custom dropdown selectors
 const customSelectIds = ['extractorSaveType', 'dataTypeFilter', 'dataSingleType', 'diffPredSource', 'qcReagentSelect', 'qcFfaFactor', 'qcOilParamSelect', 'qcWaterParamSelect'];
