@@ -2207,134 +2207,115 @@
       
       <!-- Module Header (Icon-free, clean title + subtitle like other tools) -->
       <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-md p-3.5 sm:p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 w-full max-w-full flex-shrink-0">
-        <div>
-          <h2 id="qcHeaderTitle" class="text-base sm:text-lg font-extrabold text-zinc-900 dark:text-white tracking-tight">Reagent Preparation & Scaling Presisi</h2>
-          <p id="qcHeaderSubtitle" class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Kalkulator resep reagen presisi, penimbangan bahan kimia, & SOP pembuatan larutan laboratorium.</p>
-        </div>
-
-        <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-violet-600 dark:text-violet-400 transition-colors flex items-center gap-1.5 self-stretch sm:self-auto justify-center flex-shrink-0" onclick="showHelpGuide('qc')">
-          📖 Petunjuk Penggunaan
-        </button>
-      </div>
-
-      <!-- ===== SUB-TAB 1: REAGENT PREPARATION CALCULATOR ===== -->
-      <div id="qcSubTabReagents" class="qc-subtab-content flex-1 flex flex-col space-y-4 w-full max-w-full min-h-0 h-full">
-        
-        <!-- Triple Reagent Calculator Grid (3 Cards Side-by-Side - Stretched Full Height) -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3.5 w-full max-w-full items-stretch flex-1 min-h-0 h-full">
-          
-          <!-- CARD 1: REAGENT PREPARATION #1 -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col justify-between h-full flex-1 w-full max-w-full space-y-3">
-            <div class="space-y-2.5 flex-1 flex flex-col justify-between">
-              <div class="space-y-2.5">
-                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
+                  <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
                   <h3 class="text-[11.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                  <span>🧫</span> Reagen #1
-                </h3>
-                <span class="px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 font-extrabold text-[9px]">Kalkulator 1</span>
-              </div>
-
-              <!-- Controls 1 -->
-              <div class="space-y-2">
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                    <span>🔬</span> Kategori Uji Lab
-                  </label>
-                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect">
-                    <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect', event)">
-                      <span id="label_qcReagentCategorySelect" class="truncate">🌐 Semua Parameter</span>
-                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <input type="hidden" id="qcReagentCategorySelect" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value, 1)">
-                    <div id="menu_qcReagentCategorySelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'all', '🌐 Semua Parameter', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-1">✓</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'p_spektro', '🔬 Uji Phosphorus Content', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'cl_salt', '💧 Uji Klorida & Garam', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'fac_gc', '🧬 Uji Fatty Acid Composition', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect', 'titrimetric', '🧈 Uji Titrasi Minyak', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak</span></div>
-                    </div>
-                  </div>
+                    <span>🧫</span> Reagen #1
+                  </h3>
+                  <span class="px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 font-extrabold text-[9px]">Kalkulator 1</span>
                 </div>
 
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                    <span>🧪</span> Reagen / Larutan Kimia
-                  </label>
-                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect">
-                    <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect', event)">
-                      <span id="label_qcReagentSelect" class="truncate">Na2S2O3 0.1 N</span>
-                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <input type="hidden" id="qcReagentSelect" value="na2s2o3_01n" onchange="window.Qc && window.Qc.calcReagents(1)">
-                    <div id="menu_qcReagentSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
-                      <!-- JS dynamically populates items -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Vol & Norm 1 -->
-              <div class="grid grid-cols-2 gap-2">
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Target Vol (mL)</label>
-                  <div class="relative">
-                    <input id="qcReagentVolume" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents(1)" class="w-full px-2.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="250">
-                    <span class="absolute right-2 top-1.5 text-[9px] font-extrabold text-zinc-400">mL</span>
-                  </div>
-                </div>
-                <div class="space-y-0.5">
-                  <div class="flex items-center justify-between">
-                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Konsentrasi</label>
-                    <span id="qcReagentDefaultNormBadge" class="text-[8.5px] font-extrabold px-1 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400">Std: 0.1 N</span>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <input id="qcReagentNorm" type="number" step="0.01" value="0.1" oninput="window.Qc && window.Qc.calcReagents(1)" class="w-full px-2 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="0.1">
-                    <div class="relative w-20 custom-ui-select" id="wrapper_qcReagentUnitSelect">
-                      <button type="button" class="w-full px-1.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[10.5px] font-extrabold text-violet-600 dark:text-violet-400 flex items-center justify-between hover:border-violet-500 shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect', event)">
-                        <span id="label_qcReagentUnitSelect" class="truncate">N</span>
-                        <svg class="w-3 h-3 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                <!-- Controls 1 -->
+                <div class="space-y-2">
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                      <span>🔬</span> Kategori Uji Lab
+                    </label>
+                    <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect">
+                      <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect', event)">
+                        <span id="label_qcReagentCategorySelect" class="truncate">🌐 Semua Parameter</span>
+                        <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                       </button>
-                      <input type="hidden" id="qcReagentUnitSelect" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value, 1)">
-                      <div id="menu_qcReagentUnitSelect" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-24">
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect', 'N', 'N', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold bg-violet-500/10 text-violet-600 font-black rounded-lg mx-0.5 flex items-center justify-between" data-val="N"><span>N</span><span class="ui-check text-violet-500 font-extrabold text-xs">✓</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect', 'M', 'M', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="M"><span>M</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect', '%', '%', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="%"><span>%</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect', 'ppm', 'ppm', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="ppm"><span>ppm</span></div>
+                      <input type="hidden" id="qcReagentCategorySelect" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value, 1)">
+                      <div id="menu_qcReagentCategorySelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect', 'all', '🌐 Semua Parameter', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-1">✓</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect', 'p_spektro', '🔬 Uji Phosphorus Content', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect', 'cl_salt', '💧 Uji Klorida & Garam', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect', 'fac_gc', '🧬 Uji Fatty Acid Composition', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect', 'titrimetric', '🧈 Uji Titrasi Minyak', val => window.Qc.filterReagentCategory(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                      <span>🧪</span> Reagen / Larutan Kimia
+                    </label>
+                    <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect">
+                      <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect', event)">
+                        <span id="label_qcReagentSelect" class="truncate">Na2S2O3 0.1 N</span>
+                        <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+                      <input type="hidden" id="qcReagentSelect" value="na2s2o3_01n" onchange="window.Qc && window.Qc.calcReagents(1)">
+                      <div id="menu_qcReagentSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                        <!-- JS dynamically populates items -->
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Quick Presets 1 -->
-              <div class="flex items-center gap-1 pt-0.5">
-                <span class="text-[9.5px] font-bold text-zinc-400 uppercase mr-0.5">Vol:</span>
-                <button onclick="document.getElementById('qcReagentVolume').value=50; window.Qc && window.Qc.calcReagents(1);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">50</button>
-                <button onclick="document.getElementById('qcReagentVolume').value=200; window.Qc && window.Qc.calcReagents(1);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">200</button>
-                <button onclick="document.getElementById('qcReagentVolume').value=250; window.Qc && window.Qc.calcReagents(1);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">250</button>
-                <button onclick="document.getElementById('qcReagentVolume').value=500; window.Qc && window.Qc.calcReagents(1);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">500</button>
-              </div>
-
-              <!-- Recipe Result 1 -->
-              <div id="qcReagentRecipeBanner" class="bg-gradient-to-r from-violet-900 to-indigo-900 text-white rounded-xl p-2.5 shadow-md border border-violet-700/50 flex items-center justify-between gap-2">
-                <div>
-                  <span class="text-[8.5px] font-extrabold tracking-wider uppercase text-violet-300 block">RESEP #1</span>
-                  <h4 id="qcReagentRecipeTitle" class="text-[11px] font-extrabold mt-0.5 truncate">Na2S2O3 0.1N (250 mL)</h4>
-                  <div id="qcReagentRecipeList" class="mt-1 text-[10px] space-y-0.5 font-mono text-violet-100">
-                    <!-- JS populated -->
+                <!-- Vol & Norm 1 -->
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Target Vol (mL)</label>
+                    <div class="relative">
+                      <input id="qcReagentVolume" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents(1)" class="w-full px-2.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="250">
+                      <span class="absolute right-2 top-1.5 text-[9px] font-extrabold text-zinc-400">mL</span>
+                    </div>
+                  </div>
+                  <div class="space-y-0.5">
+                    <div class="flex items-center justify-between">
+                      <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Konsentrasi</label>
+                      <span id="qcReagentDefaultNormBadge" class="text-[8.5px] font-extrabold px-1 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400">Std: 0.1 N</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <input id="qcReagentNorm" type="number" step="0.01" value="0.1" oninput="window.Qc && window.Qc.calcReagents(1)" class="w-full px-2 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="0.1">
+                      <div class="relative w-20 custom-ui-select" id="wrapper_qcReagentUnitSelect">
+                        <button type="button" class="w-full px-1.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[10.5px] font-extrabold text-violet-600 dark:text-violet-400 flex items-center justify-between hover:border-violet-500 shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect', event)">
+                          <span id="label_qcReagentUnitSelect" class="truncate">N</span>
+                          <svg class="w-3 h-3 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <input type="hidden" id="qcReagentUnitSelect" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value, 1)">
+                        <div id="menu_qcReagentUnitSelect" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-24">
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect', 'N', 'N', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold bg-violet-500/10 text-violet-600 font-black rounded-lg mx-0.5 flex items-center justify-between" data-val="N"><span>N</span><span class="ui-check text-violet-500 font-extrabold text-xs">✓</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect', 'M', 'M', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="M"><span>M</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect', '%', '%', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="%"><span>%</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect', 'ppm', 'ppm', val => window.Qc.changeReagentUnit(val, 1))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="ppm"><span>ppm</span></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <button onclick="window.Qc && window.Qc.copyReagentRecipe(1)" class="px-2 py-1 rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-extrabold text-[9.5px] shadow-sm flex items-center gap-0.5 flex-shrink-0">
-                  <span>📋</span><span>Salin</span>
-                </button>
+
+                <!-- Quick Presets 1 -->
+                <div class="flex items-center gap-1 pt-0.5">
+                  <span class="text-[9.5px] font-bold text-zinc-400 uppercase mr-0.5">Vol:</span>
+                  <button onclick="document.getElementById('qcReagentVolume').value=50; window.Qc && window.Qc.calcReagents(1);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">50</button>
+                  <button onclick="document.getElementById('qcReagentVolume').value=200; window.Qc && window.Qc.calcReagents(1);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">200</button>
+                  <button onclick="document.getElementById('qcReagentVolume').value=250; window.Qc && window.Qc.calcReagents(1);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">250</button>
+                  <button onclick="document.getElementById('qcReagentVolume').value=500; window.Qc && window.Qc.calcReagents(1);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">500</button>
+                </div>
+
+                <!-- Recipe Result 1 -->
+                <div id="qcReagentRecipeBanner" class="bg-gradient-to-r from-violet-900 to-indigo-900 text-white rounded-xl p-2.5 shadow-md border border-violet-700/50 flex items-center justify-between gap-2">
+                  <div>
+                    <span class="text-[8.5px] font-extrabold tracking-wider uppercase text-violet-300 block">RESEP #1</span>
+                    <h4 id="qcReagentRecipeTitle" class="text-[11px] font-extrabold mt-0.5 truncate">Na2S2O3 0.1N (250 mL)</h4>
+                    <div id="qcReagentRecipeList" class="mt-1 text-[10px] space-y-0.5 font-mono text-violet-100">
+                      <!-- JS populated -->
+                    </div>
+                  </div>
+                  <button onclick="window.Qc && window.Qc.copyReagentRecipe(1)" class="px-2 py-1 rounded-lg bg-violet-500 hover:bg-violet-400 text-white font-extrabold text-[9.5px] shadow-sm flex items-center gap-0.5 flex-shrink-0">
+                    <span>📋</span><span>Salin</span>
+                  </button>
+                </div>
               </div>
 
               <!-- SOP Pembuatan 1 -->
-              <div class="space-y-0.5 pt-0.5">
+              <div class="space-y-1 pt-1 flex-1 flex flex-col justify-end min-h-0">
                 <h4 class="text-[10px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1">
                   <span>📑</span> SOP Pembuatan #1
                 </h4>
-                <div id="qcReagentSopContainer" class="space-y-1 text-[10px]">
+                <div id="qcReagentSopContainer" class="space-y-1 text-[10px] flex-1 overflow-y-auto">
                   <!-- JS populated -->
                 </div>
               </div>
@@ -2342,116 +2323,118 @@
           </div>
 
           <!-- CARD 2: REAGENT PREPARATION #2 -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-3.5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex flex-col justify-between">
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
-                <h3 class="text-[11.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                  <span>🧫</span> Reagen #2
-                </h3>
-                <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 font-extrabold text-[9px]">Kalkulator 2</span>
-              </div>
-
-              <!-- Controls 2 -->
-              <div class="space-y-2">
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                    <span>🔬</span> Kategori Uji Lab
-                  </label>
-                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect2">
-                    <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-emerald-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect2', event)">
-                      <span id="label_qcReagentCategorySelect2" class="truncate">🌐 Semua Parameter</span>
-                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <input type="hidden" id="qcReagentCategorySelect2" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value, 2)">
-                    <div id="menu_qcReagentCategorySelect2" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'all', '🌐 Semua Parameter', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter</span><span class="ui-check text-emerald-500 font-extrabold text-xs ml-1">✓</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'p_spektro', '🔬 Uji Phosphorus Content', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'cl_salt', '💧 Uji Klorida & Garam', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'fac_gc', '🧬 Uji Fatty Acid Composition', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'titrimetric', '🧈 Uji Titrasi Minyak', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak</span></div>
-                    </div>
-                  </div>
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-3.5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col justify-between h-full flex-1 w-full max-w-full space-y-3 min-h-0">
+            <div class="space-y-2.5 flex-1 flex flex-col justify-between min-h-0">
+              <div class="space-y-2.5 flex-shrink-0">
+                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
+                  <h3 class="text-[11.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
+                    <span>🧫</span> Reagen #2
+                  </h3>
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 font-extrabold text-[9px]">Kalkulator 2</span>
                 </div>
 
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                    <span>🧪</span> Reagen / Larutan Kimia
-                  </label>
-                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect2">
-                    <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-emerald-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect2', event)">
-                      <span id="label_qcReagentSelect2" class="truncate">AgNO3 0.1 N</span>
-                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <input type="hidden" id="qcReagentSelect2" value="agno3_01n" onchange="window.Qc && window.Qc.calcReagents(2)">
-                    <div id="menu_qcReagentSelect2" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
-                      <!-- JS dynamically populates items -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Vol & Norm 2 -->
-              <div class="grid grid-cols-2 gap-2">
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Target Vol (mL)</label>
-                  <div class="relative">
-                    <input id="qcReagentVolume2" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents(2)" class="w-full px-2.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="250">
-                    <span class="absolute right-2 top-1.5 text-[9px] font-extrabold text-zinc-400">mL</span>
-                  </div>
-                </div>
-                <div class="space-y-0.5">
-                  <div class="flex items-center justify-between">
-                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Konsentrasi</label>
-                    <span id="qcReagentDefaultNormBadge2" class="text-[8.5px] font-extrabold px-1 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">Std: 0.1 N</span>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <input id="qcReagentNorm2" type="number" step="0.01" value="0.1" oninput="window.Qc && window.Qc.calcReagents(2)" class="w-full px-2 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="0.1">
-                    <div class="relative w-20 custom-ui-select" id="wrapper_qcReagentUnitSelect2">
-                      <button type="button" class="w-full px-1.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[10.5px] font-extrabold text-emerald-600 dark:text-emerald-400 flex items-center justify-between hover:border-emerald-500 shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect2', event)">
-                        <span id="label_qcReagentUnitSelect2" class="truncate">N</span>
-                        <svg class="w-3 h-3 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                <!-- Controls 2 -->
+                <div class="space-y-2">
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                      <span>🔬</span> Kategori Uji Lab
+                    </label>
+                    <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect2">
+                      <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-emerald-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect2', event)">
+                        <span id="label_qcReagentCategorySelect2" class="truncate">🌐 Semua Parameter</span>
+                        <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                       </button>
-                      <input type="hidden" id="qcReagentUnitSelect2" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value, 2)">
-                      <div id="menu_qcReagentUnitSelect2" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-24">
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'N', 'N', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold bg-emerald-500/10 text-emerald-600 font-black rounded-lg mx-0.5 flex items-center justify-between" data-val="N"><span>N</span><span class="ui-check text-emerald-500 font-extrabold text-xs">✓</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'M', 'M', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="M"><span>M</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect2', '%', '%', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="%"><span>%</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'ppm', 'ppm', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="ppm"><span>ppm</span></div>
+                      <input type="hidden" id="qcReagentCategorySelect2" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value, 2)">
+                      <div id="menu_qcReagentCategorySelect2" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'all', '🌐 Semua Parameter', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter</span><span class="ui-check text-emerald-500 font-extrabold text-xs ml-1">✓</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'p_spektro', '🔬 Uji Phosphorus Content', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'cl_salt', '💧 Uji Klorida & Garam', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'fac_gc', '🧬 Uji Fatty Acid Composition', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect2', 'titrimetric', '🧈 Uji Titrasi Minyak', val => window.Qc.filterReagentCategory(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                      <span>🧪</span> Reagen / Larutan Kimia
+                    </label>
+                    <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect2">
+                      <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-emerald-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect2', event)">
+                        <span id="label_qcReagentSelect2" class="truncate">AgNO3 0.1 N</span>
+                        <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+                      <input type="hidden" id="qcReagentSelect2" value="agno3_01n" onchange="window.Qc && window.Qc.calcReagents(2)">
+                      <div id="menu_qcReagentSelect2" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                        <!-- JS dynamically populates items -->
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Quick Presets 2 -->
-              <div class="flex items-center gap-1 pt-0.5">
-                <span class="text-[9.5px] font-bold text-zinc-400 uppercase mr-0.5">Vol:</span>
-                <button onclick="document.getElementById('qcReagentVolume2').value=50; window.Qc && window.Qc.calcReagents(2);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">50</button>
-                <button onclick="document.getElementById('qcReagentVolume2').value=200; window.Qc && window.Qc.calcReagents(2);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">200</button>
-                <button onclick="document.getElementById('qcReagentVolume2').value=250; window.Qc && window.Qc.calcReagents(2);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">250</button>
-                <button onclick="document.getElementById('qcReagentVolume2').value=500; window.Qc && window.Qc.calcReagents(2);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">500</button>
-              </div>
-
-              <!-- Recipe Result 2 -->
-              <div id="qcReagentRecipeBanner2" class="bg-gradient-to-r from-emerald-900 to-teal-900 text-white rounded-xl p-2.5 shadow-md border border-emerald-700/50 flex items-center justify-between gap-2">
-                <div>
-                  <span class="text-[8.5px] font-extrabold tracking-wider uppercase text-emerald-300 block">RESEP #2</span>
-                  <h4 id="qcReagentRecipeTitle2" class="text-[11px] font-extrabold mt-0.5 truncate">AgNO3 0.1N (250 mL)</h4>
-                  <div id="qcReagentRecipeList2" class="mt-1 text-[10px] space-y-0.5 font-mono text-emerald-100">
-                    <!-- JS populated -->
+                <!-- Vol & Norm 2 -->
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Target Vol (mL)</label>
+                    <div class="relative">
+                      <input id="qcReagentVolume2" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents(2)" class="w-full px-2.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="250">
+                      <span class="absolute right-2 top-1.5 text-[9px] font-extrabold text-zinc-400">mL</span>
+                    </div>
+                  </div>
+                  <div class="space-y-0.5">
+                    <div class="flex items-center justify-between">
+                      <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Konsentrasi</label>
+                      <span id="qcReagentDefaultNormBadge2" class="text-[8.5px] font-extrabold px-1 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">Std: 0.1 N</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <input id="qcReagentNorm2" type="number" step="0.01" value="0.1" oninput="window.Qc && window.Qc.calcReagents(2)" class="w-full px-2 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="0.1">
+                      <div class="relative w-20 custom-ui-select" id="wrapper_qcReagentUnitSelect2">
+                        <button type="button" class="w-full px-1.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[10.5px] font-extrabold text-emerald-600 dark:text-emerald-400 flex items-center justify-between hover:border-emerald-500 shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect2', event)">
+                          <span id="label_qcReagentUnitSelect2" class="truncate">N</span>
+                          <svg class="w-3 h-3 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <input type="hidden" id="qcReagentUnitSelect2" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value, 2)">
+                        <div id="menu_qcReagentUnitSelect2" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-24">
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'N', 'N', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold bg-emerald-500/10 text-emerald-600 font-black rounded-lg mx-0.5 flex items-center justify-between" data-val="N"><span>N</span><span class="ui-check text-emerald-500 font-extrabold text-xs">✓</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'M', 'M', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="M"><span>M</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect2', '%', '%', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="%"><span>%</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect2', 'ppm', 'ppm', val => window.Qc.changeReagentUnit(val, 2))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="ppm"><span>ppm</span></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <button onclick="window.Qc && window.Qc.copyReagentRecipe(2)" class="px-2 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-[9.5px] shadow-sm flex items-center gap-0.5 flex-shrink-0">
-                  <span>📋</span><span>Salin</span>
-                </button>
+
+                <!-- Quick Presets 2 -->
+                <div class="flex items-center gap-1 pt-0.5">
+                  <span class="text-[9.5px] font-bold text-zinc-400 uppercase mr-0.5">Vol:</span>
+                  <button onclick="document.getElementById('qcReagentVolume2').value=50; window.Qc && window.Qc.calcReagents(2);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">50</button>
+                  <button onclick="document.getElementById('qcReagentVolume2').value=200; window.Qc && window.Qc.calcReagents(2);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">200</button>
+                  <button onclick="document.getElementById('qcReagentVolume2').value=250; window.Qc && window.Qc.calcReagents(2);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">250</button>
+                  <button onclick="document.getElementById('qcReagentVolume2').value=500; window.Qc && window.Qc.calcReagents(2);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-emerald-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">500</button>
+                </div>
+
+                <!-- Recipe Result 2 -->
+                <div id="qcReagentRecipeBanner2" class="bg-gradient-to-r from-emerald-900 to-teal-900 text-white rounded-xl p-2.5 shadow-md border border-emerald-700/50 flex items-center justify-between gap-2">
+                  <div>
+                    <span class="text-[8.5px] font-extrabold tracking-wider uppercase text-emerald-300 block">RESEP #2</span>
+                    <h4 id="qcReagentRecipeTitle2" class="text-[11px] font-extrabold mt-0.5 truncate">AgNO3 0.1N (250 mL)</h4>
+                    <div id="qcReagentRecipeList2" class="mt-1 text-[10px] space-y-0.5 font-mono text-emerald-100">
+                      <!-- JS populated -->
+                    </div>
+                  </div>
+                  <button onclick="window.Qc && window.Qc.copyReagentRecipe(2)" class="px-2 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-white font-extrabold text-[9.5px] shadow-sm flex items-center gap-0.5 flex-shrink-0">
+                    <span>📋</span><span>Salin</span>
+                  </button>
+                </div>
               </div>
 
               <!-- SOP Pembuatan 2 -->
-              <div class="space-y-0.5 pt-0.5">
+              <div class="space-y-1 pt-1 flex-1 flex flex-col justify-end min-h-0">
                 <h4 class="text-[10px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1">
                   <span>📑</span> SOP Pembuatan #2
                 </h4>
-                <div id="qcReagentSopContainer2" class="space-y-1 text-[10px]">
+                <div id="qcReagentSopContainer2" class="space-y-1 text-[10px] flex-1 overflow-y-auto">
                   <!-- JS populated -->
                 </div>
               </div>
@@ -2459,117 +2442,117 @@
           </div>
 
           <!-- CARD 3: REAGENT PREPARATION #3 -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-3.5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex flex-col justify-between">
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
-                <h3 class="text-[11.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                  <span>🧫</span> Reagen #3
-                </h3>
-                <span class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-extrabold text-[9px]">Kalkulator 3</span>
-              </div>
-
-              <!-- Controls 3 -->
-              <div class="space-y-2">
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                    <span>🔬</span> Kategori Uji Lab
-                  </label>
-                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect3">
-                    <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-amber-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect3', event)">
-                      <span id="label_qcReagentCategorySelect3" class="truncate">🌐 Semua Parameter</span>
-                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <input type="hidden" id="qcReagentCategorySelect3" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value, 3)">
-                    <div id="menu_qcReagentCategorySelect3" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'all', '🌐 Semua Parameter', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter</span><span class="ui-check text-amber-500 font-extrabold text-xs ml-1">✓</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'p_spektro', '🔬 Uji Phosphorus Content', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 hover:text-amber-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'cl_salt', '💧 Uji Klorida & Garam', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 hover:text-amber-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'fac_gc', '🧬 Uji Fatty Acid Composition', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 hover:text-amber-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition</span></div>
-                      <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'titrimetric', '🧈 Uji Titrasi Minyak', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 hover:text-amber-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak</span></div>
-                    </div>
-                  </div>
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-3.5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col justify-between h-full flex-1 w-full max-w-full space-y-3 min-h-0">
+            <div class="space-y-2.5 flex-1 flex flex-col justify-between min-h-0">
+              <div class="space-y-2.5 flex-shrink-0">
+                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
+                  <h3 class="text-[11.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
+                    <span>🧫</span> Reagen #3
+                  </h3>
+                  <span class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-extrabold text-[9px]">Kalkulator 3</span>
                 </div>
 
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
-                    <span>🧪</span> Reagen / Larutan Kimia
-                  </label>
-                  <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect3">
-                    <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-amber-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect3', event)">
-                      <span id="label_qcReagentSelect3" class="truncate">NaOH 0.1 N</span>
-                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <input type="hidden" id="qcReagentSelect3" value="naoh_01n" onchange="window.Qc && window.Qc.calcReagents(3)">
-                    <div id="menu_qcReagentSelect3" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
-                      <!-- JS dynamically populates items -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Vol & Norm 3 -->
-              <div class="grid grid-cols-2 gap-2">
-                <div class="space-y-0.5">
-                  <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Target Vol (mL)</label>
-                  <div class="relative">
-                    <input id="qcReagentVolume3" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents(3)" class="w-full px-2.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="250">
-                    <span class="absolute right-2 top-1.5 text-[9px] font-extrabold text-zinc-400">mL</span>
-                  </div>
-                </div>
-                <div class="space-y-0.5">
-                  <div class="flex items-center justify-between">
-                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Konsentrasi</label>
-                    <span id="qcReagentDefaultNormBadge3" class="text-[8.5px] font-extrabold px-1 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">Std: 0.1 N</span>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    <input id="qcReagentNorm3" type="number" step="0.01" value="0.1" oninput="window.Qc && window.Qc.calcReagents(3)" class="w-full px-2 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="0.1">
-                    <div class="relative w-20 custom-ui-select" id="wrapper_qcReagentUnitSelect3">
-                      <button type="button" class="w-full px-1.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[10.5px] font-extrabold text-amber-600 dark:text-amber-400 flex items-center justify-between hover:border-amber-500 shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect3', event)">
-                        <span id="label_qcReagentUnitSelect3" class="truncate">N</span>
-                        <svg class="w-3 h-3 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                <!-- Controls 3 -->
+                <div class="space-y-2">
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                      <span>🔬</span> Kategori Uji Lab
+                    </label>
+                    <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect3">
+                      <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-amber-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect3', event)">
+                        <span id="label_qcReagentCategorySelect3" class="truncate">🌐 Semua Parameter</span>
+                        <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                       </button>
-                      <input type="hidden" id="qcReagentUnitSelect3" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value, 3)">
-                      <div id="menu_qcReagentUnitSelect3" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-24">
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect3', 'N', 'N', val => window.Qc.changeReagentUnit(val, 3))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold bg-amber-500/10 text-amber-600 font-black rounded-lg mx-0.5 flex items-center justify-between" data-val="N"><span>N</span><span class="ui-check text-amber-500 font-extrabold text-xs">✓</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect3', 'M', 'M', val => window.Qc.changeReagentUnit(val, 3))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="M"><span>M</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect3', '%', '%', val => window.Qc.changeReagentUnit(val, 3))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="%"><span>%</span></div>
-                        <div onclick="window.UISelect.select('qcReagentUnitSelect3', 'ppm', 'ppm', val => window.Qc.changeReagentUnit(val, 3))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="ppm"><span>ppm</span></div>
+                      <input type="hidden" id="qcReagentCategorySelect3" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value, 3)">
+                      <div id="menu_qcReagentCategorySelect3" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'all', '🌐 Semua Parameter', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter</span><span class="ui-check text-amber-500 font-extrabold text-xs ml-1">✓</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'p_spektro', '🔬 Uji Phosphorus Content', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 hover:text-amber-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'cl_salt', '💧 Uji Klorida & Garam', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 hover:text-amber-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'fac_gc', '🧬 Uji Fatty Acid Composition', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 hover:text-amber-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition</span></div>
+                        <div onclick="window.UISelect.select('qcReagentCategorySelect3', 'titrimetric', '🧈 Uji Titrasi Minyak', val => window.Qc.filterReagentCategory(val, 3))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 hover:text-amber-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
+                      <span>🧪</span> Reagen / Larutan Kimia
+                    </label>
+                    <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect3">
+                      <button type="button" class="w-full px-2.5 py-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[11px] font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-amber-500 focus:outline-none shadow-sm h-7.5" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect3', event)">
+                        <span id="label_qcReagentSelect3" class="truncate">NaOH 0.1 N</span>
+                        <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                      </button>
+                      <input type="hidden" id="qcReagentSelect3" value="naoh_01n" onchange="window.Qc && window.Qc.calcReagents(3)">
+                      <div id="menu_qcReagentSelect3" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-56 overflow-y-auto w-full">
+                        <!-- JS dynamically populates items -->
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Quick Presets 3 -->
-              <div class="flex items-center gap-1 pt-0.5">
-                <span class="text-[9.5px] font-bold text-zinc-400 uppercase mr-0.5">Vol:</span>
-                <button onclick="document.getElementById('qcReagentVolume3').value=50; window.Qc && window.Qc.calcReagents(3);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-amber-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">50</button>
-                <button onclick="document.getElementById('qcReagentVolume3').value=200; window.Qc && window.Qc.calcReagents(3);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-amber-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">200</button>
-                <button onclick="document.getElementById('qcReagentVolume3').value=250; window.Qc && window.Qc.calcReagents(3);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-amber-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">250</button>
-                <button onclick="document.getElementById('qcReagentVolume3').value=500; window.Qc && window.Qc.calcReagents(3);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-amber-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">500</button>
-              </div>
-
-              <!-- Recipe Result 3 -->
-              <div id="qcReagentRecipeBanner3" class="bg-gradient-to-r from-amber-900 to-orange-900 text-white rounded-xl p-2.5 shadow-md border border-amber-700/50 flex items-center justify-between gap-2">
-                <div>
-                  <span class="text-[8.5px] font-extrabold tracking-wider uppercase text-amber-300 block">RESEP #3</span>
-                  <h4 id="qcReagentRecipeTitle3" class="text-[11px] font-extrabold mt-0.5 truncate">NaOH 0.1N (250 mL)</h4>
-                  <div id="qcReagentRecipeList3" class="mt-1 text-[10px] space-y-0.5 font-mono text-amber-100">
-                    <!-- JS populated -->
+                <!-- Vol & Norm 3 -->
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="space-y-0.5">
+                    <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Target Vol (mL)</label>
+                    <div class="relative">
+                      <input id="qcReagentVolume3" type="number" step="10" value="250" oninput="window.Qc && window.Qc.calcReagents(3)" class="w-full px-2.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="250">
+                      <span class="absolute right-2 top-1.5 text-[9px] font-extrabold text-zinc-400">mL</span>
+                    </div>
+                  </div>
+                  <div class="space-y-0.5">
+                    <div class="flex items-center justify-between">
+                      <label class="block text-[10px] font-bold text-zinc-600 dark:text-zinc-400">Konsentrasi</label>
+                      <span id="qcReagentDefaultNormBadge3" class="text-[8.5px] font-extrabold px-1 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">Std: 0.1 N</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <input id="qcReagentNorm3" type="number" step="0.01" value="0.1" oninput="window.Qc && window.Qc.calcReagents(3)" class="w-full px-2 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-[11px] font-bold font-mono text-zinc-900 dark:text-white" placeholder="0.1">
+                      <div class="relative w-20 custom-ui-select" id="wrapper_qcReagentUnitSelect3">
+                        <button type="button" class="w-full px-1.5 py-1 h-7.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-[10.5px] font-extrabold text-amber-600 dark:text-amber-400 flex items-center justify-between hover:border-amber-500 shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect3', event)">
+                          <span id="label_qcReagentUnitSelect3" class="truncate">N</span>
+                          <svg class="w-3 h-3 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <input type="hidden" id="qcReagentUnitSelect3" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value, 3)">
+                        <div id="menu_qcReagentUnitSelect3" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-24">
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect3', 'N', 'N', val => window.Qc.changeReagentUnit(val, 3))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold bg-amber-500/10 text-amber-600 font-black rounded-lg mx-0.5 flex items-center justify-between" data-val="N"><span>N</span><span class="ui-check text-amber-500 font-extrabold text-xs">✓</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect3', 'M', 'M', val => window.Qc.changeReagentUnit(val, 3))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="M"><span>M</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect3', '%', '%', val => window.Qc.changeReagentUnit(val, 3))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="%"><span>%</span></div>
+                          <div onclick="window.UISelect.select('qcReagentUnitSelect3', 'ppm', 'ppm', val => window.Qc.changeReagentUnit(val, 3))" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold text-zinc-700 dark:text-zinc-300 hover:bg-amber-500/10 rounded-lg mx-0.5 flex items-center justify-between" data-val="ppm"><span>ppm</span></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <button onclick="window.Qc && window.Qc.copyReagentRecipe(3)" class="px-2 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-white font-extrabold text-[9.5px] shadow-sm flex items-center gap-0.5 flex-shrink-0">
-                  <span>📋</span><span>Salin</span>
-                </button>
+
+                <!-- Quick Presets 3 -->
+                <div class="flex items-center gap-1 pt-0.5">
+                  <span class="text-[9.5px] font-bold text-zinc-400 uppercase mr-0.5">Vol:</span>
+                  <button onclick="document.getElementById('qcReagentVolume3').value=50; window.Qc && window.Qc.calcReagents(3);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-amber-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">50</button>
+                  <button onclick="document.getElementById('qcReagentVolume3').value=200; window.Qc && window.Qc.calcReagents(3);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-amber-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">200</button>
+                  <button onclick="document.getElementById('qcReagentVolume3').value=250; window.Qc && window.Qc.calcReagents(3);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-amber-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">250</button>
+                  <button onclick="document.getElementById('qcReagentVolume3').value=500; window.Qc && window.Qc.calcReagents(3);" class="px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-amber-100 font-bold text-[9.5px] text-zinc-700 dark:text-zinc-300">500</button>
+                </div>
+
+                <!-- Recipe Result 3 -->
+                <div id="qcReagentRecipeBanner3" class="bg-gradient-to-r from-amber-900 to-orange-900 text-white rounded-xl p-2.5 shadow-md border border-amber-700/50 flex items-center justify-between gap-2">
+                  <div>
+                    <span class="text-[8.5px] font-extrabold tracking-wider uppercase text-amber-300 block">RESEP #3</span>
+                    <h4 id="qcReagentRecipeTitle3" class="text-[11px] font-extrabold mt-0.5 truncate">NaOH 0.1N (250 mL)</h4>
+                    <div id="qcReagentRecipeList3" class="mt-1 text-[10px] space-y-0.5 font-mono text-amber-100">
+                      <!-- JS populated -->
+                    </div>
+                  </div>
+                  <button onclick="window.Qc && window.Qc.copyReagentRecipe(3)" class="px-2 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-white font-extrabold text-[9.5px] shadow-sm flex items-center gap-0.5 flex-shrink-0">
+                    <span>📋</span><span>Salin</span>
+                  </button>
+                </div>
               </div>
 
               <!-- SOP Pembuatan 3 -->
-              <div class="space-y-0.5 pt-0.5">
+              <div class="space-y-1 pt-1 flex-1 flex flex-col justify-end min-h-0">
                 <h4 class="text-[10px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1">
                   <span>📑</span> SOP Pembuatan #3
                 </h4>
-                <div id="qcReagentSopContainer3" class="space-y-1 text-[10px]">
-                  <!-- JS populated -->
                 </div>
               </div>
             </div>
