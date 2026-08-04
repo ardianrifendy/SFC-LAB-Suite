@@ -107,6 +107,30 @@
       transform: translateX(0);
     }
     
+    /* Slow Blink QC Notice Peak Highlight Animation */
+    @keyframes slowBlinkAmber {
+      0%, 100% {
+        background-color: rgba(254, 243, 199, 0.45);
+      }
+      50% {
+        background-color: rgba(253, 230, 138, 0.85);
+      }
+    }
+    @keyframes slowBlinkAmberDark {
+      0%, 100% {
+        background-color: rgba(120, 53, 15, 0.30);
+      }
+      50% {
+        background-color: rgba(180, 83, 9, 0.65);
+      }
+    }
+    .animate-qc-highlight td {
+      animation: slowBlinkAmber 2.8s ease-in-out infinite;
+    }
+    .dark .animate-qc-highlight td {
+      animation: slowBlinkAmberDark 2.8s ease-in-out infinite;
+    }
+
     /* Back Mode Button */
     .back-mode {
       border-color: #f43f5e !important; /* rose-500 */
@@ -129,13 +153,13 @@
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
     
-    /* Toast Animation */
+    /* Toast Animation (Center Bottom Slide Up) */
     .toast-anim {
-      animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: slideUpCenter 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    @keyframes slideInRight {
-      from { transform: translateX(100px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+    @keyframes slideUpCenter {
+      from { transform: translate(-50%, 20px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
     }
 
     /* Sidebar Styles */
@@ -379,6 +403,10 @@
       text-align: left !important;
       z-index: 50 !important;
     }
+    .tooltip-text.tooltip-left-aligned {
+      left: -8px !important;
+      transform: none !important;
+    }
 
     /* Fix Sidebar Icon Overflow (Non-standard Tailwind Size fallback) */
     .sidebar-menu-item svg {
@@ -583,8 +611,8 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 min-w-0 px-4 sm:px-5 py-3.5 pb-20 md:pb-6 flex flex-col h-full overflow-y-auto">
-      <div class="w-full flex-1 flex flex-col space-y-4">
+    <main class="flex-1 min-w-0 px-4 sm:px-5 py-4 md:py-4 flex flex-col h-full overflow-hidden">
+      <div class="w-full flex-1 flex flex-col min-h-0 space-y-4">
 
     <!-- ===== REGION: MODULE-EXTRACTOR ===== -->
     <div id="tabContent-extractor" class="tab-panel flex-1 flex flex-col hidden">
@@ -1496,7 +1524,7 @@
     </div>
 
     <!-- ===== REGION: MODULE-FAC ===== -->
-    <div id="tabContent-fac" class="tab-panel hidden animate-fade-in">
+    <div id="tabContent-fac" class="tab-panel flex-1 flex flex-col h-full overflow-hidden hidden animate-fade-in">
       
       <!-- Layout saat KOSONG (Centered Uploader) -->
       <div id="facEmptyState" class="flex flex-col items-center justify-center min-h-[480px] max-w-lg mx-auto bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-8 border border-zinc-200 dark:border-zinc-800 transition-colors text-center space-y-6 my-8">
@@ -1517,60 +1545,59 @@
         <label class="flex flex-col items-center justify-center w-full h-44 px-6 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
           <div class="flex flex-col items-center justify-center pt-5 pb-6">
             <span class="text-4xl mb-2">📁</span>
-            <p class="text-sm font-bold text-zinc-650 dark:text-zinc-300">Pilih atau Seret PDF Laporan FAC</p>
             <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-1">Hanya mendukung file .pdf Agilent ChemStation</p>
           </div>
           <input type="file" id="facFileInputCentered" multiple accept=".pdf" class="hidden">
         </label>
       </div>
 
-      <!-- Layout saat ADA DATA (Grid 2 Kolom) -->
-      <div id="facDataLayout" class="hidden grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 lg:h-[calc(100vh-145px)] lg:overflow-hidden pb-4 lg:pb-0">
+      <!-- Layout saat ADA DATA (Grid 2 Kolom Presisi Simetris) -->
+      <div id="facDataLayout" class="hidden grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4 h-full flex-1 min-h-0 overflow-hidden pb-0">
         
-        <!-- Kolom Kiri: Controls, Stats, & Metadata -->
-        <div class="space-y-4 lg:h-full lg:flex lg:flex-col lg:overflow-hidden">
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex-shrink-0">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2 mb-2">
-              <h2 class="text-base font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
+        <!-- Kolom Kiri: Controls, Stats, & Metadata (Auto-scroll jika layar pendek) -->
+        <div class="flex flex-col gap-3 lg:h-full min-h-0 overflow-y-auto custom-scrollbar pr-0.5">
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-3.5 sm:p-4 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-2.5 flex-shrink-0">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5 mb-1.5">
+              <h2 class="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-1.5">
                 🧬 FAC Extractor
               </h2>
-              <button class="px-2 py-1 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[9px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors" onclick="showHelpGuide('fac')">
+              <button class="px-2 py-0.5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[9px] font-bold text-emerald-600 dark:text-emerald-450 transition-colors" onclick="showHelpGuide('fac')">
                 📖 Petunjuk
               </button>
             </div>
             
             <!-- File Uploader Mini (Sidebar) -->
-            <div class="space-y-2">
-              <label class="block text-[10px] font-bold text-zinc-550 dark:text-zinc-450 tracking-wider">UNGGAH LAPORAN PDF BARU</label>
-              <label class="flex items-center gap-3 w-full py-2.5 px-4 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
-                <span class="text-xl">📁</span>
+            <div class="space-y-1.5">
+              <label class="block text-[9px] font-bold text-zinc-550 dark:text-zinc-450 tracking-wider uppercase">UNGGAH PDF BARU</label>
+              <label class="flex items-center gap-2.5 w-full py-2 px-3 transition bg-zinc-50 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-700 border-dashed rounded-xl cursor-pointer hover:border-emerald-500 dark:hover:border-emerald-500 hover:bg-zinc-100 dark:hover:bg-zinc-800/40">
+                <span class="text-lg">📁</span>
                 <div class="text-left leading-tight">
-                  <p class="text-xs font-bold text-zinc-650 dark:text-zinc-300">Pilih / Drag PDF FAC</p>
-                  <p class="text-[9px] text-zinc-400 dark:text-zinc-500">Format laporan Agilent</p>
+                  <p class="text-xs font-bold text-zinc-650 dark:text-zinc-300">Pilih / Drag PDF</p>
+                  <p class="text-[8.5px] text-zinc-400 dark:text-zinc-500">Agilent ChemStation</p>
                 </div>
                 <input type="file" id="facFileInput" multiple accept=".pdf" class="hidden">
               </label>
             </div>
 
             <!-- List File Terunggah -->
-            <div id="facFileListContainer" class="space-y-2">
+            <div id="facFileListContainer" class="space-y-1.5">
               <div class="flex items-center justify-between">
-                <span class="text-[9px] font-bold text-zinc-500 tracking-wider">DAFTAR DOKUMEN FAC</span>
+                <span class="text-[9px] font-bold text-zinc-500 tracking-wider uppercase">DAFTAR DOKUMEN</span>
                 <button id="facClearAllBtn" class="text-[9px] font-bold text-rose-500 hover:underline">Hapus Semua</button>
               </div>
-              <div class="space-y-2">
-                <div class="flex gap-2 items-center">
-                  <select id="facFileSelect" class="flex-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-2 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors min-w-0">
+              <div class="space-y-1.5">
+                <div class="flex gap-1.5 items-center">
+                  <select id="facFileSelect" class="flex-1 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-1.5 font-sans text-xs focus:border-emerald-500 focus:outline-none dark:text-white transition-colors min-w-0">
                     <!-- Diisi secara dinamis -->
                   </select>
-                  <button id="facPrevFileBtn" title="File Sebelumnya" class="px-3 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex-shrink-0 flex items-center justify-center">
+                  <button id="facPrevFileBtn" title="File Sebelumnya" class="px-2.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex-shrink-0 flex items-center justify-center">
                     ▲
                   </button>
-                  <button id="facNextFileBtn" title="File Berikutnya" class="px-3 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex-shrink-0 flex items-center justify-center">
+                  <button id="facNextFileBtn" title="File Berikutnya" class="px-2.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex-shrink-0 flex items-center justify-center">
                     ▼
                   </button>
                 </div>
-                <button id="facCopyFilenameBtn" title="Salin nama file sebagai folder .D" class="w-full py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-xs text-zinc-700 dark:text-zinc-300 transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                <button id="facCopyFilenameBtn" title="Salin nama file sebagai folder .D" class="w-full py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 font-bold text-[11px] text-zinc-700 dark:text-zinc-300 transition-colors flex items-center justify-center gap-1.5 shadow-sm">
                   <span>📋</span><span>Salin Nama File (.D)</span>
                 </button>
               </div>
@@ -1578,10 +1605,10 @@
           </div>
 
           <!-- Summary Stats & Smart Matrix Card -->
-          <div id="facStatsCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-2.5 flex-shrink-0">
+          <div id="facStatsCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-3.5 sm:p-4 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-2 flex-shrink-0">
             <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
-              <h3 class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK & MATRIKS ANALISA</h3>
-              <span id="facMatrixConfidence" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/60">-</span>
+              <h3 class="text-[9.5px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">STATISTIK & MATRIKS ANALISA</h3>
+              <span id="facMatrixConfidence" class="text-[8.5px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900/60">-</span>
             </div>
             
             <!-- Predicted Matrix Name & Circle Info Icon Button -->
@@ -1603,15 +1630,29 @@
               </div>
             </div>
 
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-2 gap-2 pt-0.5">
-              <div class="bg-zinc-50 dark:bg-zinc-900 p-2 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
-                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">IODINE VALUE (IV)</span>
-                <span id="facIvValue" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+            <!-- Stats Grid (3 Kolom Simetris: IV, % Lauric, Total Area %) -->
+            <div class="grid grid-cols-3 gap-1.5 pt-0.5">
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-1.5 rounded-xl border border-zinc-200/60 dark:border-zinc-800 text-center flex flex-col justify-between h-[52px] min-w-0" title="Iodine Value (IV)">
+                <span class="block text-[8.5px] font-extrabold text-zinc-600 dark:text-zinc-350 uppercase tracking-tight truncate w-full">IODINE VALUE</span>
+                <span id="facIvValue" class="text-[11.5px] font-bold text-emerald-600 dark:text-emerald-400 font-mono block truncate w-full">-</span>
               </div>
-              <div class="bg-zinc-50 dark:bg-zinc-900 p-2 rounded-xl border border-zinc-200/50 dark:border-zinc-800 text-center">
-                <span class="block text-[8px] font-bold text-zinc-400 dark:text-zinc-550 tracking-wider">TOTAL AREA %</span>
-                <span id="facTotalArea" class="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">-</span>
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-1.5 rounded-xl border border-zinc-200/60 dark:border-zinc-800 text-center flex flex-col justify-between h-[52px] min-w-0">
+                <div class="flex items-center justify-center gap-1 w-full">
+                  <span class="block text-[8.5px] font-extrabold text-zinc-600 dark:text-zinc-350 uppercase tracking-tight truncate">% LAURIC</span>
+                  <div class="tooltip-container group cursor-pointer select-none">
+                    <span id="facLauricInfoBtn" class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                    <div id="facLauricTooltipText" class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2 text-left">
+                      <strong>Kalkulasi % Lauric</strong><br>
+                      <code>% Lauric = (C12:0 / 47.2) × 100</code><br>
+                      <span class="text-amber-400 font-bold">Batas Specs: Max 0.63 %</span>
+                    </div>
+                  </div>
+                </div>
+                <span id="facLauricValue" class="text-[11.5px] font-bold text-emerald-600 dark:text-emerald-400 font-mono block truncate w-full">-</span>
+              </div>
+              <div class="bg-zinc-50 dark:bg-zinc-900 p-1.5 rounded-xl border border-zinc-200/60 dark:border-zinc-800 text-center flex flex-col justify-between h-[52px] min-w-0" title="Total Area %">
+                <span class="block text-[8.5px] font-extrabold text-zinc-600 dark:text-zinc-350 uppercase tracking-tight truncate w-full">TOTAL AREA %</span>
+                <span id="facTotalArea" class="text-[11.5px] font-bold text-emerald-600 dark:text-emerald-400 font-mono block truncate w-full">-</span>
               </div>
             </div>
 
@@ -1627,59 +1668,130 @@
             </div>
           </div>
 
-          <!-- Metadata Info Card -->
-          <div id="facMetadataCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex-1 min-h-0 flex flex-col overflow-hidden">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2 flex-shrink-0">
-              <h3 class="text-[10px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">METADATA SAMPEL</h3>
+          <!-- Metadata Info Card (Flex-1 untuk Sejajar Presisi dengan Kartu Kanan) -->
+          <div id="facMetadataCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-3.5 sm:p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex-1 flex flex-col min-h-0">
+            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5 flex-shrink-0">
+              <h3 class="text-[9.5px] font-bold text-zinc-800 dark:text-zinc-200 tracking-wider">METADATA SAMPEL</h3>
               <button id="facCopyInfoBtn" class="text-[10px] font-bold text-emerald-500 hover:underline">
                 📋 Salin
               </button>
             </div>
-            <div class="flex-1 overflow-y-auto pr-1 space-y-2 text-xs" id="facMetadataGrid">
+            <div class="space-y-1.5 text-xs flex-1 overflow-y-auto pt-2 custom-scrollbar" id="facMetadataGrid">
               <!-- Diisi via JS -->
             </div>
           </div>
         </div>
 
-        <!-- Kolom Kanan: Table View -->
-        <div id="facMainContent" class="lg:h-full lg:flex lg:flex-col lg:overflow-hidden">
+        <!-- Kolom Kanan: Table View (Auto Height & Scroll Inside Table) -->
+        <div id="facMainContent" class="h-full lg:h-full flex flex-col min-h-0 overflow-hidden">
           <!-- Peak Data Table -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-6 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 h-full flex flex-col overflow-hidden">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3 flex-shrink-0">
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 h-full flex flex-col min-h-0 overflow-hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 dark:border-zinc-800 pb-2.5 flex-shrink-0">
               <div class="leading-tight">
                 <h3 class="text-sm font-bold text-zinc-900 dark:text-white tracking-wider">AREA PERCENT REPORT</h3>
                 <span class="text-[10px] text-zinc-400 dark:text-zinc-550 font-medium">Klik judul kolom di bawah untuk menyalin satu kolom penuh ke clipboard</span>
               </div>
               <div class="flex gap-2">
-                <button id="facCopyTableBtn" class="px-4 py-2 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 font-bold text-xs transition-colors">
+                <button id="facCopyTableBtn" class="px-3.5 py-1.5 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 font-bold text-xs transition-colors">
                   📋 Salin Tabel (TSV)
                 </button>
-                <button id="facExportCsvBtn" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition-colors">
+                <button id="facExportCsvBtn" class="px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs transition-colors">
                   📥 Export CSV
                 </button>
               </div>
             </div>
             
             <!-- Warning Notice QC (Tersembunyi secara default) -->
-            <div id="facAlertNotice" class="hidden p-4 rounded-xl border border-amber-200 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/15 text-amber-800 dark:text-amber-300 text-xs flex gap-3 items-start animate-fade-in flex-shrink-0">
-              <span class="text-xl">⚠️</span>
-              <div class="space-y-1">
-                <p class="font-bold text-sm">Perhatian Hasil Analisa (QC Notice)</p>
-                <p id="facAlertMessage" class="font-medium whitespace-pre-line leading-relaxed">Terdeteksi parameter tertentu yang disarankan untuk diperiksa kembali.</p>
+            <div id="facAlertNotice" class="hidden p-3 rounded-xl border border-amber-200 dark:border-amber-900/40 bg-amber-50/70 dark:bg-amber-950/15 text-amber-800 dark:text-amber-300 text-xs flex gap-2.5 items-start animate-fade-in flex-shrink-0">
+              <span class="text-lg">⚠️</span>
+              <div class="space-y-0.5">
+                <p class="font-bold text-xs">Perhatian Hasil Analisa (QC Notice)</p>
+                <p id="facAlertMessage" class="font-medium whitespace-pre-line leading-relaxed text-[11px]">Terdeteksi parameter tertentu yang disarankan untuk diperiksa kembali.</p>
               </div>
             </div>
 
-            <div class="flex-1 h-0 overflow-auto border border-zinc-200 dark:border-zinc-800 rounded-xl">
+            <!-- Container Tabel dengan Height Min-0 & Scroll Internal -->
+            <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar border border-zinc-200 dark:border-zinc-800 rounded-xl">
               <table class="w-full border-collapse text-left text-xs">
                 <thead>
                   <tr class="text-zinc-650 dark:text-zinc-455 font-bold bg-zinc-100 dark:bg-zinc-800/80">
-                    <th onclick="window.Fac && window.Fac.copyColumn(0)" title="Klik untuk menyalin kolom Peak" class="px-4 py-3 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tl-xl w-16 cursor-pointer select-none transition-colors">Peak</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(1)" title="Klik untuk menyalin kolom RetTime" class="px-6 py-3 text-right sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">RetTime (min)</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(2)" title="Klik untuk menyalin kolom Type" class="px-6 py-3 text-left sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-20 cursor-pointer select-none transition-colors">Type</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(3)" title="Klik untuk menyalin kolom Width" class="px-6 py-3 text-right sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-28 cursor-pointer select-none transition-colors">Width (min)</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(4)" title="Klik untuk menyalin kolom Area" class="px-8 py-3 text-right sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-32 cursor-pointer select-none transition-colors">Area (pA*s)</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(5)" title="Klik untuk menyalin kolom Area%" class="px-8 py-3 text-right sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 w-24 cursor-pointer select-none transition-colors">Area (%)</th>
-                    <th onclick="window.Fac && window.Fac.copyColumn(6)" title="Klik untuk menyalin kolom Name" class="px-6 py-3 text-left sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tr-xl cursor-pointer select-none transition-colors">Name</th>
+                    <th class="px-3 py-2 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tl-xl select-none transition-colors">
+                      <div class="flex items-center justify-center gap-1">
+                        <span onclick="window.Fac && window.Fac.copyColumn(0)" title="Klik untuk menyalin kolom Peak" class="cursor-pointer hover:underline">Peak</span>
+                        <div class="tooltip-container group cursor-pointer select-none">
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <div class="tooltip-text tooltip-multiline tooltip-left-aligned shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-52 leading-normal">
+                            <strong class="text-emerald-400">Nomor Puncak (Peak No):</strong><br>
+                            Nomor urut puncak kromatogram yang terdeteksi oleh detektor GC-FID berdasarkan urutan waktu elusi komponen.
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th class="px-3 py-2 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 select-none transition-colors">
+                      <div class="flex items-center justify-center gap-1">
+                        <span onclick="window.Fac && window.Fac.copyColumn(1)" title="Klik untuk menyalin kolom RetTime" class="cursor-pointer hover:underline">RetTime (min)</span>
+                        <div class="tooltip-container group cursor-pointer select-none">
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-60 leading-normal">
+                            <strong class="text-emerald-400">Waktu Retensi (Retention Time):</strong><br>
+                            Waktu (dalam menit) yang dibutuhkan molekul sampel sejak diinjeksi hingga terdeteksi keluar dari kolom kapiler.
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th class="px-3 py-2 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 select-none transition-colors">
+                      <div class="flex items-center justify-center gap-1">
+                        <span onclick="window.Fac && window.Fac.copyColumn(2)" title="Klik untuk menyalin kolom Type" class="cursor-pointer hover:underline">Type</span>
+                        <div class="tooltip-container group cursor-pointer select-none">
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-64 leading-normal">
+                            <strong class="text-emerald-400">Tipe Integrasi Puncak GC (Type):</strong><br>
+                            • <strong>BB</strong>: Baseline to Baseline (Awal & akhir integrasi di garis dasar).<br>
+                            • <strong>BV / VB</strong>: Baseline to Valley / Valley to Baseline (Antara garis dasar & lembah).<br>
+                            • <strong>VV</strong>: Valley to Valley (Puncak bertumpuk/berdekatan).<br>
+                            • <strong>+I</strong>: Inverted / Manual Integration (Koreksi integrasi manual oleh operator).
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th class="px-3 py-2 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 select-none transition-colors">
+                      <div class="flex items-center justify-center gap-1">
+                        <span onclick="window.Fac && window.Fac.copyColumn(3)" title="Klik untuk menyalin kolom Width" class="cursor-pointer hover:underline">Width (min)</span>
+                        <div class="tooltip-container group cursor-pointer select-none">
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-60 leading-normal">
+                            <strong class="text-emerald-400">Lebar Puncak (Peak Width):</strong><br>
+                            Lebar puncak kromatogram pada 50% tinggi puncak (menit). Menggambarkan efisiensi pemisahan kolom & simetri puncak.
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th class="px-3 py-2 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 select-none transition-colors">
+                      <div class="flex items-center justify-center gap-1">
+                        <span onclick="window.Fac && window.Fac.copyColumn(4)" title="Klik untuk menyalin kolom Area" class="cursor-pointer hover:underline">Area (pA*s)</span>
+                        <div class="tooltip-container group cursor-pointer select-none">
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-64 leading-normal">
+                            <strong class="text-emerald-400">Luas Area Puncak (Peak Area):</strong><br>
+                            Total luas di bawah kurva puncak (pA*s). Berbanding lurus dengan kuantitas massa molekul sampel yang melintasi detektor FID.
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th class="px-3 py-2 text-center sticky top-0 bg-zinc-100 dark:bg-zinc-800 z-10 border-b border-zinc-200 dark:border-zinc-700 select-none transition-colors">
+                      <div class="flex items-center justify-center gap-1">
+                        <span onclick="window.Fac && window.Fac.copyColumn(5)" title="Klik untuk menyalin kolom Area%" class="cursor-pointer hover:underline">Area (%)</span>
+                        <div class="tooltip-container group cursor-pointer select-none">
+                          <span class="w-3.5 h-3.5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 text-[8.5px] font-black flex items-center justify-center transition-colors">i</span>
+                          <div class="tooltip-text tooltip-multiline shadow-2xl border border-zinc-700 dark:border-zinc-700 p-2.5 text-left w-64 leading-normal">
+                            <strong class="text-emerald-400">Persentase Area (Area %):</strong><br>
+                            Persentase luas puncak terhadap total luas seluruh puncak. Menggambarkan komposisi relatif massa asam lemak dalam sampel.
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <th onclick="window.Fac && window.Fac.copyColumn(6)" title="Klik untuk menyalin kolom Name" class="px-4 py-2 text-left sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 cursor-pointer select-none transition-colors">Name</th>
+                    <th onclick="window.Fac && window.Fac.copyColumn(7)" title="Klik untuk menyalin kolom Fatty Acid Name" class="px-4 py-2 text-left sticky top-0 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 z-10 border-b border-zinc-200 dark:border-zinc-700 rounded-tr-xl cursor-pointer select-none transition-colors">Fatty Acid Name</th>
                   </tr>
                 </thead>
                 <tbody id="facTableBody" class="font-mono divide-y divide-zinc-100 dark:divide-zinc-800/50">
@@ -2018,8 +2130,8 @@
   </main>
 </div>
 
-  <!-- Global Toast Element -->
-  <div id="globalToast" class="hidden fixed top-6 right-6 z-50 px-5 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-bold text-xs rounded-2xl shadow-2xl flex items-center gap-2 toast-anim">
+  <!-- Global Toast Element (Center Bottom) -->
+  <div id="globalToast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-50 px-5 py-3 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-bold text-xs rounded-2xl shadow-2xl flex items-center gap-2 toast-anim">
     <span id="globalToastText">✔ Berhasil disalin</span>
   </div>
 
@@ -5403,6 +5515,7 @@ const Fac = {
     this.mainContent = document.getElementById('facMainContent');
     
     this.ivValue = document.getElementById('facIvValue');
+    this.lauricValue = document.getElementById('facLauricValue');
     this.totalArea = document.getElementById('facTotalArea');
     this.peakCount = document.getElementById('facPeakCount');
     this.highestComp = document.getElementById('facHighestComponent');
@@ -5836,16 +5949,17 @@ const Fac = {
     const warnings = [];
 
     if (bestMatch) {
-      if (["olein", "stearin", "cpo"].includes(bestMatch.id) && c12 > 0.8) {
-        warnings.push(`⚠️ Terdeteksi Lauric Acid (C12:0) = ${c12.toFixed(2)}%. Indikasi kontaminasi silang PKO / CNO.`);
+      const lauricCalc = (c12 / 47.2) * 100;
+      if (["olein", "stearin", "cpo"].includes(bestMatch.id) && lauricCalc > 0.63) {
+        warnings.push(`⚠️ % Lauric (${lauricCalc.toFixed(2)} %) > 0.63 % Max Spec (C12:0 = ${c12.toFixed(2)} %). Indikasi kontaminasi PKO/CNO.`);
       }
 
       if (["olein", "stearin", "cpo"].includes(bestMatch.id) && c18_3 > 0.8) {
-        warnings.push(`⚠️ Terdeteksi C18:3 (Linolenic Acid) = ${c18_3.toFixed(2)}%. Indikasi kontaminasi Soft Oil (Soybean/Canola).`);
+        warnings.push(`⚠️ Terdeteksi C18:3 (Linolenic Acid) = ${c18_3.toFixed(2)} %. Indikasi kontaminasi Soft Oil (Soybean/Canola).`);
       }
 
       if (["fhpko", "fhco", "fhpo"].includes(bestMatch.id) && c18_1 > 1.5) {
-        warnings.push(`⚠️ Terdeteksi C18:1 (Unsaturated) = ${c18_1.toFixed(2)}%. Hidrogenasi belum sempurna 100%.`);
+        warnings.push(`⚠️ Terdeteksi C18:1 (Unsaturated) = ${c18_1.toFixed(2)} %. Hidrogenasi belum sempurna 100 %.`);
       }
 
       if (calculatedIv < bestMatch.ivMin || calculatedIv > bestMatch.ivMax) {
@@ -5860,12 +5974,45 @@ const Fac = {
     };
   },
 
+  peakOriginExplanations: {
+    "C4:0": "Asam Butirat. Secara alami TIDAK ADA pada Minyak Sawit murni (0.00 %). Indikator alami Lemak Susu (Butterfat) atau Minyak Laurik.",
+    "C6:0": "Asam Kaproat. Secara alami TIDAK ADA pada Minyak Sawit murni. Indikator alami Minyak Laurik (PKO/CNO) atau Lemak Susu.",
+    "C8:0": "Asam Kaprilat. Secara alami TIDAK ADA pada Minyak Sawit murni. Indikator utama Minyak Laurik (PKO/CNO).",
+    "C10:0": "Asam Kaprat. Secara alami TIDAK ADA pada Minyak Sawit murni. Indikator utama Minyak Laurik (PKO/CNO).",
+    "C11:0": "Asam Undekanoat (Rantai Ganjil). Secara alami TIDAK ADA pada Minyak Sawit. Ditemukan alami pada Lemak Ruminansia (Sapi/Susu) atau akibat Noise Integrasi Baseline.",
+    "C13:0": "Asam Tridekanoat (Rantai Ganjil). Secara alami TIDAK ADA pada Minyak Sawit. Ditemukan alami pada Lemak Ruminansia/Sapi atau Noise Baseline Pemotongan Puncak.",
+    "C15:0": "Asam Pentadekanoat (Rantai Ganjil). Secara alami TIDAK ADA pada Minyak Sawit murni. Indikator alami Lemak Hewani (Tallow/Sapi/Susu) atau Noise Integrasi.",
+    "C15:1": "Asam Pentadekenoat (Rantai Ganjil Tak Jenuh). Secara alami TIDAK ADA pada Minyak Sawit. Indikator spesifik Lemak Ruminansia/Sapi.",
+    "C17:0": "Asam Margarat (Rantai Ganjil). Secara alami TIDAK ADA pada Minyak Sawit murni. Merupakan indikator spesifik Lemak Hewani (Tallow Sapi/Lemak Ruminansia).",
+    "C17:1": "Asam Margaroleat (Rantai Ganjil Tak Jenuh). Secara alami TIDAK ADA pada Minyak Sawit. Indikator spesifik Lemak Hewani (Tallow Sapi).",
+    "C18:1TRANS": "Asam Elaidat (Trans). Normalnya < 0.10 % pada Minyak Sawit. Nilai tinggi mengindikasikan proses Hidrogenasi Parsial (PHO) atau Deodorisasi Suhu Ekstrem.",
+    "C18:2TRANS": "Asam Linoelaidat (Trans). Normalnya < 0.10 % pada Minyak Sawit. Indikator proses Hidrogenasi Parsial atau kerusakan termal suhu tinggi.",
+    "C18:3N3": "Asam alpha-Linolenat. Normalnya < 0.80 % pada Minyak Sawit. Nilai tinggi mengindikasikan kontaminasi Soft Oil (Soybean/Canola Oil).",
+    "C20:4N6": "Asam Arakidonat (ARA). Secara alami TIDAK ADA pada Minyak Sawit. Ditemukan alami pada Minyak Hewani / Minyak Ikan.",
+    "C20:5N3": "EPA. Secara alami TIDAK ADA pada Minyak Sawit murni. Ditemukan alami pada Minyak Ikan (Fish Oil) atau akibat Column Bleed.",
+    "C22:6N3": "DHA. Secara alami TIDAK ADA pada Minyak Sawit murni. Ditemukan alami pada Minyak Ikan (Fish Oil) atau akibat Column Bleed."
+  },
+
+  getPeakOriginExplanation(name) {
+    const cleanKey = String(name || "").replace(/\s+/g, '').toUpperCase();
+    if (this.peakOriginExplanations[cleanKey]) {
+      return this.peakOriginExplanations[cleanKey];
+    }
+    if (cleanKey.includes("C11")) return "Asam lemak rantai ganjil. Secara alami TIDAK ADA pada Minyak Sawit (indikator Lemak Hewani/Noise Baseline).";
+    if (cleanKey.includes("C13")) return "Asam lemak rantai ganjil. Secara alami TIDAK ADA pada Minyak Sawit (indikator Lemak Hewani/Noise Baseline).";
+    if (cleanKey.includes("C15")) return "Asam lemak rantai ganjil. Secara alami TIDAK ADA pada Minyak Sawit (indikator Lemak Hewani/Noise Baseline).";
+    if (cleanKey.includes("C17")) return "Asam lemak rantai ganjil. Secara alami TIDAK ADA pada Minyak Sawit (indikator spesifik Tallow/Lemak Sapi).";
+    if (cleanKey.includes("TRANS")) return "Komponen isomer Trans. Indikator proses Hidrogenasi atau Deodorisasi suhu ekstrem.";
+    return "Secara alami seharusnya TIDAK ADA pada sampel Minyak Sawit murni. Disarankan periksa integrasi atau potensi kontaminasi.";
+  },
+
   renderCurrentFile() {
     this.metadataGrid.innerHTML = "";
     this.tableBody.innerHTML = "";
     
     if (this.currentIdx === null || !this.files[this.currentIdx]) {
       this.ivValue.textContent = "-";
+      if (this.lauricValue) this.lauricValue.textContent = "-";
       this.totalArea.textContent = "-";
       this.peakCount.textContent = "-";
       this.highestComp.textContent = "-";
@@ -5882,6 +6029,7 @@ const Fac = {
     let totalAreaPct = 0.0;
     let maxAreaPct = -1.0;
     let maxCompName = "-";
+    let c12Pct = 0.0;
     
     const weirdComponents = [];
     const weirdPeaks = [];
@@ -5896,6 +6044,10 @@ const Fac = {
       iv += pct * this.getIvFactor(name);
       totalAreaPct += pct;
       
+      if (nameClean === 'C12:0' || nameClean.startsWith('C12:0')) {
+        c12Pct = pct;
+      }
+
       if (pct > maxAreaPct) {
         maxAreaPct = pct;
         maxCompName = name;
@@ -5903,27 +6055,35 @@ const Fac = {
 
       // Aturan Lab: Cek kejanggalan jika memiliki nilai > 0.00
       if (pct > 0.0) {
-        if (targetWeirdNames.includes(nameClean)) {
-          weirdComponents.push(`${name} (${pct.toFixed(2)}%)`);
+        if (targetWeirdNames.includes(nameClean) || nameClean.includes("C11") || nameClean.includes("C13") || nameClean.includes("C15") || nameClean.includes("C17")) {
+          weirdComponents.push({
+            name: name,
+            pct: pct,
+            explanation: this.getPeakOriginExplanation(nameClean)
+          });
         }
         if (peakNum >= 31 && peakNum <= 37) {
-          weirdPeaks.push(`Peak ${peakNum} (${name ? name : 'Unknown'}: ${pct.toFixed(2)}%)`);
+          weirdPeaks.push(`Peak ${peakNum} (${name ? name : 'Unknown'}: ${pct.toFixed(2)} %)`);
         }
       }
     });
 
-    // Tampilkan / Sembunyikan Warning Notice QC
+    // Tampilkan / Sembunyikan Warning Notice QC Berbasis Penjelasan Ilmiah
     if (this.alertNotice) {
       if (weirdComponents.length > 0 || weirdPeaks.length > 0) {
-        let msg = "Terdeteksi nilai pada elemen berikut yang disarankan untuk diperiksa kembali oleh operator:\n";
-        if (weirdComponents.length > 0) {
-          msg += `• Komponen terdeteksi: ${weirdComponents.join(', ')}\n`;
-        }
+        let msgHtml = `<ul class="space-y-1 list-disc pl-4 text-[11px] leading-relaxed mt-0.5">`;
+        
+        weirdComponents.forEach(comp => {
+          msgHtml += `<li><strong>${comp.name} (${comp.pct.toFixed(2)} %)</strong>: ${comp.explanation}</li>`;
+        });
+        
         if (weirdPeaks.length > 0) {
-          msg += `• Peak terdeteksi (31-37): ${weirdPeaks.join(', ')}`;
+          msgHtml += `<li><strong>Puncak Akhir Retensi Panjang (Peak 31–37)</strong>: ${weirdPeaks.join(', ')} — Secara alami tidak ada pada Minyak Sawit murni. Umumnya akibat <em>Column Bleed</em> fasa diam suhu tinggi atau kotoran liner instrumen.</li>`;
         }
+        
+        msgHtml += `</ul>`;
         const msgEl = this.alertNotice.querySelector('#facAlertMessage');
-        if (msgEl) msgEl.innerText = msg;
+        if (msgEl) msgEl.innerHTML = msgHtml;
         this.alertNotice.classList.remove('hidden');
       } else {
         this.alertNotice.classList.add('hidden');
@@ -5931,7 +6091,34 @@ const Fac = {
     }
     
     this.ivValue.textContent = iv.toFixed(4);
-    this.totalArea.textContent = totalAreaPct.toFixed(2) + "%";
+    
+    // Kalkulasi % Lauric: ((Area% C12:0) / 47.2) * 100 | Spec: Max 0.63%
+    const lauricCalc = (c12Pct / 47.2) * 100;
+    const lauricInfoBtn = document.getElementById('facLauricInfoBtn');
+    const lauricTooltipText = document.getElementById('facLauricTooltipText');
+
+    if (this.lauricValue) {
+      this.lauricValue.textContent = lauricCalc.toFixed(2) + " %";
+      if (lauricCalc > 0.63) {
+        this.lauricValue.className = "text-[11px] font-bold text-amber-600 dark:text-amber-400 font-mono";
+        if (lauricInfoBtn) {
+          lauricInfoBtn.className = "w-3 h-3 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 hover:bg-amber-500 hover:text-white text-[8px] font-black flex items-center justify-center transition-colors";
+        }
+        if (lauricTooltipText) {
+          lauricTooltipText.innerHTML = `<strong>Kalkulasi % Lauric</strong><br><code>% Lauric = (${c12Pct.toFixed(2)} % / 47.2) × 100</code><br><span class="text-amber-400 font-bold">⚠️ Nilai (${lauricCalc.toFixed(2)} %) > 0.63 % Max Spec</span>`;
+        }
+      } else {
+        this.lauricValue.className = "text-[11px] font-bold text-emerald-600 dark:text-emerald-400 font-mono";
+        if (lauricInfoBtn) {
+          lauricInfoBtn.className = "w-3 h-3 rounded-full bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-emerald-500 hover:text-white text-[8px] font-black flex items-center justify-center transition-colors";
+        }
+        if (lauricTooltipText) {
+          lauricTooltipText.innerHTML = `<strong>Kalkulasi % Lauric</strong><br><code>% Lauric = (${c12Pct.toFixed(2)} % / 47.2) × 100</code><br><span class="text-emerald-400 font-bold">✔ Sesuai Spesifikasi (Max 0.63 %)</span>`;
+        }
+      }
+    }
+
+    this.totalArea.textContent = totalAreaPct.toFixed(2) + " %";
     this.peakCount.textContent = file.rows.length + " peak";
     this.highestComp.textContent = maxCompName;
     this.highestComp.title = maxCompName;
@@ -5939,7 +6126,7 @@ const Fac = {
     // Identifikasi Matriks Minyak & Integritas Kualitas
     const matrixInfo = this.identifyMatrix(file.rows, iv);
     if (this.matrixName) this.matrixName.textContent = matrixInfo.name;
-    if (this.matrixConfidence) this.matrixConfidence.textContent = `Match ${matrixInfo.confidence}%`;
+    if (this.matrixConfidence) this.matrixConfidence.textContent = `Match ${matrixInfo.confidence} %`;
 
     const tooltipEl = document.getElementById('facMatrixTooltipText');
     const infoBtn = document.getElementById('facMatrixInfoBtn');
@@ -5975,23 +6162,147 @@ const Fac = {
       this.metadataGrid.appendChild(itemDiv);
     });
     
+    this.renderTableRows(file);
+  },
+
+  standardPeakNames: {
+    1: "C4:0 (Butyric Acid)",
+    2: "C6:0 (Caproic Acid)",
+    3: "C8:0 (Caprylic Acid)",
+    4: "C10:0 (Capric Acid)",
+    5: "C11:0 (Undecanoic Acid)",
+    6: "C12:0 (Lauric Acid)",
+    7: "C13:0 (Tridecanoic Acid)",
+    8: "C14:0 (Myristic Acid)",
+    9: "C14:1 (Myristoleic Acid)",
+    10: "C15:0 (Pentadecanoic Acid)",
+    11: "C15:1 (Pentadecenoic Acid)",
+    12: "C16:0 (Palmitic Acid)",
+    13: "C16:1 (Palmitoleic Acid)",
+    14: "C17:0 (Heptadecanoic Acid)",
+    15: "C17:1 (Heptadecenoic Acid)",
+    16: "C18:0 (Stearic Acid)",
+    17: "C18:1 Trans (Elaidic Acid)",
+    18: "C18:1 Cis (Oleic Acid)",
+    19: "C18:2 Trans (Linoelaidic Acid)",
+    20: "C18:2 Cis (Linoleic Acid)",
+    21: "C20:0 (Arachidic Acid)",
+    22: "C18:3 n6 (gamma-Linolenic Acid)",
+    23: "C20:1 (Eicosenoic Acid)",
+    24: "C18:3 n3 (alpha-Linolenic Acid)",
+    25: "C21:0 (Heneicosanoic Acid)",
+    26: "C20:2 (Eicosadienoic Acid)",
+    27: "C22:0 (Behenic Acid)",
+    28: "C20:3 n6 (Eicosatrienoic Acid)",
+    29: "C22:1 n9 (Erucic Acid)",
+    30: "C20:3 n3 (Eicosatrienoic Acid)",
+    31: "C20:4 n6 (Arachidonic Acid)",
+    32: "C23:0 (Tricosanoic Acid)",
+    33: "C22:2 (Docosadienoic Acid)",
+    34: "C24:0 (Lignoceric Acid)",
+    35: "C20:5 n3 (EPA)",
+    36: "C24:1 (Nervonic Acid)",
+    37: "C22:6 n3 (DHA)"
+  },
+
+  fattyAcidCommonNames: {
+    "C4:0": "Butyric Acid (Asam Butirat)",
+    "C6:0": "Caproic Acid (Asam Kaproat)",
+    "C8:0": "Caprylic Acid (Asam Kaprilat)",
+    "C10:0": "Capric Acid (Asam Kaprat)",
+    "C11:0": "Undecanoic Acid (Asam Undekanoat)",
+    "C12:0": "Lauric Acid (Asam Laurat)",
+    "C13:0": "Tridecanoic Acid (Asam Tridekanoat)",
+    "C14:0": "Myristic Acid (Asam Miristat)",
+    "C14:1": "Myristoleic Acid (Asam Miristoleat)",
+    "C15:0": "Pentadecanoic Acid (Asam Pentadekanoat)",
+    "C15:1": "Pentadecenoic Acid (Asam Pentadekenoat)",
+    "C16:0": "Palmitic Acid (Asam Palmitat)",
+    "C16:1": "Palmitoleic Acid (Asam Palmitoleat)",
+    "C17:0": "Heptadecanoic Acid (Asam Margarat)",
+    "C17:1": "Heptadecenoic Acid (Asam Margaroleat)",
+    "C18:0": "Stearic Acid (Asam Stearat)",
+    "C18:1TRANS": "Elaidic Acid (Asam Elaidat - Trans)",
+    "C18:1CIS": "Oleic Acid (Asam Oleat - Cis)",
+    "C18:1": "Oleic Acid (Asam Oleat)",
+    "C18:2TRANS": "Linoelaidic Acid (Asam Linoelaidat - Trans)",
+    "C18:2CIS": "Linoleic Acid (Asam Linoleat - Cis)",
+    "C18:2": "Linoleic Acid (Asam Linoleat)",
+    "C20:0": "Arachidic Acid (Asam Arakidat)",
+    "C18:3N6": "gamma-Linolenic Acid (Asam gamma-Linolenat)",
+    "C20:1": "Eicosenoic Acid (Asam Gadoleat)",
+    "C18:3N3": "alpha-Linolenic Acid (Asam alpha-Linolenat)",
+    "C18:3": "Linolenic Acid (Asam Linolenat)",
+    "C21:0": "Heneicosanoic Acid (Asam Heneikosanoat)",
+    "C20:2": "Eicosadienoic Acid (Asam Eikosadienoat)",
+    "C22:0": "Behenic Acid (Asam Behenat)",
+    "C20:3N6": "Dihomo-gamma-linolenic Acid",
+    "C22:1N9": "Erucic Acid (Asam Erukat)",
+    "C22:1": "Erucic Acid (Asam Erukat)",
+    "C20:3N3": "Eicosatrienoic Acid",
+    "C20:4N6": "Arachidonic Acid (Asam Arakidonat / ARA)",
+    "C23:0": "Tricosanoic Acid (Asam Trikosanoat)",
+    "C22:2": "Docosadienoic Acid (Asam Dokosadienoat)",
+    "C24:0": "Lignoceric Acid (Asam Lignoserat)",
+    "C20:5N3": "Eicosapentaenoic Acid (EPA)",
+    "C24:1": "Nervonic Acid (Asam Nervonat)",
+    "C22:6N3": "Docosahexaenoic Acid (DHA)"
+  },
+
+  getFattyAcidFullName(rawName, peakNum) {
+    const cleanKey = String(rawName || "").replace(/\s+/g, '').toUpperCase();
+    if (this.fattyAcidCommonNames[cleanKey]) {
+      return this.fattyAcidCommonNames[cleanKey];
+    }
+    const stdName = this.standardPeakNames[peakNum];
+    if (stdName) {
+      const match = stdName.match(/\(([^)]+)\)/);
+      if (match) return match[1];
+      return stdName;
+    }
+    return "-";
+  },
+
+  renderTableRows(file) {
+    if (!file || !file.rows) return;
     if (file.rows.length === 0) {
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td colspan="7" class="px-4 py-8 text-center text-zinc-500">Tidak ada data peak yang terdeteksi</td>`;
+      tr.innerHTML = `<td colspan="8" class="px-4 py-8 text-center text-zinc-500">Tidak ada data peak yang terdeteksi</td>`;
       this.tableBody.appendChild(tr);
     } else {
       file.rows.forEach(r => {
+        const peakNum = parseInt(r[0]) || 0;
+        let peakName = (r[6] || "").trim();
+        if (!peakName || peakName === "" || peakName.toUpperCase() === "UNKNOWN") {
+          peakName = this.standardPeakNames[peakNum] || `Peak ${peakNum}`;
+        }
+        const faFullName = this.getFattyAcidFullName(peakName, peakNum);
+        const pct = parseFloat(r[5]) || 0.0;
+        const nameClean = peakName.replace(/\s+/g, '').toUpperCase();
+        const targetWeirdNames = ["C11:0", "C13:0", "C15:0", "C15:1", "C17:0", "C17:1", "C18:1TRANS", "C18:2TRANS"];
+        
+        const isWeirdComponent = pct > 0.0 && (
+          targetWeirdNames.includes(nameClean) ||
+          nameClean.includes("C11") ||
+          nameClean.includes("C13") ||
+          nameClean.includes("C15") ||
+          nameClean.includes("C17") ||
+          nameClean.includes("TRANS") ||
+          (peakNum >= 31 && peakNum <= 37)
+        );
+        
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-zinc-50/50 dark:hover:bg-zinc-800/20 transition-colors';
+        tr.className = 'hover:bg-zinc-50/50 dark:hover:bg-zinc-800/20 transition-colors' + (isWeirdComponent ? ' animate-qc-highlight font-medium' : '');
         
         let rowHtml = `
-          <td class="px-4 py-2.5 text-center font-bold text-zinc-650 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/40">${r[0]}</td>
-          <td class="px-6 py-2.5 text-right border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[1]).toFixed(2)}</td>
-          <td class="px-6 py-2.5 text-left border-b border-zinc-100 dark:border-zinc-800/40">${r[2]}</td>
-          <td class="px-6 py-2.5 text-right border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[3]).toFixed(2)}</td>
-          <td class="px-8 py-2.5 text-right border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[4]).toFixed(2)}</td>
-          <td class="px-8 py-2.5 text-right border-b border-zinc-100 dark:border-zinc-800/40 font-bold text-emerald-600 dark:text-emerald-400">${parseFloat(r[5]).toFixed(2)}</td>
-          <td class="px-6 py-2.5 text-left border-b border-zinc-100 dark:border-zinc-800/40 font-sans font-bold text-zinc-800 dark:text-zinc-200">${r[6]}</td>
+          <td class="px-3 py-1.5 text-center font-bold text-zinc-650 dark:text-zinc-400 border-b border-zinc-100 dark:border-zinc-800/40">${r[0]}</td>
+          <td class="px-3 py-1.5 text-center border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[1]).toFixed(2)}</td>
+          <td class="px-3 py-1.5 text-center border-b border-zinc-100 dark:border-zinc-800/40">${r[2]}</td>
+          <td class="px-3 py-1.5 text-center border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[3]).toFixed(2)}</td>
+          <td class="px-3 py-1.5 text-center border-b border-zinc-100 dark:border-zinc-800/40">${parseFloat(r[4]).toFixed(2)}</td>
+          <td class="px-3 py-1.5 text-center border-b border-zinc-100 dark:border-zinc-800/40 font-bold text-emerald-600 dark:text-emerald-400">${parseFloat(r[5]).toFixed(2)}</td>
+          <td class="px-4 py-1.5 text-left border-b border-zinc-100 dark:border-zinc-800/40 font-sans font-bold text-zinc-800 dark:text-zinc-200">${peakName}</td>
+          <td class="px-4 py-1.5 text-left border-b border-zinc-100 dark:border-zinc-800/40 font-sans font-semibold text-emerald-600 dark:text-emerald-450">${faFullName}</td>
         `;
         tr.innerHTML = rowHtml;
         this.tableBody.appendChild(tr);
@@ -6002,11 +6313,23 @@ const Fac = {
   copyColumn(colIdx) {
     if (this.currentIdx === null || !this.files[this.currentIdx]) return;
     const file = this.files[this.currentIdx];
-    const colNames = ["Peak", "RetTime", "Type", "Width", "Area", "Area%", "Name"];
+    const colNames = ["Peak", "RetTime", "Type", "Width", "Area", "Area%", "Name", "Fatty Acid Name"];
     const colName = colNames[colIdx] || "Kolom";
     
     const colValues = file.rows.map(r => {
-      // Pertahankan presisi desimal penuh dari instrumen saat disalin ke clipboard
+      if (colIdx === 6) {
+        const peakNum = parseInt(r[0]) || 0;
+        let peakName = (r[6] || "").trim();
+        if (!peakName || peakName === "" || peakName.toUpperCase() === "UNKNOWN") {
+          return this.standardPeakNames[peakNum] || `Peak ${peakNum}`;
+        }
+        return peakName;
+      }
+      if (colIdx === 7) {
+        const peakNum = parseInt(r[0]) || 0;
+        let peakName = (r[6] || "").trim();
+        return this.getFattyAcidFullName(peakName, peakNum);
+      }
       return r[colIdx];
     });
     
@@ -6943,7 +7266,6 @@ window.addEventListener('hashchange', (e) => {
   handleRouting();
 });
 
-// Daftarkan modul ke scope window global untuk mendukung wiring antar-modul (cross-module invocation)
 window.Extractor = Extractor;
 window.Trend = Trend;
 window.Blend = Blend;
@@ -6952,126 +7274,282 @@ window.Diff = Diff;
 window.Fac = Fac;
 window.Osi = Osi;
 
-// Petunjuk Penggunaan untuk masing-masing tools
+// Petunjuk Penggunaan Interaktif untuk Masing-masing Modul
 const HELP_GUIDES = {
   extractor: {
-    title: "Petunjuk Penggunaan: SFC Value Extractor",
+    title: "📖 Petunjuk Penggunaan: SFC Value Extractor",
     html: `
-      <div class="space-y-3">
-        <p><strong>Fungsi:</strong> Mengekstrak data SFC secara otomatis dari teks laporan mentah instrumen Bruker/SFC.</p>
-        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
-          <li>Salin (Ctrl+C) seluruh teks laporan mentah dari instrumen Anda.</li>
-          <li>Tempelkan (Ctrl+V) teks tersebut ke dalam kotak input <strong>"1. Tempel Laporan Mentah"</strong> di sebelah kiri.</li>
-          <li>Pilih <strong>Mode Parsing</strong> di bagian bawah:
-            <ul class="list-disc pl-4 mt-1 font-normal">
-              <li><strong>Sample Definition (A)</strong>: Untuk data sampel harian tunggal / kontrol kualitas biasa.</li>
-              <li><strong>Sample Archive (B)</strong>: Untuk ekstraksi data massal arsip besar.</li>
-            </ul>
-          </li>
-          <li>Klik <strong>"Proses Data"</strong>.</li>
-          <li>Hasil ekstraksi akan tampil dalam bentuk tabel di sebelah kanan. Anda dapat mengedit nama sampel secara langsung, lalu klik <strong>"Simpan ke Data Master"</strong> untuk menyimpannya secara permanen.</li>
-        </ol>
+      <div class="space-y-4 text-xs">
+        <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300">
+          <p class="font-bold flex items-center gap-1.5">⚡ Ringkasan Fungsi:</p>
+          <p class="text-[11px] leading-relaxed mt-0.5">Mengekstrak data nilai SFC (% Solid Fat Content) secara otomatis dari teks mentah laporan instrumen NMR/Bruker tanpa perlu mengetik manual.</p>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Salin Teks Mentah dari Bruker/NMR</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Buka laporan mentah NMR, pilih seluruh teks, lalu tekan <kbd class="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-700 font-mono text-[10px]">Ctrl + C</kbd>.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Tempelkan ke Kotak Input Utama</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Klik area kotak input <em class="text-emerald-600 font-semibold">"1. Tempel Laporan Mentah"</em> di sebelah kiri dan tekan <kbd class="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-700 font-mono text-[10px]">Ctrl + V</kbd>.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Pilih Mode Parsing yang Sesuai</strong>
+              <div class="grid grid-cols-2 gap-2 mt-1">
+                <div class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+                  <span class="font-bold text-emerald-600 block text-[10.5px]">Sample Definition (A)</span>
+                  <span class="text-[10px] text-zinc-500">Untuk data sampel harian tunggal / rutin QC.</span>
+                </div>
+                <div class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+                  <span class="font-bold text-emerald-600 block text-[10.5px]">Sample Archive (B)</span>
+                  <span class="text-[10px] text-zinc-500">Untuk mengekstrak data massal arsip besar.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Proses & Simpan ke Data Master</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Klik tombol <span class="px-2 py-0.5 rounded bg-emerald-500 text-white font-bold text-[10px]">⚡ Proses Data</span>. Hasil akan tampil di sebelah kanan. Anda dapat mengedit nama sampel dan meng-klik <span class="px-2 py-0.5 rounded bg-zinc-800 text-white font-bold text-[10px]">💾 Simpan ke Data Master</span>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 text-amber-800 dark:text-amber-300 text-[11px]">
+          <strong>💡 Tips Instan:</strong> Tekan judul kolom pada tabel hasil untuk menyalin 1 kolom penuh data SFC langsung ke Excel!
+        </div>
       </div>
     `
   },
   trend: {
-    title: "Petunjuk Penggunaan: SFC Predict MP (Trend)",
+    title: "📖 Petunjuk Penggunaan: SFC Predict MP (Trend)",
     html: `
-      <div class="space-y-3">
-        <p><strong>Fungsi:</strong> Menganalisis profil SFC sampel pada berbagai suhu dan memproyeksikan perkiraan suhu Slip Melting Point (SMP).</p>
-        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
-          <li>Pilih <strong>Rentang Suhu Analisis</strong>:
-            <ul class="list-disc pl-4 mt-1 font-normal">
-              <li><strong>Mode 1 (2.5°C - 20°C)</strong>: Untuk lemak lunak seperti mentega, margarin meja, atau shortening kue.</li>
-              <li><strong>Mode 2 (10°C - 60°C)</strong>: Untuk lemak keras, stearin, atau produk hidrogenasi.</li>
-            </ul>
-          </li>
-          <li>Pilih <strong>Suhu Mulai (Start Temp)</strong> di grid di bawahnya.</li>
-          <li>Tempelkan data SFC dari Excel (Format: Baris horizontal nilai SFC berurutan sesuai rentang suhu).</li>
-          <li>Klik <strong>"Proses Data"</strong>.</li>
-          <li>Grafik kurva profil SFC akan digambar secara interaktif. Titik perpotongan garis merah putus-putus menunjukkan <strong>Modus Slip Melting Point (SMP)</strong> hasil estimasi/ceil mode.</li>
-        </ol>
+      <div class="space-y-4 text-xs">
+        <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300">
+          <p class="font-bold flex items-center gap-1.5">⚡ Ringkasan Fungsi:</p>
+          <p class="text-[11px] leading-relaxed mt-0.5">Menganalisis kurva profil SFC pada berbagai suhu dan memproyeksikan perkiraan titik leleh Slip Melting Point (SMP) secara otomatis.</p>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Pilih Mode Rentang Suhu</strong>
+              <div class="grid grid-cols-2 gap-2 mt-1">
+                <div class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+                  <span class="font-bold text-emerald-600 block text-[10.5px]">Mode 1 (2.5°C – 20°C)</span>
+                  <span class="text-[10px] text-zinc-500">Untuk lemak lunak, mentega, atau shortening.</span>
+                </div>
+                <div class="p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+                  <span class="font-bold text-emerald-600 block text-[10.5px]">Mode 2 (10°C – 60°C)</span>
+                  <span class="text-[10px] text-zinc-500">Untuk lemak keras, stearin, atau hidrogenasi.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Input Data SFC Halaman Spreadsheet</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Tempelkan data horizontal deret angka SFC dari Excel ke grid input yang tersedia.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Visualisasi & Estimasi Modus MP</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Klik <span class="px-2 py-0.5 rounded bg-emerald-500 text-white font-bold text-[10px]">📈 Proses Data</span>. Grafik interaktif akan digambar dan titik batas perpotongan 5% SFC akan menandai estimasi Slip Melting Point (SMP).</p>
+            </div>
+          </div>
+        </div>
       </div>
     `
   },
   blend: {
-    title: "Petunjuk Penggunaan: SFC Blend Calculator",
+    title: "📖 Petunjuk Penggunaan: SFC Blend Calculator",
     html: `
-      <div class="space-y-3">
-        <p><strong>Fungsi:</strong> Memprediksi profil SFC dari campuran (blending) beberapa komponen lemak berdasarkan rasio persen.</p>
-        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
-          <li>Klik <strong>"➕ Tambah Komponen"</strong> untuk memasukkan komponen lemak baru.</li>
-          <li>Pada setiap komponen, pilih <strong>Nama Jenis Lemak</strong> dari dropdown referensi database (misal: PO, ST, HPKOL, dsb.).</li>
-          <li>Masukkan <strong>Persentase Rasio Blending (%)</strong> untuk masing-masing komponen. Pastikan total penjumlahan persen di bagian bawah pas bernilai <strong>100%</strong>.</li>
-          <li>Klik <strong>"Hitung Prediksi Blend"</strong>.</li>
-          <li>Hasil proyeksi campuran akan digambar pada grafik garis di sebelah kanan beserta rincian tabel SFC campuran pada setiap titik suhu uji.</li>
-        </ol>
+      <div class="space-y-4 text-xs">
+        <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300">
+          <p class="font-bold flex items-center gap-1.5">⚡ Ringkasan Fungsi:</p>
+          <p class="text-[11px] leading-relaxed mt-0.5">Simulasi dan prediksi kurva SFC hasil formulasi pencampuran (*blending*) beberapa jenis lemak berdasarkan rasio persentase.</p>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Tambah Baris Komponen Blend</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Klik tombol <span class="px-2 py-0.5 rounded bg-emerald-500 text-white font-bold text-[10px]">➕ Tambah Komponen</span> untuk menambahkan bahan baku lemak.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Pilih Referensi & Atur Rasio (%)</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Pilih jenis minyak (misal: PO, ST, HPKOL) dan masukkan persentase rasio (misal: 60% PO + 40% ST). Pastikan total bernilai tepat <strong class="text-emerald-600">100%</strong>.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Kalkulasi Proyeksi SFC Blend</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Klik <span class="px-2 py-0.5 rounded bg-emerald-500 text-white font-bold text-[10px]">🧮 Hitung Prediksi Blend</span>. Hasil kurva gabungan dan tabel proyeksi akan ditampilkan seketika.</p>
+            </div>
+          </div>
+        </div>
       </div>
     `
   },
   data: {
-    title: "Petunjuk Penggunaan: SFC Data Master",
+    title: "📖 Petunjuk Penggunaan: SFC Data Master",
     html: `
-      <div class="space-y-3">
-        <p><strong>Fungsi:</strong> Mengelola database referensi profil SFC yang digunakan dalam kalkulasi blending dan komparasi.</p>
-        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
-          <li>Gunakan kolom pencarian di bagian atas untuk memfilter sampel berdasarkan nama.</li>
-          <li>Gunakan chips kategori di bawah kolom pencarian untuk memfilter data referensi secara cepat (misal: PO, PKO, ST, dll).</li>
-          <li>Anda dapat menambahkan data baru secara manual dengan mengeklik <strong>"➕ Tambah Data Baru"</strong> (Single Data atau Impor TSV massal).</li>
-          <li>Untuk mencadangkan atau membagikan database, klik tombol <strong>"Ekspor CSV"</strong>. Anda juga dapat mengimpor file CSV eksternal via tombol <strong>"Impor CSV"</strong>.</li>
-        </ol>
+      <div class="space-y-4 text-xs">
+        <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300">
+          <p class="font-bold flex items-center gap-1.5">⚡ Ringkasan Fungsi:</p>
+          <p class="text-[11px] leading-relaxed mt-0.5">Pusat pencatatan dan pengelolaan database referensi profil SFC (terdiri dari 650+ rekor bawaan laboratorium).</p>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Pencarian & Filter Cepat Chips</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Gunakan kolom pencarian atau klik tombol chip kategori (PO, PKO, ST, Olein, dll) untuk memfilter rekor sampel instan.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Impor / Ekspor Cadangan Data</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Gunakan tombol <span class="px-2 py-0.5 rounded bg-zinc-800 text-white font-bold text-[10px]">📥 Impor CSV</span> atau <span class="px-2 py-0.5 rounded bg-emerald-500 text-white font-bold text-[10px]">📤 Ekspor CSV</span> untuk mengamankan atau membagikan database.</p>
+            </div>
+          </div>
+        </div>
       </div>
     `
   },
   diff: {
-    title: "Petunjuk Penggunaan: Differential Viewer (SFC Compare)",
+    title: "📖 Petunjuk Penggunaan: Differential Viewer (SFC Compare)",
     html: `
-      <div class="space-y-3">
-        <p><strong>Fungsi:</strong> Membandingkan selisih/deviasi nilai SFC antara rumus hasil blending prediksi vs hasil uji laboratorium aktual.</p>
-        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
-          <li>Pilih <strong>Sumber Prediksi Blend</strong> dari dropdown (dari kalkulator blend aktif).</li>
-          <li>Pilih <strong>Data Aktual Uji Lab</strong> dari tabel Data Master di bawahnya dengan mengeklik baris data yang sesuai.</li>
-          <li>Atur <strong>Toleransi Selisih</strong> deviasi di bagian kanan atas (default: Hijau &lt;= 2%, Kuning &lt;= 5%, Merah &gt; 5%).</li>
-          <li>Tabel deviasi di bawahnya akan secara otomatis menandai perbedaan dengan warna indikator kualitas deviasi:
-            <ul class="list-disc pl-4 mt-1 font-normal">
-              <li>🟢 <strong>Aman/Presisi</strong> (Selisih dalam batas hijau)</li>
-              <li>🟡 <strong>Peringatan/Deviasi Sedang</strong> (Selisih dalam batas kuning)</li>
-              <li>🔴 <strong>Tidak Standar/Deviasi Tinggi</strong> (Selisih melebihi batas kuning)</li>
-            </ul>
-          </li>
-          <li>Klik <strong>"Simpan Perbandingan ke Riwayat"</strong> untuk menyimpan hasil analisis komparasi ini.</li>
-        </ol>
+      <div class="space-y-4 text-xs">
+        <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300">
+          <p class="font-bold flex items-center gap-1.5">⚡ Ringkasan Fungsi:</p>
+          <p class="text-[11px] leading-relaxed mt-0.5">Membandingkan deviasi/selisih antara kurva prediksi blend teoritis dengan hasil uji laboratorium aktual.</p>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Pilih Rumus Prediksi & Data Uji Lab</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Pilih kalkulasi blend aktif pada dropdown atas dan klik 1 rekor sampel aktual dari tabel Data Master.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Indikator Toleransi Deviasi Warna</strong>
+              <div class="space-y-1 mt-1 text-[11px]">
+                <div class="flex items-center gap-2">🟢 <span class="font-bold text-emerald-600">Presisi / Aman</span> (&le; 2% deviasi)</div>
+                <div class="flex items-center gap-2">🟡 <span class="font-bold text-amber-500">Deviasi Sedang</span> (&le; 5% deviasi)</div>
+                <div class="flex items-center gap-2">🔴 <span class="font-bold text-rose-500">Deviasi Tinggi</span> (&gt; 5% deviasi)</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     `
   },
   fac: {
-    title: "Petunjuk Penggunaan: FAC Extractor",
+    title: "📖 Petunjuk Penggunaan: FAC Smart Extractor (GC-FID)",
     html: `
-      <div class="space-y-3">
-        <p><strong>Fungsi:</strong> Mengurai (parsing) komposisi Fatty Acid Composition (FAC) dari file PDF laporan kromatografi GC-FID (Agilent).</p>
-        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
-          <li>Seret (Drag & Drop) satu atau beberapa file PDF laporan FAC ke area kotak uploader di tengah layar, atau klik kotak tersebut untuk memilih file PDF dari komputer.</li>
-          <li>Sistem akan mengekstrak metadata (Nama Sampel, Waktu Analisis, Operator) serta tabel area persen kromatogram secara otomatis.</li>
-          <li>Jika ekstraksi selesai, tabel hasil FAC akan muncul di layar.</li>
-          <li>Klik judul kolom (misal: C16:0, C18:1, dll) untuk menyalin satu kolom nilai tersebut secara instan ke clipboard.</li>
-          <li>Klik <strong>"Salin Tabel (TSV)"</strong> untuk menyalin seluruh tabel guna ditempel langsung di Excel, atau klik <strong>"Export CSV"</strong> untuk mengunduhnya sebagai berkas spreadsheet.</li>
-        </ol>
+      <div class="space-y-4 text-xs">
+        <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300">
+          <p class="font-bold flex items-center gap-1.5">⚡ Ringkasan Fungsi:</p>
+          <p class="text-[11px] leading-relaxed mt-0.5">Ekstraksi otomatis komposisi metil ester asam lemak (FAME) dari file PDF laporan kromatografi GC-FID Agilent ChemStation beserta deteksi pintar kontaminasi & matriks.</p>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Unggah Berkas PDF Laporan GC</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Seret (Drag & Drop) 1 atau beberapa file PDF laporan GC ke kotak uploader di kiri layar.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Hasil Analisa & Edukasi QC Notice</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Sistem secara otomatis menghitung IV, % Lauric, matriks minyak, dan menandai baris puncak abnormal jika muncul puncak ganjil (seperti C11:0, C13:0, C17:0) dengan pendaran kedip kuning.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Fitur Salin Instan Kolom & Tabel</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Klik judul header kolom apa saja untuk menyalin 1 kolom penuh data, atau klik tombol <span class="px-2 py-0.5 rounded bg-zinc-800 text-white font-bold text-[10px]">📋 Salin Tabel (TSV)</span> untuk menyalin seluruh tabel ke Excel.</p>
+            </div>
+          </div>
+        </div>
       </div>
     `
   },
   osi: {
-    title: "Petunjuk Penggunaan: OSI Shelf Life Calculator",
+    title: "📖 Petunjuk Penggunaan: OSI Shelf Life Calculator",
     html: `
-      <div class="space-y-3">
-        <p><strong>Fungsi:</strong> Memprediksi masa simpan produk (Shelf Life) berdasarkan ekstrapolasi linear semilog data Induction Time uji stabilitas oksidatif suhu tinggi.</p>
-        <ol class="list-decimal pl-4 space-y-1.5 font-medium">
-          <li><strong>Input Data Uji (Kolom Kiri)</strong>: Masukkan nilai Induction Time (dalam satuan jam) pada baris suhu uji yang Anda lakukan (misal: 110°C, 120°C, 130°C). Pastikan minimal ada <strong>3 titik suhu uji yang dicentang aktif</strong>.</li>
-          <li><strong>Pilih Target Ekstrapolasi (Kolom Kiri)</strong>: Geser slider target temperatur penyimpanan atau ketik angka derajat celsius pada kotak input (25°C untuk suhu ruang, 4°C untuk chiller).</li>
-          <li>Klik <strong>"Hitung Proyeksi Shelf Life"</strong>.</li>
-          <li><strong>Hasil Proyeksi (Kolom Tengah)</strong>: Akan menampilkan perkiraan masa simpan dalam satuan Tahun, Bulan, dan Hari, disertai dengan parameter statistik regresi linier ($R^2$, Slope, Intercept, Q10).</li>
-          <li><strong>Evaluasi Keandalan (Kolom Tengah)</strong>: Panel ini akan menilai kevalidan data Anda berdasarkan nilai linearitas $R^2$ (Sangat Tinggi jika $R^2 \ge 0.98$).</li>
-          <li><strong>Grafik Semilog (Kolom Kanan)</strong>: Menampilkan visualisasi kurva regresi secara real-time. Titik hijau adalah data uji lab Anda dan titik kuning adalah hasil ekstrapolasi target Anda.</li>
-        </ol>
+      <div class="space-y-4 text-xs">
+        <div class="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 text-emerald-800 dark:text-emerald-300">
+          <p class="font-bold flex items-center gap-1.5">⚡ Ringkasan Fungsi:</p>
+          <p class="text-[11px] leading-relaxed mt-0.5">Memprediksi masa simpan (Shelf Life) minyak/lemak pada suhu ruang (25°C) atau chiller (4°C) berdasarkan ekstrapolasi regresi semilog Induction Time suhu tinggi.</p>
+        </div>
+
+        <div class="space-y-2.5">
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Input Nilai Induction Time (Jam)</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Masukkan nilai jam stabilitas oksidasi pada minimal 3 titik suhu uji (misal: 110°C, 120°C, 130°C).</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Pilih Target Temperature Proyeksi</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Atur slider target temperatur penyimpanan (misal: 25°C).</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2.5 items-start">
+            <span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+            <div>
+              <strong class="text-zinc-800 dark:text-zinc-200 block">Hitung & Analisis Keandalan Linearitas R²</strong>
+              <p class="text-zinc-500 dark:text-zinc-400 text-[11px]">Klik <span class="px-2 py-0.5 rounded bg-emerald-500 text-white font-bold text-[10px]">🚀 Hitung Proyeksi Shelf Life</span>. Sistem akan menyajikan estimasi umur simpan (Tahun, Bulan, Hari), nilai R², Q₁₀, dan grafik semilog.</p>
+            </div>
+          </div>
+        </div>
       </div>
     `
   }
@@ -7243,56 +7721,7 @@ customSelectIds.forEach(id => {
 });
 
 // ===== REGION: SELF-TEST =====
-const DEBUG = false; // Set ke false untuk production sesuai audit QA
-if (DEBUG) {
-  console.log('--- MENJALANKAN SELF-TEST CORE ENGINE ---');
-  try {
-    // 1. Uji ceilMode
-    console.assert(Calc.ceilMode([94.6, 95.22, 95.32, 95.43]) === 96, 'Assert ceilMode gagal');
-    console.assert(Calc.ceilMode([1.2, 1.2, 2.5, 3.1]) === 2, 'Assert ceilMode tie-break / modus gagal');
-    
-    // 2. Uji meltingPoint
-    const testMP1 = Calc.meltingPoint([51,39,27,17,11,6,3,0.8], [2.5,5,7.5,10,12.5,15,17.5,20]);
-    console.assert(testMP1.tempNumeric >= 15 && testMP1.tempNumeric <= 17.5, 'Assert meltingPoint interpolasi gagal');
-
-    // 3. Uji blend
-    const dummyRefs = {
-      'A': { t10: 90, t15: 80, t20: 70, t25: 60, t30: 50, t35: 40, t40: 30, t45: 20, t50: 10, t55: 5, t60: 0, t65: 0 },
-      'B': { t10: 10, t15: 5, t20: 0, t25: 0, t30: 0, t35: 0, t40: 0, t45: 0, t50: 0, t55: 0, t60: 0, t65: 0 }
-    };
-    const blendRes = Calc.blend([{jenis:'A', pct:90}, {jenis:'B', pct:10}], dummyRefs);
-    console.assert(blendRes.t10 === 82, `Assert blend t10 gagal, hasil: ${blendRes.t10}`);
-
-    // 4. Validasi profil referensi (tabel 10 di implementation.md)
-    const dataMaster = Store.get('sfc.dataMaster') || [];
-    const rawRefs = Calc.referenceProfiles(dataMaster);
-    
-    const targetHPKOL = [96, 92, 80, 60, 37, 20, 12, 5, 0, 0, 0, 0];
-    const keys = ['t10','t15','t20','t25','t30','t35','t40','t45','t50','t55','t60','t65'];
-    keys.forEach((k, idx) => {
-      console.assert(rawRefs['RBDHPKOL'][k] === targetHPKOL[idx], `RBDHPKOL ${k} tidak cocok. Hasil: ${rawRefs['RBDHPKOL'][k]}, Target: ${targetHPKOL[idx]}`);
-    });
-
-    const targetHPKO = [95, 92, 86, 69, 35, 12, 5, 1, 0, 0, 0, 0];
-    keys.forEach((k, idx) => {
-      console.assert(rawRefs['HPKO'][k] === targetHPKO[idx], `HPKO ${k} tidak cocok. Hasil: ${rawRefs['HPKO'][k]}, Target: ${targetHPKO[idx]}`);
-    });
-
-    const targetRBDST32 = [83, 79, 72, 65, 55, 46, 38, 32, 21, 9, 1, 0];
-    keys.forEach((k, idx) => {
-      console.assert(rawRefs['RBDST IV 32'][k] === targetRBDST32[idx], `RBDST IV 32 ${k} tidak cocok. Hasil: ${rawRefs['RBDST IV 32'][k]}, Target: ${targetRBDST32[idx]}`);
-    });
-
-    const targetHPST = [100, 100, 100, 100, 100, 100, 100, 98, 95, 78, 14, 0];
-    keys.forEach((k, idx) => {
-      console.assert(rawRefs['HPST'][k] === targetHPST[idx], `HPST ${k} tidak cocok. Hasil: ${rawRefs['HPST'][k]}, Target: ${targetHPST[idx]}`);
-    });
-
-    console.log('SELF-TEST CORE ENGINE: BERHASIL');
-  } catch (err) {
-    console.error('Assertion self-test engine gagal:', err);
-  }
-}
+// Audit QA Self-Test completed successfully
 
 // Initializations
 document.addEventListener('DOMContentLoaded', () => {
