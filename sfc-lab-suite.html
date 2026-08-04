@@ -667,8 +667,8 @@
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 min-w-0 px-4 sm:px-5 py-4 md:py-4 flex flex-col h-full overflow-hidden">
-      <div class="w-full flex-1 flex flex-col min-h-0 space-y-4">
+    <main class="flex-1 min-w-0 px-3 sm:px-5 py-4 flex flex-col h-full overflow-y-auto overflow-x-hidden w-full max-w-full">
+      <div class="w-full max-w-full flex-1 flex flex-col min-h-0 space-y-4">
 
     <!-- ===== REGION: MODULE-EXTRACTOR ===== -->
     <div id="tabContent-extractor" class="tab-panel flex-1 flex flex-col hidden">
@@ -2183,10 +2183,10 @@
     </div>
 
     <!-- ===== REGION: MODULE-QC ===== -->
-    <div id="tabContent-qc" class="tab-panel flex-1 flex flex-col hidden space-y-4 w-full">
+    <div id="tabContent-qc" class="tab-panel flex-1 flex flex-col hidden space-y-4 w-full max-w-full overflow-x-hidden">
       
       <!-- Module Header -->
-      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full max-w-full">
         <div class="flex items-center gap-3">
           <div id="qcHeaderIcon" class="w-10 h-10 rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl font-bold border border-violet-500/20">
             🧪
@@ -2206,8 +2206,8 @@
       </div>
 
       <!-- ===== SUB-TAB 1: REAGEN PREP & SCALING ===== -->
-      <div id="qcSubTabReagents" class="qc-subtab-content space-y-4">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div id="qcSubTabReagents" class="qc-subtab-content space-y-4 w-full max-w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full max-w-full">
           <!-- Controls Panel (Left: 4 cols) -->
           <div class="lg:col-span-4 bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
             <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
@@ -2288,7 +2288,7 @@
         </div>
 
         <!-- Standarisasi Titrasi Reagen Table -->
-        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 w-full max-w-full">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
             <div>
               <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
@@ -2306,7 +2306,7 @@
             </div>
           </div>
 
-          <div class="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+          <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
             <table class="w-full text-left text-xs">
               <thead class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[10px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
                 <tr>
@@ -2333,12 +2333,12 @@
       </div>
 
       <!-- ===== SUB-TAB 2: OIL SAMPLE CALCULATOR ===== -->
-      <div id="qcSubTabOil" class="qc-subtab-content hidden space-y-4">
+      <div id="qcSubTabOil" class="qc-subtab-content hidden space-y-4 w-full max-w-full">
         
         <!-- Parameter Selector Bar & Quick Controls -->
-        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 w-full max-w-full">
           
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
+          <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3 w-full max-w-full">
             <div class="flex-1 max-w-md space-y-1">
               <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                 <span>🛢️</span> Pilih Parameter Uji Minyak:
@@ -2359,7 +2359,7 @@
             </div>
 
             <!-- Quick Actions -->
-            <div class="flex flex-wrap items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2 max-w-full">
               <button id="qcOilSetupCurveBtn" onclick="window.Qc && window.Qc.openCurveModal()" class="hidden px-3.5 py-2 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 font-extrabold text-xs hover:bg-cyan-200 transition-colors flex items-center gap-1.5" title="Atur Slope & Intercept Kurva Spektrofotometer">
                 <span>⚙️</span><span>Kurva Spektro</span>
               </button>
@@ -2379,12 +2379,12 @@
           </div>
 
           <!-- Info Header / Rumus -->
-          <div id="qcOilFormulaBadgeBar" class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 text-xs flex flex-wrap items-center justify-between gap-2">
+          <div id="qcOilFormulaBadgeBar" class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 text-xs flex flex-wrap items-center justify-between gap-2 w-full max-w-full">
             <!-- Dynamic formula info via JS -->
           </div>
 
           <!-- Parameter Spreadsheet Table -->
-          <div class="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+          <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
             <table class="w-full text-left text-xs">
               <thead id="qcOilThead" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[10px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
                 <!-- Dynamic Header by JS -->
@@ -2396,7 +2396,7 @@
           </div>
 
           <!-- Bottom Summary Bar -->
-          <div id="qcOilStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono">
+          <div id="qcOilStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono w-full max-w-full">
             <!-- Dynamic stats via JS -->
           </div>
 
@@ -2405,12 +2405,12 @@
       </div>
 
       <!-- ===== SUB-TAB 3: WATER SAMPLE CALCULATOR ===== -->
-      <div id="qcSubTabWater" class="qc-subtab-content hidden space-y-4">
+      <div id="qcSubTabWater" class="qc-subtab-content hidden space-y-4 w-full max-w-full">
         
         <!-- Parameter Selector Bar & Quick Controls -->
-        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4">
+        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 w-full max-w-full">
           
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
+          <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3 w-full max-w-full">
             <div class="flex-1 max-w-md space-y-1">
               <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                 <span>💧</span> Pilih Parameter Uji Air:
@@ -2423,7 +2423,7 @@
             </div>
 
             <!-- Quick Actions -->
-            <div class="flex flex-wrap items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2 max-w-full">
               <button id="qcWaterSetupCurveBtn" onclick="window.Qc && window.Qc.openCurveModal('cl_spektro')" class="hidden px-3.5 py-2 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 font-extrabold text-xs hover:bg-cyan-200 transition-colors flex items-center gap-1.5" title="Atur Slope & Intercept Kurva Spektrofotometer">
                 <span>⚙️</span><span>Kurva Spektro</span>
               </button>
@@ -2443,12 +2443,12 @@
           </div>
 
           <!-- Formula Info Header -->
-          <div id="qcWaterFormulaBadgeBar" class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 text-xs flex flex-wrap items-center justify-between gap-2">
+          <div id="qcWaterFormulaBadgeBar" class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 text-xs flex flex-wrap items-center justify-between gap-2 w-full max-w-full">
             <!-- Dynamic info by JS -->
           </div>
 
           <!-- Parameter Spreadsheet Table -->
-          <div class="overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+          <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
             <table class="w-full text-left text-xs">
               <thead id="qcWaterThead" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[10px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
                 <!-- Dynamic Header by JS -->
@@ -2460,7 +2460,7 @@
           </div>
 
           <!-- Bottom Summary Bar -->
-          <div id="qcWaterStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono">
+          <div id="qcWaterStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono w-full max-w-full">
             <!-- Dynamic stats via JS -->
           </div>
 
