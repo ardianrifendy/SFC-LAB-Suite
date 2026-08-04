@@ -2321,7 +2321,7 @@
               </button>
             </div>
 
-            <!-- Step-by-Step SOP -->
+            <!-- Step-by-Step SOP Pembuatan Larutan -->
             <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
               <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
                 <span>📑</span> Prosedur Pembuatan & SOP Laboratorium
@@ -2330,39 +2330,58 @@
                 <!-- Diisi via JS -->
               </div>
             </div>
+
+            <!-- Step-by-Step SOP Standarisasi Baku Primer (Khusus Reagen Titran) -->
+            <div id="qcReagentStdSopCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
+              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
+                <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
+                  <span>🧪</span> Metode & Prosedur Standarisasi Baku Primer
+                </h3>
+                <span id="qcReagentStdPrimaryBadge" class="px-2.5 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 font-extrabold text-[10px]">
+                  Standard: KIO3
+                </span>
+              </div>
+              <div id="qcReagentStdSopContainer" class="space-y-2.5 text-xs">
+                <!-- Diisi via JS -->
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Standarisasi Titrasi Reagen Table -->
-        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 w-full max-w-full">
+        <!-- Standarisasi Titrasi Reagen Table (Khusus Pentiter) -->
+        <div id="qcReagentStdTableCard" class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 w-full max-w-full">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3">
             <div>
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
-                <span>⚗️</span> Tabel Standarisasi Reagen Titrasi (Serial Titrimetri)
+              <h3 id="qcReagentStdTableTitle" class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
+                <span>⚗️</span> Tabel Standarisasi Penetapan Normalitas Reagen Titrasi
               </h3>
-              <p class="text-xs text-zinc-500 mt-0.5">Penetapan normalitas rata-rata larutan standar (Na2S2O3, AgNO3, NaOH, HCl) dari penimbangan baku primer.</p>
+              <p id="qcReagentStdTableSub" class="text-xs text-zinc-500 mt-0.5">Penetapan normalitas presisi berdasarkan 5 serial penimbangan baku primer.</p>
             </div>
-            <div class="flex items-center gap-2">
-              <button onclick="window.Qc && window.Qc.reset10ReagentStdRows()" class="px-3.5 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors">
-                ⚡ Reset 5 Titrasi
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="window.Qc && window.Qc.reset5ReagentStdRows()" class="px-3 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
+                <span>⚡</span><span>Reset 5 Titrasi</span>
               </button>
-              <button onclick="window.Qc && window.Qc.copyReagentStdTable()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors">
-                📋 Copy Excel
+              <button onclick="window.Qc && window.Qc.copyReagentStdTable()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
+                <span>📋</span><span>Copy Excel</span>
               </button>
             </div>
+          </div>
+
+          <div id="qcReagentStdFormulaBadgeBar" class="px-3 py-2 rounded-xl bg-violet-500/10 border border-violet-500/20 text-xs font-medium text-violet-900 dark:text-violet-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <!-- Diisi via JS -->
           </div>
 
           <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
             <table class="w-full text-left text-xs">
               <thead class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[10px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
                 <tr>
-                  <th class="px-3 py-2.5 w-10 text-center">No</th>
-                  <th class="px-3 py-2.5 min-w-[160px]">Baku Primer / Reagen</th>
-                  <th class="px-3 py-2.5 min-w-[120px]">Berat Primer (g)</th>
-                  <th class="px-3 py-2.5 min-w-[120px]">Vol Titran (mL)</th>
-                  <th class="px-3 py-2.5 min-w-[130px]">Hasil Normalitas (N)</th>
-                  <th class="px-3 py-2.5 min-w-[120px]">Status Presisi</th>
-                  <th class="px-3 py-2.5 w-12 text-center">Aksi</th>
+                  <th class="px-2.5 py-1.5 w-8 text-center">No</th>
+                  <th class="px-2.5 py-1.5 min-w-[150px]">Baku Primer / Reagen</th>
+                  <th class="px-2.5 py-1.5 min-w-[110px]">Berat Primer W (g)</th>
+                  <th class="px-2.5 py-1.5 min-w-[110px]">Vol Titran V (mL)</th>
+                  <th class="px-2.5 py-1.5 min-w-[120px]">Hasil Normalitas (N)</th>
+                  <th class="px-2.5 py-1.5 min-w-[110px]">Status Presisi</th>
+                  <th class="px-2.5 py-1.5 w-8 text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody id="qcReagentStdTbody" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
@@ -2371,7 +2390,7 @@
             </table>
           </div>
 
-          <div id="qcReagentStdStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono">
+          <div id="qcReagentStdStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono font-bold text-zinc-600 dark:text-zinc-400">
             <!-- JS stats -->
           </div>
         </div>
@@ -8213,7 +8232,25 @@ const Qc = {
         `Timbang ${(1.0 * factor).toFixed(3)} gram NaOH pelet dengan cepat (sifat higroskopis).`,
         `Larutkan dalam ${targetVol} mL Aquadest bebas CO2.`,
         `Kocok homogen dan standarisasi normalitasnya (${norm} N) dengan baku primer KHP (Potassium Hydrogen Phthalate).`
-      ]
+      ],
+      stdInfo: {
+        primaryStd: "KHP (Potassium Hydrogen Phthalate)",
+        eqWeight: 204.22,
+        formulaText: "N = (Berat KHP (g) × 1000) / (Vol NaOH (mL) × 204.22)",
+        sop: [
+          "Timbang presisi ~0.2000 gram baku primer KHP murni (dikeringkan 120°C selama 2 jam) ke dalam Erlenmeyer 250 mL.",
+          "Larutkan dalam 50 mL Aquadest bebas CO2 hangat.",
+          "Tambahkan 3 tetes Indikator Phenolphthalein (PP) 1%.",
+          "Titrasi dengan larutan NaOH yang baru dibuat hingga terbentuk warna merah muda (pink) pucat permanen yang stabil selama 30 detik. Catat Volume Titran (mL)."
+        ],
+        defaultRows: [
+          { id: 1, std: "NaOH 0.1N (KHP Standard)", w: 0.2045, v: 10.15 },
+          { id: 2, std: "NaOH 0.1N (KHP Standard)", w: 0.2010, v: 9.98 },
+          { id: 3, std: "NaOH 0.1N (KHP Standard)", w: 0.2035, v: 10.10 },
+          { id: 4, std: "NaOH 0.1N (KHP Standard)", w: 0.2025, v: 10.05 },
+          { id: 5, std: "NaOH 0.1N (KHP Standard)", w: 0.2050, v: 10.18 }
+        ]
+      }
     },
     na2s2o3_01n: {
       title: "Na2S2O3 0.1N (Pentiter Titrasi IV & PV)",
@@ -8229,7 +8266,26 @@ const Qc = {
         `Timbang ${(6.205 * factor).toFixed(3)} gram Na2S2O3.5H2O dan ${(0.05 * factor).toFixed(3)} g Na2CO3 sebagai pengawet.`,
         `Larutkan dalam ${targetVol} mL Aquadest yang telah dididihkan dan didinginkan.`,
         `Simpan botol dalam tempat gelap selama 1 hari sebelum distandarisasi dengan KIO3.`
-      ]
+      ],
+      stdInfo: {
+        primaryStd: "KIO3 (Potassium Iodate)",
+        eqWeight: 49.03,
+        formulaText: "N = (Berat KIO3 (g) × 1000) / (Vol Na2S2O3 (mL) × 49.03)",
+        sop: [
+          "Timbang presisi ~0.1000 gram baku primer KIO3 murni (dikeringkan 120°C selama 2 jam) ke dalam Erlenmeyer 250 mL.",
+          "Larutkan dalam 50 mL Aquadest demin, tambahkan 2 gram KI murni dan 10 mL larutan H2SO4 1M. Tutup dan simpan di tempat gelap selama 5 menit.",
+          "Titrasi dengan larutan Na2S2O3 yang baru dibuat hingga warna larutan berubah menjadi kuning jerami pucat.",
+          "Tambahkan 1 mL larutan Indikator Kanji / Starch 1% (larutan seketika berubah warna menjadi biru tua kehitaman).",
+          "Lanjutkan titrasi tetes demi tetes hingga warna biru tepat hilang sempurna menjadi bening jernih. Catat Volume Titran (mL)."
+        ],
+        defaultRows: [
+          { id: 1, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1025, v: 20.59 },
+          { id: 2, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1040, v: 21.25 },
+          { id: 3, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1045, v: 21.04 },
+          { id: 4, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1002, v: 20.78 },
+          { id: 5, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1018, v: 20.95 }
+        ]
+      }
     },
     hcl_05n: {
       title: "HCl 0.5N (Pentiter Titrasi Saponification Value - SV)",
@@ -8244,7 +8300,58 @@ const Qc = {
         `Ukur ${(10.5 * factor).toFixed(1)} mL HCl 37% pekat dalam lemari asam.`,
         `Encerkan dengan Aquadest demin hingga volume ${targetVol} mL.`,
         `Standarisasi normalitas (${norm} N) dengan larutan standar Na2CO3.`
-      ]
+      ],
+      stdInfo: {
+        primaryStd: "Na2CO3 (Sodium Carbonate)",
+        eqWeight: 52.99,
+        formulaText: "N = (Berat Na2CO3 (g) × 1000) / (Vol HCl (mL) × 52.99)",
+        sop: [
+          "Timbang presisi ~0.2650 gram baku primer Na2CO3 anhydrous (dikeringkan 270°C selama 1 jam) ke dalam Erlenmeyer.",
+          "Larutkan dalam 50 mL Aquadest demin.",
+          "Tambahkan 3 tetes Indikator Methyl Orange (MO).",
+          "Titrasi dengan larutan HCl hingga warna kuning berubah menjadi jingga kemerahan. Didihkan 1 menit, dinginkan, lalu lanjutkan titrasi jika kembali kuning hingga jingga stabil. Catat Volume Titran (mL)."
+        ],
+        defaultRows: [
+          { id: 1, std: "HCl 0.5N (Na2CO3 Standard)", w: 0.2650, v: 10.20 },
+          { id: 2, std: "HCl 0.5N (Na2CO3 Standard)", w: 0.2640, v: 10.15 },
+          { id: 3, std: "HCl 0.5N (Na2CO3 Standard)", w: 0.2660, v: 10.22 },
+          { id: 4, std: "HCl 0.5N (Na2CO3 Standard)", w: 0.2655, v: 10.18 },
+          { id: 5, std: "HCl 0.5N (Na2CO3 Standard)", w: 0.2645, v: 10.16 }
+        ]
+      }
+    },
+    agno3_01n: {
+      title: "AgNO3 0.1N (Titrasi Chloride / NaCl)",
+      baseVol: 250,
+      defaultNorm: 0.1,
+      normUnit: "N",
+      items: [
+        { name: "Aquadest / Demineralized Water", base: 250, unit: "mL" },
+        { name: "AgNO3 (Silver Nitrate)", base: 4.2468, unit: "gram" }
+      ],
+      sopFunc: (targetVol, factor, norm) => [
+        `Timbang ${(4.2468 * factor).toFixed(4)} gram kristal AgNO3 presisi untuk konsentrasi ${norm} N.`,
+        `Larutkan dalam ${targetVol} mL Aquadest bebas klorida.`,
+        `Simpan dalam botol cokelat / gelap karena AgNO3 sensitif terhadap cahaya matahari.`
+      ],
+      stdInfo: {
+        primaryStd: "NaCl (Sodium Chloride)",
+        eqWeight: 58.44,
+        formulaText: "N = (Berat NaCl (g) × 1000) / (Vol AgNO3 (mL) × 58.44)",
+        sop: [
+          "Timbang presisi ~0.0150 gram baku primer NaCl murni (dikeringkan 140°C selama 2 jam) ke dalam Erlenmeyer 250 mL.",
+          "Larutkan dalam 50 mL Aquadest bebas klorida.",
+          "Tambahkan 1 mL larutan Indikator Kalium Kromat (K2CrO4) 5%.",
+          "Titrasi dengan larutan AgNO3 sambil dikocok kuat hingga terbentuk warna endapan merah bata pucat permanen (Ag2CrO4). Catat Volume Titran (mL)."
+        ],
+        defaultRows: [
+          { id: 1, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0143, v: 25.20 },
+          { id: 2, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0119, v: 21.10 },
+          { id: 3, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0118, v: 21.30 },
+          { id: 4, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0188, v: 31.40 },
+          { id: 5, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0125, v: 21.90 }
+        ]
+      }
     }
   },
 
@@ -8268,8 +8375,9 @@ const Qc = {
         { key: 'naoh_meth_05n', label: 'NaOH 0.5N Methanolis (Reagen Esterifikasi FAC PFAD/PKFAD)' }
       ],
       titrimetric: [
-        { key: 'naoh_01n', label: 'NaOH 0.1 N (Larutan Pentiter Titrasi FFA)' },
         { key: 'na2s2o3_01n', label: 'Na2S2O3 0.1 N (Larutan Pentiter Titrasi IV & PV)' },
+        { key: 'agno3_01n', label: 'AgNO3 0.1 N (Larutan Pentiter Titrasi Chloride / NaCl)' },
+        { key: 'naoh_01n', label: 'NaOH 0.1 N (Larutan Pentiter Titrasi FFA)' },
         { key: 'hcl_05n', label: 'HCl 0.5 N (Larutan Pentiter Titrasi SV)' }
       ]
     };
@@ -8298,10 +8406,10 @@ const Qc = {
   },
 
   calcReagents() {
-    const sel = document.getElementById('qcReagentSelect')?.value || 'hcl_11';
+    const sel = document.getElementById('qcReagentSelect')?.value || 'na2s2o3_01n';
     const targetVol = parseFloat(document.getElementById('qcReagentVolume')?.value) || 250;
     
-    const rData = this.reagentRecipes[sel] || this.reagentRecipes.hcl_11;
+    const rData = this.reagentRecipes[sel] || this.reagentRecipes.na2s2o3_01n;
 
     const normInput = document.getElementById('qcReagentNorm');
     let targetNorm = parseFloat(normInput?.value);
@@ -8345,6 +8453,39 @@ const Qc = {
                   <p class="text-zinc-700 dark:text-zinc-300 font-medium leading-relaxed">${step}</p>
                 </div>`;
       }).join('');
+    }
+
+    // Render Standarisasi SOP & Table if stdInfo exists for this reagent
+    const stdSopCard = document.getElementById('qcReagentStdSopCard');
+    const stdTableCard = document.getElementById('qcReagentStdTableCard');
+    const stdSopContainer = document.getElementById('qcReagentStdSopContainer');
+    const stdPrimaryBadge = document.getElementById('qcReagentStdPrimaryBadge');
+
+    if (rData.stdInfo) {
+      if (stdSopCard) stdSopCard.classList.remove('hidden');
+      if (stdTableCard) stdTableCard.classList.remove('hidden');
+
+      if (stdPrimaryBadge) stdPrimaryBadge.innerText = `Standard Baku Primer: ${rData.stdInfo.primaryStd}`;
+
+      if (stdSopContainer) {
+        stdSopContainer.innerHTML = rData.stdInfo.sop.map((step, idx) => {
+          return `<div class="flex gap-2.5 items-start p-2 rounded-xl bg-violet-500/5 dark:bg-violet-950/30 border border-violet-200/60 dark:border-violet-800/40">
+                    <span class="w-5 h-5 rounded-full bg-indigo-600 text-white font-extrabold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">${idx + 1}</span>
+                    <p class="text-zinc-700 dark:text-zinc-300 font-medium leading-relaxed">${step}</p>
+                  </div>`;
+        }).join('');
+      }
+
+      // Update rows if switching to a new titrant reagent
+      if (this.activeTitrantKey !== sel) {
+        this.activeTitrantKey = sel;
+        this.reagentStdRows = JSON.parse(JSON.stringify(rData.stdInfo.defaultRows));
+      }
+
+      this.renderReagentStdTable();
+    } else {
+      if (stdSopCard) stdSopCard.classList.add('hidden');
+      if (stdTableCard) stdTableCard.classList.add('hidden');
     }
   },
 
@@ -9151,15 +9292,21 @@ const Qc = {
     if (window.showToast) window.showToast("✔ Tabel Uji Air disalin ke Clipboard!");
   },
 
-  // REAGENT STANDARDIZATION LOGIC
+  // REAGENT STANDARDIZATION LOGIC (DYNAMIC & CONTEXTUAL)
   reset5ReagentStdRows() {
-    this.reagentStdRows = [
-      { id: 1, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1025, v: 20.59 },
-      { id: 2, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1040, v: 21.25 },
-      { id: 3, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1045, v: 21.04 },
-      { id: 4, std: "AgNO3 0.1N (NaCl Standard)", w: 0.0143, v: 25.20 },
-      { id: 5, std: "NaOH 0.1N (KHP Standard)", w: 0.2045, v: 10.15 }
-    ];
+    const sel = document.getElementById('qcReagentSelect')?.value || 'na2s2o3_01n';
+    const rData = this.reagentRecipes[sel] || this.reagentRecipes.na2s2o3_01n;
+    if (rData && rData.stdInfo && rData.stdInfo.defaultRows) {
+      this.reagentStdRows = JSON.parse(JSON.stringify(rData.stdInfo.defaultRows));
+    } else {
+      this.reagentStdRows = [
+        { id: 1, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1025, v: 20.59 },
+        { id: 2, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1040, v: 21.25 },
+        { id: 3, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1045, v: 21.04 },
+        { id: 4, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1002, v: 20.78 },
+        { id: 5, std: "Na2S2O3 0.1N (KIO3 Standard)", w: 0.1018, v: 20.95 }
+      ];
+    }
     this.renderReagentStdTable();
   },
 
@@ -9168,20 +9315,44 @@ const Qc = {
   },
 
   renderReagentStdTable() {
+    const sel = document.getElementById('qcReagentSelect')?.value || 'na2s2o3_01n';
+    const rData = this.reagentRecipes[sel] || this.reagentRecipes.na2s2o3_01n;
+    if (!rData.stdInfo) return;
+
+    const tableTitle = document.getElementById('qcReagentStdTableTitle');
+    const tableSub = document.getElementById('qcReagentStdTableSub');
+    const badgeBar = document.getElementById('qcReagentStdFormulaBadgeBar');
     const tbody = document.getElementById('qcReagentStdTbody');
     const statsBar = document.getElementById('qcReagentStdStatsBar');
     if (!tbody) return;
 
+    if (tableTitle) tableTitle.innerHTML = `<span>⚗️</span> Tabel Standarisasi Penetapan Normalitas ${rData.title}`;
+    if (tableSub) tableSub.innerText = `Penetapan normalitas presisi berdasarkan 5 serial penimbangan baku primer ${rData.stdInfo.primaryStd}.`;
+
+    if (badgeBar) {
+      badgeBar.innerHTML = `
+        <span><strong>Rumus Normalitas:</strong> ${rData.stdInfo.formulaText}</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-violet-200 dark:bg-violet-900 text-violet-800 dark:text-violet-200 font-extrabold text-[10px]">Real-Time Titrimetri</span>
+      `;
+    }
+
     let totalNorm = 0;
-    let count = this.reagentStdRows.length;
+    let validCount = 0;
+    let normList = [];
 
     const inpCls = "w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500";
 
     tbody.innerHTML = this.reagentStdRows.map((r, idx) => {
-      let nCalc = r.v > 0 ? (r.w * 1000) / (r.v * 49.03) : 0;
-      if (r.std.includes("AgNO3")) nCalc = r.v > 0 ? (r.w * 1000) / (r.v * 58.44) : 0;
+      let nCalc = 0;
+      if (r.v > 0 && r.w > 0) {
+        nCalc = (r.w * 1000) / (r.v * rData.stdInfo.eqWeight);
+      }
       
-      if (nCalc > 0) totalNorm += nCalc;
+      if (nCalc > 0) {
+        totalNorm += nCalc;
+        validCount++;
+        normList.push(nCalc);
+      }
 
       return `
         <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors">
@@ -9195,9 +9366,9 @@ const Qc = {
           <td class="px-2 py-1">
             <input type="number" step="0.01" value="${r.v}" oninput="window.Qc.reagentStdRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderReagentStdTable();" class="${inpCls}">
           </td>
-          <td class="px-2 py-1 font-mono font-black text-amber-500 text-xs">${nCalc.toFixed(4)} N</td>
+          <td class="px-2 py-1 font-mono font-black text-amber-500 text-xs">${nCalc > 0 ? nCalc.toFixed(4) + ' N' : '-'}</td>
           <td class="px-2 py-1">
-            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300">PASS</span>
+            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full ${nCalc > 0 ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300' : 'bg-zinc-100 text-zinc-400'}">${nCalc > 0 ? 'VALIDATED' : 'PENDING'}</span>
           </td>
           <td class="px-2 py-1 text-center">
             <button onclick="window.Qc.reagentStdRows.splice(${idx},1); window.Qc.renderReagentStdTable();" class="p-1 text-rose-500 hover:text-rose-700 text-xs font-bold" title="Hapus Baris">🗑️</button>
@@ -9206,23 +9377,43 @@ const Qc = {
       `;
     }).join('');
 
-    const avgN = count > 0 ? totalNorm / count : 0;
+    const avgN = validCount > 0 ? totalNorm / validCount : 0;
+
+    let rsd = 0;
+    if (validCount > 1 && avgN > 0) {
+      const variance = normList.reduce((acc, val) => acc + Math.pow(val - avgN, 2), 0) / (validCount - 1);
+      const sd = Math.sqrt(variance);
+      rsd = (sd / avgN) * 100;
+    }
+
     if (statsBar) {
       statsBar.innerHTML = `
-        <div>Total Pengulangan: <strong class="text-zinc-900 dark:text-white">${count} Titrasi</strong></div>
-        <div>Rerata Normalitas: <strong class="text-amber-500">${avgN.toFixed(4)} N</strong></div>
+        <div class="flex flex-wrap items-center gap-4">
+          <div>Serial Valid: <strong class="text-zinc-900 dark:text-white">${validCount} Baris</strong></div>
+          <div>Rata-Rata Normalitas (Avg N): <strong class="text-amber-500 text-sm font-black">${avgN > 0 ? avgN.toFixed(4) + ' N' : '-'}</strong></div>
+          <div>Presisi (RSD %): <strong class="${rsd < 0.5 && rsd > 0 ? 'text-emerald-500' : 'text-amber-500'}">${rsd > 0 ? rsd.toFixed(2) + '%' : '-'}</strong></div>
+        </div>
+        ${avgN > 0 ? `
+          <button onclick="document.getElementById('qcReagentNorm').value=${avgN.toFixed(4)}; window.Qc.calcReagents(); window.showToast('✔ Normalitas ${avgN.toFixed(4)} N diterapkan ke Target Konsentrasi!');" class="px-3 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs transition-colors shadow-md flex items-center gap-1">
+            <span>✨</span><span>Gunakan Normalitas (${avgN.toFixed(4)} N)</span>
+          </button>
+        ` : ''}
       `;
     }
   },
 
   copyReagentStdTable() {
-    let tsv = "No\tReagen Titrasi\tBerat Baku (g)\tVol Titran (mL)\tHasil Normalitas (N)\n";
+    const sel = document.getElementById('qcReagentSelect')?.value || 'na2s2o3_01n';
+    const rData = this.reagentRecipes[sel] || this.reagentRecipes.na2s2o3_01n;
+    const eqW = rData.stdInfo ? rData.stdInfo.eqWeight : 49.03;
+
+    let tsv = `No\tReagen Standar\tBerat Baku (g)\tVol Titran (mL)\tHasil Normalitas (N)\n`;
     this.reagentStdRows.forEach((r, idx) => {
-      let nCalc = r.v > 0 ? (r.w * 1000) / (r.v * 49.03) : 0;
+      let nCalc = (r.v > 0 && r.w > 0) ? (r.w * 1000) / (r.v * eqW) : 0;
       tsv += `${idx + 1}\t${r.std}\t${r.w}\t${r.v}\t${nCalc.toFixed(4)}\n`;
     });
     navigator.clipboard.writeText(tsv);
-    if (window.showToast) window.showToast("✔ Tabel Standarisasi Reagen disalin!");
+    if (window.showToast) window.showToast("✔ Tabel Standarisasi Reagen disalin ke Clipboard!");
   }
 };
 
