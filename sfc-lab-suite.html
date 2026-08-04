@@ -2183,7 +2183,7 @@
     </div>
 
     <!-- ===== REGION: MODULE-QC ===== -->
-    <div id="tabContent-qc" class="tab-panel flex-1 flex flex-col hidden p-4 sm:p-6 space-y-4 max-w-7xl mx-auto">
+    <div id="tabContent-qc" class="tab-panel flex-1 flex flex-col hidden space-y-4 w-full">
       
       <!-- Module Header & Sub-Tab Switcher -->
       <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -2291,38 +2291,38 @@
         
         <!-- Header Copy Summary -->
         <div class="flex items-center justify-between bg-white dark:bg-zinc-850 p-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-          <span class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200">Kalkulator Mutu Minyak & Lemak (Titration, Spektrofotometri, & Impurities)</span>
+          <span class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200">Kalkulator Mutu Minyak & Lemak (Titration & Moisture/Impurities)</span>
           <button onclick="window.Qc && window.Qc.copyOilSummary()" class="px-4 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-sm transition-colors flex items-center gap-1.5">
-            <span>📋</span><span>Salin Semua Hasil Uji Minyak (Excel)</span>
+            <span>📋</span><span>Salin Hasil Uji Minyak (Excel)</span>
           </button>
         </div>
 
-        <!-- 4 Grid Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 3 Grid Cards (FFA & IV, PV & SV, Moisture & Impurities & Lauric) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           
           <!-- CARD 1: FFA & IV -->
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
             <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
               <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>🧈</span> FFA (Free Fatty Acid) & Iodine Value (IV)
+                <span>🧈</span> FFA & Iodine Value (IV)
               </h3>
             </div>
             
             <div class="grid grid-cols-2 gap-2 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Jenis Asam Lemak (FFA Factor)</label>
+                <label class="block text-[10px] font-bold text-zinc-500">FFA Factor</label>
                 <select id="qcFfaFactor" onchange="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-bold text-[11px]">
-                  <option value="25.6">Palmitic / Palm Oil (Faktor 25.6)</option>
-                  <option value="20.0">Lauric / PKO / Coconut (Faktor 20.0)</option>
-                  <option value="28.2">Oleic / Soft Oils (Faktor 28.2)</option>
+                  <option value="25.6">Palmitic / Palm Oil (25.6)</option>
+                  <option value="20.0">Lauric / PKO / Coconut (20.0)</option>
+                  <option value="28.2">Oleic / Soft Oils (28.2)</option>
                 </select>
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat Sampel FFA (g)</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Berat FFA (g)</label>
                 <input id="qcFfaWeight" type="number" step="0.01" value="3.5241" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Normalitas NaOH/KOH</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Normalitas NaOH</label>
                 <input id="qcFfaNorm" type="number" step="0.001" value="0.0997" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
@@ -2339,11 +2339,11 @@
 
             <div class="border-t border-zinc-100 dark:border-zinc-800 pt-2 grid grid-cols-2 gap-2 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat Sampel IV (g)</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Berat IV (g)</label>
                 <input id="qcIvWeight" type="number" step="0.01" value="0.4098" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Normalitas Na2S2O3</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Norm Na2S2O3</label>
                 <input id="qcIvNorm" type="number" step="0.001" value="0.1035" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
@@ -2351,7 +2351,7 @@
                 <input id="qcIvBlank" type="number" step="0.01" value="48.45" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Titrasi Sampel (mL)</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Vol Sampel (mL)</label>
                 <input id="qcIvVol" type="number" step="0.01" value="29.95" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
             </div>
@@ -2367,17 +2367,17 @@
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
             <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
               <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>⚗️</span> Peroxide Value (PV) & Saponification (SV)
+                <span>⚗️</span> Peroxide (PV) & Saponification (SV)
               </h3>
             </div>
             
             <div class="grid grid-cols-2 gap-2 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat Sampel PV (g)</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Berat PV (g)</label>
                 <input id="qcPvWeight" type="number" step="0.01" value="5.08" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Normalitas Na2S2O3</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Norm Na2S2O3</label>
                 <input id="qcPvNorm" type="number" step="0.0001" value="0.0105" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
@@ -2385,7 +2385,7 @@
                 <input id="qcPvBlank" type="number" step="0.01" value="0.00" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Titrasi Sampel (mL)</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Vol Sampel (mL)</label>
                 <input id="qcPvVol" type="number" step="0.01" value="7.444" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
             </div>
@@ -2398,11 +2398,11 @@
 
             <div class="border-t border-zinc-100 dark:border-zinc-800 pt-2 grid grid-cols-2 gap-2 text-xs">
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat Sampel SV (g)</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Berat SV (g)</label>
                 <input id="qcSvWeight" type="number" step="0.01" value="4.042" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Normalitas HCl</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Norm HCl</label>
                 <input id="qcSvNorm" type="number" step="0.001" value="0.5199" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
@@ -2410,7 +2410,7 @@
                 <input id="qcSvBlank" type="number" step="0.01" value="42.84" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
               <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Vol Titrasi Sampel (mL)</label>
+                <label class="block text-[10px] font-bold text-zinc-500">Vol Sampel (mL)</label>
                 <input id="qcSvVol" type="number" step="0.01" value="15.00" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
               </div>
             </div>
@@ -2422,80 +2422,7 @@
             </div>
           </div>
 
-          <!-- CARD 3: SPEKTROFOTOMETRI (AV, CAROTENE, DOBI, PHOSPHORUS WITH SETTINGS ICON) -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>🌈</span> Anisidine (AV), DOBI & Phosphorus (PC)
-              </h3>
-              <!-- Curve Settings Icon for Phosphorus -->
-              <button onclick="window.Qc && window.Qc.openCurveModal('pc')" title="Atur Slope & Intercept Phosphorus" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-violet-100 dark:bg-zinc-800 dark:hover:bg-violet-950/60 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center gap-1 text-[10px] font-bold">
-                ⚙️ <span>Set Kurva PC</span>
-              </button>
-            </div>
-
-            <!-- AV & DOBI Section -->
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs 446 nm (DOBI)</label>
-                <input id="qcDobiAbs446" type="number" step="0.001" value="0.661" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs 269 nm (DOBI)</label>
-                <input id="qcDobiAbs269" type="number" step="0.001" value="0.856" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Sampel Anisidine (As)</label>
-                <input id="qcAvAbsSample" type="number" step="0.001" value="0.416" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Blanko Anisidine (Ab)</label>
-                <input id="qcAvAbsBlank" type="number" step="0.001" value="0.285" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2">
-              <div class="p-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex justify-between items-center text-xs">
-                <span class="font-bold text-zinc-500">DOBI Ratio:</span>
-                <span id="qcDobiResult" class="font-extrabold font-mono text-emerald-600 dark:text-emerald-400">0.772</span>
-              </div>
-              <div class="p-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex justify-between items-center text-xs">
-                <span class="font-bold text-zinc-500">Anisidine Value:</span>
-                <span id="qcAvResult" class="font-extrabold font-mono text-violet-600 dark:text-violet-400">2.61</span>
-              </div>
-            </div>
-
-            <!-- Phosphorus Content (PC) Section -->
-            <div class="border-t border-zinc-100 dark:border-zinc-800 pt-2 grid grid-cols-2 gap-2 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Berat Sampel PC (g)</label>
-                <input id="qcPcWeight" type="number" step="0.01" value="3.0276" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Faktor Pengenceran (FP)</label>
-                <input id="qcPcFP" type="number" step="1" value="10" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Blanko PC</label>
-                <input id="qcPcAbsBlank" type="number" step="0.001" value="0.000" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Sampel PC</label>
-                <input id="qcPcAbsSample" type="number" step="0.001" value="0.001" oninput="window.Qc && window.Qc.calcOil()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-            </div>
-
-            <!-- PC Result Box -->
-            <div class="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-900/40 flex items-center justify-between">
-              <div class="flex items-center gap-1.5">
-                <span class="text-[11px] font-bold text-violet-900 dark:text-violet-200">Phosphorus Content (PC):</span>
-                <span id="qcPcFormulaBadge" class="text-[9px] px-1.5 py-0.5 rounded bg-violet-200 dark:bg-violet-900 text-violet-800 dark:text-violet-300 font-mono">m=0.2842 c=-0.0002</span>
-              </div>
-              <span id="qcPcResult" class="text-sm font-extrabold font-mono text-violet-600 dark:text-violet-400">0.70 ppm</span>
-            </div>
-          </div>
-
-          <!-- CARD 4: MOISTURE, IMPURITIES, SALT & LAURIC -->
+          <!-- CARD 3: MOISTURE, IMPURITIES, SALT & LAURIC -->
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
             <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
               <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
@@ -2562,14 +2489,14 @@
         
         <!-- Header Copy Summary -->
         <div class="flex items-center justify-between bg-white dark:bg-zinc-850 p-3.5 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm">
-          <span class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200">Kalkulator Analisis Air Process (Chloride, Phosphat, Iron, Hardness, Silica)</span>
+          <span class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200">Kalkulator Analisis Air Process (Chloride & Total Hardness)</span>
           <button onclick="window.Qc && window.Qc.copyWaterSummary()" class="px-4 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-sm transition-colors flex items-center gap-1.5">
             <span>📋</span><span>Salin Hasil Uji Air (Excel)</span>
           </button>
         </div>
 
-        <!-- 5 Water Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 2 Water Cards (Chloride & Hardness) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           
           <!-- WATER CARD 1: CHLORIDE -->
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
@@ -2604,80 +2531,7 @@
             </div>
           </div>
 
-          <!-- WATER CARD 2: PHOSPHAT PO4 (WITH SETTINGS ICON) -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>🧪</span> Phosphat (PO4 Air)
-              </h3>
-              <button onclick="window.Qc && window.Qc.openCurveModal('po4')" title="Atur Slope & Intercept PO4" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-violet-100 dark:bg-zinc-800 dark:hover:bg-violet-950/60 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center gap-1 text-[10px] font-bold">
-                ⚙️ <span>Set PO4</span>
-              </button>
-            </div>
-            
-            <div class="space-y-2 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Sampel PO4</label>
-                <input id="qcWaterPo4AbsSamp" type="number" step="0.001" value="0.021" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Blanko PO4</label>
-                <input id="qcWaterPo4AbsBlk" type="number" step="0.001" value="0.001" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Volume Pelarutan (mL)</label>
-                <input id="qcWaterPo4Vol" type="number" step="1" value="50" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/40 flex items-center justify-between">
-              <div>
-                <span class="text-[11px] font-bold text-emerald-900 dark:text-emerald-200 block">Total PO4 (ppm):</span>
-                <span id="qcPo4FormulaBadge" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-300 font-mono">m=0.0179 c=0.0007</span>
-              </div>
-              <span id="qcWaterPo4Result" class="text-sm font-extrabold font-mono text-emerald-600 dark:text-emerald-400">1.54 ppm</span>
-            </div>
-          </div>
-
-          <!-- WATER CARD 3: TOTAL IRON FE (WITH SETTINGS ICON) -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>⚙️</span> Total Iron Fe (Besi Air)
-              </h3>
-              <button onclick="window.Qc && window.Qc.openCurveModal('fe')" title="Atur Slope & Intercept Fe" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-violet-100 dark:bg-zinc-800 dark:hover:bg-violet-950/60 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center gap-1 text-[10px] font-bold">
-                ⚙️ <span>Set Fe</span>
-              </button>
-            </div>
-            
-            <div class="space-y-2 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Sampel Fe</label>
-                <input id="qcWaterFeAbsSamp" type="number" step="0.001" value="0.031" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Blanko Fe</label>
-                <input id="qcWaterFeAbsBlk" type="number" step="0.001" value="0.000" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Volume Sampel / Pelarutan (mL)</label>
-                <div class="grid grid-cols-2 gap-1.5">
-                  <input id="qcWaterFeVolSamp" type="number" step="1" value="10" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2 py-1 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[10px]" placeholder="Vsamp">
-                  <input id="qcWaterFeVolPel" type="number" step="1" value="100" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2 py-1 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[10px]" placeholder="Vpel">
-                </div>
-              </div>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-900/40 flex items-center justify-between">
-              <div>
-                <span class="text-[11px] font-bold text-violet-900 dark:text-violet-200 block">Total Fe (ppm):</span>
-                <span id="qcFeFormulaBadge" class="text-[9px] px-1.5 py-0.5 rounded bg-violet-200 dark:bg-violet-900 text-violet-800 dark:text-violet-300 font-mono">m=0.3015 c=0.0024</span>
-              </div>
-              <span id="qcWaterFeResult" class="text-sm font-extrabold font-mono text-violet-600 dark:text-violet-400">0.95 ppm</span>
-            </div>
-          </div>
-
-          <!-- WATER CARD 4: HARDNESS -->
+          <!-- WATER CARD 2: HARDNESS -->
           <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
             <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5 border-b border-zinc-100 dark:border-zinc-800 pb-2">
               <span>🧱</span> Hardness (Kesadahan Air)
@@ -2700,76 +2554,9 @@
             </div>
           </div>
 
-          <!-- WATER CARD 5: SILICA SIO2 (WITH SETTINGS ICON) -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3">
-            <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
-              <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
-                <span>💎</span> Silica (SiO2 Air)
-              </h3>
-              <button onclick="window.Qc && window.Qc.openCurveModal('sio2')" title="Atur Slope & Intercept Silica" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-violet-100 dark:bg-zinc-800 dark:hover:bg-violet-950/60 text-zinc-600 dark:text-zinc-300 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center gap-1 text-[10px] font-bold">
-                ⚙️ <span>Set SiO2</span>
-              </button>
-            </div>
-            
-            <div class="space-y-2 text-xs">
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Sampel Silica</label>
-                <input id="qcWaterSio2AbsSamp" type="number" step="0.001" value="0.411" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-              <div>
-                <label class="block text-[10px] font-bold text-zinc-500">Abs Blanko Silica</label>
-                <input id="qcWaterSio2AbsBlk" type="number" step="0.001" value="0.003" oninput="window.Qc && window.Qc.calcWater()" class="w-full px-2.5 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-mono font-bold text-[11px]">
-              </div>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/40 flex items-center justify-between">
-              <div>
-                <span class="text-[11px] font-bold text-emerald-900 dark:text-emerald-200 block">Total SiO2 (ppm):</span>
-                <span id="qcSio2FormulaBadge" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-300 font-mono">m=0.0256 c=0.0010</span>
-              </div>
-              <span id="qcWaterSio2Result" class="text-sm font-extrabold font-mono text-emerald-600 dark:text-emerald-400">17.53 ppm</span>
-            </div>
-          </div>
-
         </div>
       </div>
 
-    </div>
-
-    <!-- Modal Custom Slope & Intercept Spektrofotometer -->
-    <div id="qcCurveModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
-      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 max-w-sm w-full shadow-2xl space-y-4 animate-slide-in">
-        <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2.5">
-          <div class="flex items-center gap-2">
-            <span class="text-lg">⚙️</span>
-            <h3 id="qcCurveModalTitle" class="text-xs font-extrabold text-zinc-900 dark:text-white">Pengaturan Kurva Spektrofotometer</h3>
-          </div>
-          <button onclick="document.getElementById('qcCurveModal').classList.add('hidden')" class="text-zinc-400 hover:text-zinc-500 font-extrabold text-base p-1">✕</button>
-        </div>
-
-        <div class="space-y-3 text-xs">
-          <div>
-            <label class="block text-[10px] font-bold text-zinc-500">Nilai Slope (Kemiringan Kurva / m)</label>
-            <input id="qcCurveModalSlope" type="number" step="0.0001" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 font-mono font-bold text-xs">
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold text-zinc-500">Nilai Intercept (Titik Potong / c)</label>
-            <input id="qcCurveModalIntercept" type="number" step="0.0001" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-950 font-mono font-bold text-xs">
-          </div>
-          <div class="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-900/40 text-[10.5px] text-violet-800 dark:text-violet-300">
-            💡 Angka ini akan disimpan secara otomatis di browser (`localStorage`) untuk perhitungan kalibrasi harian.
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between pt-2 border-t border-zinc-100 dark:border-zinc-800">
-          <button onclick="window.Qc && window.Qc.resetCurveDefault()" class="px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 font-bold text-xs transition-colors">
-            ↺ Reset Default
-          </button>
-          <button onclick="window.Qc && window.Qc.saveCurveModal()" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors">
-            💾 Simpan Kurva
-          </button>
-        </div>
-      </div>
     </div>
       </div>
   </main>
@@ -8257,61 +8044,10 @@ const HELP_GUIDES = {
  * Module Controller: QC Lab Calculator
  */
 const Qc = {
-  curves: {
-    pc: { m: 0.2842, c: -0.0002, defaultM: 0.2842, defaultC: -0.0002, title: "Phosphorus Content (PC)" },
-    po4: { m: 0.0179, c: 0.0007, defaultM: 0.0179, defaultC: 0.0007, title: "Phosphat (PO4 Air)" },
-    fe: { m: 0.3015, c: 0.0024, defaultM: 0.3015, defaultC: 0.0024, title: "Total Besi (Fe Air)" },
-    sio2: { m: 0.0256, c: 0.0010, defaultM: 0.0256, defaultC: 0.0010, title: "Silica (SiO2 Air)" }
-  },
-
-  activeModalKey: null,
-
   init() {
-    this.loadSavedCurves();
     this.calcReagents();
     this.calcOil();
     this.calcWater();
-  },
-
-  loadSavedCurves() {
-    const saved = localStorage.getItem('sfc_qc_curves');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        Object.keys(parsed).forEach(k => {
-          if (this.curves[k]) {
-            if (typeof parsed[k].m === 'number') this.curves[k].m = parsed[k].m;
-            if (typeof parsed[k].c === 'number') this.curves[k].c = parsed[k].c;
-          }
-        });
-      } catch (e) {
-        console.error("Failed to parse saved QC curves", e);
-      }
-    }
-    this.updateBadges();
-  },
-
-  saveCurves() {
-    const dataToSave = {};
-    Object.keys(this.curves).forEach(k => {
-      dataToSave[k] = { m: this.curves[k].m, c: this.curves[k].c };
-    });
-    localStorage.setItem('sfc_qc_curves', JSON.stringify(dataToSave));
-    this.updateBadges();
-  },
-
-  updateBadges() {
-    const pcB = document.getElementById('qcPcFormulaBadge');
-    if (pcB) pcB.innerText = `m=${this.curves.pc.m} c=${this.curves.pc.c >= 0 ? '+' : ''}${this.curves.pc.c}`;
-
-    const po4B = document.getElementById('qcPo4FormulaBadge');
-    if (po4B) po4B.innerText = `m=${this.curves.po4.m} c=${this.curves.po4.c >= 0 ? '+' : ''}${this.curves.po4.c}`;
-
-    const feB = document.getElementById('qcFeFormulaBadge');
-    if (feB) feB.innerText = `m=${this.curves.fe.m} c=${this.curves.fe.c >= 0 ? '+' : ''}${this.curves.fe.c}`;
-
-    const sio2B = document.getElementById('qcSio2FormulaBadge');
-    if (sio2B) sio2B.innerText = `m=${this.curves.sio2.m} c=${this.curves.sio2.c >= 0 ? '+' : ''}${this.curves.sio2.c}`;
   },
 
   switchSubTab(tab) {
@@ -8334,61 +8070,6 @@ const Qc = {
     });
   },
 
-  openCurveModal(key) {
-    if (!this.curves[key]) return;
-    this.activeModalKey = key;
-    const titleEl = document.getElementById('qcCurveModalTitle');
-    const slopeEl = document.getElementById('qcCurveModalSlope');
-    const interEl = document.getElementById('qcCurveModalIntercept');
-    const modal = document.getElementById('qcCurveModal');
-
-    if (titleEl) titleEl.innerText = `Pengaturan Kurva ${this.curves[key].title}`;
-    if (slopeEl) slopeEl.value = this.curves[key].m;
-    if (interEl) interEl.value = this.curves[key].c;
-    if (modal) modal.classList.remove('hidden');
-  },
-
-  saveCurveModal() {
-    if (!this.activeModalKey || !this.curves[this.activeModalKey]) return;
-    const slopeEl = document.getElementById('qcCurveModalSlope');
-    const interEl = document.getElementById('qcCurveModalIntercept');
-
-    const m = parseFloat(slopeEl?.value);
-    const c = parseFloat(interEl?.value);
-
-    if (isNaN(m) || isNaN(c)) {
-      if (window.showToast) window.showToast("⚠️ Harap masukkan angka valid untuk Slope & Intercept");
-      return;
-    }
-
-    this.curves[this.activeModalKey].m = m;
-    this.curves[this.activeModalKey].c = c;
-    this.saveCurves();
-
-    document.getElementById('qcCurveModal')?.classList.add('hidden');
-    if (window.showToast) window.showToast(`✔ Kurva ${this.curves[this.activeModalKey].title} berhasil disimpan!`);
-
-    this.calcOil();
-    this.calcWater();
-  },
-
-  resetCurveDefault() {
-    if (!this.activeModalKey || !this.curves[this.activeModalKey]) return;
-    const item = this.curves[this.activeModalKey];
-    item.m = item.defaultM;
-    item.c = item.defaultC;
-
-    const slopeEl = document.getElementById('qcCurveModalSlope');
-    const interEl = document.getElementById('qcCurveModalIntercept');
-    if (slopeEl) slopeEl.value = item.m;
-    if (interEl) interEl.value = item.c;
-
-    this.saveCurves();
-    if (window.showToast) window.showToast(`↺ Kurva reset ke nilai default Excel.`);
-    this.calcOil();
-    this.calcWater();
-  },
-
   reagentRecipes: {
     koh_meth_2n: {
       title: "KOH 2N Methanolis (FAC / GC-FID)",
@@ -8397,11 +8078,11 @@ const Qc = {
         { name: "Methanol Absolute", base: 250, unit: "mL" },
         { name: "KOH Pelet (Puriss >85%)", base: 33.0, unit: "gram" }
       ],
-      sop: [
-        "Timbang 33.0 gram KOH pelet (skala 250 mL) dengan neraca analitik presisi.",
-        "Ukur Methanol absolute sebanyak volume target (misal: 250 mL) dalam labu takar.",
-        "Larutkan KOH pelet ke dalam Methanol perlahan sambil diaduk magnetic stirrer hingga larut sempurna (eksotermis).",
-        "Pindahkan ke botol reagen gelap dan beri label nama, konsentrasi 2N, serta tanggal pembuatan."
+      sopFunc: (targetVol, factor) => [
+        `Timbang ${(33.0 * factor).toFixed(2)} gram KOH pelet (skala ${targetVol} mL) dengan neraca analitik presisi.`,
+        `Ukur Methanol absolute sebanyak ${targetVol} mL dalam labu takar.`,
+        `Larutkan KOH pelet ke dalam Methanol perlahan sambil diaduk magnetic stirrer hingga larut sempurna (eksotermis).`,
+        `Pindahkan ke botol reagen gelap dan beri label nama, konsentrasi 2N, serta tanggal pembuatan.`
       ]
     },
     naoh_meth_05n: {
@@ -8411,11 +8092,11 @@ const Qc = {
         { name: "Methanol Absolute", base: 250, unit: "mL" },
         { name: "NaOH Pelet (Puriss)", base: 5.0, unit: "gram" }
       ],
-      sop: [
-        "Timbang 5.0 gram NaOH pelet (skala 250 mL).",
-        "Ukur Methanol absolute sesuai target volume dalam labu ukur.",
-        "Aduk hingga NaOH larut sempurna dalam Methanol.",
-        "Simpan dalam wadah tertutup rapat untuk preparasi titrasi FAC PFAD/PKFAD."
+      sopFunc: (targetVol, factor) => [
+        `Timbang ${(5.0 * factor).toFixed(2)} gram NaOH pelet (skala ${targetVol} mL) dengan neraca analitik presisi.`,
+        `Ukur Methanol absolute sebanyak ${targetVol} mL dalam labu ukur.`,
+        `Aduk hingga NaOH larut sempurna dalam Methanol.`,
+        `Simpan dalam wadah tertutup rapat untuk preparasi titrasi FAC PFAD/PKFAD.`
       ]
     },
     agno3_01n: {
@@ -8425,10 +8106,10 @@ const Qc = {
         { name: "Aquadest / Demineralized Water", base: 250, unit: "mL" },
         { name: "AgNO3 (Silver Nitrate)", base: 4.2468, unit: "gram" }
       ],
-      sop: [
-        "Timbang 4.2468 gram kristal AgNO3 presisi.",
-        "Larutkan dalam 250 mL Aquadest bebas klorida.",
-        "Simpan dalam botol cokelat / gelap karena AgNO3 sensitif terhadap cahaya matahari."
+      sopFunc: (targetVol, factor) => [
+        `Timbang ${(4.2468 * factor).toFixed(4)} gram kristal AgNO3 presisi.`,
+        `Larutkan dalam ${targetVol} mL Aquadest bebas klorida.`,
+        `Simpan dalam botol cokelat / gelap karena AgNO3 sensitif terhadap cahaya matahari.`
       ]
     },
     hno3_11: {
@@ -8438,10 +8119,10 @@ const Qc = {
         { name: "HNO3 Pekat (65%)", base: 125, unit: "mL" },
         { name: "Aquadest Demin", base: 125, unit: "mL" }
       ],
-      sop: [
-        "⚠️ GUNAKAN LEMARI ASAM!",
-        "Tuang 125 mL Aquadest ke dalam erlenmeyer terlebih dahulu.",
-        "Tambahkan 125 mL HNO3 pekat secara perlahan lewat dinding labu (Asam ke Air, JANGAN dibalik!)."
+      sopFunc: (targetVol, factor) => [
+        `⚠️ GUNAKAN LEMARI ASAM!`,
+        `Tuang ${(125 * factor).toFixed(1)} mL Aquadest ke dalam erlenmeyer terlebih dahulu.`,
+        `Tambahkan ${(125 * factor).toFixed(1)} mL HNO3 pekat secara perlahan lewat dinding labu (Asam ke Air, JANGAN dibalik!).`
       ]
     },
     hcl_11: {
@@ -8451,10 +8132,10 @@ const Qc = {
         { name: "HCl Pekat (37%)", base: 125, unit: "mL" },
         { name: "Aquadest Demin", base: 125, unit: "mL" }
       ],
-      sop: [
-        "⚠️ GUNAKAN LEMARI ASAM!",
-        "Siapkan 125 mL Aquadest dalam gelas piala/labu takar.",
-        "Buka lemari asam, tuangkan 125 mL HCl 37% pekat perlahan-lahan ke dalam Aquadest."
+      sopFunc: (targetVol, factor) => [
+        `⚠️ GUNAKAN LEMARI ASAM!`,
+        `Siapkan ${(125 * factor).toFixed(1)} mL Aquadest dalam gelas piala/labu takar.`,
+        `Buka lemari asam, tuangkan ${(125 * factor).toFixed(1)} mL HCl 37% pekat perlahan-lahan ke dalam Aquadest.`
       ]
     },
     koh_50: {
@@ -8464,10 +8145,10 @@ const Qc = {
         { name: "KOH Pelet", base: 125, unit: "gram" },
         { name: "Aquadest Demin", base: 125, unit: "mL" }
       ],
-      sop: [
-        "Timbang 125 gram KOH pelet.",
-        "Larutkan dalam 125 mL Aquadest dalam gelas piala (reaksi sangat panas/eksotermis).",
-        "Dinginkan larutan pada suhu ruang sebelum digunakan."
+      sopFunc: (targetVol, factor) => [
+        `Timbang ${(125 * factor).toFixed(1)} gram KOH pelet.`,
+        `Larutkan dalam ${(125 * factor).toFixed(1)} mL Aquadest dalam gelas piala (reaksi eksotermis).`,
+        `Dinginkan larutan pada suhu ruang sebelum digunakan.`
       ]
     },
     sod_molybdate: {
@@ -8478,10 +8159,10 @@ const Qc = {
         { name: "H2SO4 Pekat (98%)", base: 35, unit: "mL" },
         { name: "Aquadest Demin", base: 215, unit: "mL" }
       ],
-      sop: [
-        "Larutkan 6.25 g Sodium Molybdate dalam 150 mL Aquadest.",
-        "Tambahkan 35 mL H2SO4 pekat perlahan dalam lemari asam.",
-        "Encerkan dengan Aquadest hingga tanda batas 250 mL."
+      sopFunc: (targetVol, factor) => [
+        `Larutkan ${(6.25 * factor).toFixed(2)} g Sodium Molybdate dalam ${(150 * factor).toFixed(1)} mL Aquadest.`,
+        `Tambahkan ${(35 * factor).toFixed(1)} mL H2SO4 pekat perlahan dalam lemari asam.`,
+        `Encerkan dengan Aquadest hingga tanda batas ${targetVol} mL.`
       ]
     },
     hydrazinium: {
@@ -8491,10 +8172,10 @@ const Qc = {
         { name: "Hydrazinium Sulfate", base: 0.0375, unit: "gram" },
         { name: "Aquadest Demin", base: 250, unit: "mL" }
       ],
-      sop: [
-        "Timbang 0.0375 gram Hydrazinium Sulfate dengan ketelitian tinggi.",
-        "Larutkan dalam labu takar 250 mL menggunakan Aquadest.",
-        "Kocok homogen. Larutan siap digunakan untuk pembentukan kompleks warna biru molibdenum."
+      sopFunc: (targetVol, factor) => [
+        `Timbang ${(0.0375 * factor).toFixed(4)} gram Hydrazinium Sulfate dengan ketelitian tinggi.`,
+        `Larutkan dalam labu takar ${targetVol} mL menggunakan Aquadest.`,
+        `Kocok homogen. Larutan siap digunakan.`
       ]
     }
   },
@@ -8522,8 +8203,9 @@ const Qc = {
       }).join('');
     }
 
-    if (sopEl) {
-      sopEl.innerHTML = rData.sop.map((step, idx) => {
+    if (sopEl && typeof rData.sopFunc === 'function') {
+      const dynamicSop = rData.sopFunc(targetVol, factor);
+      sopEl.innerHTML = dynamicSop.map((step, idx) => {
         return `<div class="flex gap-2.5 items-start p-2 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800">
                   <span class="w-5 h-5 rounded-full bg-violet-600 text-white font-extrabold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">${idx + 1}</span>
                   <p class="text-zinc-700 dark:text-zinc-300 font-medium leading-relaxed">${step}</p>
@@ -8544,9 +8226,11 @@ const Qc = {
       text += `- ${item.name}: ${val} ${item.unit}\n`;
     });
     text += `\nSOP LAB:\n`;
-    rData.sop.forEach((s, idx) => {
-      text += `${idx + 1}. ${s}\n`;
-    });
+    if (typeof rData.sopFunc === 'function') {
+      rData.sopFunc(targetVol, factor).forEach((s, idx) => {
+        text += `${idx + 1}. ${s}\n`;
+      });
+    }
 
     navigator.clipboard.writeText(text);
     if (window.showToast) window.showToast("✔ Resep reagen berhasil disalin!");
@@ -8601,35 +8285,6 @@ const Qc = {
     const svEl = document.getElementById('qcSvResult');
     if (svEl) svEl.innerText = `${svVal.toFixed(2)} mg KOH/g`;
 
-    const abs446 = parseFloat(document.getElementById('qcDobiAbs446')?.value) || 0;
-    const abs269 = parseFloat(document.getElementById('qcDobiAbs269')?.value) || 0;
-    const avAs = parseFloat(document.getElementById('qcAvAbsSample')?.value) || 0;
-    const avAb = parseFloat(document.getElementById('qcAvAbsBlank')?.value) || 0;
-
-    let dobiVal = 0;
-    if (abs269 > 0) dobiVal = abs446 / abs269;
-    const dobiEl = document.getElementById('qcDobiResult');
-    if (dobiEl) dobiEl.innerText = dobiVal.toFixed(3);
-
-    const avVal = (25 * (avAs - avAb)).toFixed(2);
-    const avEl = document.getElementById('qcAvResult');
-    if (avEl) avEl.innerText = avVal;
-
-    const pcW = parseFloat(document.getElementById('qcPcWeight')?.value) || 0;
-    const pcFp = parseFloat(document.getElementById('qcPcFP')?.value) || 10;
-    const pcAb = parseFloat(document.getElementById('qcPcAbsBlank')?.value) || 0;
-    const pcAs = parseFloat(document.getElementById('qcPcAbsSample')?.value) || 0;
-
-    const mPC = this.curves.pc.m;
-    const cPC = this.curves.pc.c;
-
-    let pcPpm = 0;
-    if (pcW > 0 && mPC !== 0) {
-      pcPpm = ((((pcAs - cPC) - pcAb) / mPC) * 50 * pcFp) / pcW;
-    }
-    const pcEl = document.getElementById('qcPcResult');
-    if (pcEl) pcEl.innerText = `${pcPpm.toFixed(2)} ppm`;
-
     const m0 = parseFloat(document.getElementById('qcMoisWeight')?.value) || 0;
     const w1 = parseFloat(document.getElementById('qcMoisW1')?.value) || 0;
     const w2 = parseFloat(document.getElementById('qcMoisW2')?.value) || 0;
@@ -8670,9 +8325,6 @@ const Qc = {
       `• Iodine Value (IV): ${document.getElementById('qcIvResult')?.innerText}\n` +
       `• Peroxide Value (PV): ${document.getElementById('qcPvResult')?.innerText}\n` +
       `• Saponification Value (SV): ${document.getElementById('qcSvResult')?.innerText}\n` +
-      `• DOBI Ratio: ${document.getElementById('qcDobiResult')?.innerText}\n` +
-      `• Anisidine Value (AV): ${document.getElementById('qcAvResult')?.innerText}\n` +
-      `• Phosphorus Content (PC): ${document.getElementById('qcPcResult')?.innerText}\n` +
       `• Moisture (%): ${document.getElementById('qcMoisResult')?.innerText}\n` +
       `• Impurities (%): ${document.getElementById('qcImpResult')?.innerText}\n` +
       `• Lauric Acid (%): ${document.getElementById('qcLauricResult')?.innerText}`;
@@ -8698,53 +8350,12 @@ const Qc = {
     const naclEl = document.getElementById('qcWaterNaclPpmResult');
     if (naclEl) naclEl.innerText = `${naclPpm.toFixed(2)} ppm`;
 
-    const po4As = parseFloat(document.getElementById('qcWaterPo4AbsSamp')?.value) || 0;
-    const po4Ab = parseFloat(document.getElementById('qcWaterPo4AbsBlk')?.value) || 0;
-
-    const mPO4 = this.curves.po4.m;
-    const cPO4 = this.curves.po4.c;
-
-    let po4Ppm = 0;
-    if (mPO4 !== 0) {
-      po4Ppm = (((po4As - cPO4) - po4Ab) / mPO4);
-    }
-    const po4El = document.getElementById('qcWaterPo4Result');
-    if (po4El) po4El.innerText = `${po4Ppm.toFixed(2)} ppm`;
-
-    const feAs = parseFloat(document.getElementById('qcWaterFeAbsSamp')?.value) || 0;
-    const feAb = parseFloat(document.getElementById('qcWaterFeAbsBlk')?.value) || 0;
-    const feVsamp = parseFloat(document.getElementById('qcWaterFeVolSamp')?.value) || 10;
-    const feVpel = parseFloat(document.getElementById('qcWaterFeVolPel')?.value) || 100;
-
-    const mFe = this.curves.fe.m;
-    const cFe = this.curves.fe.c;
-
-    let fePpm = 0;
-    if (feVsamp > 0 && mFe !== 0) {
-      fePpm = ((((feAs - cFe) - feAb) / mFe) * (feVpel / 1000) * 1000) / feVsamp;
-    }
-    const feEl = document.getElementById('qcWaterFeResult');
-    if (feEl) feEl.innerText = `${fePpm.toFixed(2)} ppm`;
-
     const hardEdta = parseFloat(document.getElementById('qcWaterHardEdta')?.value) || 0;
     const hardFactor = parseFloat(document.getElementById('qcWaterHardFactor')?.value) || 41.2;
 
     const hardPpm = hardEdta * hardFactor;
     const hardEl = document.getElementById('qcWaterHardResult');
     if (hardEl) hardEl.innerText = `${hardPpm.toFixed(2)} ppm`;
-
-    const sio2As = parseFloat(document.getElementById('qcWaterSio2AbsSamp')?.value) || 0;
-    const sio2Ab = parseFloat(document.getElementById('qcWaterSio2AbsBlk')?.value) || 0;
-
-    const mSiO2 = this.curves.sio2.m;
-    const cSiO2 = this.curves.sio2.c;
-
-    let sio2Ppm = 0;
-    if (mSiO2 !== 0) {
-      sio2Ppm = (((sio2As - cSiO2) - sio2Ab) / mSiO2);
-    }
-    const sio2El = document.getElementById('qcWaterSio2Result');
-    if (sio2El) sio2El.innerText = `${sio2Ppm.toFixed(2)} ppm`;
   },
 
   copyWaterSummary() {
@@ -8752,10 +8363,7 @@ const Qc = {
     const text = `PARAMETER ANALISIS AIR PROCESS (WATER QUALITY - QC LAB)\n` +
       `• Chloride (ppm): ${document.getElementById('qcWaterClPpmResult')?.innerText}\n` +
       `• NaCl equivalent (ppm): ${document.getElementById('qcWaterNaclPpmResult')?.innerText}\n` +
-      `• Phosphat (PO4 ppm): ${document.getElementById('qcWaterPo4Result')?.innerText}\n` +
-      `• Besi (Total Fe ppm): ${document.getElementById('qcWaterFeResult')?.innerText}\n` +
-      `• Total Hardness (ppm): ${document.getElementById('qcWaterHardResult')?.innerText}\n` +
-      `• Silica (SiO2 ppm): ${document.getElementById('qcWaterSio2Result')?.innerText}`;
+      `• Total Hardness (ppm): ${document.getElementById('qcWaterHardResult')?.innerText}`;
 
     navigator.clipboard.writeText(text);
     if (window.showToast) window.showToast("✔ Ringkasan Hasil Uji Air disalin!");
@@ -8924,7 +8532,7 @@ class CustomSelect {
 window.CustomSelect = CustomSelect;
 
 // Instantiate custom dropdown selectors
-const customSelectIds = ['extractorSaveType', 'dataTypeFilter', 'dataSingleType', 'diffPredSource'];
+const customSelectIds = ['extractorSaveType', 'dataTypeFilter', 'dataSingleType', 'diffPredSource', 'qcReagentSelect', 'qcFfaFactor'];
 customSelectIds.forEach(id => {
   const el = document.getElementById(id);
   if (el) new CustomSelect(el);
