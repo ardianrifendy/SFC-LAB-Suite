@@ -2203,36 +2203,32 @@
     </div>
 
     <!-- ===== REGION: MODULE-QC ===== -->
-    <div id="tabContent-qc" class="tab-panel flex-1 flex flex-col hidden space-y-4 w-full max-w-full overflow-x-hidden">
+    <div id="tabContent-qc" class="tab-panel flex-1 flex flex-col hidden space-y-4 w-full max-w-full overflow-x-hidden min-h-0 h-full">
       
-      <!-- Module Header -->
-      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full max-w-full">
-        <div class="flex items-center gap-3">
-          <div id="qcHeaderIcon" class="w-10 h-10 rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center text-xl font-bold border border-violet-500/20">
-            🧪
-          </div>
-          <div>
-            </h1>
-            <p id="qcHeaderSubtitle" class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Kalkulator resep reagen presisi, penimbangan bahan kimia, & SOP pembuatan larutan laboratorium.</p>
-          </div>
+      <!-- Module Header (Icon-free, clean title + subtitle like other tools) -->
+      <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-md p-3.5 sm:p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 w-full max-w-full flex-shrink-0">
+        <div>
+          <h2 id="qcHeaderTitle" class="text-base sm:text-lg font-extrabold text-zinc-900 dark:text-white tracking-tight">Reagent Preparation & Scaling Presisi</h2>
+          <p id="qcHeaderSubtitle" class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Kalkulator resep reagen presisi, penimbangan bahan kimia, & SOP pembuatan larutan laboratorium.</p>
         </div>
 
-        <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-violet-600 dark:text-violet-400 transition-colors flex items-center gap-1.5 self-stretch sm:self-auto justify-center" onclick="showHelpGuide('qc')">
+        <button class="px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-[10px] font-bold text-violet-600 dark:text-violet-400 transition-colors flex items-center gap-1.5 self-stretch sm:self-auto justify-center flex-shrink-0" onclick="showHelpGuide('qc')">
           📖 Petunjuk Penggunaan
         </button>
       </div>
 
       <!-- ===== SUB-TAB 1: REAGENT PREPARATION CALCULATOR ===== -->
-      <div id="qcSubTabReagents" class="qc-subtab-content space-y-4 w-full max-w-full">
+      <div id="qcSubTabReagents" class="qc-subtab-content flex-1 flex flex-col space-y-4 w-full max-w-full min-h-0 h-full">
         
-        <!-- Triple Reagent Calculator Grid (3 Cards Side-by-Side) -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3.5 w-full max-w-full">
+        <!-- Triple Reagent Calculator Grid (3 Cards Side-by-Side - Stretched Full Height) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-3.5 w-full max-w-full items-stretch flex-1 min-h-0 h-full">
           
           <!-- CARD 1: REAGENT PREPARATION #1 -->
-          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-3.5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3 flex flex-col justify-between">
-            <div class="space-y-2.5">
-              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
-                <h3 class="text-[11.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 border border-zinc-200 dark:border-zinc-800 transition-colors flex flex-col justify-between h-full flex-1 w-full max-w-full space-y-3">
+            <div class="space-y-2.5 flex-1 flex flex-col justify-between">
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-1.5">
+                  <h3 class="text-[11.5px] font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-1.5">
                   <span>🧫</span> Reagen #1
                 </h3>
                 <span class="px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 font-extrabold text-[9px]">Kalkulator 1</span>
@@ -2586,76 +2582,165 @@
       <!-- ===== SUB-TAB 2: OIL SAMPLE CALCULATOR ===== -->
       <div id="qcSubTabOil" class="qc-subtab-content hidden space-y-4 w-full max-w-full">
         
-        <!-- Parameter Selector Bar & Quick Controls -->
-        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 w-full max-w-full">
+        <!-- Dual Oil Calculator Grid (2 Cards Side-by-Side) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full max-w-full items-stretch">
           
-          <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3 w-full max-w-full">
-            <div class="flex-1 max-w-md space-y-1">
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
-                <span>🛢️</span> Pilih Parameter Uji Minyak:
-              </label>
-              <div class="relative w-full custom-ui-select" id="wrapper_qcOilParamSelect">
-                <button type="button" class="w-full px-3.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcOilParamSelect', event)">
-                  <span id="label_qcOilParamSelect" class="truncate flex items-center gap-2">🧈 Free Fatty Acid (FFA %)</span>
-                  <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </button>
-                <input type="hidden" id="qcOilParamSelect" value="ffa" onchange="window.Qc && window.Qc.switchOilParam(this.value)">
-                <div id="menu_qcOilParamSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'ffa', '🧈 Free Fatty Acid (FFA %)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="ffa"><span>🧈 Free Fatty Acid (FFA %)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-2">✓</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'iv', '🧪 Iodine Value (IV / Bilangan Iodium)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="iv"><span>🧪 Iodine Value (IV / Bilangan Iodium)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'pv', '⚗️ Peroxide Value (PV / Bilangan Peroksida)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="pv"><span>⚗️ Peroxide Value (PV / Bilangan Peroksida)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'sv', '🧼 Saponification Value (SV / Bilangan Penyabunan)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="sv"><span>🧼 Saponification Value (SV / Bilangan Penyabunan)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'mois', '💧 Moisture Content (Kadar Air %)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="mois"><span>💧 Moisture Content (Kadar Air %)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'imp', '🧫 Impurities Content (Kadar Kotoran %)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="imp"><span>🧫 Impurities Content (Kadar Kotoran %)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'salt', '🧂 Salt Content (Kadar Garam NaCl %)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="salt"><span>🧂 Salt Content (Kadar Garam NaCl %)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'lauric', '🌴 Lauric Acid % (Asam Laurat GC Area)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="lauric"><span>🌴 Lauric Acid % (Asam Laurat GC Area)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'p_spektro', '🔬 Phosphorus Content (Spektro P ppm)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Phosphorus Content (Spektro P ppm)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'av_spektro', '🔬 Anisidine Value (Spektro AV 350nm)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="av_spektro"><span>🔬 Anisidine Value (Spektro AV 350nm)</span></div>
-                  <div onclick="window.UISelect.select('qcOilParamSelect', 'dobi_spektro', '🔬 DOBI & Carotene Content (Spektro)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="dobi_spektro"><span>🔬 DOBI & Carotene Content (Spektro)</span></div>
+          <!-- CARD 1: PARAMETER MINYAK #1 -->
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3.5 flex flex-col justify-between w-full max-w-full h-full">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
+                <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
+                  <span>🛢️</span> Parameter Minyak #1
+                </h3>
+                <span class="px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 font-extrabold text-[9.5px]">Kalkulator 1</span>
+              </div>
+
+              <!-- Parameter Selector & Controls 1 -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex-1 space-y-1">
+                  <label class="block text-[10.5px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Pilih Parameter:</label>
+                  <div class="relative w-full custom-ui-select" id="wrapper_qcOilParamSelect">
+                    <button type="button" class="w-full px-3 py-1.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 shadow-sm h-8" onclick="window.UISelect && window.UISelect.toggle('qcOilParamSelect', event)">
+                      <span id="label_qcOilParamSelect" class="truncate">🧈 Free Fatty Acid (FFA %)</span>
+                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <input type="hidden" id="qcOilParamSelect" value="ffa" onchange="window.Qc && window.Qc.switchOilParam(this.value, 1)">
+                    <div id="menu_qcOilParamSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'ffa', '🧈 Free Fatty Acid (FFA %)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 font-black rounded-xl mx-1" data-val="ffa"><span>🧈 Free Fatty Acid (FFA %)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-1">✓</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'iv', '🧪 Iodine Value (IV / Bilangan Iodium)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="iv"><span>🧪 Iodine Value (IV / Bilangan Iodium)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'pv', '⚗️ Peroxide Value (PV / Bilangan Peroksida)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="pv"><span>⚗️ Peroxide Value (PV / Bilangan Peroksida)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'sv', '🧼 Saponification Value (SV / Bilangan Penyabunan)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="sv"><span>🧼 Saponification Value (SV / Bilangan Penyabunan)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'mois', '💧 Moisture Content (Kadar Air %)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="mois"><span>💧 Moisture Content (Kadar Air %)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'imp', '🧫 Impurities Content (Kadar Kotoran %)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="imp"><span>🧫 Impurities Content (Kadar Kotoran %)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'salt', '🧂 Salt Content (Kadar Garam NaCl %)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="salt"><span>🧂 Salt Content (Kadar Garam NaCl %)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'lauric', '🌴 Lauric Acid % (Asam Laurat GC Area)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="lauric"><span>🌴 Lauric Acid % (Asam Laurat GC Area)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'p_spektro', '🔬 Phosphorus Content (Spektro P ppm)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="p_spektro"><span>🔬 Phosphorus Content (Spektro P ppm)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'av_spektro', '🔬 Anisidine Value (Spektro AV 350nm)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="av_spektro"><span>🔬 Anisidine Value (Spektro AV 350nm)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect', 'dobi_spektro', '🔬 DOBI & Carotene Content (Spektro)', val => window.Qc.switchOilParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="dobi_spektro"><span>🔬 DOBI & Carotene Content (Spektro)</span></div>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="flex items-center gap-1.5 flex-wrap pt-2 sm:pt-0">
+                  <button id="qcOilSetupCurveBtn" onclick="window.Qc && window.Qc.openCurveModal()" class="hidden px-2.5 py-1.5 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 font-extrabold text-[11px] hover:bg-cyan-200 transition-colors">
+                    ⚙️ Kurva
+                  </button>
+                  <button onclick="window.Qc && window.Qc.addOilRow(1)" class="px-2.5 py-1.5 rounded-xl bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 font-extrabold text-[11px] hover:bg-violet-200">
+                    ➕ Baris
+                  </button>
+                  <button onclick="window.Qc && window.Qc.reset10OilRows(1)" class="px-2.5 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-[11px]">
+                    ⚡ Reset
+                  </button>
+                  <button onclick="window.Qc && window.Qc.copyOilTable(1)" class="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[11px]">
+                    📋 Copy
+                  </button>
+                  <button onclick="window.Qc && window.Qc.clearOilRows(1)" class="px-2 py-1.5 rounded-xl bg-rose-100 text-rose-600 border border-rose-300 font-extrabold text-[11px]">
+                    🧹 Clear
+                  </button>
+                </div>
+              </div>
+
+              <!-- Formula Info Banner 1 -->
+              <div id="qcOilFormulaBadgeBar" class="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 text-[11px] flex items-center justify-between gap-2">
+                <!-- Dynamic via JS -->
+              </div>
+
+              <!-- Spreadsheet Table 1 -->
+              <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+                <table class="w-full text-left text-xs">
+                  <thead id="qcOilThead" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[9.5px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
+                    <!-- Dynamic Header by JS -->
+                  </thead>
+                  <tbody id="qcOilTbody" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
+                    <!-- Dynamic Rows by JS -->
+                  </tbody>
+                </table>
               </div>
             </div>
 
-            <!-- Quick Actions -->
-            <div class="flex flex-wrap items-center gap-2 max-w-full">
-              <button id="qcOilSetupCurveBtn" onclick="window.Qc && window.Qc.openCurveModal()" class="hidden px-3.5 py-2 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 font-extrabold text-xs hover:bg-cyan-200 transition-colors flex items-center gap-1.5" title="Atur Slope & Intercept Kurva Spektrofotometer">
-                <span>⚙️</span><span>Kurva Spektro</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.addOilRow()" class="px-3.5 py-2 rounded-xl bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 font-extrabold text-xs hover:bg-violet-200 transition-colors flex items-center gap-1">
-                <span>➕</span><span>Tambah Baris</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.reset10OilRows()" class="px-3.5 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
-                <span>⚡</span><span>Reset 5 Sampel</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.copyOilTable()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
-                <span>📋</span><span>Copy Tabel Excel</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.clearOilRows()" class="px-3.5 py-2 rounded-xl bg-rose-100 text-rose-600 border border-rose-300 font-extrabold text-xs hover:bg-rose-200 transition-colors">
-                <span>🧹</span><span>Clear</span>
-              </button>
+            <!-- Bottom Summary Bar 1 -->
+            <div id="qcOilStatsBar" class="mt-3 p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-[11px] font-mono">
+              <!-- Dynamic stats via JS -->
             </div>
           </div>
 
-          <!-- Info Header / Rumus -->
-          <div id="qcOilFormulaBadgeBar" class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 text-xs flex flex-wrap items-center justify-between gap-2 w-full max-w-full">
-            <!-- Dynamic formula info via JS -->
-          </div>
+          <!-- CARD 2: PARAMETER MINYAK #2 -->
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3.5 flex flex-col justify-between w-full max-w-full h-full">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
+                <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
+                  <span>🛢️</span> Parameter Minyak #2
+                </h3>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 font-extrabold text-[9.5px]">Kalkulator 2</span>
+              </div>
 
-          <!-- Parameter Spreadsheet Table -->
-          <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
-            <table class="w-full text-left text-xs">
-              <thead id="qcOilThead" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[10px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
-                <!-- Dynamic Header by JS -->
-              </thead>
-              <tbody id="qcOilTbody" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
-                <!-- Dynamic Rows by JS -->
-              </tbody>
-            </table>
-          </div>
+              <!-- Parameter Selector & Controls 2 -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex-1 space-y-1">
+                  <label class="block text-[10.5px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Pilih Parameter:</label>
+                  <div class="relative w-full custom-ui-select" id="wrapper_qcOilParamSelect2">
+                    <button type="button" class="w-full px-3 py-1.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-emerald-500 shadow-sm h-8" onclick="window.UISelect && window.UISelect.toggle('qcOilParamSelect2', event)">
+                      <span id="label_qcOilParamSelect2" class="truncate">🧪 Iodine Value (IV / Bilangan Iodium)</span>
+                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <input type="hidden" id="qcOilParamSelect2" value="iv" onchange="window.Qc && window.Qc.switchOilParam(this.value, 2)">
+                    <div id="menu_qcOilParamSelect2" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'ffa', '🧈 Free Fatty Acid (FFA %)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="ffa"><span>🧈 Free Fatty Acid (FFA %)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'iv', '🧪 Iodine Value (IV / Bilangan Iodium)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-emerald-500/10 text-emerald-600 font-black rounded-xl mx-1" data-val="iv"><span>🧪 Iodine Value (IV / Bilangan Iodium)</span><span class="ui-check text-emerald-500 font-extrabold text-xs ml-1">✓</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'pv', '⚗️ Peroxide Value (PV / Bilangan Peroksida)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="pv"><span>⚗️ Peroxide Value (PV / Bilangan Peroksida)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'sv', '🧼 Saponification Value (SV / Bilangan Penyabunan)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="sv"><span>🧼 Saponification Value (SV / Bilangan Penyabunan)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'mois', '💧 Moisture Content (Kadar Air %)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="mois"><span>💧 Moisture Content (Kadar Air %)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'imp', '🧫 Impurities Content (Kadar Kotoran %)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="imp"><span>🧫 Impurities Content (Kadar Kotoran %)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'salt', '🧂 Salt Content (Kadar Garam NaCl %)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="salt"><span>🧂 Salt Content (Kadar Garam NaCl %)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'lauric', '🌴 Lauric Acid % (Asam Laurat GC Area)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="lauric"><span>🌴 Lauric Acid % (Asam Laurat GC Area)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'p_spektro', '🔬 Phosphorus Content (Spektro P ppm)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="p_spektro"><span>🔬 Phosphorus Content (Spektro P ppm)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'av_spektro', '🔬 Anisidine Value (Spektro AV 350nm)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="av_spektro"><span>🔬 Anisidine Value (Spektro AV 350nm)</span></div>
+                      <div onclick="window.UISelect.select('qcOilParamSelect2', 'dobi_spektro', '🔬 DOBI & Carotene Content (Spektro)', val => window.Qc.switchOilParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="dobi_spektro"><span>🔬 DOBI & Carotene Content (Spektro)</span></div>
+                    </div>
+                  </div>
+                </div>
 
-          <!-- Bottom Summary Bar -->
-          <div id="qcOilStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono w-full max-w-full">
-            <!-- Dynamic stats via JS -->
+                <div class="flex items-center gap-1.5 flex-wrap pt-2 sm:pt-0">
+                  <button id="qcOilSetupCurveBtn2" onclick="window.Qc && window.Qc.openCurveModal()" class="hidden px-2.5 py-1.5 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 font-extrabold text-[11px] hover:bg-cyan-200 transition-colors">
+                    ⚙️ Kurva
+                  </button>
+                  <button onclick="window.Qc && window.Qc.addOilRow(2)" class="px-2.5 py-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300 font-extrabold text-[11px] hover:bg-emerald-200">
+                    ➕ Baris
+                  </button>
+                  <button onclick="window.Qc && window.Qc.reset10OilRows(2)" class="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[11px]">
+                    ⚡ Reset
+                  </button>
+                  <button onclick="window.Qc && window.Qc.copyOilTable(2)" class="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[11px]">
+                    📋 Copy
+                  </button>
+                  <button onclick="window.Qc && window.Qc.clearOilRows(2)" class="px-2 py-1.5 rounded-xl bg-rose-100 text-rose-600 border border-rose-300 font-extrabold text-[11px]">
+                    🧹 Clear
+                  </button>
+                </div>
+              </div>
+
+              <!-- Formula Info Banner 2 -->
+              <div id="qcOilFormulaBadgeBar2" class="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 text-[11px] flex items-center justify-between gap-2">
+                <!-- Dynamic via JS -->
+              </div>
+
+              <!-- Spreadsheet Table 2 -->
+              <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+                <table class="w-full text-left text-xs">
+                  <thead id="qcOilThead2" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[9.5px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
+                    <!-- Dynamic Header by JS -->
+                  </thead>
+                  <tbody id="qcOilTbody2" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
+                    <!-- Dynamic Rows by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Bottom Summary Bar 2 -->
+            <div id="qcOilStatsBar2" class="mt-3 p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-[11px] font-mono">
+              <!-- Dynamic stats via JS -->
+            </div>
           </div>
 
         </div>
@@ -2665,68 +2750,149 @@
       <!-- ===== SUB-TAB 3: WATER SAMPLE CALCULATOR ===== -->
       <div id="qcSubTabWater" class="qc-subtab-content hidden space-y-4 w-full max-w-full">
         
-        <!-- Parameter Selector Bar & Quick Controls -->
-        <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-4 w-full max-w-full">
+        <!-- Dual Water Calculator Grid (2 Cards Side-by-Side) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full max-w-full items-stretch">
           
-          <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-3 w-full max-w-full">
-            <div class="flex-1 max-w-md space-y-1">
-              <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
-                <span>💧</span> Pilih Parameter Uji Air:
-              </label>
-              <div class="relative w-full custom-ui-select" id="wrapper_qcWaterParamSelect">
-                <button type="button" class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcWaterParamSelect', event)">
-                  <span id="label_qcWaterParamSelect" class="truncate flex items-center gap-2">💧 Chloride Content (Titrasi AgNO3 ppm)</span>
-                  <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </button>
-                <input type="hidden" id="qcWaterParamSelect" value="cl" onchange="window.Qc && window.Qc.switchWaterParam(this.value)">
-                <div id="menu_qcWaterParamSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
-                  <div onclick="window.UISelect.select('qcWaterParamSelect', 'cl', '💧 Chloride Content (Titrasi AgNO3 ppm)', val => window.Qc.switchWaterParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl"><span>💧 Chloride Content (Titrasi AgNO3 ppm)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-2">✓</span></div>
-                  <div onclick="window.UISelect.select('qcWaterParamSelect', 'hard', '🧱 Total Hardness (Kesadahan Air ppm)', val => window.Qc.switchWaterParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="hard"><span>🧱 Total Hardness (Kesadahan Air ppm)</span></div>
-                  <div onclick="window.UISelect.select('qcWaterParamSelect', 'cl_spektro', '🔬 Chloride Content (Spektro / Photometric ppm)', val => window.Qc.switchWaterParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_spektro"><span>🔬 Chloride Content (Spektro / Photometric ppm)</span></div>
+          <!-- CARD 1: PARAMETER AIR #1 -->
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3.5 flex flex-col justify-between w-full max-w-full h-full">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
+                <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
+                  <span>💧</span> Parameter Air #1
+                </h3>
+                <span class="px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 font-extrabold text-[9.5px]">Kalkulator 1</span>
+              </div>
+
+              <!-- Parameter Selector & Controls 1 -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex-1 space-y-1">
+                  <label class="block text-[10.5px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Pilih Parameter:</label>
+                  <div class="relative w-full custom-ui-select" id="wrapper_qcWaterParamSelect">
+                    <button type="button" class="w-full px-3 py-1.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 shadow-sm h-8" onclick="window.UISelect && window.UISelect.toggle('qcWaterParamSelect', event)">
+                      <span id="label_qcWaterParamSelect" class="truncate">💧 Chloride Content (Titrasi AgNO3 ppm)</span>
+                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <input type="hidden" id="qcWaterParamSelect" value="cl" onchange="window.Qc && window.Qc.switchWaterParam(this.value, 1)">
+                    <div id="menu_qcWaterParamSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
+                      <div onclick="window.UISelect.select('qcWaterParamSelect', 'cl', '💧 Chloride Content (Titrasi AgNO3 ppm)', val => window.Qc.switchWaterParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 font-black rounded-xl mx-1" data-val="cl"><span>💧 Chloride Content (Titrasi AgNO3 ppm)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-1">✓</span></div>
+                      <div onclick="window.UISelect.select('qcWaterParamSelect', 'hard', '🧱 Total Hardness (Kesadahan Air ppm)', val => window.Qc.switchWaterParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="hard"><span>🧱 Total Hardness (Kesadahan Air ppm)</span></div>
+                      <div onclick="window.UISelect.select('qcWaterParamSelect', 'cl_spektro', '🔬 Chloride Content (Spektro / Photometric ppm)', val => window.Qc.switchWaterParam(val, 1))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 rounded-xl mx-1" data-val="cl_spektro"><span>🔬 Chloride Content (Spektro / Photometric ppm)</span></div>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="flex items-center gap-1.5 flex-wrap pt-2 sm:pt-0">
+                  <button id="qcWaterSetupCurveBtn" onclick="window.Qc && window.Qc.openCurveModal('cl_spektro')" class="hidden px-2.5 py-1.5 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 font-extrabold text-[11px] hover:bg-cyan-200 transition-colors">
+                    ⚙️ Kurva
+                  </button>
+                  <button onclick="window.Qc && window.Qc.addWaterRow(1)" class="px-2.5 py-1.5 rounded-xl bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 font-extrabold text-[11px] hover:bg-violet-200">
+                    ➕ Baris
+                  </button>
+                  <button onclick="window.Qc && window.Qc.reset10WaterRows(1)" class="px-2.5 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-[11px]">
+                    ⚡ Reset
+                  </button>
+                  <button onclick="window.Qc && window.Qc.copyWaterTable(1)" class="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[11px]">
+                    📋 Copy
+                  </button>
+                  <button onclick="window.Qc && window.Qc.clearWaterRows(1)" class="px-2 py-1.5 rounded-xl bg-rose-100 text-rose-600 border border-rose-300 font-extrabold text-[11px]">
+                    🧹 Clear
+                  </button>
+                </div>
+              </div>
+
+              <!-- Formula Banner 1 -->
+              <div id="qcWaterFormulaBadgeBar" class="p-2.5 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 text-[11px] flex items-center justify-between gap-2">
+                <!-- Dynamic info by JS -->
+              </div>
+
+              <!-- Spreadsheet Table 1 -->
+              <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+                <table class="w-full text-left text-xs">
+                  <thead id="qcWaterThead" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[9.5px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
+                    <!-- Dynamic Header by JS -->
+                  </thead>
+                  <tbody id="qcWaterTbody" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
+                    <!-- Dynamic Rows by JS -->
+                  </tbody>
+                </table>
               </div>
             </div>
 
-            <!-- Quick Actions -->
-            <div class="flex flex-wrap items-center gap-2 max-w-full">
-              <button id="qcWaterSetupCurveBtn" onclick="window.Qc && window.Qc.openCurveModal('cl_spektro')" class="hidden px-3.5 py-2 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 font-extrabold text-xs hover:bg-cyan-200 transition-colors flex items-center gap-1.5" title="Atur Slope & Intercept Kurva Spektrofotometer">
-                <span>⚙️</span><span>Kurva Spektro</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.addWaterRow()" class="px-3.5 py-2 rounded-xl bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 border border-violet-300 font-extrabold text-xs hover:bg-violet-200 transition-colors flex items-center gap-1">
-                <span>➕</span><span>Tambah Baris</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.reset10WaterRows()" class="px-3.5 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
-                <span>⚡</span><span>Reset 5 Sampel</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.copyWaterTable()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs shadow-md transition-colors flex items-center gap-1">
-                <span>📋</span><span>Copy Tabel Excel</span>
-              </button>
-              <button onclick="window.Qc && window.Qc.clearWaterRows()" class="px-3.5 py-2 rounded-xl bg-rose-100 text-rose-600 border border-rose-300 font-extrabold text-xs hover:bg-rose-200 transition-colors">
-                <span>🧹</span><span>Clear</span>
-              </button>
+            <!-- Bottom Summary Bar 1 -->
+            <div id="qcWaterStatsBar" class="mt-3 p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-[11px] font-mono">
+              <!-- Dynamic stats via JS -->
             </div>
           </div>
 
-          <!-- Formula Info Header -->
-          <div id="qcWaterFormulaBadgeBar" class="p-3 rounded-xl bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800 text-xs flex flex-wrap items-center justify-between gap-2 w-full max-w-full">
-            <!-- Dynamic info by JS -->
-          </div>
+          <!-- CARD 2: PARAMETER AIR #2 -->
+          <div class="bg-white dark:bg-zinc-850 rounded-2xl shadow-xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 transition-colors space-y-3.5 flex flex-col justify-between w-full max-w-full h-full">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-2">
+                <h3 class="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 tracking-wider uppercase flex items-center gap-2">
+                  <span>💧</span> Parameter Air #2
+                </h3>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 font-extrabold text-[9.5px]">Kalkulator 2</span>
+              </div>
 
-          <!-- Parameter Spreadsheet Table -->
-          <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
-            <table class="w-full text-left text-xs">
-              <thead id="qcWaterThead" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[10px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
-                <!-- Dynamic Header by JS -->
-              </thead>
-              <tbody id="qcWaterTbody" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
-                <!-- Dynamic Rows by JS -->
-              </tbody>
-            </table>
-          </div>
+              <!-- Parameter Selector & Controls 2 -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex-1 space-y-1">
+                  <label class="block text-[10.5px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Pilih Parameter:</label>
+                  <div class="relative w-full custom-ui-select" id="wrapper_qcWaterParamSelect2">
+                    <button type="button" class="w-full px-3 py-1.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-emerald-500 shadow-sm h-8" onclick="window.UISelect && window.UISelect.toggle('qcWaterParamSelect2', event)">
+                      <span id="label_qcWaterParamSelect2" class="truncate">🧱 Total Hardness (Kesadahan Air ppm)</span>
+                      <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <input type="hidden" id="qcWaterParamSelect2" value="hard" onchange="window.Qc && window.Qc.switchWaterParam(this.value, 2)">
+                    <div id="menu_qcWaterParamSelect2" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
+                      <div onclick="window.UISelect.select('qcWaterParamSelect2', 'cl', '💧 Chloride Content (Titrasi AgNO3 ppm)', val => window.Qc.switchWaterParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="cl"><span>💧 Chloride Content (Titrasi AgNO3 ppm)</span></div>
+                      <div onclick="window.UISelect.select('qcWaterParamSelect2', 'hard', '🧱 Total Hardness (Kesadahan Air ppm)', val => window.Qc.switchWaterParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-emerald-500/10 text-emerald-600 font-black rounded-xl mx-1" data-val="hard"><span>🧱 Total Hardness (Kesadahan Air ppm)</span><span class="ui-check text-emerald-500 font-extrabold text-xs ml-1">✓</span></div>
+                      <div onclick="window.UISelect.select('qcWaterParamSelect2', 'cl_spektro', '🔬 Chloride Content (Spektro / Photometric ppm)', val => window.Qc.switchWaterParam(val, 2))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-emerald-500/10 rounded-xl mx-1" data-val="cl_spektro"><span>🔬 Chloride Content (Spektro / Photometric ppm)</span></div>
+                    </div>
+                  </div>
+                </div>
 
-          <!-- Bottom Summary Bar -->
-          <div id="qcWaterStatsBar" class="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-xs gap-3 font-mono w-full max-w-full">
-            <!-- Dynamic stats via JS -->
+                <div class="flex items-center gap-1.5 flex-wrap pt-2 sm:pt-0">
+                  <button id="qcWaterSetupCurveBtn2" onclick="window.Qc && window.Qc.openCurveModal('cl_spektro')" class="hidden px-2.5 py-1.5 rounded-xl bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300 border border-cyan-300 font-extrabold text-[11px] hover:bg-cyan-200 transition-colors">
+                    ⚙️ Kurva
+                  </button>
+                  <button onclick="window.Qc && window.Qc.addWaterRow(2)" class="px-2.5 py-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300 font-extrabold text-[11px] hover:bg-emerald-200">
+                    ➕ Baris
+                  </button>
+                  <button onclick="window.Qc && window.Qc.reset10WaterRows(2)" class="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[11px]">
+                    ⚡ Reset
+                  </button>
+                  <button onclick="window.Qc && window.Qc.copyWaterTable(2)" class="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[11px]">
+                    📋 Copy
+                  </button>
+                  <button onclick="window.Qc && window.Qc.clearWaterRows(2)" class="px-2 py-1.5 rounded-xl bg-rose-100 text-rose-600 border border-rose-300 font-extrabold text-[11px]">
+                    🧹 Clear
+                  </button>
+                </div>
+              </div>
+
+              <!-- Formula Banner 2 -->
+              <div id="qcWaterFormulaBadgeBar2" class="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 text-[11px] flex items-center justify-between gap-2">
+                <!-- Dynamic info by JS -->
+              </div>
+
+              <!-- Spreadsheet Table 2 -->
+              <div class="w-full max-w-full overflow-x-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+                <table class="w-full text-left text-xs">
+                  <thead id="qcWaterThead2" class="bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 font-extrabold uppercase text-[9.5px] tracking-wider border-b border-zinc-200 dark:border-zinc-800">
+                    <!-- Dynamic Header by JS -->
+                  </thead>
+                  <tbody id="qcWaterTbody2" class="divide-y divide-zinc-100 dark:divide-zinc-800/60 font-medium">
+                    <!-- Dynamic Rows by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Bottom Summary Bar 2 -->
+            <div id="qcWaterStatsBar2" class="mt-3 p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-[11px] font-mono">
+              <!-- Dynamic stats via JS -->
+            </div>
           </div>
 
         </div>
@@ -9017,10 +9183,13 @@ const Qc = {
 
   // State arrays for 10-row spreadsheet tables
   activeOilParam: 'ffa',
+  activeOilParam2: 'iv',
   oilRows: [],
-  
+  oilRows2: [],
   activeWaterParam: 'cl',
+  activeWaterParam2: 'hard',
   waterRows: [],
+  waterRows2: [],
 
   reagentStdRows: [],
 
@@ -9031,15 +9200,26 @@ const Qc = {
     this.calcReagents(1);
     this.calcReagents(2);
     this.calcReagents(3);
-    this.reset10OilRows();
-    this.reset10WaterRows();
+    this.reset10OilRows(1);
+    this.reset10OilRows(2);
+    this.reset10WaterRows(1);
+    this.reset10WaterRows(2);
   },
 
   // OIL SAMPLE MODULE LOGIC
-  switchOilParam(paramKey) {
-    this.activeOilParam = paramKey;
+  getOilRow(idx, cardId = 1) {
+    return cardId === 2 ? this.oilRows2[idx] : this.oilRows[idx];
+  },
+
+  switchOilParam(paramKey, cardId = 1) {
+    const suffix = cardId === 2 ? '2' : '';
+    if (cardId === 2) {
+      this.activeOilParam2 = paramKey;
+    } else {
+      this.activeOilParam = paramKey;
+    }
     
-    const curveBtn = document.getElementById('qcOilSetupCurveBtn');
+    const curveBtn = document.getElementById('qcOilSetupCurveBtn' + suffix);
     if (curveBtn) {
       if (paramKey === 'p_spektro') {
         curveBtn.classList.remove('hidden');
@@ -9049,19 +9229,19 @@ const Qc = {
       }
     }
     
-    this.reset10OilRows();
+    this.reset10OilRows(cardId);
   },
 
-  reset5OilRows() {
-    const param = this.activeOilParam;
+  reset5OilRows(cardId = 1) {
+    const param = cardId === 2 ? (this.activeOilParam2 || 'iv') : (this.activeOilParam || 'ffa');
     const sampleNames = [
       "Tangki CPO #01 (Import)", "Tangki CPO #02 (Refinery Feed)", "Tangki RBDPO #03", 
       "Tangki Olein #04", "Tangki Stearin #05"
     ];
 
-    this.oilRows = [];
+    const rows = [];
     for (let i = 0; i < 5; i++) {
-      let r = { id: Date.now() + i, name: sampleNames[i] };
+      let r = { id: Date.now() + i + (cardId * 1000), name: sampleNames[i] };
       if (param === 'ffa') {
         r.factor = 25.6;
         r.w = +(3.45 + (i * 0.02)).toFixed(2);
@@ -9111,18 +9291,24 @@ const Qc = {
         r.a446 = +(0.610 + (i * 0.01)).toFixed(3);
         r.a350 = 0.240;
       }
-      this.oilRows.push(r);
+      rows.push(r);
     }
-    this.renderOilTable();
+    if (cardId === 2) {
+      this.oilRows2 = rows;
+    } else {
+      this.oilRows = rows;
+    }
+    this.renderOilTable(cardId);
   },
 
-  reset10OilRows() {
-    this.reset5OilRows();
+  reset10OilRows(cardId = 1) {
+    this.reset5OilRows(cardId);
   },
 
-  addOilRow() {
-    const param = this.activeOilParam;
-    const nextNo = this.oilRows.length + 1;
+  addOilRow(cardId = 1) {
+    const param = cardId === 2 ? (this.activeOilParam2 || 'iv') : (this.activeOilParam || 'ffa');
+    const targetRows = cardId === 2 ? (this.oilRows2 || []) : (this.oilRows || []);
+    const nextNo = targetRows.length + 1;
     let r = { id: Date.now() + Math.random(), name: `Sampel Minyak #${nextNo}` };
     if (param === 'ffa') { r.factor = 25.6; r.w = 3.50; r.n = 0.0997; r.v = 1.15; }
     else if (param === 'iv') { r.w = 0.40; r.n = 0.1035; r.vb = 48.45; r.vs = 29.50; }
@@ -9136,63 +9322,73 @@ const Qc = {
     else if (param === 'av_spektro') { r.w = 1.00; r.vp = 25; r.ab = 0.045; r.ax = 0.185; }
     else if (param === 'dobi_spektro') { r.w = 0.1025; r.a446 = 0.612; r.a350 = 0.240; }
     
-    this.oilRows.push(r);
-    this.renderOilTable();
+    targetRows.push(r);
+    this.renderOilTable(cardId);
   },
 
-  removeOilRow(idx) {
-    this.oilRows.splice(idx, 1);
-    this.renderOilTable();
+  removeOilRow(idx, cardId = 1) {
+    if (cardId === 2) {
+      if (this.oilRows2) this.oilRows2.splice(idx, 1);
+    } else {
+      if (this.oilRows) this.oilRows.splice(idx, 1);
+    }
+    this.renderOilTable(cardId);
   },
 
-  clearOilRows() {
-    this.oilRows = [];
-    this.renderOilTable();
+  clearOilRows(cardId = 1) {
+    if (cardId === 2) {
+      this.oilRows2 = [];
+    } else {
+      this.oilRows = [];
+    }
+    this.renderOilTable(cardId);
   },
 
-  renderOilTable() {
-    const param = this.activeOilParam;
-    const badgeBar = document.getElementById('qcOilFormulaBadgeBar');
-    const thead = document.getElementById('qcOilThead');
-    const tbody = document.getElementById('qcOilTbody');
-    const statsBar = document.getElementById('qcOilStatsBar');
+  renderOilTable(cardId = 1) {
+    const suffix = cardId === 2 ? '2' : '';
+    const param = cardId === 2 ? (this.activeOilParam2 || 'iv') : (this.activeOilParam || 'ffa');
+    const targetRows = cardId === 2 ? (this.oilRows2 || []) : (this.oilRows || []);
+    const badgeBar = document.getElementById('qcOilFormulaBadgeBar' + suffix);
+    const thead = document.getElementById('qcOilThead' + suffix);
+    const tbody = document.getElementById('qcOilTbody' + suffix);
+    const statsBar = document.getElementById('qcOilStatsBar' + suffix);
     if (!thead || !tbody) return;
 
     // 1. Render Formula Info Header
     let formulaText = "";
-    if (param === 'ffa') formulaText = "<strong>Rumus FFA (%):</strong> (Volume Titrasi × Norm NaOH × Faktor FFA) / Berat Sampel";
-    else if (param === 'iv') formulaText = "<strong>Rumus IV (g I₂/100g):</strong> ((Vol Blanko - Vol Sampel) × Norm Na₂S₂O₃ × 12.69) / Berat Sampel";
-    else if (param === 'pv') formulaText = "<strong>Rumus PV (meq/kg):</strong> ((Vol Sampel - Vol Blanko) × Norm Na₂S₂O₃ × 1000) / Berat Sampel";
-    else if (param === 'sv') formulaText = "<strong>Rumus SV (mg KOH/g):</strong> ((Vol Blanko - Vol Sampel) × Norm HCl × 56.1) / Berat Sampel";
-    else if (param === 'mois') formulaText = "<strong>Rumus Moisture (%):</strong> ((Berat Awal W1 - Berat Akhir W2) / Berat Sampel M0) × 100";
-    else if (param === 'imp') formulaText = "<strong>Rumus Impurities (%):</strong> ((Berat Kertas Akhir W2 - Berat Kertas Awal W1) / Berat Sampel M0) × 100";
-    else if (param === 'salt') formulaText = "<strong>Rumus Salt Content (%):</strong> (Volume Titrasi AgNO₃ × Norm AgNO₃ × 5.85) / Berat Sampel";
-    else if (param === 'lauric') formulaText = "<strong>Rumus Lauric Acid (%):</strong> GC Area C12:0 (%) × 2.1189";
+    if (param === 'ffa') formulaText = "<strong>Rumus FFA (%):</strong> (Vol Titrasi × Norm NaOH × Faktor) / Berat W";
+    else if (param === 'iv') formulaText = "<strong>Rumus IV (g I₂/100g):</strong> ((Vb - Vs) × N × 12.69) / Berat W";
+    else if (param === 'pv') formulaText = "<strong>Rumus PV (meq/kg):</strong> ((Vs - Vb) × N × 1000) / Berat W";
+    else if (param === 'sv') formulaText = "<strong>Rumus SV (mg KOH/g):</strong> ((Vb - Vs) × N × 56.1) / Berat W";
+    else if (param === 'mois') formulaText = "<strong>Rumus Moisture (%):</strong> ((W1 - W2) / M0) × 100";
+    else if (param === 'imp') formulaText = "<strong>Rumus Impurities (%):</strong> ((W2 - W1) / M0) × 100";
+    else if (param === 'salt') formulaText = "<strong>Rumus Salt (%):</strong> (V × N × 5.85) / Berat W";
+    else if (param === 'lauric') formulaText = "<strong>Rumus Lauric (%):</strong> Area C12:0 (%) × 2.1189";
     else if (param === 'p_spektro') {
       const c = this.curves.p_spektro || { slope: 25, intercept: 0 };
-      formulaText = `<strong>Rumus Phosphorus (ppm):</strong> ((Abs Sampel - Abs Blanko) × ${c.slope} + ${c.intercept}) × Vol Labu / Berat Sampel`;
-    } else if (param === 'av_spektro') formulaText = "<strong>Rumus Anisidine Value (AV):</strong> 25 × (1.2 × Abs Reagen Ax - Abs Blanko Ab) / Berat Sampel";
-    else if (param === 'dobi_spektro') formulaText = "<strong>Rumus DOBI:</strong> Abs 446nm / Abs 350nm | <strong>Carotene (ppm):</strong> (Abs 446nm × 383) / Berat Sampel";
+      formulaText = `<strong>Rumus P (ppm):</strong> ((A₁ - A₀) × ${c.slope} + ${c.intercept}) × VP / W`;
+    } else if (param === 'av_spektro') formulaText = "<strong>Rumus AV:</strong> 25 × (1.2 × Ax - Ab) / W";
+    else if (param === 'dobi_spektro') formulaText = "<strong>DOBI:</strong> Abs 446 / Abs 350 | <strong>Carotene:</strong> (A446 × 383) / W";
 
     if (badgeBar) {
-      badgeBar.innerHTML = `<span>${formulaText}</span><span class="px-2.5 py-0.5 rounded-full bg-violet-200 dark:bg-violet-900 text-violet-800 dark:text-violet-200 font-extrabold text-[10px]">Real-Time Sync</span>`;
+      badgeBar.innerHTML = `<span>${formulaText}</span><span class="px-2 py-0.5 rounded-full ${cardId===2?'bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200':'bg-violet-200 dark:bg-violet-900 text-violet-800 dark:text-violet-200'} font-extrabold text-[9.5px]">Sync #${cardId}</span>`;
     }
 
     // 2. Render Table Headers
     let cols = [];
-    if (param === 'ffa') cols = ["No", "Nama / ID Sampel Tangki", "Jenis FFA (Faktor)", "Berat Sampel W (g)", "Norm Titran N", "Vol Titran V (mL)", "Kadar FFA (%)", "Status Quality", "Aksi"];
-    else if (param === 'iv') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Norm Na₂S₂O₃ N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "Hasil IV (g I₂/100g)", "Status Quality", "Aksi"];
-    else if (param === 'pv') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Norm Na₂S₂O₃ N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "Hasil PV (meq/kg)", "Status Quality", "Aksi"];
-    else if (param === 'sv') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Norm HCl N", "Vol Blanko Vb (mL)", "Vol Sampel Vs (mL)", "Hasil SV (mg KOH/g)", "Status Quality", "Aksi"];
-    else if (param === 'mois') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel M0 (g)", "Berat Awal W1 (g)", "Berat Akhir W2 (g)", "Kadar Moisture (%)", "Status Quality", "Aksi"];
-    else if (param === 'imp') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel M0 (g)", "Kertas Awal W1 (g)", "Kertas Akhir W2 (g)", "Kadar Impurities (%)", "Status Quality", "Aksi"];
-    else if (param === 'salt') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Norm AgNO₃ N", "Vol Titran V (mL)", "Kadar Salt NaCl (%)", "Status Quality", "Aksi"];
-    else if (param === 'lauric') cols = ["No", "Nama / ID Sampel Tangki", "GC Area C12:0 (%)", "Lauric Acid (%)", "Status Quality", "Aksi"];
-    else if (param === 'p_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Vol Labu VP (mL)", "Abs Blanko A₀", "Abs Sampel A₁", "Fosfor (P ppm)", "Status Quality", "Aksi"];
-    else if (param === 'av_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Vol Labu VP (mL)", "Abs Blanko Ab", "Abs Reagen Ax", "Anisidine (AV)", "Status Quality", "Aksi"];
-    else if (param === 'dobi_spektro') cols = ["No", "Nama / ID Sampel Tangki", "Berat Sampel W (g)", "Abs 446 nm", "Abs 350 nm", "Rasio DOBI", "Carotene (ppm)", "Status Quality", "Aksi"];
+    if (param === 'ffa') cols = ["No", "Nama Sampel", "Faktor", "W (g)", "N Titran", "V (mL)", "FFA (%)", "Status", "Aksi"];
+    else if (param === 'iv') cols = ["No", "Nama Sampel", "W (g)", "N Na₂S₂O₃", "Vb (mL)", "Vs (mL)", "IV (g I₂)", "Status", "Aksi"];
+    else if (param === 'pv') cols = ["No", "Nama Sampel", "W (g)", "N Na₂S₂O₃", "Vb (mL)", "Vs (mL)", "PV (meq/kg)", "Status", "Aksi"];
+    else if (param === 'sv') cols = ["No", "Nama Sampel", "W (g)", "N HCl", "Vb (mL)", "Vs (mL)", "SV (mg KOH)", "Status", "Aksi"];
+    else if (param === 'mois') cols = ["No", "Nama Sampel", "M0 (g)", "W1 (g)", "W2 (g)", "Moisture (%)", "Status", "Aksi"];
+    else if (param === 'imp') cols = ["No", "Nama Sampel", "M0 (g)", "W1 (g)", "W2 (g)", "Impurities (%)", "Status", "Aksi"];
+    else if (param === 'salt') cols = ["No", "Nama Sampel", "W (g)", "N AgNO₃", "V (mL)", "Salt (%)", "Status", "Aksi"];
+    else if (param === 'lauric') cols = ["No", "Nama Sampel", "Area C12:0", "Lauric (%)", "Status", "Aksi"];
+    else if (param === 'p_spektro') cols = ["No", "Nama Sampel", "W (g)", "VP (mL)", "A₀", "A₁", "P (ppm)", "Status", "Aksi"];
+    else if (param === 'av_spektro') cols = ["No", "Nama Sampel", "W (g)", "VP (mL)", "Ab", "Ax", "AV", "Status", "Aksi"];
+    else if (param === 'dobi_spektro') cols = ["No", "Nama Sampel", "W (g)", "A446", "A350", "DOBI", "Carotene", "Status", "Aksi"];
 
-    thead.innerHTML = `<tr>` + cols.map((c, i) => `<th class="px-2.5 py-1.5 ${i===0||i===cols.length-1?'text-center w-8':'min-w-[110px]'}">${c}</th>`).join('') + `</tr>`;
+    thead.innerHTML = `<tr>` + cols.map((c, i) => `<th class="px-2 py-1 ${i===0||i===cols.length-1?'text-center w-7':'min-w-[85px]'}">${c}</th>`).join('') + `</tr>`;
 
     // 3. Render Table Rows & Calculations
     let totalVal = 0;
@@ -9200,61 +9396,45 @@ const Qc = {
     let maxVal = -Infinity;
     let outOfSpecCount = 0;
 
-    tbody.innerHTML = this.oilRows.map((r, idx) => {
+    tbody.innerHTML = targetRows.map((r, idx) => {
       let calcRes = 0;
       let secondRes = null;
-      let unit = '%';
-      let isOut = false;
+      let unit = "%";
+      let specKey = param;
 
       if (param === 'ffa') {
         const factor = r.factor || 25.6;
         calcRes = r.w > 0 ? (r.v * r.n * factor) / r.w : 0;
-        unit = '%';
-        if (calcRes > 0.5) isOut = true;
       } else if (param === 'iv') {
+        unit = "g I₂/100g";
         calcRes = r.w > 0 ? ((r.vb - r.vs) * r.n * 12.69) / r.w : 0;
-        unit = 'g I2/100g';
       } else if (param === 'pv') {
+        unit = "meq/kg";
         calcRes = r.w > 0 ? ((r.vs - r.vb) * r.n * 1000) / r.w : 0;
-        unit = 'meq/kg';
-        if (calcRes > 10.0) isOut = true;
       } else if (param === 'sv') {
+        unit = "mg KOH/g";
         calcRes = r.w > 0 ? ((r.vb - r.vs) * r.n * 56.1) / r.w : 0;
-        unit = 'mg KOH/g';
       } else if (param === 'mois') {
         calcRes = r.m0 > 0 ? ((r.w1 - r.w2) / r.m0) * 100 : 0;
-        unit = '%';
-        if (calcRes > 0.2) isOut = true;
       } else if (param === 'imp') {
         calcRes = r.m0 > 0 ? ((r.w2 - r.w1) / r.m0) * 100 : 0;
-        unit = '%';
-        if (calcRes > 0.05) isOut = true;
       } else if (param === 'salt') {
         calcRes = r.w > 0 ? (r.v * r.n * 5.85) / r.w : 0;
-        unit = '%';
       } else if (param === 'lauric') {
         calcRes = (r.area || 0) * 2.1189;
-        unit = '%';
-        if (calcRes > 0.63) isOut = true;
       } else if (param === 'p_spektro') {
+        unit = "ppm";
         const c = this.curves.p_spektro || { slope: 25, intercept: 0 };
         const diff = (r.a1 || 0) - (r.a0 || 0);
-        calcRes = r.w > 0 ? ((diff * c.slope + c.intercept) * (r.vp || 50)) / r.w : 0;
-        unit = 'ppm';
-        if (calcRes > 20) isOut = true;
+        const concMgL = diff * c.slope + c.intercept;
+        calcRes = r.w > 0 ? (concMgL * (r.vp || 50)) / r.w : 0;
       } else if (param === 'av_spektro') {
-        const ax = r.ax || 0;
-        const ab = r.ab || 0;
-        calcRes = r.w > 0 ? (25 * (1.2 * ax - ab)) / r.w : 0;
-        unit = '';
-        if (calcRes > 5.0) isOut = true;
+        unit = "";
+        calcRes = r.w > 0 ? (25 * (1.2 * (r.ax || 0) - (r.ab || 0))) / r.w : 0;
       } else if (param === 'dobi_spektro') {
-        const a446 = r.a446 || 0;
-        const a350 = r.a350 || 0;
-        calcRes = a350 > 0 ? a446 / a350 : 0;
-        secondRes = r.w > 0 ? (a446 * 383) / r.w : 0;
-        unit = '';
-        if (calcRes < 2.0) isOut = true;
+        unit = "";
+        calcRes = (r.a350 || 0) > 0 ? (r.a446 || 0) / (r.a350 || 1) : 0;
+        secondRes = r.w > 0 ? ((r.a446 || 0) * 383) / r.w : 0;
       }
 
       if (calcRes > 0) {
@@ -9262,150 +9442,162 @@ const Qc = {
         if (calcRes < minVal) minVal = calcRes;
         if (calcRes > maxVal) maxVal = calcRes;
       }
+
+      let isOut = false;
+      const limits = (this.oilSpecs && this.oilSpecs[r.name]) ? this.oilSpecs[r.name][specKey] : null;
+      if (limits) {
+        if (limits.max !== undefined && calcRes > limits.max) isOut = true;
+        if (limits.min !== undefined && calcRes < limits.min) isOut = true;
+      }
       if (isOut) outOfSpecCount++;
 
-      const inpCls = "w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500";
-      const selCls = "w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500 cursor-pointer";
+      const inpCls = "w-full px-1.5 py-0.5 h-6.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-[11px] focus:ring-1 focus:ring-violet-500/30";
 
       let inputsHtml = "";
       if (param === 'ffa') {
+        const factorId = `ui_sel_ffa_fact_${cardId}_${idx}`;
+        const currFact = r.factor || 25.6;
+        let factLabel = currFact === 25.6 ? "Palmitic (25.6)" : (currFact === 28.2 ? "Oleic (28.2)" : "Lauric (20.0)");
+
         inputsHtml = `
-          <td class="px-2 py-1 relative custom-ui-select" id="wrapper_ffaFactor_${idx}">
-            <button type="button" onclick="window.UISelect.toggle('ffaFactor_${idx}', event)" class="w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs flex items-center justify-between hover:border-violet-500 text-zinc-800 dark:text-zinc-200 shadow-sm">
-              <span id="label_ffaFactor_${idx}">${r.factor===25.6?'Palmitic (25.6)':r.factor===20.0?'Lauric (20.0)':'Oleic (28.2)'}</span>
-              <span class="text-[8px] text-zinc-400 ml-1">▼</span>
-            </button>
-            <input type="hidden" id="ffaFactor_${idx}" value="${r.factor||25.6}">
-            <div id="menu_ffaFactor_${idx}" class="custom-ui-select-menu hidden absolute z-50 left-2 top-8 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl w-40 space-y-0.5">
-              <div onclick="window.Qc.oilRows[${idx}].factor=25.6; window.Qc.renderOilTable();" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold hover:bg-violet-500/10 hover:text-violet-600 ${r.factor===25.6?'bg-violet-500/10 text-violet-600 font-black':''} flex items-center justify-between rounded-xl mx-1"><span>Palmitic (25.6)</span>${r.factor===25.6?'<span class="text-violet-500 font-extrabold text-xs">✓</span>':''}</div>
-              <div onclick="window.Qc.oilRows[${idx}].factor=20.0; window.Qc.renderOilTable();" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold hover:bg-violet-500/10 hover:text-violet-600 ${r.factor===20.0?'bg-violet-500/10 text-violet-600 font-black':''} flex items-center justify-between rounded-xl mx-1"><span>Lauric (20.0)</span>${r.factor===20.0?'<span class="text-violet-500 font-extrabold text-xs">✓</span>':''}</div>
-              <div onclick="window.Qc.oilRows[${idx}].factor=28.2; window.Qc.renderOilTable();" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold hover:bg-violet-500/10 hover:text-violet-600 ${r.factor===28.2?'bg-violet-500/10 text-violet-600 font-black':''} flex items-center justify-between rounded-xl mx-1"><span>Oleic (28.2)</span>${r.factor===28.2?'<span class="text-violet-500 font-extrabold text-xs">✓</span>':''}</div>
+          <td class="px-1.5 py-1 min-w-[100px]">
+            <div class="relative w-full custom-ui-select" id="wrapper_${factorId}">
+              <button type="button" class="w-full px-2 py-0.5 h-6.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-[10.5px] text-zinc-800 dark:text-zinc-200 flex items-center justify-between shadow-sm" onclick="window.UISelect && window.UISelect.toggle('${factorId}', event)">
+                <span id="label_${factorId}" class="truncate">${factLabel}</span>
+                <svg class="w-2.5 h-2.5 text-zinc-400 ml-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <input type="hidden" id="${factorId}" value="${currFact}">
+              <div id="menu_${factorId}" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xl space-y-0.5 w-36">
+                <div onclick="window.UISelect.select('${factorId}', '25.6', 'Palmitic (25.6)', val => { window.Qc.getOilRow(${idx}, ${cardId}).factor=parseFloat(val); window.Qc.renderOilTable(${cardId}); })" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold ${currFact===25.6?'bg-violet-500/10 text-violet-600':''} rounded-md mx-0.5 flex items-center justify-between" data-val="25.6"><span>Palmitic (25.6)</span></div>
+                <div onclick="window.UISelect.select('${factorId}', '28.2', 'Oleic (28.2)', val => { window.Qc.getOilRow(${idx}, ${cardId}).factor=parseFloat(val); window.Qc.renderOilTable(${cardId}); })" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold ${currFact===28.2?'bg-violet-500/10 text-violet-600':''} rounded-md mx-0.5 flex items-center justify-between" data-val="28.2"><span>Oleic (28.2)</span></div>
+                <div onclick="window.UISelect.select('${factorId}', '20.0', 'Lauric (20.0)', val => { window.Qc.getOilRow(${idx}, ${cardId}).factor=parseFloat(val); window.Qc.renderOilTable(${cardId}); })" class="ui-select-item px-2 py-1 cursor-pointer text-[10.5px] font-bold ${currFact===20.0?'bg-violet-500/10 text-violet-600':''} rounded-md mx-0.5 flex items-center justify-between" data-val="20.0"><span>Lauric (20.0)</span></div>
+              </div>
             </div>
           </td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.oilRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).n=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).v=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
-      } else if (param === 'iv') {
+      } else if (param === 'iv' || param === 'pv') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-        `;
-      } else if (param === 'pv') {
-        inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).n=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).vb=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).vs=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'sv') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.oilRows[${idx}].vb=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.oilRows[${idx}].vs=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).n=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.vb}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).vb=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.vs}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).vs=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'mois' || param === 'imp') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.m0}" oninput="window.Qc.oilRows[${idx}].m0=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.0001" value="${r.w1}" oninput="window.Qc.oilRows[${idx}].w1=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.0001" value="${r.w2}" oninput="window.Qc.oilRows[${idx}].w2=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.m0}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).m0=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.0001" value="${r.w1}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w1=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.0001" value="${r.w2}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w2=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'salt') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.oilRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).n=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).v=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'lauric') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.area}" oninput="window.Qc.oilRows[${idx}].area=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.area}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).area=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'p_spektro') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="1" value="${r.vp}" oninput="window.Qc.oilRows[${idx}].vp=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a0}" oninput="window.Qc.oilRows[${idx}].a0=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a1}" oninput="window.Qc.oilRows[${idx}].a1=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="1" value="${r.vp}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).vp=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.a0}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).a0=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.a1}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).a1=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'av_spektro') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="1" value="${r.vp}" oninput="window.Qc.oilRows[${idx}].vp=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.ab}" oninput="window.Qc.oilRows[${idx}].ab=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.ax}" oninput="window.Qc.oilRows[${idx}].ax=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="1" value="${r.vp}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).vp=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.ab}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).ab=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.ax}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).ax=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'dobi_spektro') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.0001" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a446}" oninput="window.Qc.oilRows[${idx}].a446=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a350}" oninput="window.Qc.oilRows[${idx}].a350=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.0001" value="${r.w}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).w=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.a446}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).a446=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.a350}" oninput="window.Qc.getOilRow(${idx}, ${cardId}).a350=parseFloat(this.value)||0; window.Qc.renderOilTable(${cardId});" class="${inpCls}"></td>
         `;
       }
 
       const resDisplay = secondRes !== null 
-        ? `${calcRes.toFixed(2)} <span class="text-[10px] text-zinc-400 font-normal">(${secondRes.toFixed(1)} ppm)</span>`
+        ? `${calcRes.toFixed(2)} <span class="text-[9.5px] text-zinc-400 font-normal">(${secondRes.toFixed(1)} ppm)</span>`
         : `${calcRes.toFixed(param === 'mois' || param === 'imp' || param === 'lauric' ? 3 : 2)} ${unit}`;
 
       const statusBadge = isOut
-        ? `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-300">OUT OF SPEC</span>`
-        : `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300">IN SPEC</span>`;
+        ? `<span class="text-[8.5px] font-extrabold px-1.5 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-300">OUT</span>`
+        : `<span class="text-[8.5px] font-extrabold px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-300">OK</span>`;
 
       return `
         <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors">
-          <td class="px-2 py-1 text-center font-bold text-zinc-400">${idx + 1}</td>
-          <td class="px-2 py-1">
-            <input type="text" value="${r.name}" onchange="window.Qc.oilRows[${idx}].name=this.value" class="w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
+          <td class="px-1.5 py-1 text-center font-bold text-zinc-400 text-[11px]">${idx + 1}</td>
+          <td class="px-1.5 py-1">
+            <input type="text" value="${r.name}" onchange="window.Qc.getOilRow(${idx}, ${cardId}).name=this.value" class="w-full px-1.5 py-0.5 h-6.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-[11px]">
           </td>
           ${inputsHtml}
-          <td class="px-2 py-1 font-mono font-black text-amber-500 text-xs">${resDisplay}</td>
-          <td class="px-2 py-1">${statusBadge}</td>
-          <td class="px-2 py-1 text-center">
-            <button onclick="window.Qc.removeOilRow(${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs font-bold" title="Hapus Baris">🗑️</button>
+          <td class="px-1.5 py-1 font-mono font-black text-amber-500 text-[11px]">${resDisplay}</td>
+          <td class="px-1.5 py-1">${statusBadge}</td>
+          <td class="px-1.5 py-1 text-center">
+            <button onclick="window.Qc.removeOilRow(${idx}, ${cardId})" class="p-0.5 text-rose-500 hover:text-rose-700 text-[11px] font-bold" title="Hapus Baris">🗑️</button>
           </td>
         </tr>
       `;
     }).join('');
 
-    // Enhance any native selects inside table rows
-    if (window.enhanceAllSelects) window.enhanceAllSelects(tbody);
-
     // 4. Render Summary Statistics
-    const count = this.oilRows.length;
+    const count = targetRows.length;
     const avg = count > 0 ? totalVal / count : 0;
     if (minVal === Infinity) minVal = 0;
     if (maxVal === -Infinity) maxVal = 0;
 
     if (statsBar) {
       statsBar.innerHTML = `
-        <div>Total Sampel: <strong class="text-zinc-900 dark:text-white">${count} Baris</strong></div>
-        <div>Rata-Rata (Avg): <strong class="text-amber-500">${avg.toFixed(3)}</strong></div>
-        <div>Min / Max: <strong class="text-violet-500">${minVal.toFixed(3)} / ${maxVal.toFixed(3)}</strong></div>
-        <div>Out of Spec: <strong class="${outOfSpecCount>0?'text-rose-500':'text-emerald-500'}">${outOfSpecCount} Sampel</strong></div>
+        <div>Total: <strong class="text-zinc-900 dark:text-white">${count} Baris</strong></div>
+        <div>Avg: <strong class="text-amber-500">${avg.toFixed(3)}</strong></div>
+        <div>Min/Max: <strong class="${cardId===2?'text-emerald-500':'text-violet-500'}">${minVal.toFixed(2)} / ${maxVal.toFixed(2)}</strong></div>
+        <div>Out: <strong class="${outOfSpecCount>0?'text-rose-500':'text-emerald-500'}">${outOfSpecCount}</strong></div>
       `;
     }
   },
 
-  copyOilTable() {
-    if (this.oilRows.length === 0) {
-      if (window.showToast) window.showToast("⚠️ Tabel minyak kosong!");
+  copyOilTable(cardId = 1) {
+    const targetRows = cardId === 2 ? (this.oilRows2 || []) : (this.oilRows || []);
+    const param = cardId === 2 ? (this.activeOilParam2 || 'iv') : (this.activeOilParam || 'ffa');
+    if (targetRows.length === 0) {
+      if (window.showToast) window.showToast(`⚠️ Tabel minyak #${cardId} kosong!`);
       return;
     }
-    const param = this.activeOilParam;
     let tsv = `No\tNama Sampel\tHasil Perhitungan (${param})\n`;
-    this.oilRows.forEach((r, idx) => {
+    targetRows.forEach((r, idx) => {
       tsv += `${idx + 1}\t${r.name}\t${JSON.stringify(r)}\n`;
     });
     navigator.clipboard.writeText(tsv);
-    if (window.showToast) window.showToast("✔ Tabel Minyak disalin ke Clipboard (Excel format)!");
+    if (window.showToast) window.showToast(`✔ Tabel Minyak #${cardId} disalin ke Clipboard!`);
   },
 
   // WATER SAMPLE MODULE LOGIC
-  switchWaterParam(paramKey) {
-    this.activeWaterParam = paramKey;
-    const curveBtn = document.getElementById('qcWaterSetupCurveBtn');
+  getWaterRow(idx, cardId = 1) {
+    return cardId === 2 ? this.waterRows2[idx] : this.waterRows[idx];
+  },
+
+  switchWaterParam(paramKey, cardId = 1) {
+    const suffix = cardId === 2 ? '2' : '';
+    if (cardId === 2) {
+      this.activeWaterParam2 = paramKey;
+    } else {
+      this.activeWaterParam = paramKey;
+    }
+    const curveBtn = document.getElementById('qcWaterSetupCurveBtn' + suffix);
     if (curveBtn) {
       if (paramKey === 'cl_spektro') {
         curveBtn.classList.remove('hidden');
@@ -9414,19 +9606,19 @@ const Qc = {
         curveBtn.classList.add('hidden');
       }
     }
-    this.reset5WaterRows();
+    this.reset5WaterRows(cardId);
   },
 
-  reset5WaterRows() {
-    const param = this.activeWaterParam;
+  reset5WaterRows(cardId = 1) {
+    const param = cardId === 2 ? (this.activeWaterParam2 || 'hard') : (this.activeWaterParam || 'cl');
     const sampleNames = [
       "Water Feed Tank #01", "Boiler Water Line 1", "Boiler Water Line 2",
       "Cooling Tower A", "RO Permeate Tank"
     ];
 
-    this.waterRows = [];
+    const rows = [];
     for (let i = 0; i < 5; i++) {
-      let r = { id: Date.now() + i, name: sampleNames[i] };
+      let r = { id: Date.now() + i + (cardId * 1000), name: sampleNames[i] };
       if (param === 'cl') {
         r.vsamp = 5.0;
         r.n = 0.0981;
@@ -9440,67 +9632,83 @@ const Qc = {
         r.a0 = 0.001;
         r.a1 = +(0.080 + (i * 0.005)).toFixed(3);
       }
-      this.waterRows.push(r);
+      rows.push(r);
     }
-    this.renderWaterTable();
+    if (cardId === 2) {
+      this.waterRows2 = rows;
+    } else {
+      this.waterRows = rows;
+    }
+    this.renderWaterTable(cardId);
   },
 
-  reset10WaterRows() {
-    this.reset5WaterRows();
+  reset10WaterRows(cardId = 1) {
+    this.reset5WaterRows(cardId);
   },
 
-  addWaterRow() {
-    const param = this.activeWaterParam;
-    const nextNo = this.waterRows.length + 1;
+  addWaterRow(cardId = 1) {
+    const param = cardId === 2 ? (this.activeWaterParam2 || 'hard') : (this.activeWaterParam || 'cl');
+    const targetRows = cardId === 2 ? (this.waterRows2 || []) : (this.waterRows || []);
+    const nextNo = targetRows.length + 1;
     let r = { id: Date.now() + Math.random(), name: `Sampel Air #${nextNo}` };
     if (param === 'cl') { r.vsamp = 5.0; r.n = 0.0981; r.v = 1.05; }
     else if (param === 'hard') { r.vsamp = 50.0; r.v = 0.06; r.factor = 41.2; }
     else if (param === 'cl_spektro') { r.vsamp = 10.0; r.a0 = 0.001; r.a1 = 0.085; }
     
-    this.waterRows.push(r);
-    this.renderWaterTable();
+    targetRows.push(r);
+    this.renderWaterTable(cardId);
   },
 
-  removeWaterRow(idx) {
-    this.waterRows.splice(idx, 1);
-    this.renderWaterTable();
+  removeWaterRow(idx, cardId = 1) {
+    if (cardId === 2) {
+      if (this.waterRows2) this.waterRows2.splice(idx, 1);
+    } else {
+      if (this.waterRows) this.waterRows.splice(idx, 1);
+    }
+    this.renderWaterTable(cardId);
   },
 
-  clearWaterRows() {
-    this.waterRows = [];
-    this.renderWaterTable();
+  clearWaterRows(cardId = 1) {
+    if (cardId === 2) {
+      this.waterRows2 = [];
+    } else {
+      this.waterRows = [];
+    }
+    this.renderWaterTable(cardId);
   },
 
-  renderWaterTable() {
-    const param = this.activeWaterParam;
-    const badgeBar = document.getElementById('qcWaterFormulaBadgeBar');
-    const thead = document.getElementById('qcWaterThead');
-    const tbody = document.getElementById('qcWaterTbody');
-    const statsBar = document.getElementById('qcWaterStatsBar');
+  renderWaterTable(cardId = 1) {
+    const suffix = cardId === 2 ? '2' : '';
+    const param = cardId === 2 ? (this.activeWaterParam2 || 'hard') : (this.activeWaterParam || 'cl');
+    const targetRows = cardId === 2 ? (this.waterRows2 || []) : (this.waterRows || []);
+    const badgeBar = document.getElementById('qcWaterFormulaBadgeBar' + suffix);
+    const thead = document.getElementById('qcWaterThead' + suffix);
+    const tbody = document.getElementById('qcWaterTbody' + suffix);
+    const statsBar = document.getElementById('qcWaterStatsBar' + suffix);
     if (!thead || !tbody) return;
 
     let formulaText = "";
-    if (param === 'cl') formulaText = "<strong>Rumus Chloride (ppm):</strong> (Volume Titrasi AgNO₃ × Norm AgNO₃ × 35450) / Volume Sampel Air | <strong>as NaCl:</strong> Chloride ppm × 1.6488";
-    else if (param === 'hard') formulaText = "<strong>Rumus Total Hardness (ppm):</strong> Volume Titrasi EDTA × Faktor Kesadahan (41.2)";
+    if (param === 'cl') formulaText = "<strong>Rumus Chloride (ppm):</strong> (V × N × 35450) / Vsamp | <strong>as NaCl:</strong> Cl ppm × 1.6488";
+    else if (param === 'hard') formulaText = "<strong>Rumus Hardness (ppm):</strong> V EDTA × Faktor Kesadahan (41.2)";
     else if (param === 'cl_spektro') {
       const c = this.curves.cl_spektro || { slope: 50, intercept: 0 };
-      formulaText = `<strong>Rumus Cl Spektro (ppm):</strong> ((Abs Sampel - Abs Blanko) × ${c.slope} + ${c.intercept}) × (10 / Volume Sampel Air)`;
+      formulaText = `<strong>Rumus Cl Spektro (ppm):</strong> ((A₁ - A₀) × ${c.slope} + ${c.intercept}) × (10 / Vsamp)`;
     }
 
-    if (badgeBar) badgeBar.innerHTML = `<span>${formulaText}</span><span class="px-2.5 py-0.5 rounded-full bg-violet-200 dark:bg-violet-900 text-violet-800 dark:text-violet-200 font-extrabold text-[10px]">Real-Time Sync</span>`;
+    if (badgeBar) badgeBar.innerHTML = `<span>${formulaText}</span><span class="px-2 py-0.5 rounded-full ${cardId===2?'bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200':'bg-violet-200 dark:bg-violet-900 text-violet-800 dark:text-violet-200'} font-extrabold text-[9.5px]">Sync #${cardId}</span>`;
 
     let cols = [];
-    if (param === 'cl') cols = ["No", "Nama / ID Sampel Air", "Vol Sampel Vsamp (mL)", "Norm AgNO₃ N", "Vol Titran V (mL)", "Klorida (ppm Cl⁻)", "as NaCl (ppm)", "Aksi"];
-    else if (param === 'hard') cols = ["No", "Nama / ID Sampel Air", "Vol Sampel Vsamp (mL)", "Vol EDTA V (mL)", "Faktor Hardness", "Total Hardness (ppm)", "Aksi"];
-    else if (param === 'cl_spektro') cols = ["No", "Nama / ID Sampel Air", "Vol Sampel Vsamp (mL)", "Abs Blanko A₀", "Abs Sampel A₁", "Chloride Spektro (ppm)", "Aksi"];
+    if (param === 'cl') cols = ["No", "Nama Sampel Air", "Vsamp (mL)", "N AgNO₃", "V Titran", "Cl⁻ (ppm)", "NaCl (ppm)", "Aksi"];
+    else if (param === 'hard') cols = ["No", "Nama Sampel Air", "Vsamp (mL)", "V EDTA", "Faktor", "Hardness (ppm)", "Aksi"];
+    else if (param === 'cl_spektro') cols = ["No", "Nama Sampel Air", "Vsamp (mL)", "Abs A₀", "Abs A₁", "Cl Spektro (ppm)", "Aksi"];
 
-    thead.innerHTML = `<tr>` + cols.map((c, i) => `<th class="px-2.5 py-1.5 ${i===0||i===cols.length-1?'text-center w-8':'min-w-[110px]'}">${c}</th>`).join('') + `</tr>`;
+    thead.innerHTML = `<tr>` + cols.map((c, i) => `<th class="px-2 py-1 ${i===0||i===cols.length-1?'text-center w-7':'min-w-[90px]'}">${c}</th>`).join('') + `</tr>`;
 
     let totalVal = 0;
     let minVal = Infinity;
     let maxVal = -Infinity;
 
-    tbody.innerHTML = this.waterRows.map((r, idx) => {
+    tbody.innerHTML = targetRows.map((r, idx) => {
       let calcRes = 0;
       let secondRes = null;
 
@@ -9515,78 +9723,60 @@ const Qc = {
         calcRes = r.vsamp > 0 ? ((diff * c.slope + c.intercept) * 10) / r.vsamp : 0;
       }
 
-      if (calcRes > 0) {
-        totalVal += calcRes;
-        if (calcRes < minVal) minVal = calcRes;
-        if (calcRes > maxVal) maxVal = calcRes;
-      }
-
-      const inpCls = "w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-xs focus:ring-2 focus:ring-violet-500/30 focus:border-violet-500";
+      const inpCls = "w-full px-1.5 py-0.5 h-6.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-mono font-bold text-[11px] focus:ring-1 focus:ring-violet-500/30";
 
       let inputsHtml = "";
       if (param === 'cl') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.waterRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.waterRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).n=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).v=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'hard') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.waterRows[${idx}].v=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.1" value="${r.factor}" oninput="window.Qc.waterRows[${idx}].factor=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.01" value="${r.v}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).v=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.1" value="${r.factor}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).factor=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
         `;
       } else if (param === 'cl_spektro') {
         inputsHtml = `
-          <td class="px-2 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.waterRows[${idx}].vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a0}" oninput="window.Qc.waterRows[${idx}].a0=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
-          <td class="px-2 py-1"><input type="number" step="0.001" value="${r.a1}" oninput="window.Qc.waterRows[${idx}].a1=parseFloat(this.value)||0; window.Qc.renderWaterTable();" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.1" value="${r.vsamp}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).vsamp=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.a0}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).a0=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
+          <td class="px-1.5 py-1"><input type="number" step="0.001" value="${r.a1}" oninput="window.Qc.getWaterRow(${idx}, ${cardId}).a1=parseFloat(this.value)||0; window.Qc.renderWaterTable(${cardId});" class="${inpCls}"></td>
         `;
       }
 
-      const resDisplay = `${calcRes.toFixed(2)} ppm`;
-      const secondDisplay = secondRes !== null ? `<td class="px-2 py-1 font-mono font-bold text-violet-400 text-xs">${secondRes.toFixed(2)} ppm</td>` : "";
+      const resDisplay = secondRes !== null
+        ? `${calcRes.toFixed(2)} <span class="text-[9.5px] text-zinc-400 font-normal">(${secondRes.toFixed(1)} NaCl)</span>`
+        : `${calcRes.toFixed(2)} ppm`;
 
       return `
         <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition-colors">
-          <td class="px-2 py-1 text-center font-bold text-zinc-400">${idx + 1}</td>
-          <td class="px-2 py-1">
-            <input type="text" value="${r.name}" onchange="window.Qc.waterRows[${idx}].name=this.value" class="w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs">
+          <td class="px-1.5 py-1 text-center font-bold text-zinc-400 text-[11px]">${idx + 1}</td>
+          <td class="px-1.5 py-1">
+            <input type="text" value="${r.name}" onchange="window.Qc.getWaterRow(${idx}, ${cardId}).name=this.value" class="w-full px-1.5 py-0.5 h-6.5 rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-[11px]">
           </td>
           ${inputsHtml}
-          <td class="px-2 py-1 font-mono font-black text-amber-500 text-xs">${resDisplay}</td>
-          ${secondDisplay}
-          <td class="px-2 py-1 text-center">
-            <button onclick="window.Qc.removeWaterRow(${idx})" class="p-1 text-rose-500 hover:text-rose-700 text-xs font-bold" title="Hapus Baris">🗑️</button>
+          <td class="px-1.5 py-1 font-mono font-black text-amber-500 text-[11px]">${resDisplay}</td>
+          <td class="px-1.5 py-1 text-center">
+            <button onclick="window.Qc.removeWaterRow(${idx}, ${cardId})" class="p-0.5 text-rose-500 hover:text-rose-700 text-[11px] font-bold" title="Hapus Baris">🗑️</button>
           </td>
         </tr>
       `;
     }).join('');
 
-    if (window.enhanceAllSelects) window.enhanceAllSelects(tbody);
-
-    const count = this.waterRows.length;
+    const count = targetRows.length;
     const avg = count > 0 ? totalVal / count : 0;
     if (minVal === Infinity) minVal = 0;
     if (maxVal === -Infinity) maxVal = 0;
 
     if (statsBar) {
       statsBar.innerHTML = `
-        <div>Total Sampel: <strong class="text-zinc-900 dark:text-white">${count} Baris</strong></div>
-        <div>Rata-Rata (Avg): <strong class="text-amber-500">${avg.toFixed(2)} ppm</strong></div>
-        <div>Min / Max: <strong class="text-violet-500">${minVal.toFixed(2)} / ${maxVal.toFixed(2)} ppm</strong></div>
+        <div>Total: <strong class="text-zinc-900 dark:text-white">${count} Baris</strong></div>
+        <div>Avg: <strong class="text-amber-500">${avg.toFixed(2)} ppm</strong></div>
+        <div>Min/Max: <strong class="${cardId===2?'text-emerald-500':'text-violet-500'}">${minVal.toFixed(2)} / ${maxVal.toFixed(2)}</strong></div>
       `;
     }
-  },
-
-  copyWaterTable() {
-    if (this.waterRows.length === 0) return;
-    let tsv = "No\tNama Sampel Air\tHasil (ppm)\n";
-    this.waterRows.forEach((r, idx) => {
-      tsv += `${idx + 1}\t${r.name}\t${JSON.stringify(r)}\n`;
-    });
-    navigator.clipboard.writeText(tsv);
-    if (window.showToast) window.showToast("✔ Tabel Uji Air disalin ke Clipboard!");
   },
 
   // REAGENT STANDARDIZATION LOGIC (DYNAMIC & CONTEXTUAL)
