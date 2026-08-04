@@ -2238,40 +2238,36 @@
               <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
                 <span>🔬</span> Pilih Kategori / Parameter Uji Lab
               </label>
-              <select id="qcReagentCategorySelect" onchange="window.Qc && window.Qc.filterReagentCategory(this.value)" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
-                <option value="all">🌐 Semua Parameter Uji (Seluruh Reagen Lab)</option>
-                <option value="p_spektro">🔬 Uji Phosphorus Content (Spektro P ppm)</option>
-                <option value="cl_salt">💧 Uji Klorida & Garam (Titrasi AgNO₃ & NaCl)</option>
-                <option value="fac_gc">🧬 Uji Fatty Acid Composition (FAC / GC-FID)</option>
-                <option value="titrimetric">🧈 Uji Titrasi Minyak (FFA, IV, PV, SV)</option>
-              </select>
+              <div class="relative w-full custom-ui-select" id="wrapper_qcReagentCategorySelect">
+                <button type="button" class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentCategorySelect', event)">
+                  <span id="label_qcReagentCategorySelect" class="truncate flex items-center gap-2">🌐 Semua Parameter Uji (Seluruh Reagen Lab)</span>
+                  <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <input type="hidden" id="qcReagentCategorySelect" value="all" onchange="window.Qc && window.Qc.filterReagentCategory(this.value)">
+                <div id="menu_qcReagentCategorySelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
+                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'all', '🌐 Semua Parameter Uji (Seluruh Reagen Lab)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="all"><span>🌐 Semua Parameter Uji (Seluruh Reagen Lab)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-2">✓</span></div>
+                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'p_spektro', '🔬 Uji Phosphorus Content (Spektro P ppm)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Uji Phosphorus Content (Spektro P ppm)</span></div>
+                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'cl_salt', '💧 Uji Klorida & Garam (Titrasi AgNO₃ & NaCl)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_salt"><span>💧 Uji Klorida & Garam (Titrasi AgNO₃ & NaCl)</span></div>
+                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'fac_gc', '🧬 Uji Fatty Acid Composition (FAC / GC-FID)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="fac_gc"><span>🧬 Uji Fatty Acid Composition (FAC / GC-FID)</span></div>
+                  <div onclick="window.UISelect.select('qcReagentCategorySelect', 'titrimetric', '🧈 Uji Titrasi Minyak (FFA, IV, PV, SV)', val => window.Qc.filterReagentCategory(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="titrimetric"><span>🧈 Uji Titrasi Minyak (FFA, IV, PV, SV)</span></div>
+                </div>
+              </div>
             </div>
 
             <div class="space-y-1.5">
               <label class="block text-[11px] font-bold text-zinc-600 dark:text-zinc-400 flex items-center gap-1">
                 <span>🧪</span> Pilih Reagen / Larutan Kimia
               </label>
-              <select id="qcReagentSelect" onchange="window.Qc && window.Qc.calcReagents()" class="w-full px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
-                <optgroup label="🔬 Uji Phosphorus Content (Spektro P ppm)">
-                  <option value="hcl_11">HCl 1:1 (Pelarut Pelarutan Abu Uji Phosphor)</option>
-                  <option value="koh_50">KOH 50% (Reagen Pengendap / Pembasa Uji Phosphor)</option>
-                  <option value="sod_molybdate">Sodium Molybdate / H2SO4 (Reagen Molybdate Uji Phosphor)</option>
-                  <option value="hydrazinium">Hydrazinium Sulfat (Reagen Pereduksi Uji Phosphor)</option>
-                </optgroup>
-                <optgroup label="💧 Uji Klorida & Garam (Titrasi AgNO3 & NaCl)">
-                  <option value="agno3_01n">AgNO3 0.1 N (Larutan Titran Utama Uji Chloride / NaCl)</option>
-                  <option value="hno3_11">HNO3 1:1 (Pelarut Asam Ekstraksi Uji NaCl)</option>
-                </optgroup>
-                <optgroup label="🧬 Uji Fatty Acid Composition (FAC / GC-FID)">
-                  <option value="koh_meth_2n">KOH 2N Methanolis (Reagen Transesterifikasi FAC)</option>
-                  <option value="naoh_meth_05n">NaOH 0.5N Methanolis (Reagen Esterifikasi FAC PFAD/PKFAD)</option>
-                </optgroup>
-                <optgroup label="🧈 Uji Titrasi Minyak (Standarisasi Penitir)">
-                  <option value="naoh_01n">NaOH 0.1 N (Larutan Pentiter Titrasi FFA)</option>
-                  <option value="na2s2o3_01n">Na2S2O3 0.1 N (Larutan Pentiter Titrasi IV & PV)</option>
-                  <option value="hcl_05n">HCl 0.5 N (Larutan Pentiter Titrasi SV)</option>
-                </optgroup>
-              </select>
+              <div class="relative w-full custom-ui-select" id="wrapper_qcReagentSelect">
+                <button type="button" class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentSelect', event)">
+                  <span id="label_qcReagentSelect" class="truncate flex items-center gap-2">Na2S2O3 0.1 N (Larutan Pentiter Titrasi IV & PV)</span>
+                  <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <input type="hidden" id="qcReagentSelect" value="na2s2o3_01n" onchange="window.Qc && window.Qc.calcReagents()">
+                <div id="menu_qcReagentSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
+                  <!-- JS dynamically populates items -->
+                </div>
+              </div>
             </div>
 
             <div class="space-y-1.5">
@@ -2289,12 +2285,19 @@
               </div>
               <div class="flex items-center gap-2">
                 <input id="qcReagentNorm" type="number" step="0.01" value="2.0" oninput="window.Qc && window.Qc.calcReagents()" class="flex-1 px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-bold font-mono text-zinc-900 dark:text-white focus:ring-2 focus:ring-violet-500" placeholder="2.0">
-                <select id="qcReagentUnitSelect" onchange="window.Qc && window.Qc.changeReagentUnit(this.value)" class="w-24 px-2.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-extrabold text-violet-600 dark:text-violet-400 focus:ring-2 focus:ring-violet-500">
-                  <option value="N">N (Normality)</option>
-                  <option value="M">M (Molarity)</option>
-                  <option value="%">% (Percent w/v)</option>
-                  <option value="ppm">ppm (Parts/Million)</option>
-                </select>
+                <div class="relative w-32 custom-ui-select" id="wrapper_qcReagentUnitSelect">
+                  <button type="button" class="w-full px-2.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-extrabold text-violet-600 dark:text-violet-400 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcReagentUnitSelect', event)">
+                    <span id="label_qcReagentUnitSelect" class="truncate">N (Normality)</span>
+                    <svg class="w-3.5 h-3.5 text-zinc-400 ml-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  </button>
+                  <input type="hidden" id="qcReagentUnitSelect" value="N" onchange="window.Qc && window.Qc.changeReagentUnit(this.value)">
+                  <div id="menu_qcReagentUnitSelect" class="custom-ui-select-menu hidden absolute z-50 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 w-36">
+                    <div onclick="window.UISelect.select('qcReagentUnitSelect', 'N', 'N (Normality)', val => window.Qc.changeReagentUnit(val))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="N"><span>N (Normality)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-2">✓</span></div>
+                    <div onclick="window.UISelect.select('qcReagentUnitSelect', 'M', 'M (Molarity)', val => window.Qc.changeReagentUnit(val))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="M"><span>M (Molarity)</span></div>
+                    <div onclick="window.UISelect.select('qcReagentUnitSelect', '%', '% (Percent w/v)', val => window.Qc.changeReagentUnit(val))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="%"><span>% (Percent w/v)</span></div>
+                    <div onclick="window.UISelect.select('qcReagentUnitSelect', 'ppm', 'ppm (Parts/Million)', val => window.Qc.changeReagentUnit(val))" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="ppm"><span>ppm (Parts/Million)</span></div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -2413,19 +2416,26 @@
               <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                 <span>🛢️</span> Pilih Parameter Uji Minyak:
               </label>
-              <select id="qcOilParamSelect" onchange="window.Qc && window.Qc.switchOilParam(this.value)" class="w-full px-3.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
-                <option value="ffa">🧈 Free Fatty Acid (FFA %)</option>
-                <option value="iv">🧪 Iodine Value (IV / Bilangan Iodium)</option>
-                <option value="pv">⚗️ Peroxide Value (PV / Bilangan Peroksida)</option>
-                <option value="sv">🧼 Saponification Value (SV / Bilangan Penyabunan)</option>
-                <option value="mois">💧 Moisture Content (Kadar Air %)</option>
-                <option value="imp">🧫 Impurities Content (Kadar Kotoran %)</option>
-                <option value="salt">🧂 Salt Content (Kadar Garam NaCl %)</option>
-                <option value="lauric">🌴 Lauric Acid % (Asam Laurat GC Area)</option>
-                <option value="p_spektro">🔬 Phosphorus Content (Spektro P ppm)</option>
-                <option value="av_spektro">🔬 Anisidine Value (Spektro AV 350nm)</option>
-                <option value="dobi_spektro">🔬 DOBI & Carotene Content (Spektro)</option>
-              </select>
+              <div class="relative w-full custom-ui-select" id="wrapper_qcOilParamSelect">
+                <button type="button" class="w-full px-3.5 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcOilParamSelect', event)">
+                  <span id="label_qcOilParamSelect" class="truncate flex items-center gap-2">🧈 Free Fatty Acid (FFA %)</span>
+                  <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <input type="hidden" id="qcOilParamSelect" value="ffa" onchange="window.Qc && window.Qc.switchOilParam(this.value)">
+                <div id="menu_qcOilParamSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'ffa', '🧈 Free Fatty Acid (FFA %)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="ffa"><span>🧈 Free Fatty Acid (FFA %)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-2">✓</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'iv', '🧪 Iodine Value (IV / Bilangan Iodium)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="iv"><span>🧪 Iodine Value (IV / Bilangan Iodium)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'pv', '⚗️ Peroxide Value (PV / Bilangan Peroksida)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="pv"><span>⚗️ Peroxide Value (PV / Bilangan Peroksida)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'sv', '🧼 Saponification Value (SV / Bilangan Penyabunan)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="sv"><span>🧼 Saponification Value (SV / Bilangan Penyabunan)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'mois', '💧 Moisture Content (Kadar Air %)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="mois"><span>💧 Moisture Content (Kadar Air %)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'imp', '🧫 Impurities Content (Kadar Kotoran %)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="imp"><span>🧫 Impurities Content (Kadar Kotoran %)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'salt', '🧂 Salt Content (Kadar Garam NaCl %)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="salt"><span>🧂 Salt Content (Kadar Garam NaCl %)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'lauric', '🌴 Lauric Acid % (Asam Laurat GC Area)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="lauric"><span>🌴 Lauric Acid % (Asam Laurat GC Area)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'p_spektro', '🔬 Phosphorus Content (Spektro P ppm)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="p_spektro"><span>🔬 Phosphorus Content (Spektro P ppm)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'av_spektro', '🔬 Anisidine Value (Spektro AV 350nm)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="av_spektro"><span>🔬 Anisidine Value (Spektro AV 350nm)</span></div>
+                  <div onclick="window.UISelect.select('qcOilParamSelect', 'dobi_spektro', '🔬 DOBI & Carotene Content (Spektro)', val => window.Qc.switchOilParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="dobi_spektro"><span>🔬 DOBI & Carotene Content (Spektro)</span></div>
+                </div>
+              </div>
             </div>
 
             <!-- Quick Actions -->
@@ -2485,11 +2495,18 @@
               <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
                 <span>💧</span> Pilih Parameter Uji Air:
               </label>
-              <select id="qcWaterParamSelect" onchange="window.Qc && window.Qc.switchWaterParam(this.value)" class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 focus:ring-2 focus:ring-violet-500">
-                <option value="cl">💧 Chloride Content (Titrasi AgNO3 ppm)</option>
-                <option value="hard">🧱 Total Hardness (Kesadahan Air ppm)</option>
-                <option value="cl_spektro">🔬 Chloride Content (Spektro / Photometric ppm)</option>
-              </select>
+              <div class="relative w-full custom-ui-select" id="wrapper_qcWaterParamSelect">
+                <button type="button" class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-all shadow-sm" onclick="window.UISelect && window.UISelect.toggle('qcWaterParamSelect', event)">
+                  <span id="label_qcWaterParamSelect" class="truncate flex items-center gap-2">💧 Chloride Content (Titrasi AgNO3 ppm)</span>
+                  <svg class="w-4 h-4 text-zinc-400 transform transition-transform duration-200 flex-shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <input type="hidden" id="qcWaterParamSelect" value="cl" onchange="window.Qc && window.Qc.switchWaterParam(this.value)">
+                <div id="menu_qcWaterParamSelect" class="custom-ui-select-menu hidden absolute z-50 left-0 right-0 mt-1 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl space-y-0.5 max-h-64 overflow-y-auto w-full">
+                  <div onclick="window.UISelect.select('qcWaterParamSelect', 'cl', '💧 Chloride Content (Titrasi AgNO3 ppm)', val => window.Qc.switchWaterParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl"><span>💧 Chloride Content (Titrasi AgNO3 ppm)</span><span class="ui-check text-violet-500 font-extrabold text-xs ml-2">✓</span></div>
+                  <div onclick="window.UISelect.select('qcWaterParamSelect', 'hard', '🧱 Total Hardness (Kesadahan Air ppm)', val => window.Qc.switchWaterParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="hard"><span>🧱 Total Hardness (Kesadahan Air ppm)</span></div>
+                  <div onclick="window.UISelect.select('qcWaterParamSelect', 'cl_spektro', '🔬 Chloride Content (Spektro / Photometric ppm)', val => window.Qc.switchWaterParam(val))" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="cl_spektro"><span>🔬 Chloride Content (Spektro / Photometric ppm)</span></div>
+                </div>
+              </div>
             </div>
 
             <!-- Quick Actions -->
@@ -8361,8 +8378,9 @@ const Qc = {
   },
 
   filterReagentCategory(catKey) {
-    const selectEl = document.getElementById('qcReagentSelect');
-    if (!selectEl) return;
+    const menuEl = document.getElementById('menu_qcReagentSelect');
+    const inputEl = document.getElementById('qcReagentSelect');
+    if (!menuEl || !inputEl) return;
 
     const reagentsByCategory = {
       p_spektro: [
@@ -8387,28 +8405,39 @@ const Qc = {
       ]
     };
 
+    let firstItem = null;
+    let menuHtml = "";
+
     if (catKey === 'all') {
-      selectEl.innerHTML = `
-        <optgroup label="🔬 Uji Phosphorus Content (Spektro P ppm)">
-          ${reagentsByCategory.p_spektro.map(r => `<option value="${r.key}">${r.label}</option>`).join('')}
-        </optgroup>
-        <optgroup label="💧 Uji Klorida & Garam (Titrasi AgNO3 & NaCl)">
-          ${reagentsByCategory.cl_salt.map(r => `<option value="${r.key}">${r.label}</option>`).join('')}
-        </optgroup>
-        <optgroup label="🧬 Uji Fatty Acid Composition (FAC / GC-FID)">
-          ${reagentsByCategory.fac_gc.map(r => `<option value="${r.key}">${r.label}</option>`).join('')}
-        </optgroup>
-        <optgroup label="🧈 Uji Titrasi Minyak (Standarisasi Penitir)">
-          ${reagentsByCategory.titrimetric.map(r => `<option value="${r.key}">${r.label}</option>`).join('')}
-        </optgroup>
-      `;
+      const groups = [
+        { title: "🔬 Uji Phosphorus Content (Spektro P ppm)", items: reagentsByCategory.p_spektro },
+        { title: "💧 Uji Klorida & Garam (Titrasi AgNO3 & NaCl)", items: reagentsByCategory.cl_salt },
+        { title: "🧬 Uji Fatty Acid Composition (FAC / GC-FID)", items: reagentsByCategory.fac_gc },
+        { title: "🧈 Uji Titrasi Minyak (Standarisasi Penitir)", items: reagentsByCategory.titrimetric }
+      ];
+      firstItem = groups[0].items[0];
+
+      groups.forEach(g => {
+        menuHtml += `<div class="text-[10px] font-extrabold uppercase tracking-wider text-violet-600 dark:text-violet-400 px-3 py-1 bg-violet-500/5 dark:bg-violet-950/40 border-y border-violet-500/10 my-0.5">${g.title}</div>`;
+        g.items.forEach(r => {
+          menuHtml += `<div onclick="window.UISelect.select('qcReagentSelect', '${r.key}', '${r.label}', () => window.Qc.calcReagents())" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="${r.key}"><span>${r.label}</span></div>`;
+        });
+      });
     } else {
       const items = reagentsByCategory[catKey] || [];
-      selectEl.innerHTML = items.map(r => `<option value="${r.key}">${r.label}</option>`).join('');
+      firstItem = items[0];
+      items.forEach(r => {
+        menuHtml += `<div onclick="window.UISelect.select('qcReagentSelect', '${r.key}', '${r.label}', () => window.Qc.calcReagents())" class="ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1" data-val="${r.key}"><span>${r.label}</span></div>`;
+      });
     }
 
-    this.renderCustomSelectUI('qcReagentSelect');
-    this.calcReagents();
+    menuEl.innerHTML = menuHtml;
+
+    if (firstItem) {
+      window.UISelect.select('qcReagentSelect', firstItem.key, firstItem.label, () => this.calcReagents());
+    } else {
+      this.calcReagents();
+    }
   },
 
   renderCustomSelectUI(selectId) {
@@ -9082,12 +9111,17 @@ const Qc = {
       let inputsHtml = "";
       if (param === 'ffa') {
         inputsHtml = `
-          <td class="px-2 py-1">
-            <select onchange="window.Qc.oilRows[${idx}].factor=parseFloat(this.value); window.Qc.renderOilTable();" class="${selCls}">
-              <option value="25.6" ${r.factor===25.6?'selected':''}>Palmitic (25.6)</option>
-              <option value="20.0" ${r.factor===20.0?'selected':''}>Lauric (20.0)</option>
-              <option value="28.2" ${r.factor===28.2?'selected':''}>Oleic (28.2)</option>
-            </select>
+          <td class="px-2 py-1 relative custom-ui-select" id="wrapper_ffaFactor_${idx}">
+            <button type="button" onclick="window.UISelect.toggle('ffaFactor_${idx}', event)" class="w-full px-2 py-0.5 h-7 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 font-bold text-xs flex items-center justify-between hover:border-violet-500 text-zinc-800 dark:text-zinc-200 shadow-sm">
+              <span id="label_ffaFactor_${idx}">${r.factor===25.6?'Palmitic (25.6)':r.factor===20.0?'Lauric (20.0)':'Oleic (28.2)'}</span>
+              <span class="text-[8px] text-zinc-400 ml-1">▼</span>
+            </button>
+            <input type="hidden" id="ffaFactor_${idx}" value="${r.factor||25.6}">
+            <div id="menu_ffaFactor_${idx}" class="custom-ui-select-menu hidden absolute z-50 left-2 top-8 py-1.5 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl w-40 space-y-0.5">
+              <div onclick="window.Qc.oilRows[${idx}].factor=25.6; window.Qc.renderOilTable();" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold hover:bg-violet-500/10 hover:text-violet-600 ${r.factor===25.6?'bg-violet-500/10 text-violet-600 font-black':''} flex items-center justify-between rounded-xl mx-1"><span>Palmitic (25.6)</span>${r.factor===25.6?'<span class="text-violet-500 font-extrabold text-xs">✓</span>':''}</div>
+              <div onclick="window.Qc.oilRows[${idx}].factor=20.0; window.Qc.renderOilTable();" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold hover:bg-violet-500/10 hover:text-violet-600 ${r.factor===20.0?'bg-violet-500/10 text-violet-600 font-black':''} flex items-center justify-between rounded-xl mx-1"><span>Lauric (20.0)</span>${r.factor===20.0?'<span class="text-violet-500 font-extrabold text-xs">✓</span>':''}</div>
+              <div onclick="window.Qc.oilRows[${idx}].factor=28.2; window.Qc.renderOilTable();" class="ui-select-item px-3 py-1.5 cursor-pointer text-xs font-bold hover:bg-violet-500/10 hover:text-violet-600 ${r.factor===28.2?'bg-violet-500/10 text-violet-600 font-black':''} flex items-center justify-between rounded-xl mx-1"><span>Oleic (28.2)</span>${r.factor===28.2?'<span class="text-violet-500 font-extrabold text-xs">✓</span>':''}</div>
+            </div>
           </td>
           <td class="px-2 py-1"><input type="number" step="0.01" value="${r.w}" oninput="window.Qc.oilRows[${idx}].w=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
           <td class="px-2 py-1"><input type="number" step="0.001" value="${r.n}" oninput="window.Qc.oilRows[${idx}].n=parseFloat(this.value)||0; window.Qc.renderOilTable();" class="${inpCls}"></td>
@@ -9552,6 +9586,61 @@ if (staleOverrides && staleOverrides['RBDPST']) {
 
 loadSeed();
 handleRouting();
+
+const UISelect = {
+  toggle(id, e) {
+    if (e) e.stopPropagation();
+    const menu = document.getElementById('menu_' + id);
+    if (!menu) return;
+    
+    document.querySelectorAll('.custom-ui-select-menu').forEach(m => {
+      if (m !== menu) m.classList.add('hidden');
+    });
+    
+    menu.classList.toggle('hidden');
+  },
+  
+  select(id, val, text, onchangeJs) {
+    const input = document.getElementById(id);
+    const label = document.getElementById('label_' + id);
+    const menu = document.getElementById('menu_' + id);
+    
+    if (input) input.value = val;
+    if (label) label.innerHTML = text;
+    if (menu) menu.classList.add('hidden');
+    
+    if (menu) {
+      menu.querySelectorAll('.ui-select-item').forEach(item => {
+        const itemVal = item.getAttribute('data-val');
+        if (itemVal === val) {
+          item.className = "ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1";
+          if (!item.querySelector('.ui-check')) {
+            const check = document.createElement('span');
+            check.className = 'ui-check text-violet-500 font-extrabold text-xs ml-2';
+            check.innerText = '✓';
+            item.appendChild(check);
+          }
+        } else {
+          item.className = "ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 transition-colors flex items-center justify-between rounded-xl mx-1";
+          const check = item.querySelector('.ui-check');
+          if (check) check.remove();
+        }
+      });
+    }
+
+    if (input) input.dispatchEvent(new Event('change', { bubbles: true }));
+    if (typeof onchangeJs === 'function') onchangeJs(val);
+  }
+};
+window.UISelect = UISelect;
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.custom-ui-select')) {
+      document.querySelectorAll('.custom-ui-select-menu').forEach(m => m.classList.add('hidden'));
+    }
+  });
+}
 
 // Init All Modules
 Extractor.init();
