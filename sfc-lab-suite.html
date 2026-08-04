@@ -9632,12 +9632,33 @@ const UISelect = {
     if (e) e.stopPropagation();
     const menu = document.getElementById('menu_' + id);
     if (!menu) return;
-    
+
+    const isOpen = !menu.classList.contains('hidden');
+
     document.querySelectorAll('.custom-ui-select-menu').forEach(m => {
-      if (m !== menu) m.classList.add('hidden');
+      m.classList.add('hidden');
     });
-    
-    menu.classList.toggle('hidden');
+
+    if (!isOpen) {
+      menu.classList.remove('hidden');
+      const btn = (e && e.currentTarget) ? e.currentTarget : document.getElementById('wrapper_' + id)?.querySelector('button');
+      if (btn && typeof btn.getBoundingClientRect === 'function') {
+        const rect = btn.getBoundingClientRect();
+        menu.style.position = 'fixed';
+        menu.style.zIndex = '999999';
+        menu.style.width = Math.max(rect.width, 160) + 'px';
+        menu.style.left = rect.left + 'px';
+
+        const menuHeight = menu.offsetHeight || 180;
+        const spaceBelow = window.innerHeight - rect.bottom;
+
+        if (spaceBelow < menuHeight && rect.top > menuHeight) {
+          menu.style.top = Math.max(10, rect.top - menuHeight - 4) + 'px';
+        } else {
+          menu.style.top = (rect.bottom + 4) + 'px';
+        }
+      }
+    }
   },
   
   select(id, val, text, onchangeJs) {
@@ -9652,7 +9673,7 @@ const UISelect = {
     if (menu) {
       menu.querySelectorAll('.ui-select-item').forEach(item => {
         const itemVal = item.getAttribute('data-val');
-        if (itemVal === val) {
+        if (itemVal == val) {
           item.className = "ui-select-item px-3.5 py-2 cursor-pointer text-xs font-bold bg-violet-500/10 text-violet-600 dark:text-violet-400 font-black transition-colors flex items-center justify-between rounded-xl mx-1";
           if (!item.querySelector('.ui-check')) {
             const check = document.createElement('span');
@@ -9678,10 +9699,19 @@ window.UISelect = UISelect;
 
 if (typeof document !== 'undefined') {
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.custom-ui-select')) {
+    if (!e.target.closest('.custom-ui-select') && !e.target.closest('.custom-ui-select-menu')) {
       document.querySelectorAll('.custom-ui-select-menu').forEach(m => m.classList.add('hidden'));
     }
   });
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('scroll', () => {
+      document.querySelectorAll('.custom-ui-select-menu').forEach(m => m.classList.add('hidden'));
+    }, true);
+    window.addEventListener('resize', () => {
+      document.querySelectorAll('.custom-ui-select-menu').forEach(m => m.classList.add('hidden'));
+    });
+  }
 }
 
 // Init All Modules
